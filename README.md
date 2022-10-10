@@ -1,8 +1,10 @@
-# K-Plate for UIs
+# Keep
 
-This is a [Next.js](https://nextjs.org/) project with `ethers` + `wagmi` + `rainbow-kit`. 
+This hosts the frontend for [keep contracts](https://github.com/kalidao/multi-sig).
 
-It is also installed with `kali-hooks` and `reality`.
+It is a [Next.js](https://nextjs.org/) project with `ethers` + `wagmi` + `rainbow-kit`. 
+
+It uses `kali-hooks` and `reality`.
 
 ## Getting Started
 
@@ -11,6 +13,9 @@ It is also installed with `kali-hooks` and `reality`.
 ```bash
 pnpm install
 ```
+
+### Env
+Look at `env.example` for specifications. 
 
 ### Dev
 
@@ -23,3 +28,5 @@ pnpm run dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+
+
