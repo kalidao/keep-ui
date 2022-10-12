@@ -14,6 +14,7 @@
     "@kalidao/hooks": "^0.0.5",
     "@kalidao/reality": "^0.0.5",
     "@rainbow-me/rainbowkit": "^0.7.1",
+    "@vanilla-extract/css": "^1.9.1",
     "ethers": "^5.7.1",
     "next": "12.3.1",
     "react": "18.2.0",
@@ -24,10 +25,11 @@
     "@types/node": "18.8.3",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
+    "@vanilla-extract/next-plugin": "^2.1.1",
     "eslint": "8.25.0",
     "eslint-config-next": "12.3.1",
+    "husky": "^8.0.0",
     "prettier": "^2.7.1",
-    "typescript": "4.8.4",
-    "husky": "^8.0.0"
+    "typescript": "4.8.4"
   }
 }

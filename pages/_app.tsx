@@ -1,19 +1,20 @@
 import type { AppProps } from 'next/app'
 import '@rainbow-me/rainbowkit/styles.css'
-import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit'
+import { getDefaultWallets, RainbowKitProvider, darkTheme } from '@rainbow-me/rainbowkit'
 import { chain, configureChains, createClient, WagmiConfig } from 'wagmi'
 import { infuraProvider } from 'wagmi/providers/infura'
 import { publicProvider } from 'wagmi/providers/public'
 import { ThemeProvider } from '@kalidao/reality'
 import '@kalidao/reality/styles'
+import '@design/app.css'
 
 const { chains, provider } = configureChains(
-  [chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum],
+  [chain.goerli],
   [infuraProvider({ apiKey: process.env.NEXT_PUBLIC_INFURA_ID }), publicProvider()],
 )
 
 const { connectors } = getDefaultWallets({
-  appName: 'K-Plate UI',
+  appName: 'Keep UI',
   chains,
 })
 
@@ -26,8 +27,8 @@ const wagmiClient = createClient({
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig client={wagmiClient}>
-      <RainbowKitProvider chains={chains}>
-        <ThemeProvider defaultMode="light">
+      <RainbowKitProvider chains={chains} theme={darkTheme()}>
+        <ThemeProvider defaultMode="dark">
           <Component {...pageProps} />
         </ThemeProvider>
       </RainbowKitProvider>
