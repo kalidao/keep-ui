@@ -7,10 +7,20 @@ import { publicProvider } from 'wagmi/providers/public'
 import { ThemeProvider } from '@kalidao/reality'
 import '@kalidao/reality/styles'
 import '@design/app.css'
+import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 
 const { chains, provider } = configureChains(
   [chain.goerli],
-  [infuraProvider({ apiKey: process.env.NEXT_PUBLIC_INFURA_ID }), publicProvider()],
+  [
+    infuraProvider({ apiKey: process.env.NEXT_PUBLIC_INFURA_ID }),
+    jsonRpcProvider({
+      rpc: (chain) => {
+        if (chain.id !== 5) return null
+        return { http: process.env.NEXT_PUBLIC_QUICNODE_HTTP!, webSocket: process.env.NEXT_PUBLIC_QUICKNODE }
+      },
+    }),
+    publicProvider(),
+  ],
 )
 
 const { connectors } = getDefaultWallets({

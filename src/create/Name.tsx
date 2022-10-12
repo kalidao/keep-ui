@@ -14,6 +14,8 @@ export const Name = ({ store, setStore, setView }: CreateProps) => {
     })
     setView(2)
   }
+
+  // TODO: Name needs to be unique per chain. Add check.
   return (
     <Stack align="flex-start" justify="space-between" space="10">
       <Back setView={setView} to={0} />
