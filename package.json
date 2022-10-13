@@ -11,6 +11,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.9.8",
     "@kalidao/hooks": "^0.0.5",
     "@kalidao/reality": "^0.0.5",
     "@rainbow-me/rainbowkit": "^0.7.1",
@@ -20,7 +21,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.37.0",
-    "wagmi": "^0.6.8"
+    "wagmi": "^0.6.8",
+    "zod": "^3.19.1"
   },
   "devDependencies": {
     "@types/node": "18.8.3",

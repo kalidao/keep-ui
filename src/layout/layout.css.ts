@@ -14,6 +14,13 @@ export const header = style({
   justifyContent: 'flex-end',
 })
 
+export const dashboardHeader = style({
+  minHeight: '10vh',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+})
+
 export const container = style({
   minHeight: '90vh',
   position: 'relative',

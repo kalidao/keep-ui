@@ -1,4 +1,4 @@
-import { Card, Stack, Heading, Text, Button, IconArrowRight } from '@kalidao/reality'
+import { Card, Stack, Heading, Text, Button, IconArrowRight, Tag } from '@kalidao/reality'
 import { CreateProps } from './types'
 
 export const Type = ({ store, setStore, setView }: CreateProps) => {
@@ -11,7 +11,7 @@ export const Type = ({ store, setStore, setView }: CreateProps) => {
   }
 
   return (
-    <>
+    <Stack>
       <Card padding="6" borderRadius={'2xLarge'} hover>
         <Stack direction={'horizontal'} align="center">
           <Stack>
@@ -23,10 +23,13 @@ export const Type = ({ store, setStore, setView }: CreateProps) => {
           </Button>
         </Stack>
       </Card>
-      <Card padding="6" borderRadius={'2xLarge'} hover>
-        <Heading level="2">Multi-sig + DAO</Heading>
+      <Card padding="6" borderRadius={'2xLarge'}>
+        <Stack direction="horizontal" align="center" justify="space-between">
+          <Heading level="2">Multi-sig + DAO</Heading>
+          <Tag>Coming Soon.</Tag>
+        </Stack>
         <Text>He opened the door to find her standing there, crying.</Text>
       </Card>
-    </>
+    </Stack>
   )
 }

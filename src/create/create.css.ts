@@ -5,8 +5,8 @@ export const container = style({
   background: vars.colors.backgroundSecondary,
   padding: vars.space[10],
   borderRadius: vars.radii.large,
-  minWidth: vars.space[96],
-  minHeight: vars.space[96],
+  width: '40rem',
+  minHeight: '30rem',
 
   // position in center
   position: 'absolute',

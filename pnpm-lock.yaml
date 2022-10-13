@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@hookform/resolvers': ^2.9.8
   '@kalidao/hooks': ^0.0.5
   '@kalidao/reality': ^0.0.5
   '@rainbow-me/rainbowkit': ^0.7.1
@@ -20,8 +21,10 @@ specifiers:
   react-hook-form: ^7.37.0
   typescript: 4.8.4
   wagmi: ^0.6.8
+  zod: ^3.19.1
 
 dependencies:
+  '@hookform/resolvers': 2.9.8_react-hook-form@7.37.0
   '@kalidao/hooks': 0.0.5_7xpbf4p26xb4ilxorlip5aamlu
   '@kalidao/reality': 0.0.5_biqbaboplfbrettd7655fr4n2y
   '@rainbow-me/rainbowkit': 0.7.1_e4fxtwrlk7f2qcoemd6oof5swa
@@ -32,6 +35,7 @@ dependencies:
   react-dom: 18.2.0_react@18.2.0
   react-hook-form: 7.37.0_react@18.2.0
   wagmi: 0.6.8_nznuxirfauibn2fjde2ghjonky
+  zod: 3.19.1
 
 devDependencies:
   '@types/node': 18.8.3
@@ -675,6 +679,14 @@ packages:
       '@ethersproject/logger': 5.7.0
       '@ethersproject/properties': 5.7.0
       '@ethersproject/strings': 5.7.0
+    dev: false
+
+  /@hookform/resolvers/2.9.8_react-hook-form@7.37.0:
+    resolution: {integrity: sha512-iVVjH0USq+1TqDdGkWe2M1x7Wn5OFPgVRo7CbWFsXTqqXqCaZtZcnzJu+UhljCWbthFWxWGXKLGYUDPZ04oVvQ==}
+    peerDependencies:
+      react-hook-form: ^7.0.0
+    dependencies:
+      react-hook-form: 7.37.0_react@18.2.0
     dev: false
 
   /@humanwhocodes/config-array/0.10.7:
@@ -4608,6 +4620,10 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
+
+  /zod/3.19.1:
+    resolution: {integrity: sha512-LYjZsEDhCdYET9ikFu6dVPGp2YH9DegXjdJToSzD9rO6fy4qiRYFoyEYwps88OseJlPyl2NOe2iJuhEhL7IpEA==}
+    dev: false
 
   /zustand/4.1.2_react@18.2.0:
     resolution: {integrity: sha512-gcRaKchcxFPbImrBb/BKgujOhHhik9YhVpIeP87ETT7uokEe2Szu7KkuZ9ghjtD+/KKkcrRNktR2AiLXPIbKIQ==}
