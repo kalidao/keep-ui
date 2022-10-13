@@ -15,7 +15,7 @@ export const Type = ({ store, setStore, setView }: CreateProps) => {
       <Card padding="6" borderRadius={'2xLarge'} hover>
         <Stack direction={'horizontal'} align="center">
           <Stack>
-            <Heading level="2">Multi-sig</Heading>
+            <Heading level="2">Multisig</Heading>
             <Text>He had enjoyed ten years of being totally irresponsible</Text>
           </Stack>
           <Button shape="circle" variant="primary" tone="green" onClick={() => navigate(0)}>
@@ -23,11 +23,8 @@ export const Type = ({ store, setStore, setView }: CreateProps) => {
           </Button>
         </Stack>
       </Card>
-      <Card padding="6" borderRadius={'2xLarge'}>
-        <Stack direction="horizontal" align="center" justify="space-between">
-          <Heading level="2">Multi-sig + DAO</Heading>
-          <Tag>Coming Soon.</Tag>
-        </Stack>
+      <Card padding="6" borderRadius={'2xLarge'} hover>
+        <Heading level="2">Multisig + DAO</Heading>
         <Text>He opened the door to find her standing there, crying.</Text>
       </Card>
     </Stack>

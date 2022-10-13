@@ -5,6 +5,7 @@ import { CreateProps } from './types'
 import { ethers } from 'ethers'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
+import { KEEP_FACTORY_ADDRESS } from '~/constants'
 
 const KEEP_FACTORY = require('~/constants/abis/KeepFactory.json')
 
@@ -43,8 +44,6 @@ export const Confirm = ({ store, setStore, setView }: CreateProps) => {
       }
     },
   })
-
-  console.log('name', address, isDetermineError)
 
   return (
     <Stack>
@@ -89,7 +88,7 @@ const Signer = ({ index, address }: { index: number; address: string }) => {
     address: address,
     chainId: 1,
   })
-  console.log('ens', data, isError, isLoading)
+
   return (
     <Card padding="5" borderRadius={'medium'} width="full" shadow>
       <Text weight="bold">

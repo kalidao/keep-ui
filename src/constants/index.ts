@@ -1,3 +1,5 @@
 import KEEP_FACTORY from './abis/KeepFactory.json'
 
-export { KEEP_FACTORY }
+const KEEP_FACTORY_ADDRESS = '0x843D08081A10b408bAe2cf21b5dB61F1cF297028'
+
+export { KEEP_FACTORY, KEEP_FACTORY_ADDRESS }
