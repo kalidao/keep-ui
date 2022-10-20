@@ -16,7 +16,7 @@ const { chains, provider } = configureChains(
     jsonRpcProvider({
       rpc: (chain) => {
         if (chain.id !== 5) return null
-        return { http: process.env.NEXT_PUBLIC_QUICNODE_HTTP!, webSocket: process.env.NEXT_PUBLIC_QUICKNODE }
+        return { http: process.env.NEXT_PUBLIC_QUICKNODE_HTTP!, webSocket: process.env.NEXT_PUBLIC_QUICKNODE }
       },
     }),
     publicProvider(),
