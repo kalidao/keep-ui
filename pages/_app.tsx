@@ -8,9 +8,10 @@ import { ThemeProvider } from '@kalidao/reality'
 import '@kalidao/reality/styles'
 import '@design/app.css'
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 const { chains, provider } = configureChains(
-  [chain.goerli],
+  [chain.goerli, chain.polygon],
   [
     infuraProvider({ apiKey: process.env.NEXT_PUBLIC_INFURA_ID }),
     jsonRpcProvider({
@@ -34,12 +35,16 @@ const wagmiClient = createClient({
   provider,
 })
 
+const queryClient = new QueryClient()
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider chains={chains} theme={darkTheme()}>
         <ThemeProvider defaultMode="dark">
+          <QueryClientProvider client={queryClient}>
           <Component {...pageProps} />
+          </QueryClientProvider>
         </ThemeProvider>
       </RainbowKitProvider>
     </WagmiConfig>
