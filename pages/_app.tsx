@@ -43,7 +43,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <RainbowKitProvider chains={chains} theme={darkTheme()}>
         <ThemeProvider defaultMode="dark">
           <QueryClientProvider client={queryClient}>
-          <Component {...pageProps} />
+            <Component {...pageProps} />
           </QueryClientProvider>
         </ThemeProvider>
       </RainbowKitProvider>

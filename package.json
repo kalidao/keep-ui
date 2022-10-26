@@ -16,6 +16,7 @@
     "@kalidao/reality": "^0.0.5",
     "@rainbow-me/rainbowkit": "^0.7.1",
     "@vanilla-extract/css": "^1.9.1",
+    "@tanstack/react-query": "^4.13.0",
     "ethers": "5.7.1",
     "next": "12.3.1",
     "react": "18.2.0",
