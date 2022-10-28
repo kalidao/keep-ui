@@ -15,7 +15,7 @@ export const Confirm = ({ store, setStore, setView }: CreateProps) => {
     abi: KEEP_FACTORY_ABI,
     functionName: 'determineKeep',
     chainId: chain ? chain.id : 137,
-    args: [ethers.utils.formatBytes32String('Name') as `0x${string}`],
+    args: [ethers.utils.formatBytes32String(store.name) as `0x${string}`],
   })
 
   // write
@@ -44,7 +44,9 @@ export const Confirm = ({ store, setStore, setView }: CreateProps) => {
   } = useContractWrite({
     ...config,
     onSuccess: () => {
-      router.push(`/keep/${data}`)
+      if (chain) {
+        router.push(`/${chain.id}/${data}`)
+      }
     },
   })
 

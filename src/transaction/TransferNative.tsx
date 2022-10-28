@@ -22,11 +22,12 @@ export const TransferNative = ({ setView, setValue, setOp, setData }: Props) => 
   const { data: treasury, error: treasuryError } = useQuery(['keep', 'treasury', 'native', chainId, keep], async () =>
     fetcher(`http://localhost:3000/keeps/${chainId}/${keep}/treasury`),
   )
+  const max = treasury ? parseInt(ethers.utils.formatEther(treasury?.native?.balance)) : 0
   console.log('treasury', ethers.utils.parseEther(treasury ? treasury.native.balance : '0'))
 
   useEffect(() => {
     setValue(amount)
-    const data = ''
+    setData(ethers.constants.HashZero)
   }, [amount, sendTo, setValue])
 
   return (
@@ -42,7 +43,7 @@ export const TransferNative = ({ setView, setValue, setOp, setData }: Props) => 
         <Input
           label={'Amount'}
           type="number"
-          max={parseInt(ethers.utils.formatEther(treasury.native.balance))}
+          max={max}
           placeholder={'0x0000000000000000000000000000000000000000'}
           onChange={(e) => setAmount(e.currentTarget.value)}
         />

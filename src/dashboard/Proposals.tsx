@@ -14,17 +14,18 @@ import {
 } from '@kalidao/reality'
 import { useRouter } from 'next/router'
 import { useQuery } from '@tanstack/react-query'
-import { chainId } from 'wagmi'
+import { chain, chainId } from 'wagmi'
 import { fetcher } from '~/utils'
 
 const Proposals = () => {
   const router = useRouter()
   const { keep, chainId } = router.query
-  const { data: transactions } = useQuery(['keepTx', chainId, keep], async () =>
-    fetcher('http://localhost:3000/transactions/137/0xdDbe5D442F0A2756c252b74cC2a324b250850C24'),
+  console.log('keep', keep, chainId)
+  const { data: transactions, error } = useQuery(['keepTxs', chainId, keep], async () =>
+    fetcher(`http://localhost:3000/txs/${chainId}/${keep}/`),
   )
 
-  console.log('proposals', transactions)
+  console.log('proposals', transactions, error)
   return (
     <Card level="1" padding="6">
       <Stack>
@@ -43,8 +44,8 @@ const Proposals = () => {
             chainId={transaction.keepChainId}
             keep={transaction.keepAddress}
             proposer={'shivanshi.eth'}
-            title={transaction.post.title}
-            description={transaction.post.description}
+            title={transaction.title}
+            description={transaction.content}
             timestamp={transaction.createdAt}
             type={'Transaction'}
             status={transaction.status}

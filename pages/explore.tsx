@@ -8,7 +8,7 @@ import { fetcher } from '~/utils'
 import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
 
-const Home: NextPage = () => {
+const Explore: NextPage = () => {
   const { data: keeps, error } = useQuery(['allKeeps'], () => fetcher(`http://localhost:3000/keeps/`))
 
   return (
@@ -58,4 +58,4 @@ const Keep = ({ name, chainId, keep, avatar }: Props) => {
   )
 }
 
-export default Home
+export default Explore

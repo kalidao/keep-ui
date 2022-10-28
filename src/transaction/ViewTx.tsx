@@ -17,13 +17,13 @@ const ViewTx = ({ tx }: { tx: any }) => {
         }),
       },
     )
-    console.log('post', res)
+    const data = await res.json()
+    console.log('post', data.body)
   }
+
   console.log('tx', tx)
   return (
     <Stack>
-      <Heading>{tx?.post?.title}</Heading>
-      <Text>{tx?.post?.description}</Text>
       <Card padding="10">
         <Text>Type: {tx?.op}</Text>
         <Text>Type: {tx?.nonce}</Text>
@@ -31,7 +31,6 @@ const ViewTx = ({ tx }: { tx: any }) => {
         <Text>Value: {tx?.value}</Text>
         <Text>Data: {tx?.data}</Text>
       </Card>
-      <Button onClick={sign}>Sign</Button>
     </Stack>
   )
 }
