@@ -13,7 +13,7 @@ const Signal = ({ setView }: Props) => {
           <IconArrowLeft />
         </Button>
         <Stack>
-          <Card level="1" padding="6" width="full" width="3/4">
+          <Card level="1" padding="6" width="full">
             <Input label="Title" description="It is a required." placeholder="I am a title of sorts." />
             <Textarea
               label="Description"

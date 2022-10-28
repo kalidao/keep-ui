@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Box, Heading, Stack } from '@kalidao/reality'
+import { Box, Button, IconGrid, Stack } from '@kalidao/reality'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import Head from 'next/head'
 import { layout, dashboardHeader, container } from './layout.css'
@@ -36,9 +36,14 @@ const DashboardLayout = ({ title, content, children }: Props) => {
       </Head>
       <Box className={dashboardHeader} as="header">
         <Link href="/">
-          <Image src="/favicon-32x32.png" height="25" width="25" />
+          <Image alt="brand-logo and back button" src="/favicon-32x32.png" height="25" width="25" />
         </Link>
+        <Stack direction={"horizontal"} >
+          <Link href="/explore">
+            <Button shape="circle" size="small" variant="secondary" as="a"><IconGrid /></Button>
+          </Link>
         <ConnectButton />
+        </Stack>
       </Box>
       <Box className={container}>
         <Stack>

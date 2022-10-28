@@ -45,6 +45,7 @@ export const Confirm = ({ store, setStore, setView }: CreateProps) => {
     ...config,
     onSuccess: () => {
       if (chain) {
+        setTimeout(() => 3000)
         router.push(`/${chain.id}/${data}`)
       }
     },
