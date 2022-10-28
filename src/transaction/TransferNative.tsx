@@ -14,7 +14,6 @@ type Props = {
 }
 
 export const TransferNative = ({ setView, setValue, setOp, setData }: Props) => {
-  const [sendTo, setSendTo] = useState<string>()
   const [amount, setAmount] = useState<string>('')
 
   const router = useRouter()
@@ -28,18 +27,13 @@ export const TransferNative = ({ setView, setValue, setOp, setData }: Props) => 
   useEffect(() => {
     setValue(amount)
     setData(ethers.constants.HashZero)
-  }, [amount, sendTo, setValue])
+  }, [amount, setValue])
 
   return (
     <Card level={'1'} padding={'6'} width={'full'}>
       <Stack direction={'vertical'}>
         <Heading level={'2'}>Transfer Native Token</Heading>
         <Text>Your current balance is: {treasury && ethers.utils.formatEther(treasury.native.balance)} ETH/MATIC.</Text>
-        <Input
-          label={'Send To'}
-          placeholder={'0x0000000000000000000000000000000000000000'}
-          onChange={(e) => setSendTo(e.currentTarget.value)}
-        />
         <Input
           label={'Amount'}
           type="number"

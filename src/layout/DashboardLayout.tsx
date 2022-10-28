@@ -38,11 +38,13 @@ const DashboardLayout = ({ title, content, children }: Props) => {
         <Link href="/">
           <Image alt="brand-logo and back button" src="/favicon-32x32.png" height="25" width="25" />
         </Link>
-        <Stack direction={"horizontal"} >
+        <Stack direction={'horizontal'}>
           <Link href="/explore">
-            <Button shape="circle" size="small" variant="secondary" as="a"><IconGrid /></Button>
+            <Button shape="circle" size="small" variant="secondary" as="a">
+              <IconGrid />
+            </Button>
           </Link>
-        <ConnectButton />
+          <ConnectButton />
         </Stack>
       </Box>
       <Box className={container}>

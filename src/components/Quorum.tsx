@@ -4,8 +4,8 @@ import { useRouter } from 'next/router'
 import { useContractRead, useEnsName } from 'wagmi'
 import { KEEP_ABI } from '~/constants'
 import { truncAddress } from '~/utils'
-import "react-step-progress-bar/styles.css";
-import { ProgressBar, Step } from "react-step-progress-bar";
+import 'react-step-progress-bar/styles.css'
+import { ProgressBar, Step } from 'react-step-progress-bar'
 
 type Sig = {
   userAddress: string
@@ -28,12 +28,14 @@ const Quorum = ({ sigs }: { sigs: Sig[] }) => {
   })
 
   const quorum = data ? ethers.utils.formatUnits(data, 0) : 0
-  console.log('quorum', sigs?.length, quorum, sigs?.length/Number(quorum)*100, error)
+  console.log('quorum', sigs?.length, quorum, (sigs?.length / Number(quorum)) * 100, error)
 
-  return <ProgressBar
-  percent={sigs?.length / Number(quorum) * 100}
-  filledBackground="linear-gradient(to right, #fefb72, #f0bb31)"
-  />
+  return (
+    <ProgressBar
+      percent={(sigs?.length / Number(quorum)) * 100}
+      filledBackground="linear-gradient(to right, #fefb72, #f0bb31)"
+    />
+  )
 }
 
 export default Quorum

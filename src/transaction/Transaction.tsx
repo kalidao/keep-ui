@@ -40,9 +40,10 @@ const Transaction = ({ setView }: Props) => {
       to as `0xstring`,
       value ? ethers.utils.parseEther(value) : ethers.BigNumber.from(0),
       data as `0xstring`,
-      ethers.BigNumber.from(nonce),
+      nonce ? ethers.BigNumber.from(nonce) : ethers.BigNumber.from(0),
     ],
   })
+
   const handleTx = async () => {
     const { data: nonce } = await refetchNonce()
     const { data: digest } = await refetchDigest()

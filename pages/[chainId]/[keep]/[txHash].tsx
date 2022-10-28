@@ -10,11 +10,12 @@ import { useAccount, useContractWrite, usePrepareContractWrite } from 'wagmi'
 import { useSignMessage } from 'wagmi'
 import { ethers } from 'ethers'
 import { KEEP_ABI } from '~/constants'
+import Delete from '~/components/Delete'
 
 type Sign = {
-  user: string,
-  v: number,
-  r: string,
+  user: string
+  v: number
+  r: string
   s: string
 }
 
@@ -44,13 +45,19 @@ const Tx: NextPage = () => {
     message: data?.txHash,
   })
   const op = toOp(data?.op)
-  const sigs = data?.sigs?.map((sig: any) => sig = {
-      user: sig.signer,
-      v: Number(sig.v),
-      r: sig.r,
-      s: sig.s,
-    })
+  const sigs = data?.sigs
+    ?.map(
+      (sig: any) =>
+        (sig = {
+          user: sig.signer,
+          v: Number(sig.v),
+          r: sig.r,
+          s: sig.s,
+        }),
+    )
+    .sort((a: any, b: any) => a.user - b.user)
   console.log('sigs', sigs)
+  console.log('tx', Number(op), data?.to, data?.value, data?.data, sigs)
   const { config, error } = usePrepareContractWrite({
     address: keep as string,
     abi: KEEP_ABI,
@@ -58,8 +65,8 @@ const Tx: NextPage = () => {
     functionName: 'execute',
     args: [Number(op), data?.to, data?.value, data?.data, sigs],
     overrides: {
-      gasLimit: ethers.BigNumber.from(108000)
-    }
+      gasLimit: ethers.BigNumber.from(3000000),
+    },
   })
   const { write } = useContractWrite(config)
 
@@ -91,34 +98,35 @@ const Tx: NextPage = () => {
 
   console.log('tx', tx, error)
 
-  const execute = () => {
-
-  }
-
-  const deleteTx = () => {
-
-  }
+  const execute = () => {}
 
   return (
     <Layout title={'Dashboard'} content={'Manage your Keep'}>
       <Card padding="6">
         <Stack>
-          <Stack direction="horizontal" align="center" justify={"space-between"}>
-          <Stack>
-            <Heading>{data?.title}</Heading>
-            <Stack direction={'horizontal'}>
-              <PrettyDate timestamp={data?.createdAt} />
-              <Author author={data ? data?.authorAddress : ''} />
+          <Stack direction="horizontal" align="center" justify={'space-between'}>
+            <Stack>
+              <Heading>{data?.title}</Heading>
+              <Stack direction={'horizontal'}>
+                <PrettyDate timestamp={data?.createdAt} />
+                <Author author={data ? data?.authorAddress : ''} />
+              </Stack>
             </Stack>
-          </Stack>
-          <Button shape="circle" variant="secondary" tone="red" size="small" onClick={deleteTx}><IconClose /></Button>
+            <Delete
+              txHash={data?.txHash}
+              chainId={chainId ? (chainId as string) : '137'}
+              keep={keep ? (keep as string) : ''}
+              router={router}
+            />
           </Stack>
           <Text>{data?.content}</Text>
           <ViewTx tx={data} />
-          <Stack direction={"horizontal"}  align="center">
+          <Stack direction={'horizontal'} align="center">
             <Quorum sigs={data?.sigs} />
             <Button onClick={sign}>Sign</Button>
-            <Button disabled={!write} onClick={() => write?.()}>Execute</Button>
+            <Button disabled={!write} onClick={() => write?.()}>
+              Execute
+            </Button>
           </Stack>
         </Stack>
       </Card>
