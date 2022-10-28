@@ -6,7 +6,7 @@ const Footer = () => {
     <Box padding="6" as="footer">
       <Stack direction={'horizontal'} align="center" justify={'space-between'}>
         <Text color={'foregroundSecondary'}>Built by KaliCo.</Text>
-        <Stack direction={"horizontal"}>
+        <Stack direction={'horizontal'}>
           <Link href="/privacy">Privacy Policy</Link>
           <Text color="foregroundSecondary">|</Text>
           <Link href="/tos">Terms of Service</Link>

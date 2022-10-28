@@ -5,54 +5,64 @@ import { CreateProps } from './types'
 import { ethers } from 'ethers'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
-import { KEEP_FACTORY_ADDRESS } from '~/constants'
-
-const KEEP_FACTORY = require('~/constants/abis/KeepFactory.json')
+import { KEEP_FACTORY_ABI, KEEP_FACTORY_ADDRESS } from '~/constants'
 
 export const Confirm = ({ store, setStore, setView }: CreateProps) => {
   const router = useRouter()
   const { chain } = useNetwork()
-  const { data: address, error: isDetermineError } = useContractRead({
-    addressOrName: '0x843D08081A10b408bAe2cf21b5dB61F1cF297028',
-    contractInterface: KEEP_FACTORY,
+  const { data, error: isDetermineError } = useContractRead({
+    address: KEEP_FACTORY_ADDRESS,
+    abi: KEEP_FACTORY_ABI,
     functionName: 'determineKeep',
-    chainId: chain ? chain.id : 5,
-    args: [ethers.utils.formatBytes32String(store.name)],
+    chainId: chain ? chain.id : 137,
+    args: [ethers.utils.formatBytes32String('Name') as `0x${string}`],
   })
 
   // write
-  const signers = store.signers.map((signer) => signer.address).sort((a, b) => +a - +b)
+  const signers = store.signers.map((signer) => signer.address).sort((a, b) => +a - +b) as `0xstring`[] // TODO: add validation on address
   const { config } = usePrepareContractWrite({
-    addressOrName: '0x843D08081A10b408bAe2cf21b5dB61F1cF297028',
-    contractInterface: KEEP_FACTORY,
+    address: KEEP_FACTORY_ADDRESS,
+    abi: KEEP_FACTORY_ABI,
     functionName: 'deployKeep',
-    args: [ethers.utils.formatBytes32String(store.name), [], signers, store.threshold],
+    overrides: {
+      gasLimit: ethers.BigNumber.from(2000000),
+    },
+    args: [
+      ethers.utils.formatBytes32String(store.name) as `0x{string}`,
+      [],
+      signers,
+      ethers.BigNumber.from(store.threshold),
+    ],
   })
+  // TODO: Add redirect to keep dashboard
   const {
     write,
     error: writeError,
     isError: isWriteError,
     isLoading,
     isSuccess,
-    data,
   } = useContractWrite({
     ...config,
-    onSuccess(data) {
-      data.wait(1)
-      if (chain) {
-        router.push(`/${chain.id}/${store.name}`)
-      }
+    onSuccess: () => {
+      router.push(`/keep/${data}`)
     },
   })
 
+  console.log(
+    'data',
+    ethers.utils.formatBytes32String(store.name) as `0x{string}`,
+    [],
+    signers,
+    ethers.BigNumber.from(store.threshold),
+  )
+  console.log('isDetermineError', isDetermineError)
   return (
     <Stack>
       <Back to={2} setView={setView} />
-      {address && (
-        <Text>
-          Your multisig will be deployed on {chain ? chain?.name + ' at' : ''} <Text variant="label">{address}</Text>
-        </Text>
-      )}
+      <Text>
+        Your multisig will be deployed on {chain ? chain?.name + ' at' : ''}{' '}
+        <Text variant="label">{data ? (data as string) : null}</Text>
+      </Text>
       <Card padding="5" borderRadius={'medium'} shadow>
         <Stack direction={'horizontal'} align="center" justify={'space-between'}>
           <Text size="large">Name</Text>
@@ -85,7 +95,7 @@ export const Confirm = ({ store, setStore, setView }: CreateProps) => {
 
 const Signer = ({ index, address }: { index: number; address: string }) => {
   const { data, isError, isLoading } = useEnsName({
-    address: address,
+    address: address as `0xstring`,
     chainId: 1,
   })
 

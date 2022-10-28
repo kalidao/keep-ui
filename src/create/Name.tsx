@@ -9,9 +9,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 
 const schema = z.object({
-  name: z.string().trim().min(1, { message: 'A name is required' }).regex(new RegExp('^[a-zA-Z0-9_]*$'), {
-    message: 'Name can only contain alphanumeric characters and underscores.',
-  }),
+  name: z
+    .string()
+    .trim()
+    .min(1, { message: 'A name is required' })
+    .max(69, { message: 'Name must be less than 69 characters' }),
 })
 
 export const Name = ({ store, setStore, setView }: CreateProps) => {

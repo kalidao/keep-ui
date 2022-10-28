@@ -3,24 +3,22 @@ import { Heading, Text, Stack, Box } from '@kalidao/reality'
 import Layout from '~/layout/DashboardLayout'
 import { Signers, Profile, Wrappr, Proposals, Treasury } from '~/dashboard'
 import { useRouter } from 'next/router'
-import { ethers } from 'ethers'
-import { useQuery } from '@tanstack/react-query'
+import { ViewTx } from '~/transaction'
 import { fetcher } from '~/utils'
+import { useQuery } from '@tanstack/react-query'
 
-const Dashboard: NextPage = () => {
+const Tx: NextPage = () => {
   const router = useRouter()
-  const { chainId, keep } = router.query
-  const { data, error } = useQuery(['keep', chainId, keep], async () =>
-    fetcher(`http://localhost:3000/keeps/137/0xDfC2eA457944F874E68B0cC1e08FB4f4Af7C3f12`),
+  const { chainId, keep, txHash } = router.query
+  const { data } = useQuery(['keep', chainId, keep, txHash], async () =>
+    fetcher(`http://localhost:3000/transactions/${chainId}/${keep}/${txHash}`),
   )
-
-  console.log('data', data, error)
 
   return (
     <Layout title={'Dashboard'} content={'Manage your Keep'}>
-      <Proposals />
+      <ViewTx tx={data} />
     </Layout>
   )
 }
 
-export default Dashboard
+export default Tx

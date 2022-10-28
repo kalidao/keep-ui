@@ -1,6 +1,7 @@
 import { Box } from '@kalidao/reality'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import Head from 'next/head'
+import Footer from './Footer'
 import { layout, header, container } from './layout.css'
 
 type Props = {
@@ -23,6 +24,7 @@ const Layout = ({ title, content, children }: Props) => {
         <ConnectButton />
       </Box>
       <Box className={container}>{children}</Box>
+      <Footer />
     </Box>
   )
 }
