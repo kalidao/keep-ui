@@ -4,6 +4,8 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useAccount, useContractRead } from 'wagmi'
 import { KEEP_ABI, KEEP_HELPER_ABI, KEEP_HELPER_ADDRESS } from '~/constants'
+import { Builder } from './Builder'
+import { SendToken } from './SendToken'
 
 type Props = {
   setView: React.Dispatch<React.SetStateAction<string>>
@@ -82,27 +84,22 @@ const Transaction = ({ setView }: Props) => {
         <IconArrowLeft />
       </Button>
       <Card level="2" padding="6" width="full">
-        <Input
-          label="Title"
-          description="It is a required."
-          placeholder="I am a title of sorts."
-          onChange={(e) => setTitle(e.currentTarget.value)}
-        />
-        <Textarea
-          label="Description"
-          description="You can use this field for context."
-          placeholder="I am signaling silly lil things for my silly lil community."
-          onChange={(e) => setContent(e.currentTarget.value)}
-        />
-        <Heading level="2">Build the Transaction</Heading>
-        <Input
-          label="To"
-          description="The address to which this transaction is directed at."
-          placeholder="0x"
-          onChange={(e) => setTo(e.currentTarget.value)}
-        />
-        {/* <Builder value={value} op={op} to={to} setValue={setValue} setData={setData} setOp={setOp} /> */}
-        <Button onClick={handleTx}>Submit</Button>
+        <Stack>
+          <Input
+            label="Title"
+            description="It is a required."
+            placeholder="I am a title of sorts."
+            onChange={(e) => setTitle(e.currentTarget.value)}
+          />
+          <Textarea
+            label="Description"
+            description="You can use this field for context."
+            placeholder="I am signaling silly lil things for my silly lil community."
+            onChange={(e) => setContent(e.currentTarget.value)}
+          />
+          <SendToken to={to} setTo={setTo} value={value} setValue={setValue} data={data} setData={setData} />
+          <Button onClick={handleTx}>Submit</Button>
+        </Stack>
       </Card>
     </Stack>
   )

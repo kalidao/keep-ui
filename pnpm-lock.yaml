@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@headlessui/react': ^1.7.3
   '@hookform/resolvers': ^2.9.8
   '@kalidao/hooks': ^0.0.5
   '@kalidao/reality': ^0.0.5
@@ -29,6 +30,7 @@ specifiers:
   zod: ^3.19.1
 
 dependencies:
+  '@headlessui/react': 1.7.3_biqbaboplfbrettd7655fr4n2y
   '@hookform/resolvers': 2.9.9_react-hook-form@7.38.0
   '@kalidao/hooks': 0.0.5_vecllmazezembgptyp3gqh7e5u
   '@kalidao/reality': 0.0.5_biqbaboplfbrettd7655fr4n2y
@@ -695,6 +697,17 @@ packages:
       '@ethersproject/logger': 5.7.0
       '@ethersproject/properties': 5.7.0
       '@ethersproject/strings': 5.7.0
+    dev: false
+
+  /@headlessui/react/1.7.3_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-LGp06SrGv7BMaIQlTs8s2G06moqkI0cb0b8stgq7KZ3xcHdH3qMP+cRyV7qe5x4XEW/IGY48BW4fLesD6NQLng==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: ^16 || ^17 || ^18
+      react-dom: ^16 || ^17 || ^18
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /@hookform/resolvers/2.9.9_react-hook-form@7.38.0:
