@@ -3,7 +3,7 @@ import { Heading, Text, Stack, Box } from '@kalidao/reality'
 import Layout from '~/layout/DashboardLayout'
 import { Signers, Profile, Wrappr, Proposals, Treasury } from '~/dashboard'
 import { useRouter } from 'next/router'
-import { Create } from '~/transaction'
+import Create from '~/propose/Create'
 
 const Tx: NextPage = () => {
   const router = useRouter()

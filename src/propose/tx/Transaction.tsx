@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useAccount, useContractRead } from 'wagmi'
 import { KEEP_ABI, KEEP_HELPER_ABI, KEEP_HELPER_ADDRESS } from '~/constants'
-import { Builder } from '../transaction/Builder'
+
 type Props = {
   setView: React.Dispatch<React.SetStateAction<string>>
 }
@@ -101,7 +101,7 @@ const Transaction = ({ setView }: Props) => {
           placeholder="0x"
           onChange={(e) => setTo(e.currentTarget.value)}
         />
-        <Builder value={value} op={op} to={to} setValue={setValue} setData={setData} setOp={setOp} />
+        {/* <Builder value={value} op={op} to={to} setValue={setValue} setData={setData} setOp={setOp} /> */}
         <Button onClick={handleTx}>Submit</Button>
       </Card>
     </Stack>

@@ -1,6 +1,6 @@
-import { getEIP712Signer } from '~/utils/getSigner'
 import { Operation } from '~/types'
 import { ethers } from 'ethers'
+import { ExternalProvider } from '@ethersproject/providers'
 
 export type TxArgs = {
   op: Operation
@@ -10,11 +10,10 @@ export type TxArgs = {
   nonce: number
 }
 
-export const trySigning = async (keep: string, user: string): Promise<string | undefined> => {
+export const trySigning = async (digest: string, user: string): Promise<string | undefined> => {
   try {
-    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    const provider = new ethers.providers.Web3Provider(window.ethereum as ExternalProvider)
     const signer = provider.getSigner()
-    const digest = '' // get digest from helper
     const signature = await signer.provider.send('eth_sign', [user, digest])
 
     const verifiedUser = ethers.utils.computeAddress(ethers.utils.recoverPublicKey(digest, signature)) // verify signature

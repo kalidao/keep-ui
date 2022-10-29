@@ -1,24 +1,13 @@
 import React, { useState } from 'react'
-import {
-  Card,
-  Stack,
-  Heading,
-  Text,
-  Avatar,
-  Input,
-  Button,
-  Textarea,
-  IconPencil,
-  IconArrowRight,
-} from '@kalidao/reality'
-import Transaction from '~/propose/Transaction'
+import { Card, Stack, Heading, Text, Button, IconArrowRight } from '@kalidao/reality'
+import { Transaction } from '~/propose/tx/'
 import Preview from '~/propose/Preview'
-import Signal from '~/propose/signal/Signal'
+import { Signal } from '~/propose/signal/'
 
 const Create = () => {
   const [view, setView] = useState('preview')
 
-  const views = {
+  const views: { [key: string]: React.ReactNode } = {
     preview: <Preview />,
     signal: <Signal setView={setView} />,
     tx: <Transaction setView={setView} />,
