@@ -25,3 +25,11 @@ export const container = style({
   minHeight: '90vh',
   position: 'relative',
 })
+
+export const createContainer = style({
+  minHeight: '90vh',
+  position: 'relative',
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+})

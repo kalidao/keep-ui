@@ -4,9 +4,10 @@ import { heading, subheading } from '@design/landing.css'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import Head from 'next/head'
 import Footer from '~/layout/Footer'
-import { layout, header, container, dashboardHeader } from '~/layout/layout.css'
+import { layout, header, createContainer, container, dashboardHeader } from '~/layout/layout.css'
 import Link from 'next/link'
 import Image from 'next/image'
+import Create from '~/create'
 
 const Home: NextPage = () => {
   return (
@@ -26,16 +27,12 @@ const Home: NextPage = () => {
           <ConnectButton />
         </Stack>
       </Box>
-      <Box className={container}>
-        <Box backgroundColor={'black'}>
+      <Box className={createContainer}>
+        <Box>
           <h1 className={heading}>Keep</h1>
           <p className={subheading}>Company.</p>
-          <Link href="/create">
-            <Button tone="violet" as="a">
-              Get Started
-            </Button>
-          </Link>
         </Box>
+        <Create />
       </Box>
       <Footer />
     </Box>

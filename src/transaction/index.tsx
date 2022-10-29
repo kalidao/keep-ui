@@ -1,4 +1,4 @@
 import ViewTx from './ViewTx'
-import Create from './Create'
+import Create from '../propose/Create'
 
 export { Create, ViewTx }

@@ -60,39 +60,41 @@ export const Confirm = ({ store, setStore, setView }: CreateProps) => {
   )
   console.log('isDetermineError', isDetermineError)
   return (
-    <Stack>
-      <Back to={2} setView={setView} />
-      <Text>
-        Your multisig will be deployed on {chain ? chain?.name + ' at' : ''}{' '}
-        <Text variant="label">{data ? (data as string) : null}</Text>
-      </Text>
-      <Card padding="5" borderRadius={'medium'} shadow>
-        <Stack direction={'horizontal'} align="center" justify={'space-between'}>
-          <Text size="large">Name</Text>
-          <Text size="large" weight={'bold'}>
-            {store.name}
-          </Text>
+    <Box height="full">
+      <Stack>
+        <Back to={2} setView={setView} />
+        <Text>
+          Your multisig will be deployed on {chain ? chain?.name + ' at' : ''}{' '}
+          <Text variant="label">{data ? (data as string) : null}</Text>
+        </Text>
+        <Card padding="5" borderRadius={'medium'} shadow>
+          <Stack direction={'horizontal'} align="center" justify={'space-between'}>
+            <Text size="large">Name</Text>
+            <Text size="large" weight={'bold'}>
+              {store.name}
+            </Text>
+          </Stack>
+        </Card>
+        <Card padding="5" borderRadius={'medium'} shadow>
+          <Stack direction={'horizontal'} align="center" justify={'space-between'}>
+            <Text size="large">Threshold</Text>
+            <Text size="large" weight={'bold'}>
+              {store.threshold}/{store.signers.length}
+            </Text>
+          </Stack>
+        </Card>
+        <Stack align={'center'}>
+          <Text size="extraLarge">Signers</Text>
+          {signers.map((signer, index) => (
+            <Signer key={signer} index={index + 1} address={signer} />
+          ))}
         </Stack>
-      </Card>
-      <Card padding="5" borderRadius={'medium'} shadow>
-        <Stack direction={'horizontal'} align="center" justify={'space-between'}>
-          <Text size="large">Threshold</Text>
-          <Text size="large" weight={'bold'}>
-            {store.threshold}/{store.signers.length}
-          </Text>
-        </Stack>
-      </Card>
-      <Stack align={'center'}>
-        <Text size="extraLarge">Signers</Text>
-        {signers.map((signer, index) => (
-          <Signer key={signer} index={index + 1} address={signer} />
-        ))}
+        {isWriteError && <Text color="red">{writeError?.message}</Text>}
+        <Button width="full" suffix={<IconLightningBolt />} disabled={!write} onClick={() => write?.()}>
+          {isLoading ? 'Summoning' : 'Summon'}
+        </Button>
       </Stack>
-      {isWriteError && <Text color="red">{writeError?.message}</Text>}
-      <Button width="full" suffix={<IconLightningBolt />} disabled={!write} onClick={() => write?.()}>
-        {isLoading ? 'Summoning' : 'Summon'}
-      </Button>
-    </Stack>
+    </Box>
   )
 }
 

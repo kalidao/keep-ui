@@ -2,17 +2,19 @@ import { vars } from '@kalidao/reality'
 import { style } from '@vanilla-extract/css'
 
 export const container = style({
-  background: vars.colors.backgroundSecondary,
-  padding: vars.space[10],
+  background: vars.colors.background,
+  padding: vars.space[20],
   borderRadius: vars.radii.large,
-  width: '40rem',
-  minHeight: '30rem',
+  height: '90vh',
+  width: '50%',
 
-  // position in center
+  // // position in center
   position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+  top: '0',
+  right: '0',
+  bottom: '0',
+  zIndex: 100,
+  // transform: 'translate(-50%, -50%)',
 
   // flex
   display: 'flex',

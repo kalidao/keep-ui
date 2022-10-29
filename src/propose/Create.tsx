@@ -11,9 +11,9 @@ import {
   IconPencil,
   IconArrowRight,
 } from '@kalidao/reality'
-import Transaction from './Transaction'
-import Preview from './Preview'
-import Signal from './Signal'
+import Transaction from '~/propose/Transaction'
+import Preview from '~/propose/Preview'
+import Signal from '~/propose/signal/Signal'
 
 const Create = () => {
   const [view, setView] = useState('preview')
@@ -28,7 +28,12 @@ const Create = () => {
     <Card padding="6">
       <Stack>
         <Stack direction={'horizontal'}>
-          <Card level="2" padding="6" width={'full'} hover>
+          <Card
+            level={view == 'preview' ? '2' : '1'}
+            padding="6"
+            width={'full'}
+            hover={view == 'preview' ? true : false}
+          >
             <Stack direction={'horizontal'} align="center" justify={'space-between'}>
               <Stack>
                 <Heading>Proposal</Heading>
@@ -39,7 +44,7 @@ const Create = () => {
               </Button>
             </Stack>
           </Card>
-          <Card level="2" padding="6" width="full" hover>
+          <Card level={view == 'preview' ? '2' : '1'} padding="6" width="full" hover={view == 'preview' ? true : false}>
             <Stack direction={'horizontal'} align="center" justify={'space-between'}>
               <Stack>
                 <Heading>Signal</Heading>
