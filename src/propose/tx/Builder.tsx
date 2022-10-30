@@ -29,11 +29,11 @@ export const Builder = ({ to, setTo, value, setValue, data, setData }: Props) =>
   }
 
   let fns
-  if (abi && abi.length !== 0) {
-    console.log('abi', abi)
-    fns = abi.filter((x) => x?.type === 'function').sort((a, b) => a?.name.localeCompare(b.name))
-    console.log('fns', fns)
-  }
+  // if (abi && abi.length !== 0) {
+  //   console.log('abi', abi)
+  //   fns = abi.filter((x) => x?.type === 'function').sort((a, b) => a?.name.localeCompare(b.name))
+  //   console.log('fns', fns)
+  // }
   return (
     <Card padding="6">
       <Stack>

@@ -26,7 +26,7 @@ const DashboardLayout = ({ title, content, children }: Props) => {
   const { data: treasury, error: treasuryError } = useQuery(['keep', 'treasury', chainId, keep], async () =>
     fetcher(`http://localhost:3000/keeps/${chainId}/${keep}/treasury`),
   )
-  console.log('treasury', treasury, treasuryError)
+
   return (
     <Box className={layout}>
       <Head>

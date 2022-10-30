@@ -21,11 +21,11 @@ export const blur = style({
   },
 })
 
-export const preview = style({
-  height: '40vh',
+export const highBackground = style({
+  minHeight: '40vh',
   borderRadius: vars.radii['2xLarge'],
+  padding: vars.space['6'],
   width: '100%',
-  zIndex: 100,
   position: 'relative',
   display: 'inline-block',
   overflow: 'hidden',

@@ -1,14 +1,26 @@
-import { Heading, Card, Stack, Input, Textarea, Button, IconArrowLeft } from '@kalidao/reality'
+import { highBackground } from '@design/blur.css'
+import { Box, Heading, Card, Stack, Input, Textarea, Button, IconArrowLeft } from '@kalidao/reality'
 import { ethers } from 'ethers'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useAccount, useContractRead } from 'wagmi'
 import { KEEP_ABI, KEEP_HELPER_ABI, KEEP_HELPER_ADDRESS } from '~/constants'
-import { Builder } from './Builder'
+import { getTxHash } from '../getTxHash'
 import { SendToken } from './SendToken'
 
 type Props = {
   setView: React.Dispatch<React.SetStateAction<string>>
+}
+
+const operation = (op: number) => {
+  switch (op) {
+    case 0:
+      return 'call'
+    case 1:
+      return 'delegatecall'
+    case 2:
+      return 'create'
+  }
 }
 
 const Transaction = ({ setView }: Props) => {
@@ -26,82 +38,73 @@ const Transaction = ({ setView }: Props) => {
     abi: KEEP_ABI,
     functionName: 'nonce',
   })
-  const {
-    data: txDigest,
-    refetch: refetchDigest,
-    error: txDigestError,
-  } = useContractRead({
-    address: KEEP_HELPER_ADDRESS,
-    abi: KEEP_HELPER_ABI,
-    functionName: 'computeKeepDigest',
-    enabled: false,
-    args: [
-      chainId ? ethers.BigNumber.from(chainId) : ethers.BigNumber.from(137),
-      keep as `0xstring`,
-      op,
-      to as `0xstring`,
-      value ? ethers.utils.parseEther(value) : ethers.BigNumber.from(0),
-      data as `0xstring`,
-      nonce ? ethers.BigNumber.from(nonce) : ethers.BigNumber.from(0),
-    ],
-  })
+
+  // console.log('parsed ether', ethers.utils.parseEther(value))
 
   const handleTx = async () => {
-    const { data: nonce } = await refetchNonce()
-    const { data: digest } = await refetchDigest()
-    console.log('nonce', nonce)
-    console.log('digest', digest)
+    if (chainId && keep) {
+      const { data: nonce } = await refetchNonce()
+      if (!nonce) return
+      const digest = await getTxHash(Number(chainId), keep as string, op, to, value, data, nonce.toString())
+      console.log('nonce', nonce)
+      console.log('digest', digest)
 
-    if (!nonce) return
-    const body = {
-      op: op,
-      to: to,
-      data: data,
-      nonce: nonce.toString(),
-      value: ethers.utils.parseEther(value).toString(),
-      txHash: txDigest,
-      title: title,
-      content: content,
-      authorAddress: author,
+      if (!nonce) return
+      const body = {
+        op: operation(op),
+        to: to,
+        data: data,
+        nonce: nonce.toString(),
+        value: ethers.utils.parseEther(value).toString(),
+        txHash: digest,
+        title: title,
+        content: content,
+        authorAddress: author,
+      }
+      console.log('body', body)
+
+      const send = await fetch(`http://localhost:3000/keeps/${chainId}/${keep}/addTx`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      }).then((res) => res.json())
+
+      console.log('send', send)
     }
-    console.log('body', body)
 
-    const send = await fetch(`http://localhost:3000/keeps/${chainId}/${keep}/addTx`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    }).then((res) => res.json())
-
-    console.log('send', send)
+    // TODO: Add success/error toast
+    router.push(`/${chainId}/${keep}`)
   }
-  console.log('tx digest', txDigest, txDigestError)
+
   // TODO: Signal for Guilds
   return (
-    <Stack direction={'horizontal'} justify="space-between">
-      <Button shape="circle" variant="tertiary" size="small" onClick={() => setView('preview')}>
-        <IconArrowLeft />
-      </Button>
-      <Card level="2" padding="6" width="full">
-        <Stack>
-          <Input
-            label="Title"
-            description="It is a required."
-            placeholder="I am a title of sorts."
-            onChange={(e) => setTitle(e.currentTarget.value)}
-          />
-          <Textarea
-            label="Description"
-            description="You can use this field for context."
-            placeholder="I am signaling silly lil things for my silly lil community."
-            onChange={(e) => setContent(e.currentTarget.value)}
-          />
-          <SendToken to={to} setTo={setTo} value={value} setValue={setValue} data={data} setData={setData} />
-          <Button onClick={handleTx}>Submit</Button>
-        </Stack>
-      </Card>
-    </Stack>
+    <Box className={highBackground}>
+      <Stack direction={'horizontal'} justify="space-between">
+        <Button shape="circle" variant="tertiary" size="small" onClick={() => setView('preview')}>
+          <IconArrowLeft />
+        </Button>
+        <Box width="full">
+          <Stack>
+            <Input
+              label="Title"
+              description="It is a required."
+              placeholder="I am a title of sorts."
+              onChange={(e) => setTitle(e.currentTarget.value)}
+            />
+            <Textarea
+              label="Description"
+              description="You can use this field for context."
+              placeholder="I am signaling silly lil things for my silly lil community."
+              onChange={(e) => setContent(e.currentTarget.value)}
+            />
+            <SendToken to={to} setTo={setTo} data={data} setData={setData} />
+            <Button onClick={handleTx}>Submit</Button>
+          </Stack>
+        </Box>
+      </Stack>
+    </Box>
   )
 }
 

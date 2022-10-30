@@ -26,10 +26,10 @@ const ViewTx = ({ tx }: { tx: any }) => {
     <Stack>
       <Card padding="10">
         <Text>Type: {tx?.op}</Text>
-        <Text>Type: {tx?.nonce}</Text>
+        <Text>Nonce: {tx?.nonce}</Text>
         <Text>To: {tx?.to}</Text>
         <Text>Value: {tx?.value}</Text>
-        <Text>Data: {tx?.data}</Text>
+        <Text wordBreak="break-word">Data: {tx?.data}</Text>
       </Card>
     </Stack>
   )
