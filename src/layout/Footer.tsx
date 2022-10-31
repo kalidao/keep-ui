@@ -3,7 +3,7 @@ import Link from '@design/Link'
 
 const Footer = () => {
   return (
-    <Box padding="6" as="footer">
+    <Box padding="6" as="footer" position="relative" zIndex="10">
       <Stack direction={'horizontal'} align="center" justify={'space-between'}>
         <Text color={'foregroundSecondary'}>Built by KaliCo.</Text>
         <Stack direction={'horizontal'}>

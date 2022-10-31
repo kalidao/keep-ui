@@ -12,6 +12,8 @@ export const header = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'flex-end',
+  zIndex: 10,
+  position: 'relative',
 })
 
 export const dashboardHeader = style({
@@ -26,10 +28,7 @@ export const container = style({
   position: 'relative',
 })
 
-export const createContainer = style({
+export const splashContainer = style({
   minHeight: '90vh',
-  position: 'relative',
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
+  zIndex: '-1',
 })

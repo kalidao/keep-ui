@@ -4,14 +4,13 @@ import { heading, subheading } from '@design/landing.css'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import Head from 'next/head'
 import Footer from '~/layout/Footer'
-import { layout, header, createContainer, container, dashboardHeader } from '~/layout/layout.css'
+import { layout, header, container, splashContainer, dashboardHeader } from '~/layout/layout.css'
 import Link from 'next/link'
-import Image from 'next/image'
 import Create from '~/create'
 
 const Home: NextPage = () => {
   return (
-    <Box className={layout} backgroundColor="black">
+    <Box className={layout} backgroundColor="black" position={'relative'}>
       <Head>
         <title>Keep - Home</title>
         <meta name="description" content={'This is the homepage of Keep.'} />
@@ -27,8 +26,8 @@ const Home: NextPage = () => {
           <ConnectButton />
         </Stack>
       </Box>
-      <Box className={createContainer}>
-        <Box>
+      <Box>
+        <Box className={splashContainer}>
           <h1 className={heading}>Keep</h1>
           <p className={subheading}>Company.</p>
         </Box>
