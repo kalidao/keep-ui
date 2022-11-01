@@ -9,7 +9,7 @@ const ViewTx = ({ tx }: { tx: any }) => {
     const sign = await signMessageAsync()
     console.log('sign', sign)
     const res = await fetch(
-      `http://localhost:3000/transactions/${tx?.keepChainId}/${tx?.keepAddress}/${tx?.txHash}/sign`,
+      `${process.env.NEXT_PUBLIC_KEEP_API}/transactions/${tx?.keepChainId}/${tx?.keepAddress}/${tx?.txHash}/sign`,
       {
         method: 'POST',
         body: JSON.stringify({

@@ -37,7 +37,7 @@ const Tx: NextPage = () => {
   const { address } = useAccount()
   const { chainId, keep, txHash } = router.query
   const { data, isLoading: isLoadingTx } = useQuery(['keep', chainId, keep, txHash], async () =>
-    fetcher(`http://localhost:3000/txs/${txHash}`),
+    fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/txs/${txHash}`),
   )
   // const {
   //   data: tx,
@@ -119,7 +119,7 @@ const Tx: NextPage = () => {
 
     console.log('body', body)
 
-    const send = await fetch(`http://localhost:3000/txs/${data?.txHash}/sign`, {
+    const send = await fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/txs/${data?.txHash}/sign`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

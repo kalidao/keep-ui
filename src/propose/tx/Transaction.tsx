@@ -63,7 +63,7 @@ const Transaction = ({ setView }: Props) => {
       }
       console.log('body', body)
 
-      const send = await fetch(`http://localhost:3000/keeps/${chainId}/${keep}/addTx`, {
+      const send = await fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/addTx`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

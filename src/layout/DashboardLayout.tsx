@@ -20,11 +20,11 @@ const DashboardLayout = ({ title, content, children }: Props) => {
   const router = useRouter()
   const { chainId, keep } = router.query
   const { data, error } = useQuery(['keep', chainId, keep], async () =>
-    fetcher(`http://localhost:3000/keeps/${chainId}/${keep}/`),
+    fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/`),
   )
   const heading = title + data ? ((' ' + data?.name) as string) + ' ' : '' + '- Keep'
   const { data: treasury, error: treasuryError } = useQuery(['keep', 'treasury', chainId, keep], async () =>
-    fetcher(`http://localhost:3000/keeps/${chainId}/${keep}/treasury`),
+    fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/treasury`),
   )
 
   return (

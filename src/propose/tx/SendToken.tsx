@@ -37,7 +37,7 @@ export const SendToken = ({ to, setTo, data, setData }: Props) => {
   const router = useRouter()
   const { chainId, keep } = router.query
   const { data: treasury, isLoading } = useQuery(['keep', 'nfts', keep, chainId], () =>
-    fetcher(`http://localhost:3000/keeps/${chainId}/${keep}/treasury`),
+    fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/treasury`),
   )
   const tokens = treasury?.tokens
   console.log('tokens', keep, chainId, treasury, tokens)

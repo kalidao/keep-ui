@@ -16,7 +16,7 @@ type Props = {
 const Delete = ({ txHash, router, chainId, keep }: Props) => {
   const [isOpen, setIsOpen] = useState(false)
   const deleteTx = async () => {
-    const res = await fetch(`http://localhost:3000/txs/${txHash}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/txs/${txHash}`, {
       method: 'POST',
     }).then((res) => res.json())
 

@@ -22,7 +22,7 @@ const Proposals = () => {
   const { keep, chainId } = router.query
   console.log('keep', keep, chainId)
   const { data: transactions, error } = useQuery(['keepTxs', chainId, keep], async () =>
-    fetcher(`http://localhost:3000/txs/${chainId}/${keep}/`),
+    fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/txs/${chainId}/${keep}/`),
   )
 
   console.log('proposals', transactions, error)

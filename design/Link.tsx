@@ -8,8 +8,8 @@ type LinkProps = {
 
 export default function CustomLink({ href, children, ...props }: LinkProps & NextLinkProps) {
   return (
-    <Link href={href} {...props} className={link}>
-      {children}
+    <Link href={href} {...props} passHref>
+      <a className={link}>{children}</a>
     </Link>
   )
 }
