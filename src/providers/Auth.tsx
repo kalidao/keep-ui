@@ -1,52 +1,17 @@
-import type { AppProps } from 'next/app'
-import '@rainbow-me/rainbowkit/styles.css'
 import React, { useRef, useState, useMemo, useEffect } from 'react'
 import {
   AuthenticationStatus,
   createAuthenticationAdapter,
   RainbowKitAuthenticationProvider,
-  getDefaultWallets,
-  RainbowKitProvider,
 } from '@rainbow-me/rainbowkit'
 import { SiweMessage } from 'siwe'
-import { chain, configureChains, createClient, useAccount, WagmiConfig } from 'wagmi'
-import { infuraProvider } from 'wagmi/providers/infura'
-import { publicProvider } from 'wagmi/providers/public'
-import { ThemeProvider } from '@kalidao/reality'
-import '@kalidao/reality/styles'
-import '@design/app.css'
-import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { AuthProvider } from '~/providers/Auth'
 
-const { chains, provider } = configureChains(
-  [chain.goerli, chain.polygon],
-  [
-    infuraProvider({ apiKey: process.env.NEXT_PUBLIC_INFURA_ID }),
-    jsonRpcProvider({
-      rpc: (chain) => {
-        if (chain.id !== 5) return null
-        return { http: process.env.NEXT_PUBLIC_QUICKNODE_HTTP!, webSocket: process.env.NEXT_PUBLIC_QUICKNODE }
-      },
-    }),
-    publicProvider(),
-  ],
-)
+interface AuthProviderProps {
+  enabled?: boolean
+  children: React.ReactNode
+}
 
-const { connectors } = getDefaultWallets({
-  appName: 'Keep',
-  chains,
-})
-
-const wagmiClient = createClient({
-  autoConnect: true,
-  connectors,
-  provider,
-})
-
-const queryClient = new QueryClient()
-
-function MyApp({ Component, pageProps }: AppProps) {
+export function AuthProvider({ children, enabled }: AuthProviderProps) {
   const fetchingStatusRef = useRef(false)
   const verifyingRef = useRef(false)
   const [status, setStatus] = useState<AuthenticationStatus>('loading')
@@ -126,32 +91,19 @@ function MyApp({ Component, pageProps }: AppProps) {
           }
         },
         signOut: async () => {
-          const res = await fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/auth/logout`, {
-            method: 'DELETE',
+          setStatus('unauthenticated')
+          await fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/auth/logout`, {
+            method: 'GET',
             credentials: 'include',
           })
-          console.log('res', res)
-          if (res) {
-            setStatus(Boolean(res.ok) ? 'unauthenticated' : 'authenticated')
-          }
         },
       }),
     [],
   )
-
+  console.log('status', status)
   return (
-    <WagmiConfig client={wagmiClient}>
-      <RainbowKitAuthenticationProvider adapter={adapter} enabled={true} status={status}>
-        <RainbowKitProvider chains={chains}>
-          <ThemeProvider defaultMode="dark">
-            <QueryClientProvider client={queryClient}>
-              <Component {...pageProps} />
-            </QueryClientProvider>
-          </ThemeProvider>
-        </RainbowKitProvider>
-      </RainbowKitAuthenticationProvider>
-    </WagmiConfig>
+    <RainbowKitAuthenticationProvider adapter={adapter} enabled={enabled} status={status}>
+      {children}
+    </RainbowKitAuthenticationProvider>
   )
 }
-
-export default MyApp

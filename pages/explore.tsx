@@ -9,11 +9,11 @@ import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
 
 const Explore: NextPage = () => {
-  const { data: keeps, error } = useQuery(['allKeeps'], () => fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/`))
-
+  const { data: keeps, error } = useQuery(['allKeeps'], () => fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/all`))
+  console.log('keeps', keeps, error)
   return (
     <Layout title={'Home'} content={'Create a Keep'}>
-      <Stack direction={'horizontal'}>
+      <Stack direction={'horizontal'} wrap>
         {keeps &&
           keeps.map((keep: any) => {
             console.log(keep)

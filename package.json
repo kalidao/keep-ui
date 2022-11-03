@@ -19,6 +19,7 @@
     "@rainbow-me/rainbowkit": "^0.7.1",
     "@tanstack/react-query": "^4.13.0",
     "@vanilla-extract/css": "^1.9.1",
+    "@xmtp/xmtp-js": "^7.0.1",
     "ethers": "5.7.1",
     "next": "^12.0.0",
     "react": "^17.0.2",
@@ -27,6 +28,7 @@
     "react-hot-toast": "^2.4.0",
     "react-icons": "^4.6.0",
     "react-step-progress-bar": "^1.0.3",
+    "siwe": "^2.0.0",
     "wagmi": "^0.7.8",
     "zod": "^3.19.1"
   },
