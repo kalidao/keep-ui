@@ -5,6 +5,7 @@ export const layout = style({
   minHeight: '100vh',
   paddingRight: vars.space['5'],
   paddingLeft: vars.space['5'],
+  backgroundColor: vars.colors.black,
 })
 
 export const header = style({

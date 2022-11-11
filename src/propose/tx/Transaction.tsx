@@ -47,7 +47,11 @@ const Transaction = ({ setView }: Props) => {
       if (!nonce) return
       const digest = await getTxHash(Number(chainId), keep as string, op, to, value, data, nonce.toString())
       console.log('nonce', nonce)
-      console.log('digest', digest)
+      console.log('digest', Number(chainId), keep as string, op, to, value, data, nonce.toString(), digest)
+
+      if (digest == 'error') {
+        return
+      }
 
       if (!nonce) return
       const body = {

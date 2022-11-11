@@ -1,12 +1,15 @@
 import type { AppProps } from 'next/app'
 import '@rainbow-me/rainbowkit/styles.css'
 import React, { useRef, useState, useMemo, useEffect } from 'react'
+import merge from 'lodash.merge'
 import {
   AuthenticationStatus,
   createAuthenticationAdapter,
   RainbowKitAuthenticationProvider,
   getDefaultWallets,
   RainbowKitProvider,
+  darkTheme,
+  Theme,
 } from '@rainbow-me/rainbowkit'
 import { SiweMessage } from 'siwe'
 import { chain, configureChains, createClient, useAccount, WagmiConfig } from 'wagmi'
@@ -17,10 +20,9 @@ import '@kalidao/reality/styles'
 import '@design/app.css'
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { AuthProvider } from '~/providers/Auth'
 
 const { chains, provider } = configureChains(
-  [chain.goerli, chain.polygon],
+  [chain.goerli, chain.mainnet, chain.polygon],
   [
     infuraProvider({ apiKey: process.env.NEXT_PUBLIC_INFURA_ID }),
     jsonRpcProvider({
@@ -45,6 +47,19 @@ const wagmiClient = createClient({
 })
 
 const queryClient = new QueryClient()
+
+const theme = merge(darkTheme(), {
+  blurs: {
+    modalOverlay: 'blur(10px)',
+  },
+  colors: {
+    accentColor: 'rgba(76, 29, 149, 0.66)',
+    modalBackground: 'rgba(0, 0, 0, 0.66)',
+    profileAction: 'rgba(76, 29, 149, 1)',
+    profileActionHover: 'rgba(76, 29, 149, 0.66)',
+    connectButtonBackground: '#000',
+  },
+} as Theme)
 
 function MyApp({ Component, pageProps }: AppProps) {
   const fetchingStatusRef = useRef(false)
@@ -142,7 +157,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig client={wagmiClient}>
       <RainbowKitAuthenticationProvider adapter={adapter} enabled={true} status={status}>
-        <RainbowKitProvider chains={chains}>
+        <RainbowKitProvider chains={chains} theme={theme}>
           <ThemeProvider defaultMode="dark">
             <QueryClientProvider client={queryClient}>
               <Component {...pageProps} />

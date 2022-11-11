@@ -12,24 +12,15 @@ import { useSignMessage } from 'wagmi'
 import { ethers } from 'ethers'
 import { KEEP_ABI } from '~/constants'
 import Delete from '~/components/Delete'
-import { trySigning } from '~/utils/sign'
+import { trySigning, tryTypedSigning, tryTypedSigningV4 } from '~/utils/sign'
+import UpVote from '@design/YesVote'
+import { toOp } from '~/utils/toOp'
 
 type Sign = {
   user: `0xstring`
   v: number
   r: `0xstring`
   s: `0xstring`
-}
-
-const toOp = (op: string) => {
-  switch (op) {
-    case 'call':
-      return 0
-    case 'delegatecall':
-      return 1
-    case 'create':
-      return 2
-  }
 }
 
 const Tx: NextPage = () => {
@@ -39,42 +30,44 @@ const Tx: NextPage = () => {
   const { data, isLoading: isLoadingTx } = useQuery(['keep', chainId, keep, txHash], async () =>
     fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/txs/${txHash}`),
   )
-  // const {
-  //   data: tx,
-  //   isError,
-  //   isLoading,
-  //   isSuccess,
-  //   signMessageAsync,
-  // } = useSignMessage({
-  //   message: data?.txHash,
-  // })
-  // const {
-  //   data: typedTx,
-  //   signTypedDataAsync
-  // } = useSignTypedData({
-  //   domain: {
-  //     name: 'Keep',
-  //     version: '1',
-  //     chainId: Number(chainId),
-  //     verifyingContract: keep as `0xstring`,
-  //   },
-  //   types: {
-  //     Execute: [
-  //       { name: 'op', type: 'uint8' },
-  //       { name: 'to', type: 'address' },
-  //       { name: 'value', type: 'uint256' },
-  //       { name: 'data', type: 'bytes' },
-  //       { name: 'nonce', type: 'uint120' },
-  //     ]
-  //   },
-  //   value: {
-  //     op: data?.op,
-  //     to: data?.to,
-  //     value: ethers.BigNumber.from(0),
-  //     data: data?.data,
-  //     nonce: data?.nonce,
-  //   },
-  // })
+  const {
+    data: tx,
+    isError,
+    isLoading,
+    isSuccess,
+    signMessageAsync,
+  } = useSignMessage({
+    message: data?.txHash,
+  })
+  const {
+    data: typedTx,
+    error: typedError,
+    signTypedDataAsync,
+  } = useSignTypedData({
+    domain: {
+      name: 'Keep',
+      version: '1',
+      chainId: Number(chainId),
+      verifyingContract: keep as `0xstring`,
+    },
+    types: {
+      Execute: [
+        { name: 'op', type: 'uint8' },
+        { name: 'to', type: 'address' },
+        { name: 'value', type: 'uint256' },
+        { name: 'data', type: 'bytes' },
+        { name: 'nonce', type: 'uint120' },
+      ],
+    },
+    value: {
+      op: data?.op,
+      to: data?.to,
+      value: ethers.BigNumber.from(0),
+      data: data?.data,
+      nonce: data?.nonce,
+    },
+  })
+  console.log('typedTx', typedTx)
   const op = toOp(data?.op)
   const sigs = data?.sigs
     ?.map((sig: any) => (sig = [sig.signer, sig.v, sig.r, sig.s]))
@@ -104,20 +97,43 @@ const Tx: NextPage = () => {
   const { write } = useContractWrite(config)
 
   const sign = async () => {
-    if (!address && !txHash) return
-    const sign = await trySigning(txHash as string, address as `0xstring`)
-    console.log('sign', sign)
-
+    if (!keep && !chainId && !address && !txHash) return
+    // const sign = await tryTypedSigning({
+    //   chainId: Number(chainId),
+    //   address: keep as string,
+    // }, {
+    //   op: data?.op,
+    //   to: data?.to,
+    //   value: data?.value,
+    //   data: data?.data,
+    //   nonce: data?.nonce,
+    // }, address as string)
+    // console.log('sign', sign)
+    const sign = await tryTypedSigningV4(
+      {
+        chainId: Number(chainId),
+        address: keep as string,
+      },
+      {
+        op: data?.op,
+        to: data?.to,
+        value: data?.value,
+        data: data?.data,
+        nonce: data?.nonce,
+      },
+      address as string,
+    )
+    // const sign = await signTypedDataAsync()
     if (!sign) return
     const { v, r, s } = ethers.utils.splitSignature(sign)
     const body = {
+      keep: keep,
       address: address,
+      chainId: chainId,
       v: v,
       r: r,
       s: s,
     }
-
-    console.log('body', body)
 
     const send = await fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/txs/${data?.txHash}/sign`, {
       method: 'POST',
@@ -164,10 +180,12 @@ const Tx: NextPage = () => {
               <Quorum sigs={data?.sigs} />
             </Stack>
             <Stack direction={'horizontal'} align="center">
-              <Button onClick={sign}>Sign</Button>
-              <Button disabled={!write} onClick={() => write?.()}>
-                Execute
-              </Button>
+              {data?.status == 'pending' && <UpVote onClick={sign} />}
+              {data?.status == 'executable' && (
+                <Button disabled={!write} onClick={() => write?.()}>
+                  Execute
+                </Button>
+              )}
             </Stack>
           </Stack>
         ) : (
