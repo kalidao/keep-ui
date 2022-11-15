@@ -55,8 +55,9 @@ const DashboardLayout = ({ title, content, children }: Props) => {
               avatar={data?.avatar}
               address={data?.address}
               bio={data?.bio}
-              twitter={data?.twitter}
-              discord={data?.discord}
+              website={data?.website_url}
+              twitter={data?.twitter_url}
+              discord={data?.discord_url}
             />
             <Treasury native={treasury?.native} nfts={treasury?.nft} tokens={treasury?.tokens} />
             <Wrappr />

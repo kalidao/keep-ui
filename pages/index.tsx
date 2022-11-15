@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import { Stack, Button, Box, IconGrid } from '@kalidao/reality'
+import { Stack, Button, Box, Text, IconGrid } from '@kalidao/reality'
 import { heading, subheading } from '@design/landing.css'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import Head from 'next/head'

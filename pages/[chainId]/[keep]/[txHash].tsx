@@ -181,11 +181,10 @@ const Tx: NextPage = () => {
             </Stack>
             <Stack direction={'horizontal'} align="center">
               {data?.status == 'pending' && <UpVote onClick={sign} />}
-              {data?.status == 'executable' && (
-                <Button disabled={!write} onClick={() => write?.()}>
-                  Execute
-                </Button>
-              )}
+
+              <Button disabled={!write} onClick={() => write?.()}>
+                Execute
+              </Button>
             </Stack>
           </Stack>
         ) : (
