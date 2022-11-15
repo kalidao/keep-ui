@@ -1,11 +1,16 @@
 import { useState } from 'react'
-import { Text, Stack, Input, Button, IconArrowRight, IconPlus, IconClose, Box } from '@kalidao/reality'
+import { Text, Stack, Input, Button, IconArrowRight, IconPlus, IconClose, Box, IconCheck } from '@kalidao/reality'
 import { CreateProps, Store } from './types'
 import { useForm, useFieldArray, useWatch } from 'react-hook-form'
 import Back from './Back'
+import { validateEns } from '~/utils/ens'
+import { ethers } from 'ethers'
 
 export const Signers = ({ store, setStore, setView }: CreateProps) => {
   const [error, setError] = useState<string>()
+  const [signerStatus, setSignerStatus] = useState([
+    { status: false, isEns: false, address: ethers.constants.AddressZero, message: '' },
+  ])
   const {
     register,
     control,
@@ -50,6 +55,19 @@ export const Signers = ({ store, setStore, setView }: CreateProps) => {
       setError(`You can only add ${maxSigners} signers at formation currently.`)
     }
   }
+
+  const ensSigner = async (ens: string, index: number) => {
+    const validity = await validateEns(ens)
+    const currentStatus = signerStatus
+    currentStatus[index] = validity
+    setSignerStatus(currentStatus)
+  }
+
+  const signerError = (index: number) => {
+    if (errors?.signers?.[index]?.address) return errors?.signers?.[index]?.address?.message
+    if (signerStatus?.[index]?.status === false) return signerStatus?.[index]?.message
+  }
+
   // TODO: Same address error
   return (
     <Box height="full">
@@ -62,30 +80,44 @@ export const Signers = ({ store, setStore, setView }: CreateProps) => {
             </Box>
             {fields.map((field, index) => {
               return (
-                <Stack key={field.id} direction="horizontal" align="center">
-                  <Input
-                    width="full"
-                    label="Signer"
-                    hideLabel
-                    placeholder="0x"
-                    {...register(`signers.${index}.address` as const, {
-                      required: true,
-                    })}
-                    error={errors?.signers?.[index]?.address && errors?.signers?.[index]?.address?.message}
-                  />
-                  <Button
-                    shape="circle"
-                    variant="secondary"
-                    tone="red"
-                    size="small"
-                    type="button"
-                    onClick={() => {
-                      if (index < maxSigners) setError('')
-                      remove(index)
-                    }}
-                  >
-                    <IconClose />
-                  </Button>
+                <Stack>
+                  <Stack key={field.id} direction="horizontal" align="center">
+                    <Input
+                      width="full"
+                      label="Signer"
+                      hideLabel
+                      placeholder="keep.eth"
+                      {...register(`signers.${index}.address` as const, {
+                        required: true,
+                      })}
+                      onBlur={() => ensSigner(watchedSigners[index].address, index)}
+                      error={signerError(index)}
+                    />
+                    <Button
+                      shape="circle"
+                      variant="secondary"
+                      tone="red"
+                      size="small"
+                      type="button"
+                      onClick={() => {
+                        if (index < maxSigners) setError('')
+                        remove(index)
+                      }}
+                    >
+                      <IconClose />
+                    </Button>
+                  </Stack>
+                  <Stack direction={'horizontal'} align="center" justify={'flex-start'}>
+                    {signerStatus?.[index]?.status === true && signerStatus?.[index]?.isEns === true && (
+                      <IconCheck color={'green'} size="3.5" />
+                    )}
+
+                    <Text>
+                      {signerStatus?.[index]?.status === true &&
+                        signerStatus?.[index]?.isEns === true &&
+                        signerStatus?.[index]?.message}
+                    </Text>
+                  </Stack>
                 </Stack>
               )
             })}
