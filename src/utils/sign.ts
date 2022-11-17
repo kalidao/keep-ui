@@ -1,6 +1,5 @@
 import { Operation } from '~/types'
 import { ethers } from 'ethers'
-import { ExternalProvider } from '@ethersproject/providers'
 import { toOp } from './toOp'
 
 export type TxArgs = {
@@ -18,7 +17,7 @@ export type Keep = {
 
 export const trySigning = async (digest: string, user: string): Promise<string | undefined> => {
   try {
-    const provider = new ethers.providers.Web3Provider(window.ethereum as ExternalProvider)
+    const provider = new ethers.providers.Web3Provider(window.ethereum as ethers.providers.ExternalProvider)
     const signer = provider.getSigner()
     const signature = await signer.provider.send('eth_sign', [user, digest])
 
@@ -37,7 +36,7 @@ export const trySigning = async (digest: string, user: string): Promise<string |
 
 export const tryTypedSigningV4 = async (keep: Keep, txArgs: TxArgs, user: string): Promise<string | undefined> => {
   try {
-    const provider = new ethers.providers.Web3Provider(window.ethereum as ExternalProvider)
+    const provider = new ethers.providers.Web3Provider(window.ethereum as ethers.providers.ExternalProvider)
     const signer = provider.getSigner()
     const domain = getDomain(keep.chainId, keep.address)
     const types = getTypes()
@@ -74,7 +73,7 @@ export const tryTypedSigningV4 = async (keep: Keep, txArgs: TxArgs, user: string
 
 export const tryTypedSigning = async (keep: Keep, txArgs: TxArgs, user: string): Promise<string | undefined> => {
   try {
-    const provider = new ethers.providers.Web3Provider(window.ethereum as ExternalProvider)
+    const provider = new ethers.providers.Web3Provider(window.ethereum as ethers.providers.ExternalProvider)
     const signer = provider.getSigner()
     const domain = {
       name: 'Keep',
