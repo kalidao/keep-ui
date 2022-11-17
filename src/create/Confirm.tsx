@@ -24,9 +24,6 @@ export const Confirm = ({ store, setStore, setView }: CreateProps) => {
     address: KEEP_FACTORY_ADDRESS,
     abi: KEEP_FACTORY_ABI,
     functionName: 'deployKeep',
-    overrides: {
-      gasLimit: ethers.BigNumber.from(2000000),
-    },
     args: [
       ethers.utils.formatBytes32String(store.name) as `0x{string}`,
       [],
