@@ -80,7 +80,7 @@ export const Signers = ({ store, setStore, setView }: CreateProps) => {
             </Box>
             {fields.map((field, index) => {
               return (
-                <Stack>
+                <Stack key={index}>
                   <Stack key={field.id} direction="horizontal" align="center">
                     <Input
                       width="full"

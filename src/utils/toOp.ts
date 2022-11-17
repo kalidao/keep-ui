@@ -1,10 +1,12 @@
-export const toOp = (op: string) => {
+import { Operation } from '~/types'
+
+export const toOp = (op: Operation) => {
   switch (op) {
-    case 'call':
+    case Operation.call:
       return 0
-    case 'delegatecall':
+    case Operation.create:
       return 1
-    case 'create':
+    case Operation.delegatecall:
       return 2
   }
 }
