@@ -7,6 +7,7 @@ import Footer from '~/layout/Footer'
 import { layout, header, container, splashContainer, dashboardHeader } from '~/layout/layout.css'
 import Link from 'next/link'
 import Create from '~/create'
+import Image from 'next/image'
 
 const Home: NextPage = () => {
   return (
@@ -28,8 +29,9 @@ const Home: NextPage = () => {
       </Box>
       <Box>
         <Box className={splashContainer}>
-          <h1 className={heading}>Keep</h1>
-          <p className={subheading}>Company.</p>
+          <Image src="/splash.webp" alt="splash" layout="fill" objectFit="cover" />
+          {/* <h1 className={heading}>Keep</h1>
+          <p className={subheading}>Company.</p> */}
         </Box>
         <Create />
       </Box>

@@ -27,8 +27,8 @@ const Home: NextPage = () => {
       </Box>
       <Box className={container}>
         <Box backgroundColor={'black'}>
-          <h1 className={heading}>Keep</h1>
-          <p className={subheading}>Company.</p>
+          <h1 className={heading}>Create. Own. Together.</h1>
+          {/* <p className={subheading}>Keep Company.</p> */}
           <Link href="/create">
             <Button tone="violet" as="a">
               Get Started
