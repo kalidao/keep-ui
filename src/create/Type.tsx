@@ -16,7 +16,7 @@ export const Type = ({ store, setStore, setView }: CreateProps) => {
         <Stack direction={'horizontal'} align="center" justify={'space-between'}>
           <Stack>
             <Heading level="2">Multisig</Heading>
-            <Text>Create group wallet</Text>
+            <Text>Group wallet represented by NFTs</Text>
           </Stack>
           <Button shape="circle" variant="primary" tone="green" onClick={() => navigate(0)}>
             <IconArrowRight />
@@ -27,7 +27,7 @@ export const Type = ({ store, setStore, setView }: CreateProps) => {
         <Stack direction={'horizontal'} align="center" justify={'space-between'}>
           <Stack>
             <Heading level="2">Multisig + DAO</Heading>
-            <Text>Create group wallet with token</Text>
+            <Text>Group wallet with governance token</Text>
           </Stack>
           <Button disabled={true} shape="circle" variant="primary" tone="green" onClick={() => navigate(0)}>
             <IconArrowRight />
