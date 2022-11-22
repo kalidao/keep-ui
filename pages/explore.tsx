@@ -16,14 +16,14 @@ const Explore: NextPage = () => {
       <Stack direction={'horizontal'} wrap>
         {keeps &&
           keeps.map((keep: any) => {
-            console.log(keep)
             return (
-              <Keep
+              <KeepCard
                 key={keep?.address}
                 name={keep?.name}
                 avatar={keep?.avatar}
                 chainId={keep?.chainId}
                 keep={keep?.address}
+                bio={keep?.bio}
               />
             )
           })}
@@ -37,16 +37,20 @@ type Props = {
   chainId: number
   keep: string
   avatar: string | undefined
+  bio: string | undefined
 }
 
-const Keep = ({ name, chainId, keep, avatar }: Props) => {
-  console.log('name', name)
+export const KeepCard = ({ name, chainId, keep, avatar, bio }: Props) => {
+  console.log('name', name, avatar)
   return (
     <Card padding={'6'}>
       <Stack direction={'vertical'}>
         <Stack direction={'horizontal'}>
-          <Avatar src={avatar} label={name + ' avatar'} address={keep} placeholder />
-          <Heading>{name}</Heading>
+          <Avatar src={avatar} shape="square" size="32" label={name + ' avatar'} address={keep} />
+          <Stack>
+            <Heading>{name}</Heading>
+            <Text>{bio}</Text>
+          </Stack>
         </Stack>
         <Link href={`/${chainId}/${keep}`}>
           <Button as="a" shape="square" size="small" variant="secondary">

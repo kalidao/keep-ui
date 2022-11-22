@@ -7,13 +7,13 @@ type Props = {
 const Signal = ({ setView }: Props) => {
   // TODO: Signal for Guilds
   return (
-    <Card level="2" padding="6" width="3/4">
+    <Card padding="6" width="3/4">
       <Stack direction={'horizontal'}>
         <Button shape="circle" variant="tertiary" size="small" onClick={() => setView('preview')}>
           <IconArrowLeft />
         </Button>
         <Stack>
-          <Card level="1" padding="6" width="full">
+          <Card padding="6" width="full">
             <Input label="Title" description="It is a required." placeholder="I am a title of sorts." />
             <Textarea
               label="Description"

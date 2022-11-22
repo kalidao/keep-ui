@@ -1,3 +1,4 @@
 import { getKeepContractConfig } from './useKeep'
+import { useThemeStore } from './useThemeStore'
 
-export { getKeepContractConfig }
+export { getKeepContractConfig, useThemeStore }

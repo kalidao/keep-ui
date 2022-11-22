@@ -40,7 +40,7 @@ export const SendToken = ({ to, setTo, data, setData }: Props) => {
     fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/treasury`),
   )
   const tokens = treasury?.tokens
-  console.log('tokens', keep, chainId, treasury, tokens)
+  console.log('tokens', keep, chainId, treasury)
 
   return (
     <>

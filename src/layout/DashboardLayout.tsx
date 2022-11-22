@@ -8,6 +8,7 @@ import { layout, dashboardHeader, container } from './layout.css'
 import { useQuery } from '@tanstack/react-query'
 import { fetcher } from '~/utils'
 import Footer from './Footer'
+import ToggleMode from './ToggleMode'
 import { Signers, Profile, Wrappr, Treasury } from '~/dashboard'
 
 type Props = {
@@ -39,12 +40,13 @@ const DashboardLayout = ({ title, content, children }: Props) => {
           <Image alt="brand-logo and back button" src="/favicon-32x32.png" height="25" width="25" />
         </Link>
         <Stack direction={'horizontal'}>
+          <ToggleMode />
           <Link href="/explore">
             <Button shape="circle" size="small" variant="secondary" as="a">
               <IconGrid />
             </Button>
           </Link>
-          <ConnectButton />
+          <ConnectButton label="login" chainStatus="icon" showBalance={false} accountStatus="avatar" />
         </Stack>
       </Box>
       <Box className={container}>

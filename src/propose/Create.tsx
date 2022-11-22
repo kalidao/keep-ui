@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Card, Stack, Heading, Text, Button, IconArrowRight } from '@kalidao/reality'
+import { Card, Box, Stack, Heading, Text, Button, IconArrowRight } from '@kalidao/reality'
 import { Transaction } from '~/propose/tx/'
 import { Signal } from '~/propose/signal/'
 
@@ -12,10 +12,10 @@ const Create = () => {
   }
 
   return (
-    <Card padding="6">
+    <Box>
       <Stack>
         <Stack direction={'horizontal'}>
-          <Card level={view !== 'tx' ? '2' : '1'} padding="6" width={'full'} hover={view !== 'tx' ? true : false}>
+          <Card padding="6" width={'full'} hover={view !== 'tx' ? true : false}>
             <Stack direction={'horizontal'} align="center" justify={'space-between'}>
               <Stack>
                 <Heading>Proposal</Heading>
@@ -26,7 +26,7 @@ const Create = () => {
               </Button>
             </Stack>
           </Card>
-          <Card level={view !== 'signal' ? '2' : '1'} padding="6" width="full" hover={view !== 'signal' ? true : false}>
+          <Card padding="6" width="full" hover={view !== 'signal' ? true : false}>
             <Stack direction={'horizontal'} align="center" justify={'space-between'}>
               <Stack>
                 <Heading>Signal</Heading>
@@ -40,7 +40,7 @@ const Create = () => {
         </Stack>
         {views[view]}
       </Stack>
-    </Card>
+    </Box>
   )
 }
 

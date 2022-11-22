@@ -5,16 +5,17 @@ export const layout = style({
   minHeight: '100vh',
   paddingRight: vars.space['5'],
   paddingLeft: vars.space['5'],
-  // backgroundColor: vars.colors.black,
 })
 
 export const header = style({
-  minHeight: '10vh',
+  height: '10vh',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'flex-end',
   zIndex: 10,
   position: 'relative',
+  paddingRight: vars.space['5'],
+  paddingLeft: vars.space['5'],
 })
 
 export const dashboardHeader = style({
@@ -22,11 +23,15 @@ export const dashboardHeader = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
+  paddingRight: vars.space['5'],
+  paddingLeft: vars.space['5'],
 })
 
 export const container = style({
   minHeight: '90vh',
   position: 'relative',
+  paddingRight: vars.space['5'],
+  paddingLeft: vars.space['5'],
 })
 
 export const splashContainer = style({

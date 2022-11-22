@@ -11,10 +11,11 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@fontsource/inter": "^4.5.14",
     "@headlessui/react": "^1.7.3",
     "@hookform/resolvers": "^2.9.8",
     "@kalidao/hooks": "^0.0.5",
-    "@kalidao/reality": "^0.0.5",
+    "@kalidao/reality": "^0.0.8",
     "@next/font": "^13.0.0",
     "@rainbow-me/rainbowkit": "^0.7.1",
     "@tanstack/react-query": "^4.13.0",
@@ -24,6 +25,7 @@
     "ethers": "5.7.1",
     "lodash.merge": "^4.6.2",
     "next": "^12.0.0",
+    "nookies": "^2.5.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.37.0",
@@ -32,7 +34,8 @@
     "react-step-progress-bar": "^1.0.3",
     "siwe": "^2.0.0",
     "wagmi": "^0.7.8",
-    "zod": "^3.19.1"
+    "zod": "^3.19.1",
+    "zustand": "^4.1.4"
   },
   "devDependencies": {
     "@types/lodash.merge": "^4.6.7",

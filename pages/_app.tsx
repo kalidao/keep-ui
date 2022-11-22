@@ -8,6 +8,7 @@ import {
   RainbowKitAuthenticationProvider,
   getDefaultWallets,
   RainbowKitProvider,
+  lightTheme,
   darkTheme,
   Theme,
 } from '@rainbow-me/rainbowkit'
@@ -15,11 +16,17 @@ import { SiweMessage } from 'siwe'
 import { chain, configureChains, createClient, useAccount, WagmiConfig } from 'wagmi'
 import { infuraProvider } from 'wagmi/providers/infura'
 import { publicProvider } from 'wagmi/providers/public'
-import { ThemeProvider } from '@kalidao/reality'
+import { ThemeProvider, useTheme } from '@kalidao/reality'
 import '@kalidao/reality/styles'
 import '@design/app.css'
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import '@fontsource/inter/400.css'
+import '@fontsource/inter/variable-full.css'
+import { getThemeMode } from '~/utils/cookies'
+import { getRainbowTheme } from '~/utils/getRainbowTheme'
+import { useThemeStore } from '~/hooks/useThemeStore'
+import RainbowAvatar from '~/components/RainbowAvatar'
 
 const { chains, provider } = configureChains(
   [chain.goerli, chain.mainnet, chain.polygon],
@@ -47,19 +54,6 @@ const wagmiClient = createClient({
 })
 
 const queryClient = new QueryClient()
-
-const theme = merge(darkTheme(), {
-  blurs: {
-    modalOverlay: 'blur(10px)',
-  },
-  colors: {
-    accentColor: 'rgba(76, 29, 149, 0.66)',
-    modalBackground: 'rgba(0, 0, 0, 0.66)',
-    profileAction: 'rgba(76, 29, 149, 1)',
-    profileActionHover: 'rgba(76, 29, 149, 0.66)',
-    connectButtonBackground: '#000',
-  },
-} as Theme)
 
 function MyApp({ Component, pageProps }: AppProps) {
   const fetchingStatusRef = useRef(false)
@@ -153,19 +147,25 @@ function MyApp({ Component, pageProps }: AppProps) {
       }),
     [],
   )
+  const mode = useThemeStore((state) => state.mode)
+  const [theme, setTheme] = useState<Theme>()
+
+  useEffect(() => {
+    setTheme(getRainbowTheme(mode))
+  }, [mode])
 
   return (
-    <WagmiConfig client={wagmiClient}>
-      <RainbowKitAuthenticationProvider adapter={adapter} enabled={true} status={status}>
-        <RainbowKitProvider chains={chains} theme={theme}>
-          <ThemeProvider defaultMode="dark">
+    <ThemeProvider defaultMode={mode} defaultAccent="indigo">
+      <WagmiConfig client={wagmiClient}>
+        <RainbowKitAuthenticationProvider adapter={adapter} enabled={true} status={status}>
+          <RainbowKitProvider avatar={RainbowAvatar} chains={chains} modalSize="compact" theme={theme}>
             <QueryClientProvider client={queryClient}>
               <Component {...pageProps} />
             </QueryClientProvider>
-          </ThemeProvider>
-        </RainbowKitProvider>
-      </RainbowKitAuthenticationProvider>
-    </WagmiConfig>
+          </RainbowKitProvider>
+        </RainbowKitAuthenticationProvider>
+      </WagmiConfig>
+    </ThemeProvider>
   )
 }
 

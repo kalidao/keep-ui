@@ -1,7 +1,7 @@
-const KEEP = require('~/constants/abis/Keep.json')
+import { KEEP_ABI } from '~/constants/'
 
 export const getKeepContractConfig = (address: string, chainId: number | undefined) => ({
   address: address,
-  abi: KEEP,
+  abi: KEEP_ABI,
   chainId: chainId,
 })

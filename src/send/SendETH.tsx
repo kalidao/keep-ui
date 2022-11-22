@@ -128,20 +128,17 @@ const SendETH = () => {
         recklesslySetUnpreparedArgs: [
           0,
           address,
-          0,
+          ethers.BigNumber.from(0),
           ethers.constants.HashZero,
           [
             {
               user: address,
               v: signature.v,
-              r: signature.r,
-              s: signature.s,
+              r: signature.r as `0x${string}`,
+              s: signature.s as `0x${string}`,
             },
           ],
-        ],
-        recklesslySetUnpreparedOverrides: {
-          gasLimit: 3000000,
-        },
+        ]
       })
 
       console.log('res', res)

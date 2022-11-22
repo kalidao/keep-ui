@@ -36,17 +36,17 @@ const Profile = ({ name, avatar, bio, twitter, website, discord, address }: Prop
         <Stack direction={'horizontal'}>
           {twitter && (
             <Link href={twitter}>
-              <FaTwitter color="white" size="25" />
+              <FaTwitter size="25" />
             </Link>
           )}
           {website && (
             <Link href={website}>
-              <IconLink color="white" />
+              <IconLink />
             </Link>
           )}
           {discord && (
             <Link href={discord}>
-              <FaDiscord color="white" size="25" />
+              <FaDiscord size="25" />
             </Link>
           )}
         </Stack>

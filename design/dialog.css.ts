@@ -37,5 +37,5 @@ export const dialogPanel = style({
   padding: vars.space[6],
   borderRadius: vars.radii['2xLarge'],
   backgroundColor: vars.colors.black,
-  border: `1px solid ${vars.colors.background}`,
+  border: `1px solid ${vars.colors.foregroundSecondary}`,
 })

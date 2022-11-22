@@ -11,11 +11,12 @@ import {
   IconClose,
   IconArrowRight,
   Avatar,
+  Box,
 } from '@kalidao/reality'
 import { useRouter } from 'next/router'
 import { useQuery } from '@tanstack/react-query'
 import { chain, chainId } from 'wagmi'
-import { fetcher } from '~/utils'
+import { fetcher, prettyDate, truncAddress } from '~/utils'
 
 const Proposals = () => {
   const router = useRouter()
@@ -27,7 +28,7 @@ const Proposals = () => {
 
   console.log('proposals', transactions, error)
   return (
-    <Card level="1" padding="6">
+    <Box>
       <Stack>
         <Stack direction="horizontal" justify={'space-between'} align="center">
           <Heading>Proposals</Heading>
@@ -43,7 +44,7 @@ const Proposals = () => {
             txHash={transaction.txHash}
             chainId={transaction.keepChainId}
             keep={transaction.keepAddress}
-            proposer={'shivanshi.eth'}
+            proposer={transaction.authorAddress}
             title={transaction.title}
             description={transaction.content}
             timestamp={transaction.createdAt}
@@ -52,7 +53,7 @@ const Proposals = () => {
           />
         ))}
       </Stack>
-    </Card>
+    </Box>
   )
 }
 
@@ -79,16 +80,22 @@ const ProposalCard = ({
   type,
   status,
 }: ProposalCardProps) => {
+  const { data: profile } = useQuery(['proposalCard', proposer], async () => {
+    return fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/users/${proposer}/`)
+  })
+
   return (
-    <Card padding="6" level="2">
+    <Card padding="6">
       <Stack>
         <Stack direction={'horizontal'} justify="space-between" align="flex-start">
           <Stack>
             <Stack direction={'horizontal'} align="center">
-              <Avatar src="" label="poster" placeholder />
+              <Avatar src={profile?.picture?.original?.url} label={`profile picture ${proposer}`} size="8" />
               <Heading level="2">{title}</Heading>
             </Stack>
-            <Tag label={proposer}>{timestamp}</Tag>
+            <Stack direction={'horizontal'} align="center">
+              <Tag label={profile ? profile?.handle : truncAddress(proposer)}>{prettyDate(timestamp)}</Tag>
+            </Stack>
           </Stack>
           <Tag tone={status == 'Pending' ? 'blue' : 'green'} label={type}>
             {status}

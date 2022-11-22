@@ -1,6 +1,8 @@
 import { Avatar, Card, Heading, Stack, Text } from '@kalidao/reality'
 import { useEnsName } from 'wagmi'
 import { truncAddress } from '~/utils'
+import { useQuery } from '@tanstack/react-query'
+import { fetcher } from '~/utils'
 
 const Signers = ({ signers }: { signers: any[] }) => {
   // const signers = ['shivanshi.eth', 'ross.eth', 'audsssy.eth', 'jordanteague.eth']
@@ -24,13 +26,15 @@ const Signer = ({ signer }: { signer: string }) => {
     address: signer as `0x${string}`,
     chainId: 1,
   })
-
-  console.log('ensName', ensName)
+  const { data: user, error } = useQuery(['signerDashProfile', signer], () =>
+    fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/users/${signer}`),
+  )
+  console.log('user', user?.picture?.original?.url, error)
 
   return (
     <Stack direction="horizontal" align="center">
-      <Avatar src="" placeholder label={signer} address={signer} />
-      <Text>{ensName ? ensName : truncAddress(signer)}</Text>
+      <Avatar src={user?.picture?.original?.url} label={signer} address={signer} />
+      <Text>{user?.handle != undefined ? user?.handle : ensName ? ensName : truncAddress(signer)}</Text>
     </Stack>
   )
 }
