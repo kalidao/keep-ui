@@ -91,16 +91,11 @@ const Transaction = ({ setView }: Props) => {
         </Button>
         <Box width="full">
           <Stack>
-            <Input
-              label="Title"
-              description="It is a required."
-              placeholder="I am a title of sorts."
-              onChange={(e) => setTitle(e.currentTarget.value)}
-            />
+            <Input label="Title" description="" placeholder="Title" onChange={(e) => setTitle(e.currentTarget.value)} />
             <Textarea
               label="Description"
-              description="You can use this field for context."
-              placeholder="I am signaling silly lil things for my silly lil community."
+              description=""
+              placeholder="What is this transaction about?"
               onChange={(e) => setContent(e.currentTarget.value)}
             />
             <SendToken to={to} setTo={setTo} data={data} setData={setData} />

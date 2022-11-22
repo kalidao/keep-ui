@@ -1,7 +1,6 @@
 import Link from 'next/link'
-import { Stack, Heading, Avatar, Text, Card, IconLink } from '@kalidao/reality'
+import { Stack, Heading, Avatar, Text, Card, IconLink, IconTwitter, IconDiscord } from '@kalidao/reality'
 import Image from 'next/image'
-import { FaDiscord, FaTwitter, FaTelegramPlane } from 'react-icons/fa'
 
 type Props = {
   name: string
@@ -36,7 +35,7 @@ const Profile = ({ name, avatar, bio, twitter, website, discord, address }: Prop
         <Stack direction={'horizontal'}>
           {twitter && (
             <Link href={twitter}>
-              <FaTwitter size="25" />
+              <IconTwitter />
             </Link>
           )}
           {website && (
@@ -46,7 +45,7 @@ const Profile = ({ name, avatar, bio, twitter, website, discord, address }: Prop
           )}
           {discord && (
             <Link href={discord}>
-              <FaDiscord size="25" />
+              <IconDiscord />
             </Link>
           )}
         </Stack>

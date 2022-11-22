@@ -7,6 +7,7 @@ import Create from '~/create'
 import { fetcher } from '~/utils'
 import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
+import { KeepCard } from '~/components/'
 
 const Explore: NextPage = () => {
   const { data: keeps, error } = useQuery(['allKeeps'], () => fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/all`))
@@ -29,36 +30,6 @@ const Explore: NextPage = () => {
           })}
       </Stack>
     </Layout>
-  )
-}
-
-type Props = {
-  name: string
-  chainId: number
-  keep: string
-  avatar: string | undefined
-  bio: string | undefined
-}
-
-export const KeepCard = ({ name, chainId, keep, avatar, bio }: Props) => {
-  console.log('name', name, avatar)
-  return (
-    <Card padding={'6'}>
-      <Stack direction={'vertical'}>
-        <Stack direction={'horizontal'}>
-          <Avatar src={avatar} shape="square" size="32" label={name + ' avatar'} address={keep} />
-          <Stack>
-            <Heading>{name}</Heading>
-            <Text>{bio}</Text>
-          </Stack>
-        </Stack>
-        <Link href={`/${chainId}/${keep}`}>
-          <Button as="a" shape="square" size="small" variant="secondary">
-            <IconArrowRight />
-          </Button>
-        </Link>
-      </Stack>
-    </Card>
   )
 }
 

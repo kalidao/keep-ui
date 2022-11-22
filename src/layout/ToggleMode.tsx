@@ -17,7 +17,7 @@ const ToggleMode = () => {
     setMode(nextMode)
     setThemeMode(nextMode)
     toggleModeState()
-  }, [mode, setMode])
+  }, [mode, setMode, toggleModeState])
 
   return (
     <Skeleton loading={!isMounted}>

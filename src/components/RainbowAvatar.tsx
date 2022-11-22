@@ -3,7 +3,8 @@ import { RainbowKitProvider, AvatarComponent } from '@rainbow-me/rainbowkit'
 import { Avatar } from '@kalidao/reality'
 
 const CustomAvatar: AvatarComponent = ({ address, ensImage, size }) => {
-  if (ensImage) return <Image src={ensImage} width={size} height={size} style={{ borderRadius: 999 }} />
+  if (ensImage)
+    return <Image alt="user avatar" src={ensImage} width={size} height={size} style={{ borderRadius: 999 }} />
 
   return (
     <div

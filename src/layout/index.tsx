@@ -33,7 +33,7 @@ const Layout = ({ title, content, children }: Props) => {
               <IconGrid />
             </Button>
           </Link>
-          <ConnectButton label="login" chainStatus="icon" showBalance={false} accountStatus="avatar" />
+          <ConnectButton label="login" chainStatus="icon" showBalance={false} />
         </Stack>
       </Box>
       <Box className={container}>{children}</Box>

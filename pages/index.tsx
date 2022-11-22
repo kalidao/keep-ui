@@ -8,7 +8,7 @@ import { layout, header, container } from '~/layout/layout.css'
 import Link from 'next/link'
 import { useQuery } from '@tanstack/react-query'
 import { fetcher } from '~/utils'
-import { KeepCard } from './explore'
+import { KeepCard } from '~/components'
 
 const Home: NextPage = () => {
   const { data: keeps, error } = useQuery(['allKeeps'], () => fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/all`))
@@ -27,7 +27,7 @@ const Home: NextPage = () => {
               <IconGrid />
             </Button>
           </Link>
-          <ConnectButton label="login" chainStatus="icon" showBalance={false} accountStatus="avatar" />
+          <ConnectButton label="login" chainStatus="icon" showBalance={false} />
         </Stack>
       </Box>
       <Box className={container}>
