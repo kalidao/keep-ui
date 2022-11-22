@@ -138,7 +138,7 @@ const SendETH = () => {
               s: signature.s as `0x${string}`,
             },
           ],
-        ]
+        ],
       })
 
       console.log('res', res)
