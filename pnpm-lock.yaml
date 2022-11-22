@@ -5,7 +5,7 @@ specifiers:
   '@headlessui/react': ^1.7.3
   '@hookform/resolvers': ^2.9.8
   '@kalidao/hooks': ^0.0.5
-  '@kalidao/reality': ^0.0.8
+  '@kalidao/reality': latest
   '@next/font': ^13.0.0
   '@rainbow-me/rainbowkit': ^0.7.1
   '@tanstack/react-query': ^4.13.0
@@ -29,7 +29,6 @@ specifiers:
   react-dom: ^17.0.2
   react-hook-form: ^7.37.0
   react-hot-toast: ^2.4.0
-  react-icons: ^4.6.0
   react-step-progress-bar: ^1.0.3
   siwe: ^2.0.0
   typescript: 4.8.4
@@ -42,7 +41,7 @@ dependencies:
   '@headlessui/react': 1.7.3_sfoxds7t5ydpegc3knd667wn6m
   '@hookform/resolvers': 2.9.9_react-hook-form@7.38.0
   '@kalidao/hooks': 0.0.5_iobhryqifp2jvmeuxtxyhoxbqm
-  '@kalidao/reality': 0.0.8_sfoxds7t5ydpegc3knd667wn6m
+  '@kalidao/reality': 0.0.9-patch_sfoxds7t5ydpegc3knd667wn6m
   '@next/font': 13.0.0
   '@rainbow-me/rainbowkit': 0.7.4_qxa5nei56ktrgqbf7mkmjqm5bm
   '@tanstack/react-query': 4.13.0_sfoxds7t5ydpegc3knd667wn6m
@@ -57,7 +56,6 @@ dependencies:
   react-dom: 17.0.2_react@17.0.2
   react-hook-form: 7.38.0_react@17.0.2
   react-hot-toast: 2.4.0_sfoxds7t5ydpegc3knd667wn6m
-  react-icons: 4.6.0_react@17.0.2
   react-step-progress-bar: 1.0.3_sfoxds7t5ydpegc3knd667wn6m
   siwe: 2.1.3_ethers@5.7.1
   wagmi: 0.7.8_vdurdluo64qj22itvvivecl3tu
@@ -862,13 +860,14 @@ packages:
       wagmi: 0.7.8_vdurdluo64qj22itvvivecl3tu
     dev: false
 
-  /@kalidao/reality/0.0.8_sfoxds7t5ydpegc3knd667wn6m:
-    resolution: {integrity: sha512-Jg2+onANDWSLvFhPwLmNfXluOKR6k9+ONFkCGuCPrZC2IbJEJunPtn7KRI7LjM4DE/3KyZGKYXa1JzuqTtEGig==}
+  /@kalidao/reality/0.0.9-patch_sfoxds7t5ydpegc3knd667wn6m:
+    resolution: {integrity: sha512-0/lriI+LX/IWZkWvyBy6GKtS/3y3iORM6JvL0JuLcfkiTebn5SUeOpcte2BEJ2TQrvL+qsdFJsTivJuexGYXfA==}
     peerDependencies:
       react: ^17
       react-dom: ^17
     dependencies:
       '@radix-ui/react-checkbox': 1.0.1_sfoxds7t5ydpegc3knd667wn6m
+      '@radix-ui/react-separator': 1.0.1_sfoxds7t5ydpegc3knd667wn6m
       '@vanilla-extract/css': 1.9.1
       '@vanilla-extract/css-utils': 0.1.2
       '@vanilla-extract/dynamic': 2.0.2
@@ -1141,6 +1140,18 @@ packages:
     dependencies:
       '@babel/runtime': 7.20.0
       '@radix-ui/react-slot': 1.0.1_react@17.0.2
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+    dev: false
+
+  /@radix-ui/react-separator/1.0.1_sfoxds7t5ydpegc3knd667wn6m:
+    resolution: {integrity: sha512-uc6Izot0D8uVz6T2nSb/HI7OaxkeaD50GgKr3W6HORnbfGVrG7LWuy+g6Fd58n8wHbrRblSYJZEfcjgymMlJjw==}
+    peerDependencies:
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
+    dependencies:
+      '@babel/runtime': 7.20.0
+      '@radix-ui/react-primitive': 1.0.1_sfoxds7t5ydpegc3knd667wn6m
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
     dev: false
@@ -4313,14 +4324,6 @@ packages:
       react-dom: 17.0.2_react@17.0.2
     transitivePeerDependencies:
       - csstype
-    dev: false
-
-  /react-icons/4.6.0_react@17.0.2:
-    resolution: {integrity: sha512-rR/L9m9340yO8yv1QT1QurxWQvWpbNHqVX0fzMln2HEb9TEIrQRGsqiNFQfiv9/JEUbyHmHPlNTB2LWm2Ttz0g==}
-    peerDependencies:
-      react: '*'
-    dependencies:
-      react: 17.0.2
     dev: false
 
   /react-is/16.13.1:

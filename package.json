@@ -15,7 +15,7 @@
     "@headlessui/react": "^1.7.3",
     "@hookform/resolvers": "^2.9.8",
     "@kalidao/hooks": "^0.0.5",
-    "@kalidao/reality": "^0.0.8",
+    "@kalidao/reality": "latest",
     "@next/font": "^13.0.0",
     "@rainbow-me/rainbowkit": "^0.7.1",
     "@tanstack/react-query": "^4.13.0",

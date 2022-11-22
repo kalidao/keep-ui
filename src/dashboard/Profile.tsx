@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Stack, Heading, Avatar, Text, Card, IconLink, IconTwitter, IconDiscord } from '@kalidao/reality'
+import { Stack, Heading, Avatar, Text, Card, IconLink, IconTwitter, IconDiscord, Divider } from '@kalidao/reality'
 import Image from 'next/image'
 
 type Props = {
@@ -23,15 +23,7 @@ const Profile = ({ name, avatar, bio, twitter, website, discord, address }: Prop
             <Text>{bio}</Text>
           </Stack>
         </Stack>
-        <hr
-          style={{
-            marginTop: '30px',
-            marginBottom: '30px',
-            width: '100%',
-            borderRadius: '20px',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-          }}
-        />
+        <Divider />
         <Stack direction={'horizontal'}>
           {twitter && (
             <Link href={twitter}>
