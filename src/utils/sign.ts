@@ -40,10 +40,11 @@ export const tryTypedSigningV4 = async (keep: Keep, txArgs: TxArgs, user: string
     const signer = provider.getSigner()
     const domain = getDomain(keep.chainId, keep.address)
     const types = getTypes()
+
     const values = {
-      op: toOp(txArgs.op),
+      op: 0,
       to: txArgs.to,
-      value: ethers.BigNumber.from(txArgs.value),
+      value: txArgs.value,
       data: txArgs.data,
       nonce: ethers.BigNumber.from(txArgs.nonce),
     }
@@ -53,7 +54,7 @@ export const tryTypedSigningV4 = async (keep: Keep, txArgs: TxArgs, user: string
       primaryType: 'Execute',
       message: values,
     }
-
+    console.log('signature stuff', domain, types, values)
     const sig = await signer._signTypedData(domain, types, values)
 
     // const signature = await signer.provider.send('eth_signTypedData_v4', [user, JSON.stringify(message)])

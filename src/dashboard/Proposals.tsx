@@ -15,7 +15,6 @@ import {
 } from '@kalidao/reality'
 import { useRouter } from 'next/router'
 import { useQuery } from '@tanstack/react-query'
-import { chain, chainId } from 'wagmi'
 import { fetcher, prettyDate, truncAddress } from '~/utils'
 
 const Proposals = () => {
@@ -38,20 +37,22 @@ const Proposals = () => {
             </Button>
           </Link>
         </Stack>
-        {transactions?.map((transaction: any) => (
-          <ProposalCard
-            key={transaction.txHash}
-            txHash={transaction.txHash}
-            chainId={transaction.keepChainId}
-            keep={transaction.keepAddress}
-            proposer={transaction.authorAddress}
-            title={transaction.title}
-            description={transaction.content}
-            timestamp={transaction.createdAt}
-            type={'Transaction'}
-            status={transaction.status}
-          />
-        ))}
+        {transactions &&
+          transactions.length != 0 &&
+          transactions?.map((transaction: any) => (
+            <ProposalCard
+              key={transaction.txHash}
+              txHash={transaction.txHash}
+              chainId={transaction.keepChainId}
+              keep={transaction.keepAddress}
+              proposer={transaction.authorAddress}
+              title={transaction.title}
+              description={transaction.content}
+              timestamp={transaction.createdAt}
+              type={'Transaction'}
+              status={transaction.status}
+            />
+          ))}
       </Stack>
     </Box>
   )

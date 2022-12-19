@@ -15,6 +15,7 @@ import Delete from '~/components/Delete'
 import { trySigning, tryTypedSigning, tryTypedSigningV4 } from '~/utils/sign'
 import UpVote from '@design/YesVote'
 import { toOp } from '~/utils/toOp'
+import { BigNumber } from 'ethers'
 
 type Sign = {
   user: `0xstring`
@@ -75,19 +76,12 @@ const Tx: NextPage = () => {
 
   console.log('sigs', sigs)
   console.log('tx', Number(op), data?.to, data?.value, data?.data, sigs)
-
   const { config, error } = usePrepareContractWrite({
     address: keep as string,
     abi: KEEP_ABI,
     chainId: Number(chainId),
     functionName: 'execute',
-    args: [
-      Number(op),
-      data?.to,
-      data ? ethers.BigNumber.from(data?.value) : ethers.BigNumber.from(0),
-      data?.data,
-      sigs,
-    ],
+    args: [0, data?.to, data ? ethers.BigNumber.from(data?.value) : ethers.BigNumber.from(0), data?.data, sigs],
     overrides: {
       gasLimit: ethers.BigNumber.from(3000000),
     },
@@ -181,7 +175,6 @@ const Tx: NextPage = () => {
             </Stack>
             <Stack direction={'horizontal'} align="center">
               {data?.status == 'pending' && <UpVote onClick={sign} />}
-
               <Button disabled={!write} onClick={() => write?.()}>
                 Execute
               </Button>
