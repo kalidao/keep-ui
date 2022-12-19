@@ -34,10 +34,21 @@ export const Signers = ({ store, setStore, setView }: CreateProps) => {
 
   const onSubmit = (data: Store) => {
     const { signers, threshold } = data
+    const signersWithEns = signers.map((signer, index) => {
+      if (signerStatus[index]?.isEns) {
+        return {
+          address: signerStatus[index].address,
+        }
+      } else {
+        return {
+          address: signer.address,
+        }
+      }
+    })
 
     setStore({
       ...store,
-      signers: signers,
+      signers: signersWithEns,
       threshold: threshold,
     })
 

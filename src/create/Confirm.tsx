@@ -101,6 +101,7 @@ const Signer = ({ index, address }: { index: number; address: string }) => {
     chainId: 1,
   })
 
+  console.log('signer address', address)
   return (
     <Card padding="5" borderRadius={'medium'} width="full" shadow>
       <Text weight="bold">
