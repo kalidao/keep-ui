@@ -4,7 +4,7 @@ export type Store = {
   // 0 for multi-sig, 1 for multi-sig + dao
   type: number
   name: string
-  bio: string 
+  bio: string
   avatar?: File
   twitter?: string
   discord?: string
