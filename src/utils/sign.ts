@@ -3,7 +3,7 @@ import { ethers } from 'ethers'
 import { toOp } from './toOp'
 
 export type TxArgs = {
-  op: Operation
+  op: string
   to: string
   value: string // in wei
   data: string

@@ -76,7 +76,7 @@ const Home: NextPage = () => {
             <svg
               style={{ backgroundColor: 'black' }}
               preserveAspectRatio="xMinYMin meet"
-              viewBox={`10 10 ${window?.innerWidth} ${window?.innerHeight}`}
+              viewBox={`0 0 ${window?.innerWidth} ${window?.innerHeight}`}
             >
               {circles}
             </svg>
