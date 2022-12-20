@@ -86,37 +86,36 @@ const ProposalCard = ({
   })
 
   return (
-    <Card padding="6">
+    <Card padding="6" backgroundColor={'backgroundSecondary'} shadow hover>
       <Stack>
-        <Stack direction={'horizontal'} justify="space-between" align="flex-start">
-          <Stack>
-            <Stack direction={'horizontal'} align="center">
-              <Avatar src={profile?.picture?.original?.url} label={`profile picture ${proposer}`} size="8" />
-              <Heading level="2">{title}</Heading>
+        <Link href={`/${chainId}/${keep}/${txHash}`} passHref>
+          <Box as="a" display={'flex'} flexDirection="column" gap="5">
+            <Stack direction={'horizontal'} justify="space-between" align="flex-start">
+              <Stack>
+                <Stack direction={'horizontal'} align="center">
+                  <Avatar src={profile?.picture?.original?.url} label={`profile picture ${proposer}`} size="8" />
+                  <Heading level="2">{title}</Heading>
+                </Stack>
+                <Stack direction={'horizontal'} align="center">
+                  <Tag label={profile ? profile?.handle : truncAddress(proposer)}>{prettyDate(timestamp)}</Tag>
+                </Stack>
+              </Stack>
+              <Tag tone={status == 'Pending' ? 'blue' : 'green'} label={type}>
+                {status}
+              </Tag>
             </Stack>
-            <Stack direction={'horizontal'} align="center">
-              <Tag label={profile ? profile?.handle : truncAddress(proposer)}>{prettyDate(timestamp)}</Tag>
-            </Stack>
-          </Stack>
-          <Tag tone={status == 'Pending' ? 'blue' : 'green'} label={type}>
-            {status}
-          </Tag>
-        </Stack>
-        <Text>{description}</Text>
+            <Text>{description}</Text>
+          </Box>
+        </Link>
         <Stack direction={'horizontal'} align="center" justify={'space-between'}>
-          <Stack direction={'horizontal'}>
+          {/* <Stack direction={'horizontal'}>
             <Button tone="green" shape="circle" size="small" variant="secondary">
               <IconCheck />
             </Button>
             <Button tone="red" shape="circle" size="small" variant="secondary">
               <IconClose />
             </Button>
-          </Stack>
-          <Link href={`/${chainId}/${keep}/${txHash}`}>
-            <Button tone="accent" size="medium" variant="secondary">
-              <IconArrowRight />
-            </Button>
-          </Link>
+          </Stack> */}
         </Stack>
       </Stack>
     </Card>
