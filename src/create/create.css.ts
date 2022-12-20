@@ -6,7 +6,29 @@ export const container = style({
   padding: vars.space[20],
   borderRadius: vars.radii.large,
   minHeight: '90vh',
-  width: '50%',
+  minWidth: '50vw',
+
+  // // position in center
+  position: 'absolute',
+  top: '0',
+  right: '0',
+  zIndex: '1',
+  // transform: 'translate(-50%, -50%)',
+
+  // flex
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'stretch',
+  gap: vars.space['2.5'],
+})
+
+export const typeContainer = style({
+  background: vars.colors.background,
+  padding: vars.space[20],
+  borderRadius: vars.radii.large,
+  minHeight: '90vh',
+  minWidth: '50vw',
 
   // // position in center
   position: 'absolute',
@@ -19,6 +41,7 @@ export const container = style({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
+  alignItems: 'stretch',
   gap: vars.space['2.5'],
 })
 

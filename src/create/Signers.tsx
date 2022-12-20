@@ -5,6 +5,7 @@ import { useForm, useFieldArray, useWatch } from 'react-hook-form'
 import Back from './Back'
 import { validateEns } from '~/utils/ens'
 import { ethers } from 'ethers'
+import * as styles from './create.css'
 
 export const Signers = ({ store, setStore, setView }: CreateProps) => {
   const [error, setError] = useState<string>()
@@ -81,80 +82,76 @@ export const Signers = ({ store, setStore, setView }: CreateProps) => {
 
   // TODO: Same address error
   return (
-    <Box height="full">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack>
-          <Back setView={setView} to={1} />
-          <Stack>
-            <Box marginLeft={'3'} color="textSecondary" fontWeight="bold">
-              Signers
-            </Box>
-            {fields.map((field, index) => {
-              return (
-                <Stack key={index}>
-                  <Stack key={field.id} direction="horizontal" align="center">
-                    <Input
-                      width="full"
-                      label="Signer"
-                      hideLabel
-                      placeholder="keep.eth"
-                      {...register(`signers.${index}.address` as const, {
-                        required: true,
-                      })}
-                      onBlur={() => ensSigner(watchedSigners[index].address, index)}
-                      error={signerError(index)}
-                    />
-                    <Button
-                      shape="circle"
-                      variant="secondary"
-                      tone="red"
-                      size="small"
-                      type="button"
-                      onClick={() => {
-                        if (index < maxSigners) setError('')
-                        remove(index)
-                      }}
-                    >
-                      <IconClose />
-                    </Button>
-                  </Stack>
-                  <Stack direction={'horizontal'} align="center" justify={'flex-start'}>
-                    {signerStatus?.[index]?.status === true && signerStatus?.[index]?.isEns === true && (
-                      <IconCheck color={'green'} size="3.5" />
-                    )}
+    <Box className={styles.container} as="form" onSubmit={handleSubmit(onSubmit)}>
+      <Back setView={setView} to={1} />
+      <Stack>
+        <Box marginLeft={'3'} color="textSecondary" fontWeight="bold">
+          Signers
+        </Box>
+        {fields.map((field, index) => {
+          return (
+            <Stack key={index}>
+              <Stack key={field.id} direction="horizontal" align="center">
+                <Input
+                  width="full"
+                  label="Signer"
+                  hideLabel
+                  placeholder="keep.eth"
+                  {...register(`signers.${index}.address` as const, {
+                    required: true,
+                  })}
+                  onBlur={() => ensSigner(watchedSigners[index].address, index)}
+                  error={signerError(index)}
+                />
+                <Button
+                  shape="circle"
+                  variant="secondary"
+                  tone="red"
+                  size="small"
+                  type="button"
+                  onClick={() => {
+                    if (index < maxSigners) setError('')
+                    remove(index)
+                  }}
+                >
+                  <IconClose />
+                </Button>
+              </Stack>
+              <Stack direction={'horizontal'} align="center" justify={'flex-start'}>
+                {signerStatus?.[index]?.status === true && signerStatus?.[index]?.isEns === true && (
+                  <IconCheck color={'green'} size="3.5" />
+                )}
 
-                    <Text>
-                      {signerStatus?.[index]?.status === true &&
-                        signerStatus?.[index]?.isEns === true &&
-                        signerStatus?.[index]?.message}
-                    </Text>
-                  </Stack>
-                </Stack>
-              )
-            })}
-            <Button prefix={<IconPlus />} type="button" tone="green" variant="secondary" onClick={addSigner}>
-              Add Signer
-            </Button>
-          </Stack>
-          <Text color="red">{error}</Text>
-          <Input
-            label="Threshold"
-            description="The number of signers required for a transaction to pass."
-            type="number"
-            inputMode="numeric"
-            min="1"
-            max={watchedSigners.length}
-            error={errors?.threshold && errors?.threshold?.message}
-            {...register(`threshold`, {
-              required: true,
-              max: watchedSigners.length,
-            })}
-          />
-          <Button suffix={<IconArrowRight />} width="full" type="submit">
-            Next
-          </Button>
-        </Stack>
-      </form>
+                <Text>
+                  {signerStatus?.[index]?.status === true &&
+                    signerStatus?.[index]?.isEns === true &&
+                    signerStatus?.[index]?.message}
+                </Text>
+              </Stack>
+            </Stack>
+          )
+        })}
+        <Button prefix={<IconPlus />} type="button" tone="green" variant="secondary" onClick={addSigner}>
+          Add Signer
+        </Button>
+      </Stack>
+      <Text color="red">{error}</Text>
+      <Input
+        label="Threshold"
+        description="The number of signers required for a transaction to pass."
+        type="number"
+        inputMode="numeric"
+        min="1"
+        max={watchedSigners.length.toString()}
+        error={errors?.threshold && errors?.threshold?.message}
+        {...register(`threshold`, {
+          required: true,
+          max: watchedSigners.length,
+        })}
+      />
+      <Button suffix={<IconArrowRight />} width="full" type="submit">
+        Next
+      </Button>
     </Box>
   )
 }

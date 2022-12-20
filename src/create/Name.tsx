@@ -23,6 +23,7 @@ import { useForm } from 'react-hook-form'
 import { Store } from './types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
+import * as styles from './create.css'
 
 const schema = z.object({
   name: z
@@ -59,15 +60,7 @@ export const Name = ({ store, setStore, setView }: CreateProps) => {
 
   // TODO: Name needs to be unique per chain. Add check.
   return (
-    <Box
-      display={'flex'}
-      flexDirection="column"
-      gap="5"
-      as="form"
-      height="full"
-      width="full"
-      onSubmit={handleSubmit(onSubmit)}
-    >
+    <Box className={styles.container} as="form" onSubmit={handleSubmit(onSubmit)}>
       <Back setView={setView} to={0} />
       <Input
         label="Name"
