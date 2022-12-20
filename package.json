@@ -22,6 +22,7 @@
     "@vanilla-extract/css": "^1.9.1",
     "@vercel/og": "^0.0.20",
     "@xmtp/xmtp-js": "^7.0.1",
+    "axios": "^1.2.1",
     "ethers": "5.7.1",
     "lodash.merge": "^4.6.2",
     "next": "^12.0.0",
