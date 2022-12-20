@@ -5,7 +5,7 @@ export const container = style({
   background: vars.colors.background,
   padding: vars.space[20],
   borderRadius: vars.radii.large,
-  height: '100%',
+  minHeight: '90vh',
   width: '50%',
 
   // // position in center
@@ -20,4 +20,14 @@ export const container = style({
   flexDirection: 'column',
   justifyContent: 'center',
   gap: vars.space['2.5'],
+})
+
+export const splashContainer = style({
+  minHeight: '100vh',
+  position: 'absolute',
+  zIndex: '9999',
+  top: 0,
+  bottom: 0,
+  left: 0,
+  right: '50%',
 })

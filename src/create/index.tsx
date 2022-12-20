@@ -12,6 +12,7 @@ const Create = () => {
   const [store, setStore] = useState<Store>({
     type: 0,
     name: '',
+    bio: '',
     signers: [
       {
         address: '',

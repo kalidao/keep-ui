@@ -35,6 +35,11 @@ export const container = style({
 })
 
 export const splashContainer = style({
-  minHeight: '90vh',
-  zIndex: '-1',
+  minHeight: '100vh',
+  position: 'absolute',
+  zIndex: '9999',
+  top: 0,
+  bottom: 0,
+  left: 0,
+  right: '50%',
 })
