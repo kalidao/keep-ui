@@ -29,9 +29,13 @@ const Transaction = ({ setView }: Props) => {
   const router = useRouter()
   const { chainId, keep } = router.query
   const { address: author } = useAccount()
-  const { data: meta, isLoading, isError } = useQuery(['keep', chainId, keep], async () =>
-  fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/`),
-)
+  const {
+    data: meta,
+    isLoading,
+    isError,
+  } = useQuery(['keep', chainId, keep], async () =>
+    fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/`),
+  )
   const [data, setData] = useState('')
   const [value, setValue] = useState('0')
   const [op, setOp] = useState(0)
@@ -106,7 +110,9 @@ const Transaction = ({ setView }: Props) => {
               onChange={(e) => setContent(e.currentTarget.value)}
             />
             <SendToken to={to} setTo={setTo} data={data} setData={setData} />
-            <Button onClick={handleTx} disabled={isLoading || isError || notSigner} >Submit</Button>
+            <Button onClick={handleTx} disabled={isLoading || isError || notSigner}>
+              Submit
+            </Button>
           </Stack>
         </Box>
       </Stack>
