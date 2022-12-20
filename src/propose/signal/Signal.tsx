@@ -1,4 +1,8 @@
+import { useRouter } from 'next/router'
 import { Card, Stack, Input, Textarea, Button, IconArrowLeft } from '@kalidao/reality'
+import { useAccount } from 'wagmi'
+import { useQuery } from 'wagmi'
+import { fetcher } from '~/utils'
 
 type Props = {
   setView: React.Dispatch<React.SetStateAction<string>>
@@ -20,7 +24,7 @@ const Signal = ({ setView }: Props) => {
               description="You can use this field for context."
               placeholder="I am a signaling silly lil things for my silly lil community."
             />
-            <Button>Submit</Button>
+            <Button disabled={true}>Submit</Button>
           </Card>
         </Stack>
       </Stack>

@@ -23,13 +23,12 @@ import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import '@fontsource/inter/400.css'
 import '@fontsource/inter/variable-full.css'
-import { getThemeMode } from '~/utils/cookies'
 import { getRainbowTheme } from '~/utils/getRainbowTheme'
 import { useThemeStore } from '~/hooks/useThemeStore'
 import RainbowAvatar from '~/components/RainbowAvatar'
 
 const { chains, provider } = configureChains(
-  [chain.goerli, chain.mainnet, chain.polygon],
+  [chain.mainnet, chain.polygon],
   [
     infuraProvider({ apiKey: process.env.NEXT_PUBLIC_INFURA_ID }),
     jsonRpcProvider({

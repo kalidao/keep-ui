@@ -32,7 +32,7 @@ const Create = () => {
                 <Heading>Signal</Heading>
                 <Text>Signals are off-chain discussion posts for community.</Text>
               </Stack>
-              <Button shape="circle" disabled={view !== 'signal' ? false : true} onClick={() => setView('signal')}>
+              <Button shape="circle" disabled={true} onClick={() => setView('signal')}>
                 <IconArrowRight />
               </Button>
             </Stack>
