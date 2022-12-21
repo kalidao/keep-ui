@@ -97,9 +97,11 @@ const Transaction = ({ setView }: Props) => {
   return (
     <Box className={highBackground}>
       <Stack direction={'horizontal'} justify="space-between">
-        <Button shape="circle" variant="tertiary" size="small" onClick={() => setView('preview')}>
-          <IconArrowLeft />
-        </Button>
+        <Link href={`/${chainId}/${keep}`} passHref>
+          <Button shape="circle" variant="tertiary" size="small" as="a">
+            <IconArrowLeft />
+          </Button>
+        </Link>
         <Box width="full">
           <Stack>
             <Input label="Title" description="" placeholder="Title" onChange={(e) => setTitle(e.currentTarget.value)} />

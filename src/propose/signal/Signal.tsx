@@ -1,21 +1,23 @@
 import { useRouter } from 'next/router'
 import { Card, Stack, Input, Textarea, Button, IconArrowLeft } from '@kalidao/reality'
-import { useAccount } from 'wagmi'
-import { useQuery } from 'wagmi'
-import { fetcher } from '~/utils'
 
 type Props = {
   setView: React.Dispatch<React.SetStateAction<string>>
 }
 
 const Signal = ({ setView }: Props) => {
+  const router = useRouter()
+  const { chainId, keep } = router.query
+
   // TODO: Signal for Guilds
   return (
     <Card padding="6" width="3/4">
       <Stack direction={'horizontal'}>
-        <Button shape="circle" variant="tertiary" size="small" onClick={() => setView('preview')}>
-          <IconArrowLeft />
-        </Button>
+        <Link href={`/${chainId}/${keep}`} passHref>
+          <Button shape="circle" variant="tertiary" size="small" as="a">
+            <IconArrowLeft />
+          </Button>
+        </Link>
         <Stack>
           <Card padding="6" width="full">
             <Input label="Title" description="It is a required." placeholder="I am a title of sorts." />
