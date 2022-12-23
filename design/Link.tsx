@@ -8,7 +8,7 @@ type LinkProps = {
 
 export default function CustomLink({ href, children, ...props }: LinkProps & NextLinkProps) {
   return (
-    <Link href={href} {...props} passHref>
+    <Link href={href} {...props} passHref legacyBehavior>
       <a className={link}>{children}</a>
     </Link>
   )

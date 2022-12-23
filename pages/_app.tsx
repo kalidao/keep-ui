@@ -13,7 +13,8 @@ import {
   Theme,
 } from '@rainbow-me/rainbowkit'
 import { SiweMessage } from 'siwe'
-import { chain, configureChains, createClient, useAccount, WagmiConfig } from 'wagmi'
+import { configureChains, createClient, useAccount, WagmiConfig } from 'wagmi'
+import { polygon } from 'wagmi/chains'
 import { infuraProvider } from 'wagmi/providers/infura'
 import { publicProvider } from 'wagmi/providers/public'
 import { ThemeProvider, useTheme } from '@kalidao/reality'
@@ -28,9 +29,9 @@ import { useThemeStore } from '~/hooks/useThemeStore'
 import RainbowAvatar from '~/components/RainbowAvatar'
 
 const { chains, provider } = configureChains(
-  [chain.mainnet, chain.polygon],
+  [polygon],
   [
-    infuraProvider({ apiKey: process.env.NEXT_PUBLIC_INFURA_ID }),
+    infuraProvider({ apiKey: process.env.NEXT_PUBLIC_INFURA_ID ?? '' }),
     jsonRpcProvider({
       rpc: (chain) => {
         if (chain.id !== 5) return null
@@ -43,7 +44,7 @@ const { chains, provider } = configureChains(
 
 const { connectors } = getDefaultWallets({
   appName: 'Keep',
-  chains,
+  chains
 })
 
 const wagmiClient = createClient({
