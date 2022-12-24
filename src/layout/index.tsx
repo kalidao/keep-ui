@@ -29,8 +29,8 @@ const Layout = ({ title, content, children }: Props) => {
         </Link>
         <Stack direction={'horizontal'}>
           <ToggleMode />
-          <Link href="/explore" legacyBehavior>
-            <Button shape="circle" size="small" variant="secondary" as="a ">
+          <Link href="/explore">
+            <Button shape="circle" size="small" variant="secondary">
               <IconGrid />
             </Button>
           </Link>
