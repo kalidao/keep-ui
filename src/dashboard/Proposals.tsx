@@ -31,7 +31,7 @@ const Proposals = () => {
       <Stack>
         <Stack direction="horizontal" justify={'space-between'} align="center">
           <Heading>Proposals</Heading>
-          <Link href={`/${chainId}/${keep}/create`}>
+          <Link href={`/${chainId}/${keep}/create`} legacyBehavior>
             <Button shape="circle" as="a">
               <IconPlus />
             </Button>
@@ -88,7 +88,7 @@ const ProposalCard = ({
   return (
     <Card padding="6" backgroundColor={'backgroundSecondary'} shadow hover>
       <Stack>
-        <Link href={`/${chainId}/${keep}/${txHash}`} passHref>
+        <Link href={`/${chainId}/${keep}/${txHash}`} passHref legacyBehavior>
           <Box as="a" display={'flex'} flexDirection="column" gap="5">
             <Stack direction={'horizontal'} justify="space-between" align="flex-start">
               <Stack>

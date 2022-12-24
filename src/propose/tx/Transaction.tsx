@@ -1,11 +1,11 @@
 import Link from 'next/link'
 import { highBackground } from '@design/blur.css'
-import { Box, Heading, Card, Stack, Input, Textarea, Button, IconArrowLeft } from '@kalidao/reality'
+import { Box, Stack, Input, Textarea, Button, IconArrowLeft } from '@kalidao/reality'
 import { ethers } from 'ethers'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useAccount, useContractRead } from 'wagmi'
-import { KEEP_ABI, KEEP_HELPER_ABI, KEEP_HELPER_ADDRESS } from '~/constants'
+import { KEEP_ABI } from '~/constants'
 import { getTxHash } from '../getTxHash'
 import { SendToken } from './SendToken'
 import { useQuery } from 'wagmi'
@@ -30,7 +30,11 @@ const Transaction = ({ setView }: Props) => {
   const router = useRouter()
   const { chainId, keep } = router.query
   const { address: author } = useAccount()
-  const { data: meta, isLoading, isError } = useQuery(['keep', chainId, keep], async () =>
+  const {
+    data: meta,
+    isLoading,
+    isError,
+  } = useQuery(['keep', chainId, keep], async () =>
     fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/`),
   )
   const [data, setData] = useState('')
@@ -94,7 +98,7 @@ const Transaction = ({ setView }: Props) => {
   return (
     <Box className={highBackground}>
       <Stack direction={'horizontal'} justify="space-between">
-        <Link href={`/${chainId}/${keep}`} passHref>
+        <Link href={`/${chainId}/${keep}`} legacyBehavior passHref>
           <Button shape="circle" variant="tertiary" size="small" as="a">
             <IconArrowLeft />
           </Button>

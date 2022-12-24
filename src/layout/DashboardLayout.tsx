@@ -35,7 +35,7 @@ const DashboardLayout = ({ title, content, children }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Box className={dashboardHeader} as="header">
-        <Link href="/" passHref>
+        <Link href="/" passHref legacyBehavior>
           <Box fontSize="headingTwo" as="a">
             🏯
           </Box>
@@ -43,7 +43,7 @@ const DashboardLayout = ({ title, content, children }: Props) => {
         </Link>
         <Stack direction={'horizontal'}>
           <ToggleMode />
-          <Link href="/explore">
+          <Link href="/explore" legacyBehavior>
             <Button shape="circle" size="small" variant="secondary" as="a">
               <IconGrid />
             </Button>

@@ -22,7 +22,7 @@ const Home: NextPage = () => {
       </Head>
       <Box className={header}>
         <Stack direction={'horizontal'}>
-          <Link href="/explore">
+          <Link href="/explore" legacyBehavior>
             <Button shape="circle" size="small" variant="secondary" as="a">
               <IconGrid />
             </Button>
@@ -54,7 +54,7 @@ const Home: NextPage = () => {
           <Box>
             <h2 className={subheading}>Create a legally compliant on-chain company in seconds.</h2>
           </Box>
-          <Link href="/create">
+          <Link href="/create" legacyBehavior>
             <Button as="a" variant="secondary">
               Get Started
             </Button>
@@ -64,7 +64,7 @@ const Home: NextPage = () => {
       <Box>
         <Stack direction={'horizontal'} align="center" justify={'space-between'}>
           <Heading>Recently Created</Heading>
-          <Link href="/explore">
+          <Link href="/explore" legacyBehavior>
             <Button tone="accent" as="a">
               Explore
             </Button>

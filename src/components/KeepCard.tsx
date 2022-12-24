@@ -13,7 +13,7 @@ type Props = {
 const KeepCard = ({ name, chainId, keep, avatar, bio }: Props) => {
   console.log('name', name, avatar)
   return (
-    <Link href={`/${chainId}/${keep}`}>
+    <Link href={`/${chainId}/${keep}`} legacyBehavior>
       <a
         style={{
           all: 'unset',

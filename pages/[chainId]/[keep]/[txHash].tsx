@@ -147,7 +147,7 @@ const Tx: NextPage = () => {
           md: 'horizontal',
         }}
       >
-        <Link href={`/${chainId}/${keep}`} passHref>
+        <Link href={`/${chainId}/${keep}`} passHref legacyBehavior>
           <Button size="small" variant="transparent" as="a">
             <IconArrowLeft />
           </Button>

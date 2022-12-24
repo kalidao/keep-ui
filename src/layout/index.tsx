@@ -6,6 +6,7 @@ import { layout, header, container, dashboardHeader } from './layout.css'
 import { Box, Button, IconGrid, Stack } from '@kalidao/reality'
 import Link from 'next/link'
 import Image from 'next/image'
+
 type Props = {
   title: string
   content: string
@@ -28,8 +29,8 @@ const Layout = ({ title, content, children }: Props) => {
         </Link>
         <Stack direction={'horizontal'}>
           <ToggleMode />
-          <Link href="/explore">
-            <Button shape="circle" size="small" variant="secondary" as="a">
+          <Link href="/explore" legacyBehavior>
+            <Button shape="circle" size="small" variant="secondary" as="a ">
               <IconGrid />
             </Button>
           </Link>

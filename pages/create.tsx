@@ -20,7 +20,7 @@ const Home: NextPage = () => {
       </Head>
       <Box className={header}>
         <Stack direction={'horizontal'}>
-          <Link href="/explore">
+          <Link href="/explore" legacyBehaviour>
             <Button shape="circle" size="small" variant="secondary" as="a">
               <IconGrid />
             </Button>

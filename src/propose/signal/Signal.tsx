@@ -14,7 +14,7 @@ const Signal = ({ setView }: Props) => {
   return (
     <Card padding="6" width="3/4">
       <Stack direction={'horizontal'}>
-        <Link href={`/${chainId}/${keep}`} passHref>
+        <Link href={`/${chainId}/${keep}`} passHref legacyBehavior>
           <Button shape="circle" variant="tertiary" size="small" as="a">
             <IconArrowLeft />
           </Button>
