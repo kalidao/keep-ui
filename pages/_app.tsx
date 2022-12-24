@@ -44,7 +44,7 @@ const { chains, provider } = configureChains(
 
 const { connectors } = getDefaultWallets({
   appName: 'Keep',
-  chains
+  chains,
 })
 
 const wagmiClient = createClient({
