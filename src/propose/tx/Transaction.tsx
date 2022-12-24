@@ -30,7 +30,11 @@ const Transaction = ({ setView }: Props) => {
   const router = useRouter()
   const { chainId, keep } = router.query
   const { address: author } = useAccount()
-  const { data: meta, isLoading, isError } = useQuery(['keep', chainId, keep], async () =>
+  const {
+    data: meta,
+    isLoading,
+    isError,
+  } = useQuery(['keep', chainId, keep], async () =>
     fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/`),
   )
   const [data, setData] = useState('')
