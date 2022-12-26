@@ -13,7 +13,7 @@ export const Type = ({ store, setStore, setView }: CreateProps) => {
 
   return (
     <Box className={styles.typeContainer}>
-      <Stack>
+      <Box className={styles.typeShell}>
         <Card padding="6" borderRadius={'2xLarge'} hover>
           <Stack direction={'horizontal'} align="center" justify={'space-between'}>
             <Stack>
@@ -36,7 +36,7 @@ export const Type = ({ store, setStore, setView }: CreateProps) => {
             </Button>
           </Stack>
         </Card>
-      </Stack>
+      </Box>
     </Box>
   )
 }

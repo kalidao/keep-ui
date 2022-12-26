@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
+import Image from 'next/image'
 import { Stack, Button, Box, IconGrid, Text, Heading } from '@kalidao/reality'
-import { heading, subheading, hero } from '@design/landing.css'
+import * as styles from '@design/landing.css'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import Head from 'next/head'
 import Footer from '~/layout/Footer'
@@ -9,9 +10,44 @@ import Link from 'next/link'
 import { useQuery } from '@tanstack/react-query'
 import { fetcher } from '~/utils'
 import { KeepCard } from '~/components'
+import Balencer from 'react-wrap-balancer'
 
 const Home: NextPage = () => {
   const { data: keeps, error } = useQuery(['allKeeps'], () => fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/all`))
+
+  const features = [
+    {
+      title: 'Keep governing.',
+      description: 'Make group decisions at the speed of code through a novel multisig and cellular DAO design.',
+      image: '/features/governance.png',
+    },
+
+    {
+      title: 'Keep building.',
+      description:
+        'Create branded working groups that can divide and conquer using reputation and other branded credentials that demonstrate commitment.',
+      image: '/features/building.png',
+    },
+
+    {
+      title: 'Keep legal.',
+      description:
+        'Form internet-native companies to shield contributors with limited liability, digitize physical assets, and tap a deep bench of aligned lawyers.',
+      image: '/features/legal.png',
+    },
+    {
+      title: 'Keep earning.',
+      description:
+        'Continuously grow your operating capital with thoughtful defi yield strategies that can stream to contributors and reward productivity without paperwork or bank blockers.',
+      image: '/features/governance.png',
+    },
+    {
+      title: 'Keep imagining.',
+      description:
+        'Start small or with an existing community on a flexible codebase that enables easy course correction over what matters most — connecting the dots with people.',
+      image: '/features/governance.png',
+    },
+  ]
 
   return (
     <Box className={layout}>
@@ -31,61 +67,81 @@ const Home: NextPage = () => {
         </Stack>
       </Box>
       <Box className={container}>
-        <Box className={hero}>
-          <Box>
-            <h1 className={heading}>C</h1>
-            <h1 className={heading}>r</h1>
-            <h1 className={heading}>e</h1>
-            <h1 className={heading}>a</h1>
-            <h1 className={heading}>t</h1>
-            <h1 className={heading}>e</h1>
-            <h1 className={heading}>. </h1>
-            <h1 className={heading}>K</h1>
-            <h1 className={heading}>e</h1>
-            <h1 className={heading}>e</h1>
-            <h1 className={heading}>p</h1>
-            <h1 className={heading}>. </h1>
-            <h1 className={heading}>N</h1>
-            <h1 className={heading}>o</h1>
-            <h1 className={heading}>w</h1>
-            <h1 className={heading}>.</h1>
+        <Box className={styles.hero}>
+          <Box display="flex" flexDirection={'column'}>
+            <Balencer>
+              <Box as="h1" className={styles.heading}>
+                Keep
+              </Box>
+            </Balencer>
+            {/* marketing copy for no-code legally complian multisig + dao launcher */}
+            <Balencer>
+              <Box as="h2" className={styles.subheading}>
+                Create a community wallet and keep your company in sync.
+              </Box>
+            </Balencer>
           </Box>
-          {/* marketing copy for no-code legally complian multisig + dao launcher */}
-          <Box>
-            <h2 className={subheading}>Create a legally compliant on-chain company in seconds.</h2>
-          </Box>
-          <Link href="/create" legacyBehavior>
-            <Button as="a" variant="secondary">
-              Get Started
-            </Button>
-          </Link>
+          <Stack direction={'horizontal'}>
+            <Link href="/create" legacyBehavior>
+              <Button as="a" variant="secondary">
+                Get Started
+              </Button>
+            </Link>
+            <Link href="/explore" legacyBehavior>
+              <Button as="a" variant="transparent">
+                Explore
+              </Button>
+            </Link>
+          </Stack>
         </Box>
       </Box>
-      <Box>
-        <Stack direction={'horizontal'} align="center" justify={'space-between'}>
-          <Heading>Recently Created</Heading>
-          <Link href="/explore" legacyBehavior>
-            <Button tone="accent" as="a">
-              Explore
-            </Button>
-          </Link>
-        </Stack>
-        <Stack direction={'horizontal'} wrap>
-          {keeps &&
-            keeps?.slice(0, 3).map((keep: any) => {
-              return (
-                <KeepCard
-                  key={keep?.address}
-                  name={keep?.name}
-                  avatar={keep?.avatar}
-                  chainId={keep?.chainId}
-                  keep={keep?.address}
-                  bio={keep?.bio}
+      <Box className={styles.features}>
+        {features.map((feature, i) => {
+          return (
+            <Box className={i % 2 == 0 ? styles.feature : styles.featureReverse}>
+              <Stack align="flex-start">
+                <Box className={styles.featureTitle}>{feature.title}</Box>
+                <Box className={styles.featureDescription}>{feature.description}</Box>
+              </Stack>
+              {feature.image && (
+                <Image
+                  src={feature.image}
+                  alt={`${feature.title} image`}
+                  width={800}
+                  height={500}
+                  className={styles.featureImage}
                 />
-              )
-            })}
-        </Stack>
+              )}
+            </Box>
+          )
+        })}
       </Box>
+      {/* 
+        Features - 
+
+        1. Keep governing.
+
+          Make group decisions at the speed of code through a novel multisig and cellular DAO design.
+
+          - The cellular DAO design means that the governance of the company can be split into many smaller groups that can govern their own areas of the company.
+
+        2. Keep building.
+
+          Create branded working groups that can divide and conquer using reputation and other branded credentials that demonstrate commitment. 
+
+        3. Keep legal.
+
+          Form internet-native companies to shield contributors with limited liability, digitize physical assets, and tap a deep bench of aligned lawyers.
+
+        4. Keep earning.
+
+          Continuously grow your operating capital with thoughtful defi yield strategies that can stream to contributors and reward productivity without paperwork or bank blockers.
+
+        5. Keep imagining.
+
+          Start small or with an existing community on a flexible codebase that enables easy course correction over what matters most — connecting the dots with people.
+       */}
+
       <Footer />
     </Box>
   )

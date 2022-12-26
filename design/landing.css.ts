@@ -1,10 +1,6 @@
 import { keyframes, style } from '@vanilla-extract/css'
 import { vars } from '@kalidao/reality'
-
-export const subheading = style({
-  fontSize: '32px',
-  color: vars.colors.textSecondary,
-})
+import { serif } from './app.css'
 
 const breathe = keyframes({
   '0%': {
@@ -27,6 +23,60 @@ const breathe = keyframes({
     fontVariationSettings: "'wght' 500, 'slnt' 200",
     fontSize: '180px',
   },
+})
+
+export const subheading = style({
+  fontFamily: serif,
+  fontWeight: 600,
+  fontSize: '32px',
+  color: vars.colors.text,
+})
+
+export const features = style({
+  padding: vars.space['10'],
+})
+
+export const feature = style({
+  minHeight: '80vh',
+  display: 'flex',
+  flexDirection: 'row',
+  gap: vars.space['10'],
+  alignItems: 'flex-start',
+  justifyContent: 'center',
+  textAlign: 'start',
+})
+
+export const featureReverse = style({
+  minHeight: '80vh',
+  display: 'flex',
+  flexDirection: 'row-reverse',
+  gap: vars.space['10'],
+  alignItems: 'flex-start',
+  justifyContent: 'center',
+  textAlign: 'start',
+})
+
+export const featureTitle = style({
+  fontFamily: vars.fonts.sans,
+  fontWeight: 600,
+  fontSize: '48px',
+  color: vars.colors.text,
+})
+
+export const featureDescription = style({
+  fontFamily: vars.fonts.sans,
+  fontWeight: 400,
+  fontSize: '30px',
+  color: vars.colors.text,
+})
+
+export const featureImage = style({
+  maxWidth: '100%',
+  height: 'auto',
+  objectFit: 'cover',
+  aspectRatio: '16/10',
+  borderRadius: vars.radii['2xLarge'],
+  boxShadow: `${vars.colors.accentSecondaryHover} 0px 54px 55px, ${vars.colors.accentTertiary} 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, ${vars.colors.accentSecondary} 0px 12px 13px, ${vars.colors.accentSecondaryHover} 0px -3px 5px`,
 })
 
 export const preview = style({
@@ -52,16 +102,12 @@ export const preview = style({
 
 export const heading = style({
   all: 'unset',
-  fontFamily: vars.fonts.sans,
-  fontWeight: 100,
+  fontFamily: serif,
+  fontWeight: 600,
   fontSize: '180px',
   color: vars.colors.textPrimary,
   minHeight: '200px',
   minWidth: '200px',
-
-  ':hover': {
-    animation: `${breathe} 1s infinite alternate`,
-  },
 
   // '@media': {
   //   '(prefers-reduced-motion)': {
@@ -78,5 +124,5 @@ export const hero = style({
   margin: '-50px 0 0 -50px',
   display: 'flex',
   flexDirection: 'column',
-  gap: vars.space['2'],
+  gap: vars.space['10'],
 })

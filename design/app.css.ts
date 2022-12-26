@@ -1,4 +1,4 @@
-import { globalStyle } from '@vanilla-extract/css'
+import { fontFace, globalStyle } from '@vanilla-extract/css'
 import { vars } from '@kalidao/reality'
 
 globalStyle('html, body', {
@@ -6,3 +6,5 @@ globalStyle('html, body', {
   padding: 0,
   background: vars.colors.background,
 })
+
+export const serif = 'Bodoni Moda'
