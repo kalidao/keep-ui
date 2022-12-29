@@ -56,7 +56,7 @@ export const Name = ({ store, setStore, setView }: CreateProps) => {
       <Back setView={setView} to={0} />
       <Input
         label="Name"
-        description="This will be the on-chain name of your multi-sig."
+        description="This will be the on-chain name of your multisig."
         type="text"
         inputMode="text"
         {...register('name')}
@@ -64,7 +64,7 @@ export const Name = ({ store, setStore, setView }: CreateProps) => {
       />
       <Textarea
         label="Bio"
-        description="This will be the on-chain bio of your multi-sig."
+        description="This will be the on-chain bio of your multisig."
         {...register('bio')}
         error={errors?.bio && errors?.bio?.message}
       />

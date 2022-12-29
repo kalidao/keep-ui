@@ -1,7 +1,7 @@
 import React from 'react'
 
 export type Store = {
-  // 0 for multi-sig, 1 for multi-sig + dao
+  // 0 for multisig, 1 for multisig + dao
   type: number
   name: string
   bio: string
