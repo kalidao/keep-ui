@@ -16,6 +16,7 @@ const domain = {
 const SendETH = () => {
   const { address } = useAccount()
   const { chain } = useNetwork()
+  // @ts-ignore
   const { refetch: getNonce } = useContractRead({
     ...getKeepContractConfig(TEST, 5),
     functionName: 'nonces',
@@ -44,6 +45,7 @@ const SendETH = () => {
       nonce: BigNumber.from(0),
     },
   })
+  // @ts-ignore
   const { writeAsync } = useContractWrite({
     ...getKeepContractConfig(TEST, 5),
     mode: 'recklesslyUnprepared',

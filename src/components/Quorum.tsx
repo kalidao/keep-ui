@@ -1,6 +1,6 @@
 import { ethers } from 'ethers'
 import { useRouter } from 'next/router'
-import { useContractRead } from 'wagmi'
+import { useAccount, useContractRead } from 'wagmi'
 import { KEEP_ABI } from '~/constants'
 import 'react-step-progress-bar/styles.css'
 import { ProgressBar } from 'react-step-progress-bar'
@@ -14,10 +14,11 @@ type Sig = {
 }
 
 const Quorum = ({ sigs }: { sigs: Sig[] }) => {
+  const { address } = useAccount()
   const router = useRouter()
   const { chainId, keep } = router.query
   const { data, error } = useContractRead({
-    address: keep as string,
+    address: keep as typeof address,
     abi: KEEP_ABI,
     chainId: Number(chainId),
     functionName: 'quorum',
