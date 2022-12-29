@@ -98,7 +98,7 @@ const Home: NextPage = () => {
       <Box className={styles.features}>
         {features.map((feature, i) => {
           return (
-            <Box className={i % 2 == 0 ? styles.feature : styles.featureReverse}>
+            <Box key={i} className={i % 2 == 0 ? styles.feature : styles.featureReverse}>
               <Stack align="flex-start">
                 <Box className={styles.featureTitle}>{feature.title}</Box>
                 <Box className={styles.featureDescription}>{feature.description}</Box>
