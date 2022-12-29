@@ -1,8 +1,7 @@
 import Image from 'next/image'
-import { RainbowKitProvider, AvatarComponent } from '@rainbow-me/rainbowkit'
-import { Avatar } from '@kalidao/reality'
+import { AvatarComponent } from '@rainbow-me/rainbowkit'
 
-const CustomAvatar: AvatarComponent = ({ address, ensImage, size }) => {
+const CustomAvatar: AvatarComponent = ({ ensImage, size }) => {
   if (ensImage)
     return <Image alt="user avatar" src={ensImage} width={size} height={size} style={{ borderRadius: 999 }} />
 

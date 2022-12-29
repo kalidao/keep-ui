@@ -1,6 +1,5 @@
-import { Heading, Avatar, Text, Stack, Box, Card, Button, IconArrowRight } from '@kalidao/reality'
+import { Avatar, Text, Stack } from '@kalidao/reality'
 import Link from 'next/link'
-import Image from 'next/image'
 
 type Props = {
   name: string
@@ -10,7 +9,7 @@ type Props = {
   bio: string | undefined
 }
 
-const KeepCard = ({ name, chainId, keep, avatar, bio }: Props) => {
+const KeepCard = ({ name, chainId, keep, avatar }: Props) => {
   console.log('name', name, avatar)
   return (
     <Link href={`/${chainId}/${keep}`} legacyBehavior>

@@ -1,12 +1,8 @@
-import { ConnectButton } from '@rainbow-me/rainbowkit'
 import type { NextPage } from 'next'
-import Head from 'next/head'
-import { Heading, Avatar, Text, Stack, Box, Card, Button, IconArrowRight } from '@kalidao/reality'
+import { Stack } from '@kalidao/reality'
 import Layout from '~/layout'
-import Create from '~/create'
 import { fetcher } from '~/utils'
 import { useQuery } from '@tanstack/react-query'
-import Link from 'next/link'
 import { KeepCard } from '~/components/'
 
 const Explore: NextPage = () => {

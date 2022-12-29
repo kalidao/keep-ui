@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import Link from 'next/link'
-import { Heading, Text, Stack, Card, Button, IconClose, Spinner, IconArrowLeft } from '@kalidao/reality'
+import { Heading, Text, Stack, Card, Button, Spinner, IconArrowLeft } from '@kalidao/reality'
 import Layout from '~/layout/DashboardLayout'
 import { useRouter } from 'next/router'
 import { ViewTx } from '~/proposal'
@@ -12,10 +12,9 @@ import { useSignMessage } from 'wagmi'
 import { ethers } from 'ethers'
 import { KEEP_ABI } from '~/constants'
 import Delete from '~/components/Delete'
-import { trySigning, tryTypedSigning, tryTypedSigningV4 } from '~/utils/sign'
+import { tryTypedSigningV4 } from '~/utils/sign'
 import UpVote from '@design/YesVote'
 import { toOp } from '~/utils/toOp'
-import { BigNumber } from 'ethers'
 
 type Sign = {
   user: `0xstring`
@@ -31,20 +30,10 @@ const Tx: NextPage = () => {
   const { data, isLoading: isLoadingTx } = useQuery(['keep', chainId, keep, txHash], async () =>
     fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/txs/${txHash}`),
   )
-  const {
-    data: tx,
-    isError,
-    isLoading,
-    isSuccess,
-    signMessageAsync,
-  } = useSignMessage({
+  const {} = useSignMessage({
     message: data?.txHash,
   })
-  const {
-    data: typedTx,
-    error: typedError,
-    signTypedDataAsync,
-  } = useSignTypedData({
+  const { data: typedTx } = useSignTypedData({
     domain: {
       name: 'Keep',
       version: '1',
@@ -76,7 +65,7 @@ const Tx: NextPage = () => {
 
   console.log('sigs', sigs)
   console.log('tx', data?.op, Number(op), data?.to, data?.value, data?.data, sigs)
-  const { config, error } = usePrepareContractWrite({
+  const { config } = usePrepareContractWrite({
     address: keep as string,
     abi: KEEP_ABI,
     chainId: Number(chainId),
@@ -136,8 +125,6 @@ const Tx: NextPage = () => {
 
     // TODO: Add confirmation toast
   }
-
-  const execute = () => {}
 
   return (
     <Layout title={'Dashboard'} content={'Manage your Keep'}>

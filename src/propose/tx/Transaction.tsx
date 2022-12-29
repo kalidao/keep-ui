@@ -38,12 +38,12 @@ const Transaction = ({ setView }: Props) => {
     fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/`),
   )
   const [data, setData] = useState('')
-  const [value, setValue] = useState('0')
-  const [op, setOp] = useState(0)
+  const [value] = useState('0')
+  const [op] = useState(0)
   const [to, setTo] = useState('')
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
-  const { data: nonce, refetch: refetchNonce } = useContractRead({
+  const { refetch: refetchNonce } = useContractRead({
     address: keep as `0xstring`,
     abi: KEEP_ABI,
     functionName: 'nonce',

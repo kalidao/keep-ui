@@ -1,16 +1,10 @@
-import { ChangeEvent, InputHTMLAttributes, useState } from 'react'
 import {
-  Card,
   Box,
-  Stack,
-  Heading,
-  Text,
   IconDiscord,
   IconTwitter,
   IconLink,
   Button,
   IconArrowRight,
-  IconArrowLeft,
   Input,
   Textarea,
   MediaPicker,
@@ -18,7 +12,6 @@ import {
 } from '@kalidao/reality'
 import Back from './Back'
 import { CreateProps } from './types'
-import { ethers } from 'ethers'
 import { useForm } from 'react-hook-form'
 import { Store } from './types'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -36,7 +29,6 @@ const schema = z.object({
 export const Name = ({ store, setStore, setView }: CreateProps) => {
   const {
     register,
-    control,
     handleSubmit,
     formState: { errors },
     setValue,

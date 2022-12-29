@@ -1,27 +1,24 @@
 import type { AppProps } from 'next/app'
 import '@rainbow-me/rainbowkit/styles.css'
 import React, { useRef, useState, useMemo, useEffect } from 'react'
-import merge from 'lodash.merge'
 import {
   AuthenticationStatus,
   createAuthenticationAdapter,
   RainbowKitAuthenticationProvider,
   getDefaultWallets,
   RainbowKitProvider,
-  lightTheme,
-  darkTheme,
   Theme,
 } from '@rainbow-me/rainbowkit'
 import { SiweMessage } from 'siwe'
-import { configureChains, createClient, useAccount, WagmiConfig } from 'wagmi'
+import { configureChains, createClient, WagmiConfig } from 'wagmi'
 import { polygon } from 'wagmi/chains'
 import { infuraProvider } from 'wagmi/providers/infura'
 import { publicProvider } from 'wagmi/providers/public'
-import { ThemeProvider, useTheme } from '@kalidao/reality'
+import { ThemeProvider } from '@kalidao/reality'
 import '@kalidao/reality/styles'
 import '@design/app.css'
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
-import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import '@fontsource/inter/400.css'
 import '@fontsource/inter/variable-full.css'
 import '@fontsource/bodoni-moda/variable-full.css'

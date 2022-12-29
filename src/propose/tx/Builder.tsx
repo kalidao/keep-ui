@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Stack, Heading, Input, Card } from '@kalidao/reality'
 import { ChangeEvent } from 'react'
 
@@ -11,9 +11,9 @@ type Props = {
   setData: React.Dispatch<React.SetStateAction<string>>
 }
 
-export const Builder = ({ to, setTo, value, setValue, data, setData }: Props) => {
+export const Builder = ({ setTo }: Props) => {
   const [abi, setABI] = useState<[]>()
-  const [functions, setFunctions] = useState([])
+
   const callTo = async (e: ChangeEvent<HTMLInputElement>) => {
     setTo(e.currentTarget.value)
     try {

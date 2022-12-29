@@ -1,4 +1,3 @@
-import { Operation } from '~/types'
 import { ethers } from 'ethers'
 import { toOp } from './toOp'
 

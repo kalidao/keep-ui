@@ -1,18 +1,5 @@
 import Link from 'next/link'
-import {
-  Card,
-  Heading,
-  Text,
-  Stack,
-  Button,
-  IconPlus,
-  Tag,
-  IconCheck,
-  IconClose,
-  IconArrowRight,
-  Avatar,
-  Box,
-} from '@kalidao/reality'
+import { Card, Heading, Text, Stack, Button, IconPlus, Tag, Avatar, Box } from '@kalidao/reality'
 import { useRouter } from 'next/router'
 import { useQuery } from '@tanstack/react-query'
 import { fetcher, prettyDate, truncAddress } from '~/utils'
