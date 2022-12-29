@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { Box, Button, Text, IconGrid, Stack } from '@kalidao/reality'
+import { Box, Button, IconGrid, Stack } from '@kalidao/reality'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import Head from 'next/head'
 import { layout, dashboardHeader, container } from './layout.css'
@@ -19,11 +19,11 @@ type Props = {
 const DashboardLayout = ({ title, content, children }: Props) => {
   const router = useRouter()
   const { chainId, keep } = router.query
-  const { data, error } = useQuery(['keep', chainId, keep], async () =>
+  const { data } = useQuery(['keep', chainId, keep], async () =>
     fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/`),
   )
   const heading = title + data ? ((' ' + data?.name) as string) + ' ' : '' + '- Keep'
-  const { data: treasury, error: treasuryError } = useQuery(['keep', 'treasury', chainId, keep], async () =>
+  const { data: treasury } = useQuery(['keep', 'treasury', chainId, keep], async () =>
     fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/treasury`),
   )
 

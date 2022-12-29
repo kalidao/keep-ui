@@ -1,13 +1,12 @@
-import { Card, Stack, Heading, Text, Button, IconArrowRight, IconLightningBolt, Box } from '@kalidao/reality'
+import { Card, Stack, Text, Button, IconLightningBolt, Box } from '@kalidao/reality'
 import { useContractRead, useContractWrite, useNetwork, usePrepareContractWrite, useEnsName } from 'wagmi'
 import Back from './Back'
 import { CreateProps } from './types'
 import { ethers } from 'ethers'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
 import { KEEP_FACTORY_ABI, KEEP_FACTORY_ADDRESS } from '~/constants'
 
-export const Confirm = ({ store, setStore, setView }: CreateProps) => {
+export const Confirm = ({ store, setView }: CreateProps) => {
   const router = useRouter()
   const { chain } = useNetwork()
   const { data, error: isDetermineError } = useContractRead({
@@ -37,7 +36,6 @@ export const Confirm = ({ store, setStore, setView }: CreateProps) => {
     error: writeError,
     isError: isWriteError,
     isLoading,
-    isSuccess,
   } = useContractWrite({
     ...config,
     onSuccess: () => {
@@ -96,7 +94,7 @@ export const Confirm = ({ store, setStore, setView }: CreateProps) => {
 }
 
 const Signer = ({ index, address }: { index: number; address: string }) => {
-  const { data, isError, isLoading } = useEnsName({
+  const { data } = useEnsName({
     address: address as `0xstring`,
     chainId: 1,
   })

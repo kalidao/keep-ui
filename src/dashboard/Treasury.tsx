@@ -1,4 +1,4 @@
-import { Card, Stack, Heading, Text, Button, Avatar, IconArrowRight, Stat } from '@kalidao/reality'
+import { Card, Stack, Heading, Text, Button, IconArrowRight, Stat } from '@kalidao/reality'
 import { BigNumberish, ethers } from 'ethers'
 
 type Props = {

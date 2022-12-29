@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Tag } from '@kalidao/reality'
 import { NextRouter } from 'next/router'
 import { Button, Stack, Heading, Text, IconClose } from '@kalidao/reality'
 import { Dialog } from '@headlessui/react'

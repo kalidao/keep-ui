@@ -9,7 +9,7 @@ const ToggleMode = () => {
   // const mode = useThemeStore((state) => state.mode)
   // const toggleMode = useThemeStore((state) => state.toggleMode)
   const isMounted = useIsMounted()
-  const { accent, mode, setMode, setAccent } = useTheme()
+  const { mode, setMode } = useTheme()
   const toggleModeState = useThemeStore((state) => state.toggleMode)
 
   const toggleMode = useCallback(() => {

@@ -1,20 +1,8 @@
-import { useState } from 'react'
-import {
-  useAccount,
-  useContract,
-  useContractRead,
-  useContractWrite,
-  usePrepareContractWrite,
-  useSigner,
-  useSignMessage,
-  useSignTypedData,
-  useNetwork,
-} from 'wagmi'
-import { Button, Heading, Input, Stack, Text } from '@kalidao/reality'
-import { ethers, BigNumber, Signature } from 'ethers'
+import { useAccount, useContractRead, useContractWrite, useSignTypedData, useNetwork } from 'wagmi'
+import { Button, Stack } from '@kalidao/reality'
+import { ethers, BigNumber } from 'ethers'
 import { getKeepContractConfig } from '~/hooks'
 
-const KEEP = require('~/constants/abis/Keep.json')
 const TEST = '0x9D37f810a7E7fa723Bb76A1138ef8C08d161f5F7'
 
 // All properties on a domain are optional
@@ -34,11 +22,10 @@ const SendETH = () => {
     args: [address ? address : ethers.constants.AddressZero],
     enabled: false,
   })
-  const [signature, setSignature] = useState<Signature>()
 
   //('Execute(Operation op,address to,uint256 value,bytes data,uint256 nonce)')
   const { signTypedDataAsync } = useSignTypedData()
-  const { data, error, isError, isLoading, isSuccess, signTypedData } = useSignTypedData({
+  const {} = useSignTypedData({
     domain,
     types: {
       Execute: [

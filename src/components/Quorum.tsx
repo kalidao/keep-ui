@@ -1,11 +1,9 @@
-import { Tag } from '@kalidao/reality'
 import { ethers } from 'ethers'
 import { useRouter } from 'next/router'
-import { useContractRead, useEnsName } from 'wagmi'
+import { useContractRead } from 'wagmi'
 import { KEEP_ABI } from '~/constants'
-import { truncAddress } from '~/utils'
 import 'react-step-progress-bar/styles.css'
-import { ProgressBar, Step } from 'react-step-progress-bar'
+import { ProgressBar } from 'react-step-progress-bar'
 import { Stack, Text } from '@kalidao/reality'
 
 type Sig = {

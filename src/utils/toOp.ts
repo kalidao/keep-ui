@@ -1,5 +1,3 @@
-import { Operation } from '~/types'
-
 export const toOp = (op: string) => {
   switch (op) {
     case 'call':

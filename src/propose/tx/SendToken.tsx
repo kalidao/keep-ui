@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import {
   Box,
   Stack,
@@ -9,7 +9,6 @@ import {
   IconArrowRight,
   Button,
   Tag,
-  IconClose,
   Skeleton,
   SkeletonGroup,
 } from '@kalidao/reality'
@@ -30,13 +29,13 @@ type Props = {
   setData: React.Dispatch<React.SetStateAction<string>>
 }
 
-export const SendToken = ({ to, setTo, data, setData }: Props) => {
+export const SendToken = ({ setTo, setData }: Props) => {
   const [amount, setAmount] = useState('')
   const [sendTo, setSendTo] = useState('')
 
   const router = useRouter()
   const { chainId, keep } = router.query
-  const { data: treasury, isLoading } = useQuery(['keep', 'nfts', keep, chainId], () =>
+  const { data: treasury } = useQuery(['keep', 'nfts', keep, chainId], () =>
     fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/treasury`),
   )
   const tokens = treasury?.tokens

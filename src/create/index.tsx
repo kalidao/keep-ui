@@ -1,4 +1,4 @@
-import { Box, Card, Stack, Heading, Text, Button, IconArrowRight } from '@kalidao/reality'
+import { Box } from '@kalidao/reality'
 import { useState } from 'react'
 import { container } from './create.css'
 import { Type } from './Type'

@@ -1,7 +1,6 @@
 import type { NextPage } from 'next'
-import { Heading, Text, Stack, Box } from '@kalidao/reality'
 import Layout from '~/layout/DashboardLayout'
-import { Signers, Profile, Wrappr, Proposals, Treasury } from '~/dashboard'
+import { Proposals } from '~/dashboard'
 
 const Dashboard: NextPage = () => {
   return (

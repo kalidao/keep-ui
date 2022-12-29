@@ -1,5 +1,5 @@
 import merge from 'lodash.merge'
-import { lightTheme, darkTheme, Theme } from '@rainbow-me/rainbowkit'
+import { darkTheme, Theme } from '@rainbow-me/rainbowkit'
 
 export const getRainbowTheme = (mode: string) => {
   const accentColor = mode === 'dark' ? 'black' : 'white'

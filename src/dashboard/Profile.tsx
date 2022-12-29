@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { Stack, Heading, Avatar, Text, Card, IconLink, IconTwitter, IconDiscord, Divider } from '@kalidao/reality'
-import Image from 'next/image'
 
 type Props = {
   name: string

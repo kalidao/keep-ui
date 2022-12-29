@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import Image from 'next/image'
-import { Stack, Button, Box, IconGrid, Text, Heading } from '@kalidao/reality'
+import { Stack, Button, Box, IconGrid } from '@kalidao/reality'
 import * as styles from '@design/landing.css'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import Head from 'next/head'
@@ -9,23 +9,22 @@ import { layout, header, container } from '~/layout/layout.css'
 import Link from 'next/link'
 import { useQuery } from '@tanstack/react-query'
 import { fetcher } from '~/utils'
-import { KeepCard } from '~/components'
 import Balencer from 'react-wrap-balancer'
 
 const Home: NextPage = () => {
-  const { data: keeps, error } = useQuery(['allKeeps'], () => fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/all`))
+  const {} = useQuery(['allKeeps'], () => fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/all`))
 
   const features = [
     {
       title: 'Keep governing.',
-      description: 'Make group decisions at the speed of code through a novel multisig and cellular DAO design.',
+      description: 'Make group decisions at the speed of code through a novel multisig and DAO design.',
       image: '/features/governance.png',
     },
 
     {
       title: 'Keep building.',
       description:
-        'Create branded working groups that can divide and conquer using reputation and other branded credentials that demonstrate commitment.',
+        'Create branded working groups that can divide and conquer using reputation and other credentials that demonstrate commitment.',
       image: '/features/building.png',
     },
 
@@ -77,7 +76,7 @@ const Home: NextPage = () => {
             {/* marketing copy for no-code legally complian multisig + dao launcher */}
             <Balencer>
               <Box as="h2" className={styles.subheading}>
-                Create a community wallet and keep your company in sync.
+                Better organizing with cryptography.
               </Box>
             </Balencer>
           </Box>

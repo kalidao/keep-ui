@@ -1,5 +1,4 @@
-import { Stack, Heading, Text, Button, Card } from '@kalidao/reality'
-import { useSignMessage } from 'wagmi'
+import { Stack, Text, Card } from '@kalidao/reality'
 
 const ViewTx = ({ tx }: { tx: any }) => {
   return (

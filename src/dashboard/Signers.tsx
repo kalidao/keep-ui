@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query'
 import { fetcher } from '~/utils'
 
 const Signers = ({ signers }: { signers: any[] }) => {
-  // const signers = ['shivanshi.eth', 'ross.eth', 'audsssy.eth', 'jordanteague.eth']
+  // const signers = ['shivanshi.eth', 'z0r0z.eth', 'audsssy.eth', 'jordanteague.eth']
   return (
     <Card padding="6">
       <Stack space="4" align={'flex-start'}>

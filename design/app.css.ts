@@ -1,4 +1,4 @@
-import { fontFace, globalStyle } from '@vanilla-extract/css'
+import { globalStyle } from '@vanilla-extract/css'
 import { vars } from '@kalidao/reality'
 
 globalStyle('html, body', {

@@ -1,4 +1,4 @@
-import { Box, Card, Stack, Heading, Text, Button, IconArrowRight, Tag } from '@kalidao/reality'
+import { Box, Card, Stack, Heading, Text, Button, IconArrowRight } from '@kalidao/reality'
 import { CreateProps } from './types'
 import * as styles from './create.css'
 
@@ -18,7 +18,7 @@ export const Type = ({ store, setStore, setView }: CreateProps) => {
           <Stack direction={'horizontal'} align="center" justify={'space-between'}>
             <Stack>
               <Heading level="2">Multisig</Heading>
-              <Text>Group wallet represented by NFTs</Text>
+              <Text>Group wallet permissioned by NFTs.</Text>
             </Stack>
             <Button shape="circle" variant="primary" tone="green" onClick={() => navigate(0)}>
               <IconArrowRight />
@@ -29,7 +29,7 @@ export const Type = ({ store, setStore, setView }: CreateProps) => {
           <Stack direction={'horizontal'} align="center" justify={'space-between'}>
             <Stack>
               <Heading level="2">Multisig + DAO</Heading>
-              <Text>Group wallet with governance token</Text>
+              <Text>Group wallet with governance token.</Text>
             </Stack>
             <Button disabled={true} shape="circle" variant="primary" tone="green" onClick={() => navigate(0)}>
               <IconArrowRight />
