@@ -66,7 +66,7 @@ const Tx: NextPage = () => {
   console.log('sigs', sigs)
   console.log('tx', data?.op, Number(op), data?.to, data?.value, data?.data, sigs)
   const { config } = usePrepareContractWrite({
-    address: keep as string,
+    address: keep as typeof address,
     abi: KEEP_ABI,
     chainId: Number(chainId),
     functionName: 'execute',

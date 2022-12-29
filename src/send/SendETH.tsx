@@ -19,7 +19,7 @@ const SendETH = () => {
   const { refetch: getNonce } = useContractRead({
     ...getKeepContractConfig(TEST, 5),
     functionName: 'nonces',
-    args: [address ? address : ethers.constants.AddressZero],
+    args: [address as string],
     enabled: false,
   })
 

@@ -34,18 +34,6 @@ const Home: NextPage = () => {
         'Form internet-native companies to shield contributors with limited liability, digitize physical assets, and tap a deep bench of aligned lawyers.',
       image: '/features/legal.png',
     },
-    {
-      title: 'Keep earning.',
-      description:
-        'Continuously grow your operating capital with thoughtful defi yield strategies that can stream to contributors and reward productivity without paperwork or bank blockers.',
-      image: '/features/governance.png',
-    },
-    {
-      title: 'Keep imagining.',
-      description:
-        'Start small or with an existing community on a flexible codebase that enables easy course correction over what matters most — connecting the dots with people.',
-      image: '/features/governance.png',
-    },
   ]
 
   return (
