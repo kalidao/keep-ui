@@ -11,7 +11,7 @@ import {
 } from '@rainbow-me/rainbowkit'
 import { SiweMessage } from 'siwe'
 import { configureChains, createClient, WagmiConfig } from 'wagmi'
-import { polygon } from 'wagmi/chains'
+import { mainnet, polygon } from 'wagmi/chains'
 import { infuraProvider } from 'wagmi/providers/infura'
 import { publicProvider } from 'wagmi/providers/public'
 import { ThemeProvider } from '@kalidao/reality'
@@ -28,7 +28,7 @@ import { useThemeStore } from '~/hooks/useThemeStore'
 import RainbowAvatar from '~/components/RainbowAvatar'
 
 const { chains, provider } = configureChains(
-  [polygon],
+  [mainnet, polygon],
   [
     infuraProvider({ apiKey: process.env.NEXT_PUBLIC_INFURA_ID ?? '' }),
     jsonRpcProvider({

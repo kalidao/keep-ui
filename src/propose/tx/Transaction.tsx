@@ -10,6 +10,11 @@ import { getTxHash } from '../getTxHash'
 import { SendToken } from './SendToken'
 import { useQuery } from 'wagmi'
 import { fetcher } from '~/utils'
+import { TxMenu } from './TxMenu'
+import { TxStore, useTxStore } from './useTxStore'
+import { AppsMenu } from './AppsMenu'
+import { AppTribute } from './AppTribute'
+import { SendNFT } from './SendNFT'
 
 type Props = {
   setView: React.Dispatch<React.SetStateAction<string>>
@@ -30,6 +35,7 @@ const Transaction = ({ setView }: Props) => {
   const router = useRouter()
   const { chainId, keep } = router.query
   const { address: author } = useAccount()
+  const view = useTxStore((state) => state.view)
   const {
     data: meta,
     isLoading,
@@ -94,6 +100,14 @@ const Transaction = ({ setView }: Props) => {
     router.push(`/${chainId}/${keep}`)
   }
 
+  const views: { [key in TxStore['view']]: React.ReactNode } = {
+    menu: <TxMenu />,
+    send_token: <SendToken />,
+    send_nft: <SendNFT />,
+    app: <AppsMenu />,
+    app_tribute: <AppTribute />,
+  }
+
   // TODO: Signal for Guilds
   return (
     <Box className={highBackground}>
@@ -112,7 +126,9 @@ const Transaction = ({ setView }: Props) => {
               placeholder="What is this transaction about?"
               onChange={(e) => setContent(e.currentTarget.value)}
             />
-            <SendToken to={to} setTo={setTo} data={data} setData={setData} />
+
+            {views[view]}
+
             <Button onClick={handleTx} disabled={isLoading || isError || notSigner}>
               Submit
             </Button>

@@ -1,0 +1,225 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  version="1.1"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns:svgjs="http://svgjs.dev/svgjs"
+  viewBox="0 0 400 600"
+  width="400"
+  height="600"
+>
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500');
+    </style>
+  </defs>
+  <style>
+    .styledText {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 18px;
+      font-weight: 500;
+      fill: #fff;
+      whitespace: pre;
+    }
+     
+    .bannerText {
+      width: 100%;
+      height: auto;
+      overflow: visible;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      fill: #fff;
+      whitespace: pre;
+    }
+  </style>
+  <defs>
+    <linearGradient
+      gradientTransform="rotate(-329, 0.5, 0.5)"
+      x1="50%"
+      y1="0%"
+      x2="50%"
+      y2="100%"
+      id="gggrain-gradient2"
+    >
+      <stop stop-color="rgba(0, 0, 0, 1)" stop-opacity="1" offset="-0%" />
+      <stop stop-color="rgba(0,0,0,0)" stop-opacity="0" offset="100%" />
+    </linearGradient>
+    <linearGradient
+      gradientTransform="rotate(329, 0.5, 0.5)"
+      x1="50%"
+      y1="0%"
+      x2="50%"
+      y2="100%"
+      id="gggrain-gradient3"
+    >
+      <stop stop-color="rgba(0, 0, 0, 1)" stop-opacity="1" />
+      <stop stop-color="rgba(0,0,0,0)" stop-opacity="0" offset="100%" />
+    </linearGradient>
+    <filter id="noise-filter">
+      <feTurbulence baseFrequency="0.60" xresult="colorNoise" />
+      <feColorMatrix in="colorNoise" type="matrix" values=".33 .33 .33 0 0 .33 .33 .33 0 0 .33 .33 .33 0 0 0 0 0 1 0" />
+      <feComposite operator="in" in2="SourceGraphic" result="monoNoise" />
+      <feBlend in="SourceGraphic" in2="monoNoise" mode="multiply" />
+    </filter>
+    <filter
+      id="gggrain-filter"
+      x="-20%"
+      y="-20%"
+      width="140%"
+      height="140%"
+      filterUnits="objectBoundingBox"
+      primitiveUnits="userSpaceOnUse"
+      color-interpolation-filters="sRGB"
+    >
+    <feTurbulence
+        type="fractalNoise"
+        baseFrequency="0.99"
+        numOctaves="2"
+        seed="228"
+        stitchTiles="stitch"
+        x="0%"
+        y="0%"
+        width="100%"
+        height="100%"
+        result="turbulence"
+      />
+    <feColorMatrix
+        type="saturate"
+        values="0"
+        x="0%"
+        y="0%"
+        width="100%"
+        height="100%"
+        in="turbulence"
+        result="colormatrix"
+      />
+    <feComponentTransfer x="0%" y="0%" width="100%" height="100%" in="colormatrix" result="componentTransfer">
+      <feFuncR type="linear" slope="3" />
+      <feFuncG type="linear" slope="3" />
+      <feFuncB type="linear" slope="3" />
+    </feComponentTransfer>
+    <feColorMatrix
+        x="0%"
+        y="0%"
+        width="100%"
+        height="100%"
+        in="componentTransfer"
+        result="colormatrix2"
+        type="matrix"
+        values="1 0 0 0 0
+            0 1 0 0 0
+            0 0 1 0 0
+            0 0 0 17 -9"
+      />
+  </filter>
+  <filter
+      id="gggrain-saturate"
+      x="-20%"
+      y="-20%"
+      width="140%"
+      height="140%"
+      filterUnits="objectBoundingBox"
+      primitiveUnits="userSpaceOnUse"
+      color-interpolation-filters="sRGB"
+    >
+    <feColorMatrix
+        type="saturate"
+        values="3"
+        x="0%"
+        y="0%"
+        width="100%"
+        height="100%"
+        in="SourceGraphic"
+        result="colormatrix"
+      />
+  </filter>
+  <!-- 'hsl(180, 98%, 20%) ' gradient -->
+  <linearGradient id="neon-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="hsl(180, 98%, 20%)" />
+    <stop offset="100%" stop-color="hsl(180, 98%, 20%)" />
+  </linearGradient>
+  <!-- filter for adding depth to rectangle or polygon, based on `box-shadow: hsl(180, 98%, 20%) 0px 1px 1px, hsl(180, 98%, 20%) 0px 0px 1px 1px;`  -->
+  <filter id="drop-shadow" height="130%">
+    <feGaussianBlur in="SourceAlpha" stdDeviation="1" />
+    <feOffset dx="0" dy="1" result="offsetblur" />
+    <feFlood flood-color="#39FF14" />
+    <feComposite in2="offsetblur" operator="in" />
+    <feMerge>
+      <feMergeNode />
+      <feMergeNode in="SourceGraphic" />
+    </feMerge>
+  </filter>
+
+  </defs>
+  <g filter="url(#gggrain-saturate)">
+    <rect width="100%" height="100%" fill="rgba(0, 0, 0, 0.9)" />
+    <rect width="100%" height="100%" fill="url(#gggrain-gradient3)" />
+    <rect width="100%" height="100%" fill="url(#gggrain-gradient2)" />
+    <rect
+      width="100%"
+      height="100%"
+      fill="transparent"
+      filter="url(#gggrain-filter)"
+      opacity="1"
+      style="mix-blend-mode: soft-light"
+    />
+  </g>
+  <!-- Add square image 'https://pbs.twimg.com/profile_images/1376348470999724035/nkC7Sf_2_400x400.jpg' in center of the card, leave space for heading on top-->
+  <!-- add graininess to the image -->
+  <image
+    x="50"
+    y="50"
+    width="300"
+    height="300"
+    xlink:href="https://pbs.twimg.com/profile_images/1376348470999724035/nkC7Sf_2_400x400.jpg"
+    preserveAspectRatio="xMidYMid slice"
+    style="filter: url(#noise-filter);"
+    id="avatar"
+  />
+  <g filter="url(#gggrain-saturate)">
+    <!-- Add a black border for the image -->
+    <rect x="50" y="50" width="300" height="300" fill="transparent" stroke="black" stroke-width="20" />
+    <!-- Add a border for the card -->
+    <rect x="0" y="0" width="400" height="600" fill="transparent" stroke="black" stroke-width="10" />
+    <!-- Add thicker border on only right and left side -->
+    <rect x="0" y="0" width="10" height="600" fill="transparent" stroke="black" stroke-width="20" />
+    <rect x="390" y="0" width="10" height="600" fill="transparent" stroke="black" stroke-width="20" />
+    <!-- Add thicker border on only top and bottom side -->
+    <rect x="0" y="0" width="400" height="5" fill="transparent" stroke="black" stroke-width="10" />
+    <rect x="0" y="595" width="400" height="5" fill="transparent" stroke="black" stroke-width="10" />
+    <!-- Add heading on top left  -->
+    <text x="20" y="30" class="styledText">LexDAO</text>
+  </g>
+  <!-- token title -->
+  <text x="270" y="30" class="styledText">Season 2023</text>
+  <!-- add a line to right of "season 2023" text -->
+  <line x1="265" y1="10" x2="265" y2="38" stroke="white" stroke-width="2" />
+  <!-- add a line to bottom of "season 2023" text -->
+  <line x1="265" y1="38" x2="390" y2="38" stroke="white" stroke-width="2" />
+  <!-- add description text for the token title at the bottom of the image id=avatar -->
+  <switch>
+  <foreignObject x="55" y="365" width="290" height="100">
+      <p
+        xmlns="http://www.w3.org/1999/xhtml"
+        style="color: white; font-size: 10px; font-family: 'JetBrains Mono', monospace; text-align: justify; text-justify: pre-character;  white-space: wrap;"
+      >
+        LexDAO is a non-profit that provides legal support to the crypto community. It is a community of lawyers, developers, and entrepreneurs who are passionate about the intersection of law and technology.
+      </p>
+   </foreignObject>
+  <text x="50" y="400">Your SVG viewer cannot display html.</text>
+  </switch>
+  <!-- add a rectangle with 20px border radius to frame the foreignObject -->
+  <rect x="45" y="360" width="310" height="100" rx="20" ry="20" fill="transparent" stroke="url(#neon-gradient)" />
+  <!-- create a tmux like status bar at the bottom of the image with three attributes - holders: 50, signals: 10, proposals: 1 -->
+  <g filter="url(#gggrain-saturate)">
+    <rect x="0" y="570" width="400" height="20" fill="url(#neon-gradient)">
+    </rect>
+    <path id="path" d="M0,585 Q50,585 100,585 T200,585 T300,585 T400,585" />
+    <text x="0" y="585" text-anchor="middle">
+      <textPath class="bannerText" href="#path" startOffset="0%">
+      <animate attributeName="startOffset" from="-50%" to="150%" begin="0s" dur="4s" repeatCount="indefinite" />
+      Holders: 50 ~ Signals: 10 ~ Proposals: 1
+    </textPath>
+    </text>
+  </g>
+</svg>

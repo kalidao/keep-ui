@@ -4,7 +4,7 @@ import Back from './Back'
 import { CreateProps } from './types'
 import { ethers } from 'ethers'
 import { useRouter } from 'next/router'
-import { KEEP_FACTORY_ABI, KEEP_FACTORY_ADDRESS } from '~/constants'
+import { KEEP_ABI, KEEP_FACTORY_ABI, KEEP_FACTORY_ADDRESS } from '~/constants'
 
 export const Confirm = ({ store, setView }: CreateProps) => {
   const router = useRouter()
@@ -16,16 +16,33 @@ export const Confirm = ({ store, setView }: CreateProps) => {
     chainId: chain ? chain.id : 137,
     args: [ethers.utils.formatBytes32String(store.name) as `0x${string}`],
   })
-
   // write
   const signers = store.signers.map((signer) => signer.address).sort((a, b) => +a - +b) as `0xstring`[] // TODO: add validation on address
+
+  // prepare deployment
+  let calls = []
+
+  // URI
+  const SIGN_KEY = 1816876358
+  const iface = new ethers.utils.Interface(KEEP_ABI)
+  const payload = iface.encodeFunctionData('setURI', [
+    SIGN_KEY,
+    `https://api.kali.gg/keeps/${chain?.id}/${data}/${SIGN_KEY}`,
+  ]) as `0x${string}`
+  calls.push({
+    op: 0,
+    to: data ? data : ethers.constants.AddressZero,
+    value: ethers.BigNumber.from(0),
+    data: payload,
+  })
+
   const { config } = usePrepareContractWrite({
     address: KEEP_FACTORY_ADDRESS,
     abi: KEEP_FACTORY_ABI,
     functionName: 'deployKeep',
     args: [
       ethers.utils.formatBytes32String(store.name) as `0x{string}`,
-      [],
+      calls,
       signers,
       ethers.BigNumber.from(store.threshold),
     ],

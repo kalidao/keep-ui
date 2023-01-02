@@ -1,0 +1,13 @@
+{
+  "name": "",
+  "description": "",
+  "image": "",
+  "external_url": "",
+  "attributes": [
+    {
+      "diplay_type": "date",
+      "trait_type": "Summoned",
+      "value": 1620000000 // unix timestamp of summoning
+    }
+  ]
+}

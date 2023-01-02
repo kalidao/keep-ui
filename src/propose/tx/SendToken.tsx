@@ -21,6 +21,7 @@ import { dialog, dialogPanel } from '@design/dialog.css'
 import CloseButton from '@design/CloseButton'
 import { createPayload } from '../createPayload'
 import { ethers } from 'ethers'
+import { useTxStore } from './useTxStore'
 
 type Props = {
   to: string
@@ -29,7 +30,10 @@ type Props = {
   setData: React.Dispatch<React.SetStateAction<string>>
 }
 
-export const SendToken = ({ setTo, setData }: Props) => {
+export const SendToken = () => {
+  const setTo = useTxStore((state) => state.setTo)
+  const setData = useTxStore((state) => state.setData)
+
   const [amount, setAmount] = useState('')
   const [sendTo, setSendTo] = useState('')
 
