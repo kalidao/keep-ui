@@ -43,12 +43,10 @@ const Transaction = ({ setView }: Props) => {
   } = useQuery(['keep', chainId, keep], async () =>
     fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/`),
   )
-  const [data, setData] = useState('')
-  const [value] = useState('0')
-  const [op] = useState(0)
-  const [to, setTo] = useState('')
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
+  const state = useTxStore((state) => state)
+
   const { refetch: refetchNonce } = useContractRead({
     address: keep as `0xstring`,
     abi: KEEP_ABI,
@@ -63,9 +61,27 @@ const Transaction = ({ setView }: Props) => {
     if (chainId && keep) {
       const { data: nonce } = await refetchNonce()
       if (!nonce) return
-      const digest = await getTxHash(Number(chainId), keep as string, op, to, value, data, nonce.toString())
+      const digest = await getTxHash(
+        Number(chainId),
+        keep as string,
+        state.op,
+        state.to,
+        state.value,
+        state.data,
+        nonce.toString(),
+      )
       console.log('nonce', nonce)
-      console.log('digest', Number(chainId), keep as string, op, to, value, data, nonce.toString(), digest)
+      console.log(
+        'digest',
+        Number(chainId),
+        keep as string,
+        state.op,
+        state.to,
+        state.value,
+        state.data,
+        nonce.toString(),
+        digest,
+      )
 
       if (digest == 'error') {
         return
@@ -73,11 +89,11 @@ const Transaction = ({ setView }: Props) => {
 
       if (!nonce) return
       const body = {
-        op: operation(op),
-        to: to,
-        data: data,
+        op: operation(state.op),
+        to: state.to,
+        data: state.data,
         nonce: nonce.toString(),
-        value: ethers.utils.parseEther(value).toString(),
+        value: state.value,
         txHash: digest,
         title: title,
         content: content,
@@ -128,7 +144,6 @@ const Transaction = ({ setView }: Props) => {
             />
 
             {views[view]}
-
             <Button onClick={handleTx} disabled={isLoading || isError || notSigner}>
               Submit
             </Button>

@@ -7,8 +7,8 @@ export type TxStore = {
   setOp: (op: number) => void
   to: `0x${string}`
   setTo: (to: `0x${string}`) => void
-  value: number // in ether, convert to wei string before sending
-  setValue: (value: number) => void
+  value: string // in ether, convert to wei string before sending
+  setValue: (value: string) => void
   data: `0x${string}`
   setData: (data: `0x${string}`) => void
   nonce: number
@@ -22,7 +22,7 @@ export const useTxStore = create<TxStore>((set) => ({
   setOp: (op) => set({ op }),
   to: `0x${'0'.repeat(40)}`,
   setTo: (to) => set({ to }),
-  value: 0,
+  value: '0',
   setValue: (value) => set({ value }),
   data: `0x${'0'.repeat(40)}`,
   setData: (data) => set({ data }),
