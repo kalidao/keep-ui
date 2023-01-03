@@ -36,7 +36,11 @@ const Transaction = ({ setView }: Props) => {
   const { chainId, keep } = router.query
   const { address: author } = useAccount()
   const view = useTxStore((state) => state.view)
-  const { data: meta, isLoading, isError } = useQuery(['keep', chainId, keep], async () =>
+  const {
+    data: meta,
+    isLoading,
+    isError,
+  } = useQuery(['keep', chainId, keep], async () =>
     fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/`),
   )
   const [title, setTitle] = useState('')
