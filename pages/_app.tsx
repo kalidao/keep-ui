@@ -50,6 +50,9 @@ function MyApp({ Component, pageProps }: AppProps) {
             appLogoUrl: '/kali-logo.png',
             appName: 'Keep',
             environmentId: process.env.NEXT_PUBLIC_DYNAMIC_ID ?? '',
+            multiWallet: true,
+            privacyPolicyUrl: '/privacy',
+            termsOfServiceUrl: '/tos',
           }}
         >
           <WagmiConfig client={wagmiClient}>
