@@ -23,17 +23,7 @@ import { createPayload } from '../createPayload'
 import { ethers } from 'ethers'
 import { useTxStore } from './useTxStore'
 
-type Props = {
-  to: string
-  setTo: React.Dispatch<React.SetStateAction<string>>
-  data: string
-  setData: React.Dispatch<React.SetStateAction<string>>
-}
-
 export const SendToken = () => {
-  const setTo = useTxStore((state) => state.setTo)
-  const setData = useTxStore((state) => state.setData)
-
   const [amount, setAmount] = useState('')
   const [sendTo, setSendTo] = useState('')
 
@@ -61,15 +51,13 @@ export const SendToken = () => {
               key={token.token.contractAddress}
               name={token.token.name}
               symbol={token.token.symbol}
-              address={token.token.contractAddress}
+              address={token.token.contractAddress as `0xstring`}
               balance={token.value}
               decimals={token.token.decimals}
               sendTo={sendTo}
               setSendTo={setSendTo}
-              setTo={setTo}
               amount={amount}
               setAmount={setAmount}
-              setData={setData}
             />
           ))}
         </Stack>
@@ -81,31 +69,20 @@ export const SendToken = () => {
 type TokenProps = {
   name: string
   symbol: string
-  address: string
+  address: `0xstring`
   balance: string
   decimals: string
   sendTo: string
   amount: string
   setAmount: React.Dispatch<React.SetStateAction<string>>
-  setTo: React.Dispatch<React.SetStateAction<string>>
   setSendTo: React.Dispatch<React.SetStateAction<string>>
-  setData: React.Dispatch<React.SetStateAction<string>>
 }
 
-const Token = ({
-  name,
-  symbol,
-  address,
-  decimals,
-  balance,
-  sendTo,
-  setTo,
-  amount,
-  setAmount,
-  setSendTo,
-  setData,
-}: TokenProps) => {
+const Token = ({ name, symbol, address, decimals, balance, sendTo, amount, setAmount, setSendTo }: TokenProps) => {
   const [isOpen, setIsOpen] = useState(false)
+  const setTo = useTxStore((state) => state.setTo)
+  const setData = useTxStore((state) => state.setData)
+
   const send = (tokenAddress: string) => {
     setTo(address)
     setSendTo(tokenAddress)
@@ -121,7 +98,7 @@ const Token = ({
     })
 
     if (data != 'error') {
-      setData(data)
+      setData(data as `0xstring`)
     }
 
     setIsOpen(false)

@@ -1,11 +1,11 @@
 import { Stack, Box, Text, IconTokens, IconMenu } from '@kalidao/reality'
-import { ThemeStore, useTxStore } from './useTxStore'
+import { TxStore, useTxStore } from './useTxStore'
 import * as styles from './styles.css'
 
 interface MenuItem {
   icon: React.ReactNode
   label: string
-  view: ThemeStore['view']
+  view: TxStore['view']
 }
 
 export const TxMenu = () => {

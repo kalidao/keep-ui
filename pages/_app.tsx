@@ -15,7 +15,7 @@ import '@fontsource/inter/variable-full.css'
 import '@fontsource/bodoni-moda/variable-full.css'
 import { DynamicContextProvider } from '@dynamic-labs/sdk-react'
 import { DynamicWagmiConnector } from '@dynamic-labs/wagmi-connector'
-import * as css from '@design/app.css'
+import '@design/global.css'
 import { useThemeStore } from '~/hooks/useThemeStore'
 
 const { chains, provider } = configureChains(
