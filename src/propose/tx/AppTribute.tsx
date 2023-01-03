@@ -15,30 +15,20 @@ export const AppTribute = () => {
   const setTo = useTxStore((state) => state.setTo)
   const setOp = useTxStore((state) => state.setOp)
   const setValue = useTxStore((state) => state.setValue)
-  const setNonce = useTxStore((state) => state.setNonce)
-
   const router = useRouter()
-  const { address, chainId } = router.query
-  const { data: nonce, refetch: fetchNonce } = useContractRead({
-    address: address ? (address as string) : ethers.constants.AddressZero,
-    abi: KEEP_ABI,
-    functionName: 'nonce',
-    chainId: chainId ? parseInt(chainId as string) : 1,
-  })
+  const address = router.query.keep as `0xstring`
 
   useEffect(() => {
     if (!isActive) {
       setOp(0)
       setValue('0')
-      setTo(TRIBUTE_ROUTER_ADDRESS)
+      setTo(address)
 
       const payload = createPayload('add_tribute', {})
 
-      if (typeof payload === 'string') {
-        return
-      }
+      console.log('payload', payload)
 
-      setData(payload)
+      setData(payload as `0xstring`)
     }
 
     if (isActive) {

@@ -2,7 +2,6 @@ import type { NextPage } from 'next'
 import Image from 'next/image'
 import { Stack, Button, Box, IconGrid } from '@kalidao/reality'
 import * as styles from '@design/landing.css'
-import { ConnectButton } from '@rainbow-me/rainbowkit'
 import Head from 'next/head'
 import Footer from '~/layout/Footer'
 import { layout, header, container } from '~/layout/layout.css'
@@ -10,6 +9,7 @@ import Link from 'next/link'
 import { useQuery } from '@tanstack/react-query'
 import { fetcher } from '~/utils'
 import Balencer from 'react-wrap-balancer'
+import { ConnectButton } from '~/components/ConnectButton'
 
 const Home: NextPage = () => {
   const {} = useQuery(['allKeeps'], () => fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/all`))
@@ -50,7 +50,7 @@ const Home: NextPage = () => {
               <IconGrid />
             </Button>
           </Link>
-          <ConnectButton label="login" chainStatus="icon" showBalance={false} />
+          <ConnectButton />
         </Stack>
       </Box>
       <Box className={container}>

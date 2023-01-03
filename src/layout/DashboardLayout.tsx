@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { Box, Button, IconGrid, Stack } from '@kalidao/reality'
-import { ConnectButton } from '@rainbow-me/rainbowkit'
 import Head from 'next/head'
 import { layout, dashboardHeader, container } from './layout.css'
 import { useQuery } from '@tanstack/react-query'
@@ -9,6 +8,7 @@ import { fetcher } from '~/utils'
 import Footer from './Footer'
 import ToggleMode from './ToggleMode'
 import { Signers, Profile, Wrappr, Treasury } from '~/dashboard'
+import { ConnectButton } from '~/components/ConnectButton'
 
 type Props = {
   title: string
@@ -48,7 +48,7 @@ const DashboardLayout = ({ title, content, children }: Props) => {
               <IconGrid />
             </Button>
           </Link>
-          <ConnectButton label="login" chainStatus="icon" showBalance={false} />
+          <ConnectButton />
         </Stack>
       </Box>
       <Box className={container}>

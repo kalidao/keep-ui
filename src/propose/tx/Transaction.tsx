@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { highBackground } from '@design/blur.css'
-import { Box, Stack, Input, Textarea, Button, IconArrowLeft } from '@kalidao/reality'
+import { Box, Text, Stack, Input, Textarea, Button, IconArrowLeft } from '@kalidao/reality'
 import { ethers } from 'ethers'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
@@ -36,11 +36,7 @@ const Transaction = ({ setView }: Props) => {
   const { chainId, keep } = router.query
   const { address: author } = useAccount()
   const view = useTxStore((state) => state.view)
-  const {
-    data: meta,
-    isLoading,
-    isError,
-  } = useQuery(['keep', chainId, keep], async () =>
+  const { data: meta, isLoading, isError } = useQuery(['keep', chainId, keep], async () =>
     fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/`),
   )
   const [title, setTitle] = useState('')
@@ -142,8 +138,8 @@ const Transaction = ({ setView }: Props) => {
               placeholder="What is this transaction about?"
               onChange={(e) => setContent(e.currentTarget.value)}
             />
-
             {views[view]}
+            <Text>To: {state.to}</Text>
             <Button onClick={handleTx} disabled={isLoading || isError || notSigner}>
               Submit
             </Button>

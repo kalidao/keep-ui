@@ -1,12 +1,12 @@
 import React from 'react'
 import type { NextPage } from 'next'
 import { Stack, Button, Box, IconGrid } from '@kalidao/reality'
-import { ConnectButton } from '@rainbow-me/rainbowkit'
 import Head from 'next/head'
 import { layout, header } from '~/layout/layout.css'
 import Link from 'next/link'
 import Create from '~/create'
 import { Splash } from '~/create/Splash'
+import { ConnectButton } from '~/components/ConnectButton'
 
 const Home: NextPage = () => {
   return (

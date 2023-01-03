@@ -1,0 +1,19 @@
+/* add !important to all rules in connectButton */
+.connectButton {
+    background-color: #000 !important;
+    border: 1px solid #fff !important;
+    color: #fff !important;
+    font-size: 13px !important;
+    font-family: 'JetBrains Mono', 'monospace' !important;
+    font-weight: 400 !important;
+    padding: 8px 10px !important;
+    text-decoration: none !important;
+    border-radius: 12px !important;
+    box-shadow: 0 1px 0 #fff !important;
+    cursor: pointer !important;
+    display: block !important;
+    outline: none !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    width: auto !important;
+}

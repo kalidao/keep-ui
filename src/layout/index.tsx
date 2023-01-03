@@ -1,4 +1,3 @@
-import { ConnectButton } from '@rainbow-me/rainbowkit'
 import Head from 'next/head'
 import Footer from './Footer'
 import ToggleMode from './ToggleMode'
@@ -6,6 +5,7 @@ import { layout, container, dashboardHeader } from './layout.css'
 import { Box, Button, IconGrid, Stack } from '@kalidao/reality'
 import Link from 'next/link'
 import Image from 'next/image'
+import { ConnectButton } from '~/components/ConnectButton'
 
 type Props = {
   title: string
@@ -34,7 +34,7 @@ const Layout = ({ title, content, children }: Props) => {
               <IconGrid />
             </Button>
           </Link>
-          <ConnectButton label="login" chainStatus="icon" showBalance={false} />
+          <ConnectButton />
         </Stack>
       </Box>
       <Box className={container}>{children}</Box>
