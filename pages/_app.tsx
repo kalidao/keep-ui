@@ -1,8 +1,6 @@
 import type { AppProps } from 'next/app'
-import React, { useRef, useState, useMemo, useEffect } from 'react'
-import { SiweMessage } from 'siwe'
 import { configureChains, createClient, WagmiConfig } from 'wagmi'
-import { mainnet, polygon } from 'wagmi/chains'
+import { mainnet, arbitrum, optimism, polygon, gnosis, goerli } from 'wagmi/chains'
 import { infuraProvider } from 'wagmi/providers/infura'
 import { publicProvider } from 'wagmi/providers/public'
 import { ThemeProvider } from '@kalidao/reality'
@@ -14,12 +12,11 @@ import '@fontsource/inter/400.css'
 import '@fontsource/inter/variable-full.css'
 import '@fontsource/bodoni-moda/variable-full.css'
 import { DynamicContextProvider } from '@dynamic-labs/sdk-react'
-import { DynamicWagmiConnector } from '@dynamic-labs/wagmi-connector'
 import '@design/global.css'
 import { useThemeStore } from '~/hooks/useThemeStore'
 
-const { chains, provider } = configureChains(
-  [mainnet, polygon],
+const { provider } = configureChains(
+  [mainnet, arbitrum, optimism, polygon, gnosis, goerli],
   [
     infuraProvider({ apiKey: process.env.NEXT_PUBLIC_INFURA_ID ?? '' }),
     jsonRpcProvider({
