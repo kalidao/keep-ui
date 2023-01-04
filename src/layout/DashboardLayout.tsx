@@ -27,6 +27,8 @@ const DashboardLayout = ({ title, content, children }: Props) => {
     fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/treasury`),
   )
 
+  console.log('treasury', treasury)
+
   return (
     <Box className={layout}>
       <Head>
@@ -63,7 +65,12 @@ const DashboardLayout = ({ title, content, children }: Props) => {
               twitter={data?.twitter_url}
               discord={data?.discord_url}
             />
-            <Treasury native={treasury?.native} nfts={treasury?.nft} tokens={treasury?.tokens} />
+            <Treasury
+              native={treasury?.items.filter((item: any) => item.native_token == true)[0]}
+              nfts={treasury?.nft ?? []}
+              tokens={treasury?.items.filter((item: any) => item.native_token == false)}
+              synced={treasury.updated_at}
+            />
             <Wrappr />
             <Signers signers={data?.signers} />
           </Stack>

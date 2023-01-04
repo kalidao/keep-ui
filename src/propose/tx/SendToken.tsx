@@ -32,15 +32,14 @@ export const SendToken = () => {
   const { data: treasury } = useQuery(['keep', 'nfts', keep, chainId], () =>
     fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/treasury`),
   )
-  const tokens = treasury?.tokens
-  console.log('tokens', keep, chainId, treasury)
+  const tokens = treasury?.items.filter((item: any) => ethers.BigNumber.from(item.balance).gt(ethers.BigNumber.from(0)))
 
+  console.log('tokens', tokens)
   return (
     <>
       <Card padding="6">
         <Stack>
           <Heading level="2">Send Token</Heading>
-          {/* TODO: ADD NATIVE TOKEN - ETH, MATIC */}
           <SkeletonGroup loading={tokens ? false : true}>
             <Skeleton backgroundColor={'backgroundTertiary'} height="24" width="full" />
             <Skeleton backgroundColor={'backgroundTertiary'} height="24" width="full" />
@@ -48,12 +47,13 @@ export const SendToken = () => {
           </SkeletonGroup>
           {tokens?.map((token: any) => (
             <Token
-              key={token.token.contractAddress}
-              name={token.token.name}
-              symbol={token.token.symbol}
-              address={token.token.contractAddress as `0xstring`}
-              balance={token.value}
-              decimals={token.token.decimals}
+              key={token.contract_address}
+              name={token.contract_name}
+              symbol={token.contract_ticker_symbol}
+              address={token.contract_address as `0xstring`}
+              balance={ethers.utils.formatUnits(token.balance, token.contract_decimals)}
+              native={Boolean(token.native_token)}
+              decimals={token.contract_decimals}
               sendTo={sendTo}
               setSendTo={setSendTo}
               amount={amount}
@@ -72,33 +72,51 @@ type TokenProps = {
   address: `0xstring`
   balance: string
   decimals: string
+  native: boolean
   sendTo: string
   amount: string
   setAmount: React.Dispatch<React.SetStateAction<string>>
   setSendTo: React.Dispatch<React.SetStateAction<string>>
 }
 
-const Token = ({ name, symbol, address, decimals, balance, sendTo, amount, setAmount, setSendTo }: TokenProps) => {
+const Token = ({
+  name,
+  symbol,
+  address,
+  decimals,
+  native,
+  balance,
+  sendTo,
+  amount,
+  setAmount,
+  setSendTo,
+}: TokenProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const setTo = useTxStore((state) => state.setTo)
   const setData = useTxStore((state) => state.setData)
+  const setValue = useTxStore((state) => state.setValue)
 
-  const send = (tokenAddress: string) => {
-    setTo(address)
-    setSendTo(tokenAddress)
+  const send = () => {
     setIsOpen(true)
   }
 
   const handleConfirm = async () => {
     console.log('amount', address, sendTo, amount, ethers.utils.parseEther(amount))
-    const data = await createPayload('erc20', {
-      to: sendTo,
-      value: amount,
-      decimals: decimals,
-    })
+    if (native) {
+      setTo(sendTo as `0xstring`)
+      setData(ethers.constants.HashZero)
+      setValue(ethers.utils.parseUnits(amount, decimals).toString())
+    } else {
+      setTo(address)
+      const data = await createPayload('erc20', {
+        to: sendTo,
+        value: amount,
+        decimals: decimals,
+      })
 
-    if (data != 'error') {
-      setData(data as `0xstring`)
+      if (data != 'error') {
+        setData(data as `0xstring`)
+      }
     }
 
     setIsOpen(false)
@@ -111,7 +129,7 @@ const Token = ({ name, symbol, address, decimals, balance, sendTo, amount, setAm
           <Text>{name}</Text>
           <Text>{symbol}</Text>
           <Text>{balance}</Text>
-          <Button prefix={<IconArrowRight />} onClick={() => send(address)}>
+          <Button prefix={<IconArrowRight />} onClick={() => send()}>
             Send
           </Button>
         </Stack>
@@ -138,12 +156,16 @@ const Token = ({ name, symbol, address, decimals, balance, sendTo, amount, setAm
               label="Amount"
               name="amount"
               type="number"
-              labelSecondary={<Tag>{balance} DAI max</Tag>}
+              labelSecondary={
+                <Tag>
+                  {balance} {symbol} max
+                </Tag>
+              }
               units={symbol}
               min={0}
               max={balance}
               placeholder={balance}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setAmount(e.currentTarget.value)}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setAmount(e.target.value)}
             />
             <Button width="full" onClick={handleConfirm}>
               Confirm
