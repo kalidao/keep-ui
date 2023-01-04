@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { highBackground } from '@design/blur.css'
 import { Box, Text, Stack, Input, Textarea, Button, IconArrowLeft } from '@kalidao/reality'
-import { ethers } from 'ethers'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useAccount, useContractRead } from 'wagmi'
@@ -31,7 +30,7 @@ const operation = (op: number) => {
   }
 }
 
-const Transaction = ({ setView }: Props) => {
+const Transaction = ({}: Props) => {
   const router = useRouter()
   const { chainId, keep } = router.query
   const { address: author } = useAccount()

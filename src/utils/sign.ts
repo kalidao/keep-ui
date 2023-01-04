@@ -47,12 +47,6 @@ export const tryTypedSigningV4 = async (keep: Keep, txArgs: TxArgs, user: string
       data: txArgs.data,
       nonce: ethers.BigNumber.from(txArgs.nonce),
     }
-    const message = {
-      domain: domain,
-      types: types,
-      primaryType: 'Execute',
-      message: values,
-    }
     console.log('signature stuff', domain, types, values)
     const sig = await signer._signTypedData(domain, types, values)
 
