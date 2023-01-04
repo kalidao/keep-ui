@@ -13,8 +13,9 @@ export const createPayload = (template: string, params: any): `0xstring` | strin
       return data as `0xstring`
     case 'add_tribute':
       iface = new ethers.utils.Interface(KEEP_ABI)
-      console.log('add_tribute params: ', TRIBUTE_ROUTER_ADDRESS, MINT_KEY, 1, ethers.constants.HashZero)
-      data = iface.encodeFunctionData('mint', [TRIBUTE_ROUTER_ADDRESS, MINT_KEY, 1, ethers.constants.HashZero])
+      const descriptionPayload = ethers.utils.defaultAbiCoder.encode(['string'], [params?.description])
+      console.log('add_tribute params: ', TRIBUTE_ROUTER_ADDRESS, MINT_KEY, 1, params?.description, descriptionPayload)
+      data = iface.encodeFunctionData('mint', [TRIBUTE_ROUTER_ADDRESS, MINT_KEY, 1, descriptionPayload])
       return data as `0xstring`
     case 'remove_tribute':
       iface = new ethers.utils.Interface(KEEP_ABI)

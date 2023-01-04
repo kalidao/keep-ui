@@ -1,9 +1,6 @@
-import { Box, Button, Checkbox, Text, Stack } from '@kalidao/reality'
-import { ethers } from 'ethers'
+import { Text, Stack } from '@kalidao/reality'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
-import { useContractRead } from 'wagmi'
-import { KEEP_ABI, TRIBUTE_ROUTER_ADDRESS } from '~/constants'
+import { useEffect } from 'react'
 import { createPayload } from '../createPayload'
 import { useTxStore } from './useTxStore'
 
@@ -17,6 +14,7 @@ export const AppTribute = () => {
   const setValue = useTxStore((state) => state.setValue)
   const router = useRouter()
   const address = router.query.keep as `0xstring`
+  const chainId = parseInt(router.query.chainId as string)
 
   useEffect(() => {
     if (!isActive) {
@@ -24,7 +22,11 @@ export const AppTribute = () => {
       setValue('0')
       setTo(address)
 
-      const payload = createPayload('add_tribute', {})
+      const descriptionUrl = `https://api.kali.gg/keeps/${chainId}/${address}/tribute`
+
+      const payload = createPayload('add_tribute', {
+        description: descriptionUrl,
+      })
 
       console.log('payload', payload)
 
@@ -40,8 +42,13 @@ export const AppTribute = () => {
   }
 
   return (
-    <Text>
-      This will add the Tribute app to your Keep. Tribute allows others to request your Keep for tokens with a gift.
-    </Text>
+    <Stack>
+      <Text>
+        This will add the Tribute app to your Keep. Tribute allows others to request your Keep for tokens with a gift.
+      </Text>
+      <select>
+        <option value="0">Select a token</option>
+      </select>
+    </Stack>
   )
 }
