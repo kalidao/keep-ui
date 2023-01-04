@@ -9,7 +9,7 @@ type Props = {
 }
 
 const Treasury = ({ native, nfts, tokens, synced }: Props) => {
-  const _balance = native ? ethers.utils.formatUnits(native.balance) : 0
+  const _balance = native ? ethers.utils.formatUnits(native?.balance) : 0
   const _tokens = tokens ? tokens?.length : 0
   // const _nfts = nfts ? nfts?.length : 0
 
@@ -18,7 +18,7 @@ const Treasury = ({ native, nfts, tokens, synced }: Props) => {
       <Stack justify={'space-between'} space="13">
         <Heading>Treasury</Heading>
         <Stack direction={'horizontal'}>
-          <Stat label="Balance" value={_balance} meta={native.contract_ticker_symbol} />
+          <Stat label="Balance" value={_balance} meta={native?.contract_ticker_symbol} />
           {/* <Stat label="Collectibles" value={_nfts} meta="NFTs" /> */}
           <Stat label="Tokens" value={_tokens} meta={'ERC20s'} />
         </Stack>
