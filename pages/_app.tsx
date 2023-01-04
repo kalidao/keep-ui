@@ -1,6 +1,6 @@
 import type { AppProps } from 'next/app'
 import { configureChains, createClient, WagmiConfig } from 'wagmi'
-import { mainnet, arbitrum, optimism, polygon, gnosis, goerli } from 'wagmi/chains'
+import { mainnet, polygon } from 'wagmi/chains'
 import { infuraProvider } from 'wagmi/providers/infura'
 import { publicProvider } from 'wagmi/providers/public'
 import { ThemeProvider } from '@kalidao/reality'
@@ -16,7 +16,7 @@ import '@design/global.css'
 import { useThemeStore } from '~/hooks/useThemeStore'
 
 const { provider } = configureChains(
-  [mainnet, arbitrum, optimism, polygon, gnosis, goerli],
+  [mainnet, polygon],
   [
     infuraProvider({ apiKey: process.env.NEXT_PUBLIC_INFURA_ID ?? '' }),
     jsonRpcProvider({
