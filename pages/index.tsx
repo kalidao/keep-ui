@@ -37,7 +37,7 @@ const Home: NextPage = () => {
   ]
 
   return (
-    <Box className={layout}>
+    <Box className={layout} lang="en">
       <Head>
         <title>Keep - Home</title>
         <meta name="description" content={'This is the homepage of Keep.'} />

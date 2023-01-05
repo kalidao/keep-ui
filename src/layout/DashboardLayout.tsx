@@ -30,7 +30,7 @@ const DashboardLayout = ({ title, content, children }: Props) => {
   console.log('treasury', treasury)
 
   return (
-    <Box className={layout}>
+    <Box className={layout} lang="en">
       <Head>
         <title>{heading}</title>
         <meta name="description" content={content} />
