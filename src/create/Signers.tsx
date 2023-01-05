@@ -6,12 +6,12 @@ import Back from './Back'
 import * as styles from './create.css'
 
 export const Signers = ({ store, setStore, setView }: CreateProps) => {
-  const [error, setError] = useState<string>()
   const {
     register,
     control,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<Store>({
     defaultValues: {
       signers: store.signers,
@@ -42,6 +42,13 @@ export const Signers = ({ store, setStore, setView }: CreateProps) => {
 
   const maxSigners = 9
   const addSigner = () => {
+    if (watchedSigners.length > maxSigners) {
+      setError(`signers.${watchedSigners.length - 1}.address`, {
+        type: 'maxLength',
+        message: 'Max signers reached.',
+      })
+      return
+    }
     append({
       address: '',
     })
@@ -75,7 +82,6 @@ export const Signers = ({ store, setStore, setView }: CreateProps) => {
                   size="small"
                   type="button"
                   onClick={() => {
-                    if (index < maxSigners) setError('')
                     remove(index)
                   }}
                 >
@@ -89,7 +95,6 @@ export const Signers = ({ store, setStore, setView }: CreateProps) => {
           Add Signer
         </Button>
       </Stack>
-      <Text color="red">{error}</Text>
       <Input
         label="Threshold"
         description="The number of signers required for a transaction to pass."
