@@ -17,25 +17,6 @@ import { DynamicWagmiConnector } from '@dynamic-labs/wagmi-connector'
 import '@design/global.css'
 import { useThemeStore } from '~/hooks/useThemeStore'
 
-const { provider } = configureChains(
-  [mainnet, polygon],
-  [
-    infuraProvider({ apiKey: process.env.NEXT_PUBLIC_INFURA_ID ?? '' }),
-    jsonRpcProvider({
-      rpc: (chain) => {
-        if (chain.id !== 5) return null
-        return { http: process.env.NEXT_PUBLIC_QUICKNODE_HTTP!, webSocket: process.env.NEXT_PUBLIC_QUICKNODE }
-      },
-    }),
-    publicProvider(),
-  ],
-)
-
-const wagmiClient = createClient({
-  autoConnect: true,
-  provider: provider,
-})
-
 const queryClient = new QueryClient()
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -44,32 +25,17 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider defaultMode={mode} defaultAccent="indigo">
       <QueryClientProvider client={queryClient}>
-        <WagmiConfig client={wagmiClient}>
-          <DynamicContextProvider
-            settings={{
-              appLogoUrl: '/kali-logo.png',
-              appName: 'Keep',
-              environmentId: process.env.NEXT_PUBLIC_DYNAMIC_ID ?? '',
-              multiWallet: true,
-              privacyPolicyUrl: '/privacy',
-              termsOfServiceUrl: '/tos',
-              onAuthSuccess: async ({ authToken, user }) => {
-                console.log('auth success', authToken, user)
-                await fetch(`${process.env.NEXT_PUBLIC_KEEP_API ?? 'https://api.kali.gg'}/auth/user`, {
-                  headers: {
-                    Authorization: `Bearer ${authToken}`,
-                  },
-                })
-                  .then((response) => response.json())
-                  .then((data) => console.log('verified', data))
-              },
-            }}
-          >
-            <DynamicWagmiConnector>
-              <Component {...pageProps} />
-            </DynamicWagmiConnector>
-          </DynamicContextProvider>
-        </WagmiConfig>
+        <DynamicContextProvider
+          settings={{
+            environmentId: process.env.NEXT_PUBLIC_DYNAMIC_ID ?? '',
+            multiWallet: true,
+          }}
+          theme={mode}
+        >
+          <DynamicWagmiConnector>
+            <Component {...pageProps} />
+          </DynamicWagmiConnector>
+        </DynamicContextProvider>
       </QueryClientProvider>
     </ThemeProvider>
   )
