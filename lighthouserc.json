@@ -3,7 +3,11 @@
     "collect": {
       "startServerCommand": "pnpm run start",
       "startServerReadyPattern": "ready on",
-      "url": ["http://localhost:3000"],
+      "url": [
+        "http://localhost:3000",
+        "http://localhost:3000/explore",
+        "http://localhost:3000/137/0xbb58d667b8963a7022445b9d7c6607aab0efb608"
+      ],
       "numberOfRuns": 1,
       "settings": {
         "preset": "desktop"
