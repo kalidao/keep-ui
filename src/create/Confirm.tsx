@@ -63,7 +63,7 @@ export const Confirm = ({ store, setView }: CreateProps) => {
     },
   })
 
-  console.log('errors', prepareError, writeError)
+  console.log('errors', prepareError, writeError, write)
 
   console.log(
     'data',
