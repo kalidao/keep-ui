@@ -7,7 +7,7 @@ import { KeepCard } from '~/components/'
 
 const Explore: NextPage = () => {
   const { data: keeps, error } = useQuery(['allKeeps'], () => fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/all`))
-  console.log('keeps', keeps, error)
+
   return (
     <Layout title={'Home'} content={'Create a Keep'}>
       <Stack direction={'horizontal'} wrap>
@@ -15,7 +15,7 @@ const Explore: NextPage = () => {
           keeps.map((keep: any) => {
             return (
               <KeepCard
-                key={keep?.address}
+                key={keep?.address + keep?.chainId}
                 name={keep?.name}
                 avatar={keep?.avatar}
                 chainId={keep?.chainId}
