@@ -103,32 +103,6 @@ const Home: NextPage = () => {
           )
         })}
       </Box>
-      {/* 
-        Features - 
-
-        1. Keep governing.
-
-          Make group decisions at the speed of code through a novel multisig and cellular DAO design.
-
-          - The cellular DAO design means that the governance of the company can be split into many smaller groups that can govern their own areas of the company.
-
-        2. Keep building.
-
-          Create branded working groups that can divide and conquer using reputation and other branded credentials that demonstrate commitment. 
-
-        3. Keep legal.
-
-          Form internet-native companies to shield contributors with limited liability, digitize physical assets, and tap a deep bench of aligned lawyers.
-
-        4. Keep earning.
-
-          Continuously grow your operating capital with thoughtful defi yield strategies that can stream to contributors and reward productivity without paperwork or bank blockers.
-
-        5. Keep imagining.
-
-          Start small or with an existing community on a flexible codebase that enables easy course correction over what matters most — connecting the dots with people.
-       */}
-
       <Footer />
     </Box>
   )

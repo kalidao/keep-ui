@@ -19,6 +19,8 @@ const queryClient = new QueryClient()
 function MyApp({ Component, pageProps }: AppProps) {
   const mode = useThemeStore((state) => state.mode)
 
+  console.log('mode', mode)
+
   return (
     <ThemeProvider defaultMode={mode} defaultAccent="indigo">
       <QueryClientProvider client={queryClient}>
@@ -27,7 +29,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             environmentId: process.env.NEXT_PUBLIC_DYNAMIC_ID ?? '',
             multiWallet: true,
           }}
-          theme={mode}
+          theme={mode === 'dark' ? 'dark' : 'light'}
         >
           <DynamicWagmiConnector>
             <Component {...pageProps} />
