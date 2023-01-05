@@ -19,6 +19,7 @@
     "@hookform/resolvers": "^2.9.10",
     "@kalidao/hooks": "^0.0.5",
     "@kalidao/reality": "^0.0.13",
+    "@lhci/cli": "^0.10.0",
     "@next/font": "^13.1.1",
     "@tanstack/react-query": "^4.20.9",
     "@vanilla-extract/css": "^1.9.2",
