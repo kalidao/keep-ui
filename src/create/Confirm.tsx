@@ -63,15 +63,14 @@ export const Confirm = ({ store, setView }: CreateProps) => {
     },
   })
 
-  console.log('errors', prepareError, writeError, write)
-
   console.log(
     'data',
     ethers.utils.formatBytes32String(store.name) as `0x{string}`,
-    [],
+    calls,
     signers,
     ethers.BigNumber.from(store.threshold),
   )
+  console.log('errors', prepareError, writeError, write)
   console.log('isDetermineError', isDetermineError)
   return (
     <Box height="full">
