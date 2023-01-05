@@ -1,21 +1,18 @@
 import type { AppProps } from 'next/app'
-import { configureChains, createClient, WagmiConfig } from 'wagmi'
-import { mainnet, polygon } from 'wagmi/chains'
-import { infuraProvider } from 'wagmi/providers/infura'
-import { publicProvider } from 'wagmi/providers/public'
-import { ThemeProvider } from '@kalidao/reality'
-import '@kalidao/reality/styles'
-import '@design/app.css'
-import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
+
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import '@fontsource/inter/400.css'
-import '@fontsource/inter/variable-full.css'
-import '@fontsource/bodoni-moda/variable-full.css'
 import { DynamicContextProvider } from '@dynamic-labs/sdk-react'
 import { DynamicWagmiConnector } from '@dynamic-labs/wagmi-connector'
 
-import '@design/global.css'
+import '@fontsource/inter/400.css'
+import '@fontsource/inter/variable-full.css'
+import '@fontsource/bodoni-moda/variable-full.css'
+
+import { ThemeProvider } from '@kalidao/reality'
 import { useThemeStore } from '~/hooks/useThemeStore'
+import '@design/global.css'
+import '@kalidao/reality/styles'
+import '@design/app.css'
 
 const queryClient = new QueryClient()
 
