@@ -8,7 +8,7 @@
         "http://localhost:3000/explore",
         "http://localhost:3000/137/0xbb58d667b8963a7022445b9d7c6607aab0efb608"
       ],
-      "numberOfRuns": 1,
+      "numberOfRuns": 3,
       "settings": {
         "preset": "desktop"
       }
