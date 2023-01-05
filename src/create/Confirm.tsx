@@ -35,7 +35,6 @@ export const Confirm = ({ store, setView }: CreateProps) => {
     value: ethers.BigNumber.from(0),
     data: payload,
   })
-
   const { config, error: prepareError } = usePrepareContractWrite({
     address: KEEP_FACTORY_ADDRESS,
     abi: KEEP_FACTORY_ABI,
@@ -46,7 +45,9 @@ export const Confirm = ({ store, setView }: CreateProps) => {
       signers,
       ethers.BigNumber.from(store.threshold),
     ],
+    chainId: chain ? Number(chain.id) : 137,
   })
+
   // TODO: Add redirect to keep dashboard
   const {
     write,

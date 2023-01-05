@@ -65,7 +65,9 @@ function MyApp({ Component, pageProps }: AppProps) {
               },
             }}
           >
-            <Component {...pageProps} />
+            <DynamicWagmiConnector>
+              <Component {...pageProps} />
+            </DynamicWagmiConnector>
           </DynamicContextProvider>
         </WagmiConfig>
       </QueryClientProvider>
