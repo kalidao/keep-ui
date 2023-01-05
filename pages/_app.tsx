@@ -12,6 +12,8 @@ import '@fontsource/inter/400.css'
 import '@fontsource/inter/variable-full.css'
 import '@fontsource/bodoni-moda/variable-full.css'
 import { DynamicContextProvider } from '@dynamic-labs/sdk-react'
+import { DynamicWagmiConnector } from '@dynamic-labs/wagmi-connector'
+
 import '@design/global.css'
 import { useThemeStore } from '~/hooks/useThemeStore'
 
@@ -42,20 +44,30 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider defaultMode={mode} defaultAccent="indigo">
       <QueryClientProvider client={queryClient}>
-        <DynamicContextProvider
-          settings={{
-            appLogoUrl: '/kali-logo.png',
-            appName: 'Keep',
-            environmentId: process.env.NEXT_PUBLIC_DYNAMIC_ID ?? '',
-            multiWallet: true,
-            privacyPolicyUrl: '/privacy',
-            termsOfServiceUrl: '/tos',
-          }}
-        >
-          <WagmiConfig client={wagmiClient}>
+        <WagmiConfig client={wagmiClient}>
+          <DynamicContextProvider
+            settings={{
+              appLogoUrl: '/kali-logo.png',
+              appName: 'Keep',
+              environmentId: process.env.NEXT_PUBLIC_DYNAMIC_ID ?? '',
+              multiWallet: true,
+              privacyPolicyUrl: '/privacy',
+              termsOfServiceUrl: '/tos',
+              onAuthSuccess: async ({ authToken, user }) => {
+                console.log('auth success', authToken, user)
+                await fetch(`${process.env.NEXT_PUBLIC_KEEP_API ?? 'https://api.kali.gg'}/auth/user`, {
+                  headers: {
+                    Authorization: `Bearer ${authToken}`,
+                  },
+                })
+                  .then((response) => response.json())
+                  .then((data) => console.log('verified', data))
+              },
+            }}
+          >
             <Component {...pageProps} />
-          </WagmiConfig>
-        </DynamicContextProvider>
+          </DynamicContextProvider>
+        </WagmiConfig>
       </QueryClientProvider>
     </ThemeProvider>
   )

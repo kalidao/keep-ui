@@ -35,6 +35,7 @@ export const Signers = ({ store, setStore, setView }: CreateProps) => {
 
   const onSubmit = (data: Store) => {
     const { signers, threshold } = data
+    console.log('signer submit', signers, signerStatus)
     const signersWithEns = signers.map((signer, index) => {
       if (signerStatus[index]?.isEns) {
         return {
@@ -47,6 +48,8 @@ export const Signers = ({ store, setStore, setView }: CreateProps) => {
       }
     })
 
+    console.log('signersWithEns', signersWithEns)
+
     setStore({
       ...store,
       signers: signersWithEns,
@@ -56,6 +59,7 @@ export const Signers = ({ store, setStore, setView }: CreateProps) => {
     setView(3)
   }
   console.log('signers', watchedSigners)
+
   const maxSigners = 9
   const addSigner = () => {
     if (watchedSigners.length < maxSigners) {
@@ -70,6 +74,7 @@ export const Signers = ({ store, setStore, setView }: CreateProps) => {
 
   const ensSigner = async (ens: string, index: number) => {
     const validity = await validateEns(ens)
+    console.log('validity', validity)
     const currentStatus = signerStatus
     currentStatus[index] = validity
     setSignerStatus(currentStatus)

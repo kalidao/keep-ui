@@ -1,6 +1,7 @@
 import { ethers } from 'ethers'
 
 export const validateEns = async (ens: string) => {
+  console.log('ens', ens, ethers.utils.isAddress(ens))
   if (ethers.utils.isAddress(ens)) {
     return {
       status: true,

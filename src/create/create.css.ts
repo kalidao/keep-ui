@@ -22,6 +22,15 @@ export const container = style({
   justifyContent: 'flex-start',
   alignItems: 'stretch',
   gap: vars.space['2.5'],
+
+  '@media': {
+    // media query for mobile css
+    '(max-width: 768px)': {
+      width: '100vw',
+      position: 'relative',
+      padding: vars.space[1],
+    },
+  },
 })
 
 export const typeContainer = style({
@@ -65,4 +74,12 @@ export const splashContainer = style({
   bottom: 0,
   left: 0,
   right: 0,
+
+  '@media': {
+    // media query for mobile css
+    '(max-width: 768px)': {
+      display: 'none',
+      width: '0',
+    },
+  },
 })
