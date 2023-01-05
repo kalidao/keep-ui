@@ -1,0 +1,24 @@
+{
+  "ci": {
+    "collect": {
+      "startServerCommand": "pnpm run start",
+      "startServerReadyPattern": "ready on",
+      "url": [
+        "http://localhost:3000",
+        "http://localhost:3000/explore",
+        "http://localhost:3000/137/0xbb58d667b8963a7022445b9d7c6607aab0efb608"
+      ],
+      "numberOfRuns": 3,
+      "settings": {
+        "preset": "desktop"
+      }
+    },
+    "assert": {
+      "preset": "lighthouse:recommended"
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    },
+    "server": {}
+  }
+}

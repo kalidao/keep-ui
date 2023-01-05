@@ -50,6 +50,7 @@ const Transaction = ({}: Props) => {
     address: keep as `0xstring`,
     abi: KEEP_ABI,
     functionName: 'nonce',
+    chainId: Number(chainId),
   })
 
   // console.log('parsed ether', ethers.utils.parseEther(value))

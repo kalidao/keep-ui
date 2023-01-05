@@ -30,7 +30,7 @@ const DashboardLayout = ({ title, content, children }: Props) => {
   console.log('treasury', treasury)
 
   return (
-    <Box className={layout}>
+    <Box className={layout} lang="en">
       <Head>
         <title>{heading}</title>
         <meta name="description" content={content} />
@@ -69,7 +69,7 @@ const DashboardLayout = ({ title, content, children }: Props) => {
               native={treasury?.items.filter((item: any) => item.native_token == true)[0]}
               nfts={treasury?.nft ?? []}
               tokens={treasury?.items.filter((item: any) => item.native_token == false)}
-              synced={treasury.updated_at}
+              synced={treasury?.updated_at}
             />
             <Wrappr />
             <Signers signers={data?.signers} />

@@ -3,20 +3,15 @@ import { Text, Stack, Input, Button, IconArrowRight, IconPlus, IconClose, Box, I
 import { CreateProps, Store } from './types'
 import { useForm, useFieldArray, useWatch } from 'react-hook-form'
 import Back from './Back'
-import { validateEns } from '~/utils/ens'
-import { ethers } from 'ethers'
 import * as styles from './create.css'
 
 export const Signers = ({ store, setStore, setView }: CreateProps) => {
-  const [error, setError] = useState<string>()
-  const [signerStatus, setSignerStatus] = useState([
-    { status: false, isEns: false, address: ethers.constants.AddressZero, message: '' },
-  ])
   const {
     register,
     control,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<Store>({
     defaultValues: {
       signers: store.signers,
@@ -35,52 +30,30 @@ export const Signers = ({ store, setStore, setView }: CreateProps) => {
 
   const onSubmit = (data: Store) => {
     const { signers, threshold } = data
-    const signersWithEns = signers.map((signer, index) => {
-      if (signerStatus[index]?.isEns) {
-        return {
-          address: signerStatus[index].address,
-        }
-      } else {
-        return {
-          address: signer.address,
-        }
-      }
-    })
 
     setStore({
       ...store,
-      signers: signersWithEns,
+      signers: signers,
       threshold: threshold,
     })
 
     setView(3)
   }
-  console.log('signers', watchedSigners)
+
   const maxSigners = 9
   const addSigner = () => {
-    if (watchedSigners.length < maxSigners) {
-      // current max support
-      append({
-        address: '',
+    if (watchedSigners.length > maxSigners) {
+      setError(`signers.${watchedSigners.length - 1}.address`, {
+        type: 'maxLength',
+        message: 'Max signers reached.',
       })
-    } else {
-      setError(`You can only add ${maxSigners} signers at formation currently.`)
+      return
     }
+    append({
+      address: '',
+    })
   }
 
-  const ensSigner = async (ens: string, index: number) => {
-    const validity = await validateEns(ens)
-    const currentStatus = signerStatus
-    currentStatus[index] = validity
-    setSignerStatus(currentStatus)
-  }
-
-  const signerError = (index: number) => {
-    if (errors?.signers?.[index]?.address) return errors?.signers?.[index]?.address?.message
-    if (signerStatus?.[index]?.status === false) return signerStatus?.[index]?.message
-  }
-
-  // TODO: Same address error
   return (
     <Box className={styles.container} as="form" onSubmit={handleSubmit(onSubmit)}>
       <Back setView={setView} to={1} />
@@ -96,12 +69,11 @@ export const Signers = ({ store, setStore, setView }: CreateProps) => {
                   width="full"
                   label="Signer"
                   hideLabel
-                  placeholder="keep.eth"
+                  placeholder="0x"
                   {...register(`signers.${index}.address` as const, {
                     required: true,
                   })}
-                  onBlur={() => ensSigner(watchedSigners[index].address, index)}
-                  error={signerError(index)}
+                  error={errors?.signers?.[index]?.address && errors?.signers?.[index]?.address?.message}
                 />
                 <Button
                   shape="circle"
@@ -110,23 +82,11 @@ export const Signers = ({ store, setStore, setView }: CreateProps) => {
                   size="small"
                   type="button"
                   onClick={() => {
-                    if (index < maxSigners) setError('')
                     remove(index)
                   }}
                 >
                   <IconClose />
                 </Button>
-              </Stack>
-              <Stack direction={'horizontal'} align="center" justify={'flex-start'}>
-                {signerStatus?.[index]?.status === true && signerStatus?.[index]?.isEns === true && (
-                  <IconCheck color={'green'} size="3.5" />
-                )}
-
-                <Text>
-                  {signerStatus?.[index]?.status === true &&
-                    signerStatus?.[index]?.isEns === true &&
-                    signerStatus?.[index]?.message}
-                </Text>
               </Stack>
             </Stack>
           )
@@ -135,7 +95,6 @@ export const Signers = ({ store, setStore, setView }: CreateProps) => {
           Add Signer
         </Button>
       </Stack>
-      <Text color="red">{error}</Text>
       <Input
         label="Threshold"
         description="The number of signers required for a transaction to pass."

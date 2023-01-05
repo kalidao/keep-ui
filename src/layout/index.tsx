@@ -17,7 +17,7 @@ const Layout = ({ title, content, children }: Props) => {
   const heading = title + '- Keep'
 
   return (
-    <Box className={layout}>
+    <Box className={layout} lang="en">
       <Head>
         <title>{heading}</title>
         <meta name="description" content={content} />

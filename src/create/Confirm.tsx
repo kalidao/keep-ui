@@ -35,8 +35,7 @@ export const Confirm = ({ store, setView }: CreateProps) => {
     value: ethers.BigNumber.from(0),
     data: payload,
   })
-
-  const { config } = usePrepareContractWrite({
+  const { config, error: prepareError } = usePrepareContractWrite({
     address: KEEP_FACTORY_ADDRESS,
     abi: KEEP_FACTORY_ABI,
     functionName: 'deployKeep',
@@ -46,7 +45,9 @@ export const Confirm = ({ store, setView }: CreateProps) => {
       signers,
       ethers.BigNumber.from(store.threshold),
     ],
+    chainId: chain ? Number(chain.id) : 137,
   })
+
   // TODO: Add redirect to keep dashboard
   const {
     write,
@@ -66,10 +67,11 @@ export const Confirm = ({ store, setView }: CreateProps) => {
   console.log(
     'data',
     ethers.utils.formatBytes32String(store.name) as `0x{string}`,
-    [],
+    calls,
     signers,
     ethers.BigNumber.from(store.threshold),
   )
+  console.log('errors', prepareError, writeError, write)
   console.log('isDetermineError', isDetermineError)
   return (
     <Box height="full">

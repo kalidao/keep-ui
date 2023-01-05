@@ -15,6 +15,7 @@ import Delete from '~/components/Delete'
 import { tryTypedSigningV4 } from '~/utils/sign'
 import UpVote from '@design/YesVote'
 import { toOp } from '~/utils/toOp'
+import { useDynamicContext } from '@dynamic-labs/sdk-react'
 
 type Sign = {
   user: `0xstring`
@@ -30,34 +31,8 @@ const Tx: NextPage = () => {
   const { data, isLoading: isLoadingTx } = useQuery(['keep', chainId, keep, txHash], async () =>
     fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/txs/${txHash}`),
   )
-  const {} = useSignMessage({
-    message: data?.txHash,
-  })
-  const { data: typedTx } = useSignTypedData({
-    domain: {
-      name: 'Keep',
-      version: '1',
-      chainId: Number(chainId),
-      verifyingContract: keep as `0xstring`,
-    },
-    types: {
-      Execute: [
-        { name: 'op', type: 'uint8' },
-        { name: 'to', type: 'address' },
-        { name: 'value', type: 'uint256' },
-        { name: 'data', type: 'bytes' },
-        { name: 'nonce', type: 'uint120' },
-      ],
-    },
-    value: {
-      op: data?.op,
-      to: data?.to,
-      value: ethers.BigNumber.from(0),
-      data: data?.data,
-      nonce: data?.nonce,
-    },
-  })
-  console.log('typedTx', typedTx)
+  const { authToken } = useDynamicContext()
+
   const op = toOp(data?.op) ?? 0
   const sigs = data?.sigs
     ?.map((sig: any) => (sig = [sig.signer, sig.v, sig.r, sig.s]))
@@ -76,17 +51,7 @@ const Tx: NextPage = () => {
 
   const sign = async () => {
     if (!keep && !chainId && !address && !txHash) return
-    // const sign = await tryTypedSigning({
-    //   chainId: Number(chainId),
-    //   address: keep as string,
-    // }, {
-    //   op: data?.op,
-    //   to: data?.to,
-    //   value: data?.value,
-    //   data: data?.data,
-    //   nonce: data?.nonce,
-    // }, address as string)
-    // console.log('sign', sign)
+
     const sign = await tryTypedSigningV4(
       {
         chainId: Number(chainId),
@@ -117,6 +82,7 @@ const Tx: NextPage = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${authToken}`,
       },
       body: JSON.stringify(body),
     }).then((res) => res.json())
