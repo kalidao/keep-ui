@@ -36,7 +36,7 @@ export const Confirm = ({ store, setView }: CreateProps) => {
     data: payload,
   })
 
-  const { config } = usePrepareContractWrite({
+  const { config, error: prepareError } = usePrepareContractWrite({
     address: KEEP_FACTORY_ADDRESS,
     abi: KEEP_FACTORY_ABI,
     functionName: 'deployKeep',
@@ -62,6 +62,8 @@ export const Confirm = ({ store, setView }: CreateProps) => {
       }
     },
   })
+
+  console.log('errors', prepareError, writeError)
 
   console.log(
     'data',
