@@ -18,7 +18,7 @@ export const Type = ({ store, setStore, setView }: CreateProps) => {
           <Stack direction={'horizontal'} align="center" justify={'space-between'}>
             <Stack>
               <Heading level="2">Multisig</Heading>
-              <Text>Group wallet permissioned by NFTs.</Text>
+              <Text>Group wallet with NFT signer keys.</Text>
             </Stack>
             <Button shape="circle" variant="primary" tone="green" onClick={() => navigate(0)}>
               <IconArrowRight />

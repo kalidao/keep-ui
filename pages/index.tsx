@@ -17,20 +17,20 @@ const Home: NextPage = () => {
   const features = [
     {
       title: 'Keep engaged.',
-      description: 'Make decisions at the speed of code with multisig and DAO support.',
-      image: '/features/governance.png',
+      description: 'Make group decisions at the speed of code with combined multisig and DAO support.',
+      image: '/features/kEngaged.png',
     },
 
     {
       title: 'Keep building.',
-      description: 'Start projects with NFTs and add rewards, like rep points and sweat equity.',
-      image: '/features/building.png',
+      description: 'Start projects with NFTs and add rewards, like reputation points and sweat equity.',
+      image: '/features/kBuilding.png',
     },
 
     {
       title: 'Keep legal.',
-      description: 'Form companies straight from the app, upload your assets, and tap a network of lawyers.',
-      image: '/features/legal.png',
+      description: 'Form companies straight from the app, upload assets, and tap into a new network.',
+      image: '/features/kLegal.png',
     },
   ]
 
