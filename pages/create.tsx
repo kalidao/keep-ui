@@ -7,6 +7,7 @@ import Link from 'next/link'
 import Create from '~/create'
 import { Splash } from '~/create/Splash'
 import { ConnectButton } from '~/components/ConnectButton'
+import { Menu } from '@design/Menu'
 
 const Home: NextPage = () => {
   return (
@@ -18,12 +19,8 @@ const Home: NextPage = () => {
       </Head>
       <Box className={header}>
         <Stack direction={'horizontal'}>
-          <Link href="/explore">
-            <Button shape="circle" size="small" variant="secondary">
-              <IconGrid />
-            </Button>
-          </Link>
           <ConnectButton />
+          <Menu />
         </Stack>
       </Box>
       <Box>

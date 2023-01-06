@@ -10,6 +10,7 @@ import { useQuery } from '@tanstack/react-query'
 import { fetcher } from '~/utils'
 import Balencer from 'react-wrap-balancer'
 import { ConnectButton } from '~/components/ConnectButton'
+import { Menu } from '@design/Menu'
 
 const Home: NextPage = () => {
   const {} = useQuery(['allKeeps'], () => fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/all`))
@@ -46,12 +47,8 @@ const Home: NextPage = () => {
       </Head>
       <Box className={header}>
         <Stack direction={'horizontal'}>
-          <Link href="/explore" legacyBehavior>
-            <Button shape="circle" size="small" variant="secondary" as="a">
-              <IconGrid />
-            </Button>
-          </Link>
           <ConnectButton />
+          <Menu />
         </Stack>
       </Box>
       <Box className={container}>

@@ -1,12 +1,13 @@
 /* add !important to all rules in connectButton */
-@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;0,6..96,800;0,6..96,900;1,6..96,400;1,6..96,500;1,6..96,600;1,6..96,700;1,6..96,800;1,6..96,900&display=swap');
 
 .connectButtonLight {
     background-color: #fff !important;
+    background: #fff !important;
     color: #000 !important;
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset !important;
-    width: 70px !important;
-    height: 40px !important;
+    min-width: 70px !important;
+    max-height: 40px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -16,10 +17,11 @@
 
 .connectButtonDark {
     background-color: #000 !important;
+    background: #000 !important;
     color: #fff !important;
-    box-shadow: rgba(255, 255, 255, 0.5) 0px 2px 4px, rgba(255, 255, 255, 0.3) 0px 7px 13px -3px, rgba(255, 255, 255, 0.4) 0px -3px 0px inset !important;
-    width: 70px !important;
-    height: 40px !important;
+    box-shadow: rgba(255, 255, 255, 0.4) 0px 2px 4px, rgba(255, 255, 255, 0.3) 0px 7px 13px -3px, rgba(255, 255, 255, 0.2) 0px -3px 0px inset !important;
+    min-width: 70px !important;
+    max-height: 40px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
