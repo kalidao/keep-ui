@@ -33,7 +33,7 @@ export const AppTribute = () => {
 
     if (isActive) {
     }
-  }, [isActive])
+  }, [isActive, address, chainId, setData, setOp, setTo, setValue])
 
   if (isActive) {
     return <Text>This will remove the Tribute app from your Keep.</Text>
@@ -42,7 +42,7 @@ export const AppTribute = () => {
   return (
     <Stack>
       <Text>
-        This will add the Tribute app to your Keep. Tribute allows others to request your Keep for tokens with a gift.
+        This will add the Tribute app to your Keep. Tribute allows others to request your Keep tokens with a gift.
       </Text>
       <select>
         <option value="0">Select a token</option>
