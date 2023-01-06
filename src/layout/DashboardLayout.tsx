@@ -9,6 +9,7 @@ import Footer from './Footer'
 import ToggleMode from './ToggleMode'
 import { Signers, Profile, Wrappr, Treasury } from '~/dashboard'
 import { ConnectButton } from '~/components/ConnectButton'
+import { Menu } from '@design/Menu'
 
 type Props = {
   title: string
@@ -44,13 +45,8 @@ const DashboardLayout = ({ title, content, children }: Props) => {
           {/* <Image alt="brand-logo and back button" src="/favicon-32x32.png" height="25" width="25" /> */}
         </Link>
         <Stack direction={'horizontal'}>
-          <ToggleMode />
-          <Link href="/explore" legacyBehavior>
-            <Button shape="circle" size="small" variant="secondary" as="a">
-              <IconGrid />
-            </Button>
-          </Link>
           <ConnectButton />
+          <Menu />
         </Stack>
       </Box>
       <Box className={container}>

@@ -6,6 +6,7 @@ import { Box, Button, IconGrid, Stack } from '@kalidao/reality'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ConnectButton } from '~/components/ConnectButton'
+import { Menu } from '@design/Menu'
 
 type Props = {
   title: string
@@ -28,13 +29,8 @@ const Layout = ({ title, content, children }: Props) => {
           <Image alt="brand logo and back button" src="/favicon-32x32.png" height="25" width="25" />
         </Link>
         <Stack direction={'horizontal'}>
-          <ToggleMode />
-          <Link href="/explore">
-            <Button shape="circle" size="small" variant="secondary">
-              <IconGrid />
-            </Button>
-          </Link>
           <ConnectButton />
+          <Menu />
         </Stack>
       </Box>
       <Box className={container}>{children}</Box>
