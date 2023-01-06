@@ -60,13 +60,22 @@ export const featureTitle = style({
   fontFamily: serif,
   fontWeight: 600,
   fontSize: '48px',
+  textDecoration: 'underline',
   color: vars.colors.text,
 })
 
 export const featureDescription = style({
   fontFamily: vars.fonts.sans,
   fontWeight: 400,
-  fontSize: '25px',
+  fontSize: '20px',
+  color: vars.colors.text,
+})
+
+export const featureStyled = style({
+  fontFamily: serif,
+  fontWeight: 400,
+  fontSize: '80px',
+  fontStyle: 'italic',
   color: vars.colors.text,
 })
 

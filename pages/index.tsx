@@ -17,19 +17,22 @@ const Home: NextPage = () => {
   const features = [
     {
       title: 'Keep connected.',
-      description: 'Make group decisions at the speed of code with combined multisig and DAO support.',
+      description: 'Make group decisions at the speed of code.',
+      styledFeature: 'Backed by DAO & Multisig.',
       image: '/features/kConnected.png',
     },
 
     {
       title: 'Keep building.',
-      description: 'Start projects with NFTs and add rewards, like reputation points and sweat equity.',
+      description: 'Start projects that automatically reward contributors.',
+      styledFeature: 'Automagick incentives.',
       image: '/features/kBuilding.png',
     },
 
     {
       title: 'Keep legal.',
-      description: 'Form companies straight from the app, upload assets, and tap into a new network.',
+      description: 'Form companies straight from the app, issue shares, and tap into a new network.',
+      styledFeature: 'Robot lawyering.',
       image: '/features/kLegal.png',
     },
   ]
@@ -56,13 +59,13 @@ const Home: NextPage = () => {
           <Box display="flex" flexDirection={'column'}>
             <Balencer>
               <Box as="h1" className={styles.heading}>
-                Keep
+                Keep.
               </Box>
             </Balencer>
             {/* marketing copy for no-code legally complian multisig + dao launcher */}
             <Balencer>
               <Box as="h2" className={styles.subheading}>
-                Secure your digital assets.
+                Secure your digital assets. 
               </Box>
               <Box as="h2" className={styles.subheading}>
                 Grow a community.
@@ -90,6 +93,7 @@ const Home: NextPage = () => {
               <Stack align="flex-start">
                 <Box className={styles.featureTitle}>{feature.title}</Box>
                 <Box className={styles.featureDescription}>{feature.description}</Box>
+                <Box className={styles.featureStyled}>{feature.styledFeature}</Box>
               </Stack>
               {feature.image && (
                 <Image
