@@ -57,7 +57,7 @@ export const featureReverse = style({
 })
 
 export const featureTitle = style({
-  fontFamily: vars.fonts.sans,
+  fontFamily: serif,
   fontWeight: 600,
   fontSize: '48px',
   color: vars.colors.text,
@@ -66,7 +66,7 @@ export const featureTitle = style({
 export const featureDescription = style({
   fontFamily: vars.fonts.sans,
   fontWeight: 400,
-  fontSize: '30px',
+  fontSize: '25px',
   color: vars.colors.text,
 })
 
@@ -74,7 +74,7 @@ export const featureImage = style({
   maxWidth: '100%',
   height: 'auto',
   objectFit: 'cover',
-  aspectRatio: '16/10',
+  aspectRatio: '20/10',
   borderRadius: vars.radii['2xLarge'],
   boxShadow: `${vars.colors.accentSecondaryHover} 0px 54px 55px, ${vars.colors.accentTertiary} 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, ${vars.colors.accentSecondary} 0px 12px 13px, ${vars.colors.accentSecondaryHover} 0px -3px 5px`,
 })
