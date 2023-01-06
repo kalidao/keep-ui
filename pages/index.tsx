@@ -16,9 +16,9 @@ const Home: NextPage = () => {
 
   const features = [
     {
-      title: 'Keep engaged.',
+      title: 'Keep connected.',
       description: 'Make group decisions at the speed of code with combined multisig and DAO support.',
-      image: '/features/kEngaged.png',
+      image: '/features/kConnected.png',
     },
 
     {
