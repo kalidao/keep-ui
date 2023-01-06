@@ -27,6 +27,10 @@ export const Signers = ({ store, setStore, setView }: CreateProps) => {
     name: 'signers',
     control,
   })
+  const watchedThreshold = useWatch({
+    name: 'threshold',
+    control,
+  })
 
   const onSubmit = (data: Store) => {
     const { signers, threshold } = data
@@ -107,6 +111,7 @@ export const Signers = ({ store, setStore, setView }: CreateProps) => {
           required: true,
           max: watchedSigners.length,
         })}
+        labelSecondary={`${watchedThreshold}/${watchedSigners.length}`}
       />
       <Button suffix={<IconArrowRight />} width="full" type="submit">
         Next

@@ -28,8 +28,6 @@ export const AppTribute = () => {
         description: descriptionUrl,
       })
 
-      console.log('payload', payload)
-
       setData(payload as `0xstring`)
     }
 
