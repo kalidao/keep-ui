@@ -17,21 +17,21 @@ const Home: NextPage = () => {
   const features = [
     {
       title: 'Keep connected.',
-      description: 'Make group decisions at the speed of code.',
+      description: 'Group decisions at the speed of code.',
       styledFeature: 'Backed by DAO & Multisig.',
       image: '/features/kConnected.png',
     },
 
     {
       title: 'Keep building.',
-      description: 'Start projects that automatically reward contributors.',
+      description: 'Projects that automatically reward contributors.',
       styledFeature: 'Automagick incentives.',
       image: '/features/kBuilding.png',
     },
 
     {
       title: 'Keep legal.',
-      description: 'Form companies straight from the app, issue shares, and tap into a new network.',
+      description: 'Companies that connect to the internet.',
       styledFeature: 'Robot lawyering.',
       image: '/features/kLegal.png',
     },
@@ -65,7 +65,7 @@ const Home: NextPage = () => {
             {/* marketing copy for no-code legally complian multisig + dao launcher */}
             <Balencer>
               <Box as="h2" className={styles.subheading}>
-                Secure your digital assets. 
+                Secure your digital assets.
               </Box>
               <Box as="h2" className={styles.subheading}>
                 Grow a community.
