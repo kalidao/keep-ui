@@ -11,8 +11,8 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@dynamic-labs/sdk-react": "^0.14.14",
-    "@dynamic-labs/wagmi-connector": "^0.14.14",
+    "@dynamic-labs/sdk-react": "^0.14.18",
+    "@dynamic-labs/wagmi-connector": "^0.14.18",
     "@fontsource/bodoni-moda": "^4.5.9",
     "@fontsource/inter": "^4.5.14",
     "@headlessui/react": "^1.7.7",

@@ -1,8 +1,8 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@dynamic-labs/sdk-react': ^0.14.14
-  '@dynamic-labs/wagmi-connector': ^0.14.14
+  '@dynamic-labs/sdk-react': ^0.14.18
+  '@dynamic-labs/wagmi-connector': ^0.14.18
   '@fontsource/bodoni-moda': ^4.5.9
   '@fontsource/inter': ^4.5.14
   '@headlessui/react': ^1.7.7
@@ -43,8 +43,8 @@ specifiers:
   zustand: ^4.2.0
 
 dependencies:
-  '@dynamic-labs/sdk-react': 0.14.14_ib3m5ricvtkl2cll7qpr2f6lvq
-  '@dynamic-labs/wagmi-connector': 0.14.14_z2pjvjtrudmlli7m5whetpzv2u
+  '@dynamic-labs/sdk-react': 0.14.18_ib3m5ricvtkl2cll7qpr2f6lvq
+  '@dynamic-labs/wagmi-connector': 0.14.18_6ilygzkya75vw5unv5gdjqyp7y
   '@fontsource/bodoni-moda': 4.5.9
   '@fontsource/inter': 4.5.14
   '@headlessui/react': 1.7.7_biqbaboplfbrettd7655fr4n2y
@@ -423,12 +423,12 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@dynamic-labs/multi-wallet/0.14.14:
-    resolution: {integrity: sha512-I4CZxatlhxyh9s4WeGJYjP8yUUaWRGaZhbSy/nii1jN5gvpuXsB8shmFJ9Z2cTHZxC94oUa2hO/Al1bxk0GJbQ==}
+  /@dynamic-labs/multi-wallet/0.14.18:
+    resolution: {integrity: sha512-4WTejYzIlV6IpfzypzLLifj7ry6qoLXPvwMoCW/KpMa/I2R9MzzS11nWlDmFp+202VFstnPvtcgJlmKLJXmVJg==}
     dependencies:
       '@blocto/sdk': 0.3.3_@solana+web3.js@1.73.0
       '@coinbase/wallet-sdk': 3.6.3
-      '@dynamic-labs/sdk-api': 0.0.116
+      '@dynamic-labs/sdk-api': 0.0.117
       '@onflow/fcl': 1.3.2
       '@randlabs/myalgo-connect': 1.4.2
       '@solana/web3.js': 1.73.0
@@ -450,18 +450,18 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@dynamic-labs/sdk-api/0.0.116:
-    resolution: {integrity: sha512-dL0RSHyfEPtYkrL7kJ4dDrm3mVNsn4TNs9HWMl+lgrl7tEh3TPOgroTtBd+M7Os2FMxC70icn6CrvsAPNc9+Iw==}
+  /@dynamic-labs/sdk-api/0.0.117:
+    resolution: {integrity: sha512-oGpIHpVLGuatENgE95Y6JPzGH3GNsVZ3J9+AqPerWilZHnxub0BYt2AvCt9DxV45m+KzeFrmK6hjOmvYkfsMng==}
     dev: false
 
-  /@dynamic-labs/sdk-react/0.14.14_ib3m5ricvtkl2cll7qpr2f6lvq:
-    resolution: {integrity: sha512-i1bjoIwVHN6XFz1IyUMk1KrsNasyBzZaygKCEX8IA+QJUnnbgHqfBQTy83dhWX80rC49x8Ftk5rCP4HmH69dNA==}
+  /@dynamic-labs/sdk-react/0.14.18_ib3m5ricvtkl2cll7qpr2f6lvq:
+    resolution: {integrity: sha512-4cgRzTQhOZiqOqZcR5WH1IqdppjqArjcr21AKQZnMlmAhyEq/XdQplprlEuT3Zzb0+ozYl/PXV5mRK0iO81bbA==}
     peerDependencies:
       react: ^17.0.2 || ^18.0.0
       react-dom: ^17.0.2 || ^18.0.0
     dependencies:
-      '@dynamic-labs/multi-wallet': 0.14.14
-      '@dynamic-labs/sdk-api': 0.0.116
+      '@dynamic-labs/multi-wallet': 0.14.18
+      '@dynamic-labs/sdk-api': 0.0.117
       country-list: 2.3.0
       ethers: 5.7.2
       formik: 2.2.9_react@18.2.0
@@ -487,16 +487,16 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@dynamic-labs/wagmi-connector/0.14.14_z2pjvjtrudmlli7m5whetpzv2u:
-    resolution: {integrity: sha512-RFMtf78K5JX1shXVj4F1uyWbHGO6ckepumQ6CCpLZPIbe3ecWf2yaR93yC7bbWgIhUBVJ8sBZP/+ZHh1XJnOfw==}
+  /@dynamic-labs/wagmi-connector/0.14.18_6ilygzkya75vw5unv5gdjqyp7y:
+    resolution: {integrity: sha512-inq1FOzFxchpQnvPNqj+GkJ8BB7WWvGsX4oHXZjBJiBEFCKmY1yirdwtS4Tl88LnKeNVKkVsUlxso4rkd1zdlA==}
     peerDependencies:
-      '@dynamic-labs/sdk-react': 0.14.14
+      '@dynamic-labs/sdk-react': 0.14.18
       '@wagmi/core': ~0.8.10
       ethers: ^5.7.2
       react: ^17.0.2 || ^18.0.0
       wagmi: ~0.10.3
     dependencies:
-      '@dynamic-labs/sdk-react': 0.14.14_ib3m5ricvtkl2cll7qpr2f6lvq
+      '@dynamic-labs/sdk-react': 0.14.18_ib3m5ricvtkl2cll7qpr2f6lvq
       ethers: 5.7.2
       react: 18.2.0
       wagmi: 0.10.4_fsys2wp3iip6k7fwrrc3ndeyc4
@@ -3706,7 +3706,7 @@ packages:
       has-proto: 1.0.1
       has-symbols: 1.0.3
       internal-slot: 1.0.4
-      is-array-buffer: 3.0.0
+      is-array-buffer: 3.0.1
       is-callable: 1.2.7
       is-negative-zero: 2.0.2
       is-regex: 1.1.4
@@ -4873,11 +4873,12 @@ packages:
       has-tostringtag: 1.0.0
     dev: false
 
-  /is-array-buffer/3.0.0:
-    resolution: {integrity: sha512-TI2hnvT6dPUnn/jARFCJBKL1eeabAfLnKZ2lmW5Uh317s1Ii2IMroL1yMciEk/G+OETykVzlsH6x/L4q/avhgw==}
+  /is-array-buffer/3.0.1:
+    resolution: {integrity: sha512-ASfLknmY8Xa2XtB4wmbz13Wu202baeA18cJBCeCy0wXUHZF0IPyVEXqKEcd+t2fNSLLL1vC6k7lxZEojNbISXQ==}
     dependencies:
       call-bind: 1.0.2
       get-intrinsic: 1.1.3
+      is-typed-array: 1.1.10
     dev: true
 
   /is-arrayish/0.2.1:
