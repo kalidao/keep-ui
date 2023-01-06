@@ -64,7 +64,10 @@ const Home: NextPage = () => {
             {/* marketing copy for no-code legally complian multisig + dao launcher */}
             <Balencer>
               <Box as="h2" className={styles.subheading}>
-                Better organizing with cryptography.
+                Secure your digital assets.
+              </Box>
+              <Box as="h2" className={styles.subheading}>
+                Grow a community.
               </Box>
             </Balencer>
           </Box>
