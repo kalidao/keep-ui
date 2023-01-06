@@ -16,22 +16,22 @@ const Home: NextPage = () => {
 
   const features = [
     {
-      title: 'Keep governing.',
-      description: 'Make group decisions at the speed of code through a novel multisig and DAO design.',
+      title: 'Keep engaged.',
+      description: 'Make decisions at the speed of code with multisig and DAO support.',
       image: '/features/governance.png',
     },
 
     {
       title: 'Keep building.',
       description:
-        'Create branded working groups that can divide and conquer using reputation and other credentials that demonstrate commitment.',
+        'Start projects with NFTs and add rewards, like rep points and sweat equity.',
       image: '/features/building.png',
     },
 
     {
       title: 'Keep legal.',
       description:
-        'Form internet-native companies to shield contributors with limited liability, digitize physical assets, and tap a deep bench of aligned lawyers.',
+        'Form companies straight from the app, upload your assets, and tap a network of lawyers.',
       image: '/features/legal.png',
     },
   ]
