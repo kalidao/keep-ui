@@ -23,15 +23,13 @@ const Home: NextPage = () => {
 
     {
       title: 'Keep building.',
-      description:
-        'Start projects with NFTs and add rewards, like rep points and sweat equity.',
+      description: 'Start projects with NFTs and add rewards, like rep points and sweat equity.',
       image: '/features/building.png',
     },
 
     {
       title: 'Keep legal.',
-      description:
-        'Form companies straight from the app, upload your assets, and tap a network of lawyers.',
+      description: 'Form companies straight from the app, upload your assets, and tap a network of lawyers.',
       image: '/features/legal.png',
     },
   ]
