@@ -74,10 +74,13 @@ export const Signers = ({ store, setStore, setView }: CreateProps) => {
                   hideLabel
                   placeholder="0x"
                   {...register(`signers.${index}.address` as const, {
-                    required: true,
+                    required: {
+                      value: true,
+                      message: 'Address is required',
+                    },
                     pattern: {
                       value: /^0x[a-fA-F0-9]{40}$/,
-                      message: 'Invalid address',
+                      message: 'Not a valid ethereum address',
                     },
                   })}
                   defaultValue={field.address}

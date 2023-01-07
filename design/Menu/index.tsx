@@ -38,9 +38,9 @@ export const Menu = () => {
         </DropdownMenuPrimitive.Trigger>
         <DropdownMenuPrimitive.Portal>
           <DropdownMenuPrimitive.Content className={content}>
-            <Item label="Get Started" href="/create" isExternal={false} />
-            <Item label="Read Docs" href="https://github.com/kalidao/keep#model" isExternal={true} />
-            <Item label="Contact KaliCo" href="mailto:contact@kali.gg" isExternal={true} />
+            <Item label="Home" href="/" isExternal={false} />
+            <Item label="Docs" href="https://github.com/kalidao/keep#model" isExternal={true} />
+            <Item label="Contact" href="mailto@contact@kali.gg" isExternal={true} />
             <Item
               type="button"
               icon={mode === 'dark' ? <IconSun /> : <IconMoon />}
