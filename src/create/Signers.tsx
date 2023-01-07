@@ -76,7 +76,12 @@ export const Signers = ({ store, setStore, setView }: CreateProps) => {
                   placeholder="0x"
                   {...register(`signers.${index}.address` as const, {
                     required: true,
+                    pattern: {
+                      value: /^0x[a-fA-F0-9]{40}$/,
+                      message: 'Invalid address',
+                    },
                   })}
+                  defaultValue={field.address}
                   error={errors?.signers?.[index]?.address && errors?.signers?.[index]?.address?.message}
                 />
                 <Button
