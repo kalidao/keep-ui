@@ -3,25 +3,21 @@ import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu'
 import {
   Box,
   Button,
-  IconMenu,
   IconMoon,
   IconSun,
   IconTwitter,
   IconDiscord,
   IconGitHub,
   Stack,
-  Text,
   useTheme,
   IconChevronDown,
 } from '@kalidao/reality'
-import { arrow, icon, content, item, itemLink, itemText, label, trigger, separator } from './styles.css'
-import { useIsMounted } from '~/hooks/useIsMounted'
+import { arrow, content, item, itemLink, itemText, label, trigger, separator } from './styles.css'
 import { useThemeStore } from '~/hooks/useThemeStore'
 import { setThemeMode } from '~/utils/cookies'
 import { ReactNodeNoStrings } from '@kalidao/reality/dist/types/types'
 
 export const Menu = () => {
-  const isMounted = useIsMounted()
   const { mode, setMode } = useTheme()
   const toggleModeState = useThemeStore((state) => state.toggleMode)
 
@@ -43,7 +39,8 @@ export const Menu = () => {
         <DropdownMenuPrimitive.Portal>
           <DropdownMenuPrimitive.Content className={content}>
             <Item label="Home" href="/" isExternal={false} />
-            <Item label="Services" href="/services" isExternal={false} />
+            <Item label="Docs" href="https://github.com/kalidao/keep#model" isExternal={true} />
+            <Item label="Contact" href="mailto:contact@kali.gg" isExternal={true} />
             <Item
               type="button"
               icon={mode === 'dark' ? <IconSun /> : <IconMoon />}

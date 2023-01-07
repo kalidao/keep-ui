@@ -1,29 +1,6 @@
-import { keyframes, style } from '@vanilla-extract/css'
+import { style } from '@vanilla-extract/css'
 import { vars } from '@kalidao/reality'
 import { serif } from './app.css'
-
-const breathe = keyframes({
-  '0%': {
-    fontVariationSettings: "'wght' 100, 'slnt' 10",
-    fontSize: '180pxvw',
-  },
-  '25%': {
-    fontVariationSettings: "'wght' 200, 'slnt' 100",
-    fontSize: '200px',
-  },
-  '50%': {
-    fontVariationSettings: "'wght' 300, 'slnt' 100",
-    fontSize: '200px',
-  },
-  '75%': {
-    fontVariationSettings: "'wght' 400, 'slnt' 100",
-    fontSize: '200px',
-  },
-  '100%': {
-    fontVariationSettings: "'wght' 500, 'slnt' 200",
-    fontSize: '180px',
-  },
-})
 
 export const subheading = style({
   fontFamily: serif,

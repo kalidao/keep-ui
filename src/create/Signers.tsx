@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { Text, Stack, Input, Button, IconArrowRight, IconPlus, IconClose, Box, IconCheck } from '@kalidao/reality'
+import { Stack, Input, Button, IconArrowRight, IconPlus, IconClose, Box } from '@kalidao/reality'
 import { CreateProps, Store } from './types'
 import { useForm, useFieldArray, useWatch } from 'react-hook-form'
 import Back from './Back'

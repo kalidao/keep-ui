@@ -5,7 +5,6 @@ import { Type } from './Type'
 import { Name } from './Name'
 import { Signers } from './Signers'
 import { Confirm } from './Confirm'
-import { useDynamicContext } from '@dynamic-labs/sdk-react'
 
 import type { Store } from './types'
 

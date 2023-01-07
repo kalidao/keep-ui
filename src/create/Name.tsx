@@ -32,7 +32,6 @@ export const Name = ({ store, setStore, setView }: CreateProps) => {
     register,
     handleSubmit,
     formState: { errors },
-    setValue,
   } = useForm<Store>({
     defaultValues: {
       name: store.name,

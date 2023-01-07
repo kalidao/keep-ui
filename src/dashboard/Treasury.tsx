@@ -1,5 +1,5 @@
 import { Card, Stack, Heading, Text, Button, IconArrowRight, Stat } from '@kalidao/reality'
-import { BigNumberish, ethers } from 'ethers'
+import { ethers } from 'ethers'
 
 type Props = {
   native: any

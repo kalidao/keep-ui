@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import Image from 'next/image'
-import { Stack, Button, Box, IconGrid } from '@kalidao/reality'
+import { Stack, Button, Box } from '@kalidao/reality'
 import * as styles from '@design/landing.css'
 import Head from 'next/head'
 import Footer from '~/layout/Footer'
@@ -18,10 +18,11 @@ const Home: NextPage = () => {
 
   const features = [
     {
-      title: 'Keep connected.',
+      title: 'Keep moving.',
       description: 'Group decisions at the speed of code.',
       styledFeature: 'Backed by DAO & Multisig.',
       image: '/features/kConnected.png',
+      link: 'https://github.com/kalidao/keep#empowering-collectives',
     },
 
     {
@@ -29,13 +30,15 @@ const Home: NextPage = () => {
       description: 'Projects that automatically reward contributors.',
       styledFeature: 'Automagick incentives.',
       image: '/features/kBuilding.png',
+      link: 'https://github.com/kalidao/keep#keep-cooperative',
     },
 
     {
-      title: 'Keep legal.',
-      description: 'Companies that connect to the internet.',
+      title: 'Keep company.',
+      description: 'Legal that connects to the internet.',
       styledFeature: 'Robot lawyering.',
       image: '/features/kLegal.png',
+      link: 'https://github.com/kalidao/keep#keep-company',
     },
   ]
 
@@ -95,7 +98,7 @@ const Home: NextPage = () => {
               <Stack align="flex-start">
                 <Box className={styles.featureTitle}>{feature.title}</Box>
                 <Box className={styles.featureDescription}>{feature.description}</Box>
-                <Box className={styles.featureStyled}>{feature.styledFeature}</Box>
+                <Box as="a" href={feature.link} className={styles.featureStyled}>{feature.styledFeature}</Box>
               </Stack>
               {feature.image && (
                 <Image
