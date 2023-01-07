@@ -13,6 +13,7 @@ export const container = style({
   top: '0',
   bottom: '0',
   right: '0',
+
   zIndex: '1',
   // transform: 'translate(-50%, -50%)',
 
@@ -20,7 +21,7 @@ export const container = style({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'flex-start',
-  alignItems: 'stretch',
+  alignItems: 'flex-start',
   gap: vars.space['2.5'],
 
   '@media': {

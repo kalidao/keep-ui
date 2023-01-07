@@ -13,6 +13,7 @@ export const content = style({
   borderRadius: vars.radii.none,
   padding: vars.space[2],
   boxShadow: `${vars.shadows[1]} ${vars.colors.foregroundTertiary}`,
+  zIndex: 9999,
 })
 
 export const item = style({

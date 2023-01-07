@@ -117,12 +117,6 @@ export const heading = style({
   color: vars.colors.textPrimary,
   minHeight: '200px',
   minWidth: '200px',
-
-  // '@media': {
-  //   '(prefers-reduced-motion)': {
-  //     transitionProperty: 'font-weight'
-  //   },
-  // }
 })
 
 export const hero = style({
