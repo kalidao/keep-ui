@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import Image from 'next/image'
-import { Stack, Button, Box, IconGrid } from '@kalidao/reality'
+import { Stack, Button, Box } from '@kalidao/reality'
 import * as styles from '@design/landing.css'
 import Head from 'next/head'
 import Footer from '~/layout/Footer'

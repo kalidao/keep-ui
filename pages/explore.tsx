@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query'
 import { KeepCard } from '~/components/'
 
 const Explore: NextPage = () => {
-  const { data: keeps, error } = useQuery(['allKeeps'], () => fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/all`))
+  const { data: keeps } = useQuery(['allKeeps'], () => fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/all`))
 
   return (
     <Layout title={'Home'} content={'Create a Keep'}>
