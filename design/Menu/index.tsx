@@ -40,7 +40,7 @@ export const Menu = () => {
           <DropdownMenuPrimitive.Content className={content}>
             <Item label="Home" href="/" isExternal={false} />
             <Item label="Docs" href="https://github.com/kalidao/keep#model" isExternal={true} />
-            <Item label="Contact" href="mailto@contact@kali.gg" isExternal={true} />
+            <Item label="Contact" href="mailto:contact@kali.gg" isExternal={true} />
             <Item
               type="button"
               icon={mode === 'dark' ? <IconSun /> : <IconMoon />}
