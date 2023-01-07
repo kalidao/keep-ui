@@ -11,6 +11,7 @@ import { fetcher } from '~/utils'
 import Balencer from 'react-wrap-balancer'
 import { ConnectButton } from '~/components/ConnectButton'
 import { Menu } from '@design/Menu'
+import { Castle } from '~/canvas/Castle'
 
 const Home: NextPage = () => {
   const {} = useQuery(['allKeeps'], () => fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/all`))
@@ -51,36 +52,40 @@ const Home: NextPage = () => {
           <Menu />
         </Stack>
       </Box>
+
       <Box className={container}>
         <Box className={styles.hero}>
-          <Box display="flex" flexDirection={'column'}>
-            <Balencer>
-              <Box as="h1" className={styles.heading}>
-                Keep.
-              </Box>
-            </Balencer>
-            {/* marketing copy for no-code legally complian multisig + dao launcher */}
-            <Balencer>
-              <Box as="h2" className={styles.subheading}>
-                Secure your digital assets.
-              </Box>
-              <Box as="h2" className={styles.subheading}>
-                Grow a community.
-              </Box>
-            </Balencer>
+          <Box>
+            <Box display="flex" flexDirection={'column'}>
+              <Balencer>
+                <Box as="h1" className={styles.heading}>
+                  Keep.
+                </Box>
+              </Balencer>
+              {/* marketing copy for no-code legally complian multisig + dao launcher */}
+              <Balencer>
+                <Box as="h2" className={styles.subheading}>
+                  Secure your digital assets.
+                </Box>
+                <Box as="h2" className={styles.subheading}>
+                  Grow a community.
+                </Box>
+              </Balencer>
+            </Box>
+            <Stack direction={'horizontal'}>
+              <Link href="/create" legacyBehavior>
+                <Button as="a" variant="secondary">
+                  Get Started
+                </Button>
+              </Link>
+              <Link href="/explore" legacyBehavior>
+                <Button as="a" variant="transparent">
+                  Explore
+                </Button>
+              </Link>
+            </Stack>
           </Box>
-          <Stack direction={'horizontal'}>
-            <Link href="/create" legacyBehavior>
-              <Button as="a" variant="secondary">
-                Get Started
-              </Button>
-            </Link>
-            <Link href="/explore" legacyBehavior>
-              <Button as="a" variant="transparent">
-                Explore
-              </Button>
-            </Link>
-          </Stack>
+          <Castle />
         </Box>
       </Box>
       <Box className={styles.features}>

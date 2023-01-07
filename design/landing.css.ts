@@ -85,7 +85,7 @@ export const featureImage = style({
   objectFit: 'cover',
   aspectRatio: '20/10',
   borderRadius: vars.radii['2xLarge'],
-  boxShadow: `${vars.colors.accentSecondaryHover} 0px 54px 55px, ${vars.colors.accentTertiary} 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, ${vars.colors.accentSecondary} 0px 12px 13px, ${vars.colors.accentSecondaryHover} 0px -3px 5px`,
+  boxShadow: `${vars.colors.foregroundTertiary} 0px 54px 55px, ${vars.colors.foregroundSecondary} 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, ${vars.colors.foregroundSecondaryHover} 0px 12px 13px, ${vars.colors.foregroundSecondary} 0px -3px 5px`,
 })
 
 export const preview = style({
@@ -119,6 +119,21 @@ export const heading = style({
   minWidth: '200px',
 })
 
+export const heroBorder = keyframes({
+  '0%': {
+    borderLeft: `1px solid ${vars.colors.foreground}`,
+    borderBottom: `1px solid ${vars.colors.foreground}`,
+  },
+  '50%': {
+    borderLeft: `1px solid ${vars.colors.foreground}`,
+    borderBottom: `1px solid ${vars.colors.foreground}`,
+  },
+  '100%': {
+    borderLeft: `1px solid ${vars.colors.background}`,
+    borderBottom: `1px solid ${vars.colors.background}`,
+  },
+})
+
 export const hero = style({
   position: 'absolute',
   top: '10%',
@@ -126,6 +141,33 @@ export const hero = style({
   right: '10%',
   margin: '-50px 0 0 -50px',
   display: 'flex',
-  flexDirection: 'column',
+  flexDirection: 'row',
   gap: vars.space['10'],
+
+  paddingLeft: vars.space['5'],
+  paddingBottom: vars.space['5'],
+  borderRadius: vars.radii['2xLarge'],
+})
+
+export const lineAnimation = keyframes({
+  '0%': {
+    transform: 'translateX(-100%)',
+  },
+  '100%': {
+    transform: 'translateX(100%)',
+  },
+})
+export const line = style({
+  width: vars.space['1'],
+  backgroundColor: vars.colors.textPrimary,
+  height: '100vh',
+
+  position: 'absolute',
+  // position on the center of the screen
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+
+  // line animates into existence from the top to the bottom
+  animation: `${lineAnimation} 10s ease-in-out infinite`,
 })
