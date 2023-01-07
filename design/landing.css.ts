@@ -42,10 +42,10 @@ export const featureTitle = style({
 })
 
 export const featureDescription = style({
-  fontFamily: vars.fonts.sans,
+  fontFamily: serif,
   fontWeight: 400,
   fontSize: '20px',
-  color: vars.colors.text,
+  color: vars.colors.textSecondary,
 })
 
 export const featureStyled = style({
@@ -54,6 +54,10 @@ export const featureStyled = style({
   fontSize: '80px',
   fontStyle: 'italic',
   color: vars.colors.text,
+
+  ':hover': {
+    color: vars.colors.accent,
+  },
 })
 
 export const featureImage = style({
