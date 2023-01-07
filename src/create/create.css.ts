@@ -21,7 +21,7 @@ export const container = style({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'flex-start',
-  alignItems: 'flex-start',
+  alignItems: 'stretch',
   gap: vars.space['2.5'],
 
   '@media': {

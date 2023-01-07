@@ -17,6 +17,7 @@ import { Store } from './types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import * as styles from './create.css'
+import { useDynamicContext } from '@dynamic-labs/sdk-react'
 
 const schema = z.object({
   name: z
@@ -39,14 +40,30 @@ export const Name = ({ store, setStore, setView }: CreateProps) => {
     mode: 'onBlur',
     resolver: zodResolver(schema),
   })
+  const { connectedWallets } = useDynamicContext()
 
   const onSubmit = (data: Store) => {
     const { name } = data
 
-    setStore({
-      ...store,
-      name: name,
-    })
+    if (connectedWallets.length === 0) {
+      setStore({
+        ...store,
+        name: name,
+      })
+    }
+
+    if (connectedWallets.length > 0) {
+      setStore({
+        ...store,
+        name: name,
+        signers: [
+          {
+            address: connectedWallets[0].address,
+          },
+        ],
+      })
+    }
+
     setView(2)
   }
 
@@ -68,35 +85,6 @@ export const Name = ({ store, setStore, setView }: CreateProps) => {
         {...register('bio')}
         error={errors?.bio && errors?.bio?.message}
       />
-      <MediaPicker
-        accept="image/jpeg, image/png, image/webp"
-        label="Avatar"
-        compact
-        onChange={(file: File) => setValue('avatar', file)}
-      />
-      <FieldSet legend="Social">
-        <Input
-          label="Twitter"
-          hideLabel
-          {...register('twitter')}
-          prefix={<IconTwitter />}
-          error={errors?.twitter && errors?.twitter?.message}
-        />
-        <Input
-          label="Discord"
-          prefix={<IconDiscord />}
-          hideLabel
-          {...register('discord')}
-          error={errors?.discord && errors?.discord?.message}
-        />
-        <Input
-          label="Website"
-          hideLabel
-          prefix={<IconLink />}
-          {...register('website')}
-          error={errors?.website && errors?.website?.message}
-        />
-      </FieldSet>
       <Button suffix={<IconArrowRight />} width="full" type="submit">
         Next
       </Button>

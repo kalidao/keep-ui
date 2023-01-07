@@ -5,6 +5,7 @@ import { Type } from './Type'
 import { Name } from './Name'
 import { Signers } from './Signers'
 import { Confirm } from './Confirm'
+import { useDynamicContext } from '@dynamic-labs/sdk-react'
 
 import type { Store } from './types'
 
@@ -13,11 +14,7 @@ const Create = () => {
     type: 0,
     name: '',
     bio: '',
-    signers: [
-      {
-        address: '',
-      },
-    ],
+    signers: [{ address: '' }],
     threshold: 1,
   })
   const [view, setView] = useState<number>(0)
