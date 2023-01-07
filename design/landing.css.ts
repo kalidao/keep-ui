@@ -96,21 +96,6 @@ export const heading = style({
   minWidth: '200px',
 })
 
-export const heroBorder = keyframes({
-  '0%': {
-    borderLeft: `1px solid ${vars.colors.foreground}`,
-    borderBottom: `1px solid ${vars.colors.foreground}`,
-  },
-  '50%': {
-    borderLeft: `1px solid ${vars.colors.foreground}`,
-    borderBottom: `1px solid ${vars.colors.foreground}`,
-  },
-  '100%': {
-    borderLeft: `1px solid ${vars.colors.background}`,
-    borderBottom: `1px solid ${vars.colors.background}`,
-  },
-})
-
 export const hero = style({
   position: 'absolute',
   top: '10%',
@@ -124,27 +109,4 @@ export const hero = style({
   paddingLeft: vars.space['5'],
   paddingBottom: vars.space['5'],
   borderRadius: vars.radii['2xLarge'],
-})
-
-export const lineAnimation = keyframes({
-  '0%': {
-    transform: 'translateX(-100%)',
-  },
-  '100%': {
-    transform: 'translateX(100%)',
-  },
-})
-export const line = style({
-  width: vars.space['1'],
-  backgroundColor: vars.colors.textPrimary,
-  height: '100vh',
-
-  position: 'absolute',
-  // position on the center of the screen
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-
-  // line animates into existence from the top to the bottom
-  animation: `${lineAnimation} 10s ease-in-out infinite`,
 })

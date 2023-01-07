@@ -98,7 +98,9 @@ const Home: NextPage = () => {
               <Stack align="flex-start">
                 <Box className={styles.featureTitle}>{feature.title}</Box>
                 <Box className={styles.featureDescription}>{feature.description}</Box>
-                <Box as="a" href={feature.link} className={styles.featureStyled}>{feature.styledFeature}</Box>
+                <Box as="a" href={feature.link} className={styles.featureStyled}>
+                  {feature.styledFeature}
+                </Box>
               </Stack>
               {feature.image && (
                 <Image
