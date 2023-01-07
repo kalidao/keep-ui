@@ -42,7 +42,7 @@ export const Menu = () => {
         </DropdownMenuPrimitive.Trigger>
         <DropdownMenuPrimitive.Portal>
           <DropdownMenuPrimitive.Content className={content}>
-            <Item label="Getting Started" href="/create" isExternal={false} />
+            <Item label="Home" href="/" isExternal={false} />
             <Item label="Services" href="/services" isExternal={false} />
             <Item
               type="button"
