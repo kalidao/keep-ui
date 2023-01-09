@@ -70,7 +70,7 @@ const Home: NextPage = () => {
                 {/* marketing copy for no-code legally complian multisig + dao launcher */}
                 <Balencer>
                   <Box as="h2" className={styles.subheading}>
-                    Secure assets for community.
+                    Secure and manage digital assets.
                   </Box>
                 </Balencer>
                 <Stack direction={'horizontal'}>
