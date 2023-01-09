@@ -93,13 +93,10 @@ const Home: NextPage = () => {
       </Box>
       <Box className={styles.intro}>
         <Box as="h2" className={styles.subheading}>
-          If you use an app, you may wonder how it's owned. Some corporation — contributors — you? Digital orgs — DAOs —
-          and their billions in assets show better ways to own things online together. Where power, such as funding, is
-          handled by the apps themselves and doesn't rely on paperwork or third parties to get things done. This means
-          that founders, investors, and communities can all be more aligned. Keep builds on this idea by using code and
-          corporate governance tools where they really count. You can start small with a shared digital wallet, assign
-          roles, enable community governance, and tap into full legal support at any time. Learn more by reading the
-          docs.
+          If you like apps, you may wonder how they're owned. Corporations — contributors — you? Digital orgs — DAOs —
+          and their billions in assets show better ways to own online. Where power, such as finance, is handled by the
+          apps themselves. Keep builds on this idea by using code and corporate tools where they really count. Start
+          with a wallet, assign roles, enable community governance and add companies. Learn more by reading the docs.
         </Box>
       </Box>
       <Box className={styles.features}>
