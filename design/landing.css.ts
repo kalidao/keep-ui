@@ -119,5 +119,5 @@ export const intro = style({
   minHeight: '90vh',
   display: 'flex',
   justifyContent: 'center',
-  alignItems: 'center'
+  alignItems: 'center',
 })

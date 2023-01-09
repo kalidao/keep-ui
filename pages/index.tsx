@@ -93,16 +93,12 @@ const Home: NextPage = () => {
       </Box>
       <Box className={styles.intro}>
         <Box as="h2" className={styles.subheading}>
-          It's time to build with better ownership.
-          If you use an app on the internet today, you may wonder how it's owned.
-          Some Delaware corporation with shareholders? Ongoing contributors?
-          DAOs have unlocked new ways for software to be created and controlled, 
-          where power, such as financing, is handled by software itself. This means that founders, 
-          investors, and software users can all be more aligned. 
-          Keep builds on this potential by using code and corporate tools where they count. 
-          You can start small with a shared wallet, assign new roles and stakeholders with NFTs, 
-          and tap into legal support at any time.
-          Learn more by reading the docs.
+          It's time to build with better ownership. If you use an app on the internet today, you may wonder how it's
+          owned. Some Delaware corporation with shareholders? Ongoing contributors? DAOs have unlocked new ways for
+          software to be created and controlled, where power, such as financing, is handled by software itself. This
+          means that founders, investors, and software users can all be more aligned. Keep builds on this potential by
+          using code and corporate tools where they count. You can start small with a shared wallet, assign new roles
+          and stakeholders with NFTs, and tap into legal support at any time. Learn more by reading the docs.
         </Box>
       </Box>
       <Box className={styles.features}>
