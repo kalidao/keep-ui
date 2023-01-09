@@ -1,10 +1,4 @@
-import {
-  Box,
-  Button,
-  IconArrowRight,
-  Input,
-  Textarea,
-} from '@kalidao/reality'
+import { Box, Button, IconArrowRight, Input, Textarea } from '@kalidao/reality'
 import Back from './Back'
 import { CreateProps } from './types'
 import { useForm } from 'react-hook-form'
