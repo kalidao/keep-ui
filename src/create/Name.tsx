@@ -1,14 +1,9 @@
 import {
   Box,
-  IconDiscord,
-  IconTwitter,
-  IconLink,
   Button,
   IconArrowRight,
   Input,
   Textarea,
-  MediaPicker,
-  FieldSet,
 } from '@kalidao/reality'
 import Back from './Back'
 import { CreateProps } from './types'
