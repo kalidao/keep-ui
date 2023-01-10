@@ -94,8 +94,8 @@ const Home: NextPage = () => {
       <Box className={styles.intro}>
         <Box as="p" className={styles.introBlurb}>
           You may wonder how apps are owned. Corporations, contributors, users? Digital orgs — DAOs — show better ways
-          to own together online. Where group power, such as finance, is handled by apps and code. Keep builds on
-          this idea by using code and corporate tools where they really count. Start with a wallet, assign roles, add
+          to own together online. Where group power, such as finance, is handled by apps and code. Keep builds on this
+          idea by using code and corporate tools where they really count. Start with a wallet, assign roles, add
           community governance and work with companies. Learn more by reading the docs.
         </Box>
       </Box>
