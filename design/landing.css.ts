@@ -121,3 +121,13 @@ export const intro = style({
   justifyContent: 'center',
   alignItems: 'center',
 })
+
+export const introBlurb = style([
+  subheading,
+  style({
+    border: `1px solid white`,
+    fontStyle: 'italic',
+    width: '60vw',
+    //textAlign: 'justify'
+  }),
+])

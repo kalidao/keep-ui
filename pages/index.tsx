@@ -92,11 +92,11 @@ const Home: NextPage = () => {
         </Box>
       </Box>
       <Box className={styles.intro}>
-        <Box as="h2" className={styles.subheading}>
-          If you like apps, you may wonder how they're owned. Corporations — contributors — you? Digital orgs — DAOs —
-          and their billions in assets show better ways to own online. Where power, such as finance, is handled by the
-          apps themselves. Keep builds on this idea by using code and corporate tools where they really count. Start
-          with a wallet, assign roles, enable community governance and add companies. Learn more by reading the docs.
+        <Box as="p" className={styles.introBlurb}>
+          You may wonder how apps are owned. Corporations, contributors, users? Digital orgs — DAOs — show better ways
+          to own together online. Where group power, such as finance, is handled by apps and code. Keep builds on
+          this idea by using code and corporate tools where they really count. Start with a wallet, assign roles, add
+          community governance and work with companies. Learn more by reading the docs.
         </Box>
       </Box>
       <Box className={styles.features}>
