@@ -4,7 +4,7 @@ import { Stack, Button, Box } from '@kalidao/reality'
 import * as styles from '@design/landing.css'
 import Head from 'next/head'
 import Footer from '~/layout/Footer'
-import { layout, header, container } from '~/layout/layout.css'
+import { link, layout, header, container } from '~/layout/layout.css'
 import Link from 'next/link'
 import { useQuery } from '@tanstack/react-query'
 import { fetcher } from '~/utils'
@@ -12,7 +12,7 @@ import Balencer from 'react-wrap-balancer'
 import { ConnectButton } from '~/components/ConnectButton'
 import { Menu } from '@design/Menu'
 import { Castle } from '~/canvas/Castle'
-import { Slide } from 'react-awesome-reveal'
+import { Fade, Slide } from 'react-awesome-reveal'
 import { bodoni } from './_app'
 
 const Home: NextPage = () => {
@@ -20,7 +20,7 @@ const Home: NextPage = () => {
 
   const features = [
     {
-      title: 'Keep moving.',
+      title: 'moving',
       description: 'Group decisions at the speed of code.',
       styledFeature: 'Backed by DAO & Multisig.',
       image: '/features/kConnected.png',
@@ -28,7 +28,7 @@ const Home: NextPage = () => {
     },
 
     {
-      title: 'Keep building.',
+      title: 'building',
       description: 'Projects that automatically reward contributors.',
       styledFeature: 'Automagick incentives.',
       image: '/features/kBuilding.png',
@@ -36,7 +36,7 @@ const Home: NextPage = () => {
     },
 
     {
-      title: 'Keep company.',
+      title: 'company',
       description: 'Legal that connects to the internet.',
       styledFeature: 'Robot lawyering.',
       image: '/features/kLegal.png',
@@ -93,12 +93,21 @@ const Home: NextPage = () => {
         </Box>
       </Box>
       <Box className={styles.intro}>
-        <Box as="p" className={styles.introBlurb}>
-          You may wonder how apps are owned. Corporations, contributors, users? Digital orgs — DAOs — show better ways
-          to own together online. Where group power, such as finance, is handled by apps and code. Keep builds on this
-          idea by using code and corporate tools where they really count. Start with a wallet, assign roles, add
-          community governance and work with companies. Learn more by reading the docs.
-        </Box>
+        <Fade>
+          <Box as="h3" style={bodoni.style} className={styles.introHeading}>
+            What is this?
+          </Box>
+          <Box as="p" style={bodoni.style} className={styles.introBlurb}>
+            You may wonder how apps are owned. Corporations, contributors, users? Digital orgs — DAOs — show better ways
+            to own together online. Where group power, such as finance, is handled by apps and code. Keep builds on this
+            idea by using code and corporate tools where they really count. Start with a wallet, assign roles, add
+            community governance and work with companies. Learn more by reading the{' '}
+            <a href="https://docs.kali.gg/" className={link}>
+              docs
+            </a>
+            .
+          </Box>
+        </Fade>
       </Box>
       <Box className={styles.features}>
         {features.map((feature, i) => {
@@ -106,13 +115,23 @@ const Home: NextPage = () => {
             <Box key={i} className={i % 2 == 0 ? styles.feature : styles.featureReverse}>
               <Slide>
                 <Stack align="flex-start">
-                  <Box
-                    style={{
-                      ...bodoni.style,
-                    }}
-                    className={styles.featureTitle}
-                  >
-                    {feature.title}
+                  <Box>
+                    <Box
+                      style={{
+                        ...bodoni.style,
+                      }}
+                      className={styles.keep}
+                    >
+                      keep
+                    </Box>
+                    <Box
+                      style={{
+                        ...bodoni.style,
+                      }}
+                      className={styles.featureTitle}
+                    >
+                      {feature.title}
+                    </Box>
                   </Box>
                   <Box
                     style={{

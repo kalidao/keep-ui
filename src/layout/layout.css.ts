@@ -51,7 +51,6 @@ export const text = style({
 })
 
 export const link = style({
-  fontSize: vars.fontSizes.small,
   lineHeight: vars.lineHeights.normal,
   color: vars.colors.text,
   textDecoration: 'none',

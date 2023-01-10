@@ -8,21 +8,27 @@ export const subheading = style({
 })
 
 export const features = style({
+  minHeight: '100vh',
   padding: vars.space['10'],
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  textAlign: 'center',
 })
 
 export const feature = style({
-  minHeight: '80vh',
   display: 'flex',
   flexDirection: 'row',
   gap: vars.space['10'],
   alignItems: 'flex-start',
   justifyContent: 'center',
   textAlign: 'start',
+  marginTop: vars.space['64'],
+  marginBottom: vars.space['64'],
 })
 
 export const featureReverse = style({
-  minHeight: '80vh',
   display: 'flex',
   flexDirection: 'row-reverse',
   gap: vars.space['10'],
@@ -31,11 +37,16 @@ export const featureReverse = style({
   textAlign: 'start',
 })
 
+export const keep = style({
+  color: vars.colors.textTertiary,
+  textTransform: 'lowercase',
+})
+
 export const featureTitle = style({
   fontWeight: 600,
   fontSize: '48px',
-  textDecoration: 'underline',
   color: vars.colors.text,
+  textDecoration: 'underline',
 })
 
 export const featureDescription = style({
@@ -108,18 +119,31 @@ export const hero = style({
 })
 
 export const intro = style({
-  minHeight: '90vh',
+  minHeight: '40vh',
   display: 'flex',
+  flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
+  border: `1px solid rgba(255, 255, 255, 0.2)`,
+})
+
+export const introHeading = style({
+  fontWeight: 600,
+  fontSize: '48px',
+  color: vars.colors.text,
 })
 
 export const introBlurb = style([
-  subheading,
   style({
-    border: `1px solid white`,
+    color: vars.colors.foreground,
+    fontSize: '18px',
+    fontWeight: 400,
+
     fontStyle: 'italic',
     width: '60vw',
-    //textAlign: 'justify'
+
+    padding: vars.space['6'],
+    paddingRight: vars.space['10'],
+    paddingLeft: vars.space['10'],
   }),
 ])
