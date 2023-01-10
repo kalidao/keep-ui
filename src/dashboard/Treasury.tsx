@@ -8,7 +8,7 @@ type Props = {
   synced: string
 }
 
-const Treasury = ({ native, nfts, tokens, synced }: Props) => {
+const Treasury = ({ native, tokens }: Props) => {
   const _balance = native ? ethers.utils.formatUnits(native?.balance) : 0
   const _tokens = tokens ? tokens?.length : 0
   // const _nfts = nfts ? nfts?.length : 0

@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useThemeStore } from '~/hooks'
 import * as styles from './castle.css'
-import { Slide } from 'react-awesome-reveal'
 
 export const Castle = () => {
   const mode = useThemeStore((state) => state.mode)

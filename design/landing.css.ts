@@ -106,3 +106,20 @@ export const hero = style({
   paddingBottom: vars.space['5'],
   borderRadius: vars.radii['2xLarge'],
 })
+
+export const intro = style({
+  minHeight: '90vh',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+})
+
+export const introBlurb = style([
+  subheading,
+  style({
+    border: `1px solid white`,
+    fontStyle: 'italic',
+    width: '60vw',
+    //textAlign: 'justify'
+  }),
+])

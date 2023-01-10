@@ -71,7 +71,7 @@ const Home: NextPage = () => {
                 {/* marketing copy for no-code legally complian multisig + dao launcher */}
                 <Balencer>
                   <Box as="h2" style={bodoni.style} className={styles.subheading}>
-                    Secure assets for community.
+                    Secure and manage digital assets.
                   </Box>
                 </Balencer>
                 <Stack direction={'horizontal'}>
@@ -90,6 +90,14 @@ const Home: NextPage = () => {
             </Stack>
           </Box>
           <Castle />
+        </Box>
+      </Box>
+      <Box className={styles.intro}>
+        <Box as="p" className={styles.introBlurb}>
+          You may wonder how apps are owned. Corporations, contributors, users? Digital orgs — DAOs — show better ways
+          to own together online. Where group power, such as finance, is handled by apps and code. Keep builds on this
+          idea by using code and corporate tools where they really count. Start with a wallet, assign roles, add
+          community governance and work with companies. Learn more by reading the docs.
         </Box>
       </Box>
       <Box className={styles.features}>
