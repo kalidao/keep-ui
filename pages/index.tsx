@@ -13,6 +13,7 @@ import { ConnectButton } from '~/components/ConnectButton'
 import { Menu } from '@design/Menu'
 import { Castle } from '~/canvas/Castle'
 import { Slide } from 'react-awesome-reveal'
+import { bodoni } from './_app'
 
 const Home: NextPage = () => {
   const {} = useQuery(['allKeeps'], () => fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/all`))
@@ -63,13 +64,13 @@ const Home: NextPage = () => {
             <Stack>
               <Slide>
                 <Balencer>
-                  <Box as="h1" className={styles.heading}>
+                  <Box as="h1" style={bodoni.style} className={styles.heading}>
                     Keep.
                   </Box>
                 </Balencer>
                 {/* marketing copy for no-code legally complian multisig + dao launcher */}
                 <Balencer>
-                  <Box as="h2" className={styles.subheading}>
+                  <Box as="h2" style={bodoni.style} className={styles.subheading}>
                     Secure assets for community.
                   </Box>
                 </Balencer>
@@ -97,11 +98,35 @@ const Home: NextPage = () => {
             <Box key={i} className={i % 2 == 0 ? styles.feature : styles.featureReverse}>
               <Slide>
                 <Stack align="flex-start">
-                  <Box className={styles.featureTitle}>{feature.title}</Box>
-                  <Box className={styles.featureDescription}>{feature.description}</Box>
-                  <Box as="a" href={feature.link} className={styles.featureStyled}>
-                    {feature.styledFeature}
+                  <Box
+                    style={{
+                      ...bodoni.style,
+                    }}
+                    className={styles.featureTitle}
+                  >
+                    {feature.title}
                   </Box>
+                  <Box
+                    style={{
+                      ...bodoni.style,
+                    }}
+                    className={styles.featureDescription}
+                  >
+                    {feature.description}
+                  </Box>
+                  <i>
+                    <Box
+                      as="a"
+                      href={feature.link}
+                      style={{
+                        ...bodoni.style,
+                        fontStyle: 'italic',
+                      }}
+                      className={styles.featureStyled}
+                    >
+                      {feature.styledFeature}
+                    </Box>
+                  </i>
                 </Stack>
               </Slide>
               {feature.image && (

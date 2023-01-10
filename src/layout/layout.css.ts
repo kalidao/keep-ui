@@ -1,6 +1,5 @@
 import { style } from '@vanilla-extract/css'
 import { vars } from '@kalidao/reality'
-import { serif } from '@design/app.css'
 
 export const layout = style({
   minHeight: '100vh',
@@ -46,14 +45,12 @@ export const splashContainer = style({
 })
 
 export const text = style({
-  fontFamily: serif,
   fontSize: vars.fontSizes.small,
   lineHeight: vars.lineHeights.normal,
   color: vars.colors.text,
 })
 
 export const link = style({
-  fontFamily: serif,
   fontSize: vars.fontSizes.small,
   lineHeight: vars.lineHeights.normal,
   color: vars.colors.text,

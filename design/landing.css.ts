@@ -1,9 +1,7 @@
 import { style } from '@vanilla-extract/css'
 import { vars } from '@kalidao/reality'
-import { serif } from './app.css'
 
 export const subheading = style({
-  fontFamily: serif,
   fontWeight: 600,
   fontSize: '32px',
   color: vars.colors.text,
@@ -34,7 +32,6 @@ export const featureReverse = style({
 })
 
 export const featureTitle = style({
-  fontFamily: serif,
   fontWeight: 600,
   fontSize: '48px',
   textDecoration: 'underline',
@@ -42,17 +39,14 @@ export const featureTitle = style({
 })
 
 export const featureDescription = style({
-  fontFamily: serif,
   fontWeight: 400,
   fontSize: '20px',
   color: vars.colors.textSecondary,
 })
 
 export const featureStyled = style({
-  fontFamily: serif,
   fontWeight: 400,
   fontSize: '80px',
-  fontStyle: 'italic',
   color: vars.colors.text,
 
   ':hover': {
@@ -91,8 +85,6 @@ export const preview = style({
 })
 
 export const heading = style({
-  all: 'unset',
-  fontFamily: serif,
   fontWeight: 600,
   fontSize: '180px',
   color: vars.colors.textPrimary,

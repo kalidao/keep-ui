@@ -1,6 +1,5 @@
 import { style } from '@vanilla-extract/css'
 import { vars } from '@kalidao/reality'
-import { serif } from '@design/app.css'
 
 export const arrow = style({
   fill: vars.colors.backgroundSecondary,
@@ -9,7 +8,7 @@ export const arrow = style({
 export const content = style({
   minWidth: 220,
   background: vars.colors.background,
-  fontFamily: serif,
+
   borderRadius: vars.radii.none,
   padding: vars.space[2],
   boxShadow: `${vars.shadows[1]} ${vars.colors.foregroundTertiary}`,
@@ -18,7 +17,7 @@ export const content = style({
 
 export const item = style({
   all: 'unset',
-  fontFamily: serif,
+
   fontSize: vars.fontSizes.base,
   lineHeight: vars.lineHeights.normal,
   color: vars.colors.foreground,
@@ -43,7 +42,6 @@ export const item = style({
 })
 
 export const itemText = style({
-  fontFamily: serif,
   fontSize: vars.fontSizes.base,
   lineHeight: vars.lineHeights.normal,
   color: vars.colors.text,
@@ -70,7 +68,7 @@ export const icon = style({
 
 export const trigger = style({
   all: 'unset',
-  fontFamily: serif,
+
   lineHeight: vars.lineHeights.normal,
   padding: vars.space[3],
   borderRadius: vars.radii.full,
@@ -86,7 +84,7 @@ export const trigger = style({
 export const label = style({
   paddingLeft: vars.space[6],
   fontSize: vars.fontSizes.base,
-  fontFamily: serif,
+
   lineHeight: vars.lineHeights[2],
   color: vars.colors.text,
   fontStyle: 'italic',
