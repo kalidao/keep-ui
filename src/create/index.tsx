@@ -5,6 +5,7 @@ import { Type } from './Type'
 import { Name } from './Name'
 import { Signers } from './Signers'
 import { Confirm } from './Confirm'
+import { NFT } from './NFT'
 
 import type { Store } from './types'
 
@@ -22,6 +23,7 @@ const Create = () => {
     <Type key="type" store={store} setStore={setStore} setView={setView} />,
     <Name key="name" store={store} setStore={setStore} setView={setView} />,
     <Signers key="signers" store={store} setStore={setStore} setView={setView} />,
+    <NFT key="nft" store={store} setStore={setStore} setView={setView} />,
     <Confirm key="confirm" store={store} setStore={setStore} setView={setView} />,
   ]
 

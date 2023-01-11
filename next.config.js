@@ -7,7 +7,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['gateway.pinata.cloud'],
+    domains: ['gateway.pinata.cloud', 'api.kali.gg'],
   },
  
 }

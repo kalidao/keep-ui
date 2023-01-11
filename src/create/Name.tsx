@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import * as styles from './create.css'
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
+import { useCreateStore } from './useCreateStore'
 
 const schema = z.object({
   name: z
@@ -14,42 +15,42 @@ const schema = z.object({
     .trim()
     .min(1, { message: 'A name is required' })
     .max(69, { message: 'Name must be less than 69 characters' }),
+  bio: z.string().max(420, { message: 'Bio must be less than 420 characters' }),
 })
 
+interface Schema {
+  name: string
+  bio: string
+}
+
 export const Name = ({ store, setStore, setView }: CreateProps) => {
+  const state = useCreateStore((state) => state)
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Store>({
+  } = useForm<Schema>({
     defaultValues: {
-      name: store.name,
+      name: state.name,
+      bio: state.bio,
     },
     mode: 'onBlur',
     resolver: zodResolver(schema),
   })
   const { connectedWallets } = useDynamicContext()
 
-  const onSubmit = (data: Store) => {
-    const { name } = data
+  const onSubmit = (data: Schema) => {
+    const { name, bio } = data
 
     if (connectedWallets.length === 0) {
-      setStore({
-        ...store,
-        name: name,
-      })
+      state.setName(name)
+      state.setBio(bio)
     }
 
     if (connectedWallets.length > 0) {
-      setStore({
-        ...store,
-        name: name,
-        signers: [
-          {
-            address: connectedWallets[0].address,
-          },
-        ],
-      })
+      state.setName(name)
+      state.setBio(bio)
+      state.setSigners([{ address: connectedWallets[0].address }])
     }
 
     setView(2)

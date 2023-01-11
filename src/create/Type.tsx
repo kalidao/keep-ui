@@ -1,13 +1,13 @@
 import { Box, Card, Stack, Heading, Text, Button, IconArrowRight } from '@kalidao/reality'
 import { CreateProps } from './types'
 import * as styles from './create.css'
+import { useCreateStore } from './useCreateStore'
 
 export const Type = ({ store, setStore, setView }: CreateProps) => {
+  const setType = useCreateStore((state) => state.setType)
+
   const navigate = (to: number) => {
-    setStore({
-      ...store,
-      type: to,
-    })
+    setType(to)
     setView(1)
   }
 
@@ -31,7 +31,7 @@ export const Type = ({ store, setStore, setView }: CreateProps) => {
               <Heading level="2">Multisig + DAO</Heading>
               <Text>Group wallet with governance token.</Text>
             </Stack>
-            <Button disabled={true} shape="circle" variant="primary" tone="green" onClick={() => navigate(0)}>
+            <Button disabled={true} shape="circle" variant="primary" tone="green" onClick={() => navigate(1)}>
               <IconArrowRight />
             </Button>
           </Stack>

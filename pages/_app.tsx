@@ -16,8 +16,6 @@ import { Bodoni_Moda } from '@next/font/google'
 export const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 export const bodoni = Bodoni_Moda({ subsets: ['latin'], variable: '--font-bodoni' })
 
-console.log('inter', inter, 'bodoni', bodoni)
-
 const queryClient = new QueryClient()
 
 function MyApp({ Component, pageProps }: AppProps) {

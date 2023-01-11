@@ -3,8 +3,10 @@ import { CreateProps, Store } from './types'
 import { useForm, useFieldArray, useWatch } from 'react-hook-form'
 import Back from './Back'
 import * as styles from './create.css'
+import { useCreateStore } from './useCreateStore'
 
 export const Signers = ({ store, setStore, setView }: CreateProps) => {
+  const state = useCreateStore((state) => state)
   const {
     register,
     control,
@@ -13,8 +15,8 @@ export const Signers = ({ store, setStore, setView }: CreateProps) => {
     setError,
   } = useForm<Store>({
     defaultValues: {
-      signers: store.signers,
-      threshold: store.threshold,
+      signers: state.signers,
+      threshold: state.threshold,
     },
     mode: 'onBlur',
   })
@@ -34,11 +36,8 @@ export const Signers = ({ store, setStore, setView }: CreateProps) => {
   const onSubmit = (data: Store) => {
     const { signers, threshold } = data
 
-    setStore({
-      ...store,
-      signers: signers,
-      threshold: threshold,
-    })
+    state.setSigners(signers)
+    state.setThreshold(threshold)
 
     setView(3)
   }
