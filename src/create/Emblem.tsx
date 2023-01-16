@@ -15,10 +15,9 @@ export const Emblem = () => {
         height="500"
       >
         <defs>
-          <style>
-            @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap'); @import
-            url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
-          </style>
+          {/* TODO: Import Fonts */}
+          {/* <style>@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500");</style>
+          <style>@import url("https://fonts.googleapis.com/css2?family=Silkscreen");</style> */}
           <rect width="800%" height="800%" transform="translate(-120,-480)" fill="url(%23a)" />
           <pattern
             id="dot-grid-pattern"
