@@ -45,7 +45,10 @@ const Dashboard: NextPage = () => {
   return (
     <Layout title={'Home'} content={'Create a Keep'}>
       <Stack align="center" justify={'stretch'}>
-        <Heading>{user?.ens?.name}'s dashboard</Heading>
+        <Heading>
+          {user?.ens?.name}
+          {user?.ens?.name && "'s"} dashboard
+        </Heading>
         <Divider />
         <Stack
           direction={{
