@@ -90,65 +90,69 @@ export const Confirm = () => {
       }
     }
 
-    state.setLoadingMessage('Deploying Keep')
-    const tx = await writeAsync?.().catch((err) => {
-      console.log('err', err)
-      state.setLoading('error')
-      state.setLoadingMessage('Error deploying Keep')
-    })
-    console.log('tx', tx)
-    state.setLoadingMessage('Waiting for confirmation')
-    const receipt = await tx?.wait().catch((err) => {
-      console.log('err', err)
-      state.setLoading('error')
-      state.setLoadingMessage('Error deploying Keep')
-    })
-    console.log('receipt', receipt)
-    state.setLoadingMessage('Setting up Keep')
-
-    const body = {
-      address: state.address,
-      chain: chain?.id,
-      blocknumber: 0,
-      name: state.name,
-      signers: signers,
-      threshold: state.threshold,
-      avatar: img ? img : '',
-      templateId: 'signer',
-      bio: state.bio,
-      params: {
-        borderColor: state.borderColor,
-        borderTextColor: state.borderTextColor,
-        bgColor: state.bgColor,
-        innerTextColor: state.innerTextColor,
-      },
-      socials: {
-        twitter: state.twitter,
-        discord: state.discord,
-        website: state.website,
-      },
-    }
-    console.log('body', body)
-
-    const res = await fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/setup`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    })
-    console.log('res', res)
-    if (!res || res.status !== 200) {
-      state.setLoading('error')
-      state.setLoadingMessage('Error setting up Keep')
-      return
-    }
-
-    const data = await res.json()
-    console.log('data', data)
-
-    state.setLoadingMessage('Keep deployed!')
-    state.setLoading('success')
+    writeAsync?.()
+      .then((tx) => {
+        console.log('tx', tx)
+        state.setLoadingMessage('Waiting for confirmation')
+        tx?.wait()
+          .then((receipt) => {
+            console.log('receipt', receipt)
+            state.setLoadingMessage('Setting up Keep')
+            const body = {
+              address: state.address,
+              chain: chain?.id,
+              blocknumber: 0,
+              name: state.name,
+              signers: signers,
+              threshold: state.threshold,
+              avatar: img ? img : '',
+              templateId: 'signer',
+              bio: state.bio,
+              params: {
+                borderColor: state.borderColor,
+                borderTextColor: state.borderTextColor,
+                bgColor: state.bgColor,
+                innerTextColor: state.innerTextColor,
+              },
+              socials: {
+                twitter: state.twitter,
+                discord: state.discord,
+                website: state.website,
+              },
+            }
+            fetch('/api/keeps', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(body),
+            })
+              .then((res) => {
+                if (res.status === 200) {
+                  state.setLoading('success')
+                  state.setLoadingMessage('Keep deployed')
+                } else {
+                  state.setLoading('error')
+                  state.setLoadingMessage('Error deploying Keep')
+                }
+              })
+              .catch((err) => {
+                console.log('err', err)
+                state.setLoading('error')
+                state.setLoadingMessage('Error deploying Keep')
+              })
+          })
+          .catch((err) => {
+            console.log('err', err)
+            state.setLoading('error')
+            state.setLoadingMessage('Error deploying Keep')
+          })
+      })
+      .catch((err) => {
+        console.log('err', err)
+        state.setLoading('error')
+        state.setLoadingMessage('Error deploying Keep')
+      })
   }
 
   if (state.loading === 'loading') {
