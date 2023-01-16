@@ -120,7 +120,7 @@ export const Confirm = () => {
                 website: state.website,
               },
             }
-            fetch('/api/keeps', {
+            fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/setup`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
