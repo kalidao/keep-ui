@@ -12,6 +12,7 @@ export const dialog = style({
   background: 'rgba(0,0,0,0.6)',
   transition: 'all 1s',
   backdropFilter: 'blur(10px)',
+  backgroundColor: 'transparent',
   // opacity: 25,
 })
 
@@ -20,7 +21,7 @@ export const dialogContent = style({
   display: 'flex',
   zIndex: 10,
   flexDirection: 'column',
-  backgroundColor: vars.colors.accent,
+  backgroundColor: vars.colors.backgroundTertiary,
   color: vars.colors.textPrimary,
   minHeight: '50rem',
   minWidth: '24rem',
@@ -36,6 +37,6 @@ export const dialogPanel = style({
   minWidth: vars.space[96],
   padding: vars.space[6],
   borderRadius: vars.radii['2xLarge'],
-  backgroundColor: vars.colors.black,
+
   border: `1px solid ${vars.colors.foregroundSecondary}`,
 })

@@ -57,7 +57,7 @@ type ProposalCardProps = {
   status: 'Pending' | 'Voting' | 'Executed' | 'Canceled' // TODO: think more about status
 }
 
-const ProposalCard = ({
+export const ProposalCard = ({
   chainId,
   keep,
   txHash,

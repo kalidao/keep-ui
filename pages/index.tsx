@@ -63,6 +63,16 @@ const Home: NextPage = () => {
           <Box>
             <Stack>
               <Slide>
+                <Link href="https://github.com/kalidao/keep" className={styles.pill}>
+                  Learn more about Keep on our{' '}
+                  <span
+                    style={{
+                      fontWeight: 600,
+                    }}
+                  >
+                    GitHub <span aria-hidden="true">&rarr;</span>
+                  </span>
+                </Link>
                 <Balencer>
                   <Box as="h1" style={bodoni.style} className={styles.heading}>
                     Keep.
@@ -78,11 +88,6 @@ const Home: NextPage = () => {
                   <Link href="/create" legacyBehavior>
                     <Button as="a" variant="secondary">
                       Get Started
-                    </Button>
-                  </Link>
-                  <Link href="/explore" legacyBehavior>
-                    <Button as="a" variant="transparent">
-                      Explore
                     </Button>
                   </Link>
                 </Stack>

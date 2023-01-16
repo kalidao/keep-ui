@@ -1,6 +1,38 @@
 import { style } from '@vanilla-extract/css'
 import { vars } from '@kalidao/reality'
 
+export const pill = style({
+  // "text-zinc-400 relative overflow-hidden rounded-full py-1.5 px-4 text-sm leading-6 ring-1 ring-zinc-100/10 hover:ring-zinc-100/30 duration-150"
+  // convert the above tailwind classes to vanilla-extract
+  all: 'unset',
+  color: vars.colors.textTertiary,
+  position: 'relative',
+  overflow: 'hidden',
+  borderRadius: vars.radii['2xLarge'],
+  padding: vars.space['2'],
+  paddingRight: vars.space['4'],
+  paddingLeft: vars.space['4'],
+  fontSize: '14px',
+  fontWeight: 400,
+  lineHeight: '24px',
+  border: `1px solid ${vars.colors.foregroundTertiary}`,
+  ':hover': {
+    border: `1px solid ${vars.colors.foregroundSecondary}`,
+  },
+  transition: 'all 150ms',
+
+  ':after': {
+    content: '""',
+    position: 'absolute',
+    top: '0',
+    right: '0',
+    bottom: '0',
+    left: '0',
+    transform: 'translateX(-100%)',
+    transition: 'transform 150ms',
+  },
+})
+
 export const subheading = style({
   fontWeight: 600,
   fontSize: '32px',

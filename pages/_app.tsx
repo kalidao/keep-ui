@@ -3,7 +3,7 @@ import type { AppProps } from 'next/app'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { DynamicContextProvider } from '@dynamic-labs/sdk-react'
 import { DynamicWagmiConnector } from '@dynamic-labs/wagmi-connector'
-
+import { useRouter } from 'next/router'
 import { ThemeProvider } from '@kalidao/reality'
 import { useThemeStore } from '~/hooks/useThemeStore'
 import '@design/global.css'
@@ -20,8 +20,7 @@ const queryClient = new QueryClient()
 
 function MyApp({ Component, pageProps }: AppProps) {
   const mode = useThemeStore((state) => state.mode)
-
-  console.log('mode', mode)
+  const router = useRouter()
 
   return (
     <ThemeProvider defaultMode={mode} defaultAccent="indigo">
@@ -30,6 +29,11 @@ function MyApp({ Component, pageProps }: AppProps) {
           settings={{
             environmentId: process.env.NEXT_PUBLIC_DYNAMIC_ID ?? '',
             multiWallet: true,
+            onAuthSuccess: (args) => {
+              if (router.pathname === '/') {
+                router.push('/dashboard')
+              }
+            },
           }}
           theme={mode === 'dark' ? 'dark' : 'light'}
         >

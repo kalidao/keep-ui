@@ -12,27 +12,25 @@ type Props = {
 const KeepCard = ({ name, chainId, keep, avatar }: Props) => {
   console.log('name', name, avatar)
   return (
-    <Link href={`/${chainId}/${keep}`} legacyBehavior>
-      <a
-        style={{
-          all: 'unset',
-        }}
-      >
-        <Stack direction={'vertical'}>
-          <Avatar
-            noBorder
-            shape="square"
-            src={avatar ? avatar : ''}
-            placeholder={avatar ? false : true}
-            size="64"
-            label={name + ' avatar'}
-            address={keep}
-          />
-          <Text align="center" weight="bold">
-            {name}
-          </Text>
-        </Stack>
-      </a>
+    <Link
+      href={`/${chainId}/${keep}`}
+      style={{
+        textDecoration: 'none',
+      }}
+    >
+      <Stack direction={'horizontal'} align="center">
+        <Avatar
+          shape="square"
+          src={avatar ? avatar : ''}
+          placeholder={avatar ? false : true}
+          size="10"
+          label={name + ' avatar'}
+          address={keep}
+        />
+        <Text align="center" weight="bold">
+          {name}
+        </Text>
+      </Stack>
     </Link>
   )
 }
