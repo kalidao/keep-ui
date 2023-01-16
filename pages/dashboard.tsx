@@ -28,7 +28,7 @@ const parsePendingTransactions = (keeps: any) => {
 const Dashboard: NextPage = () => {
   const { user } = useDynamicContext()
   const { data: keeps } = useQuery(['userKeeps', user?.walletPublicKey], async () => {
-    const data = await fetcher(`http://localhost:8000/keeps?signer=${user?.walletPublicKey}`)
+    const data = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps?signer=${user?.walletPublicKey}`)
     return data
   })
   const router = useRouter()
