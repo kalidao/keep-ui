@@ -111,12 +111,6 @@ export const Signers = () => {
     })
   }
 
-  useEffect(() => {
-    if (watchedSigners.length === 0) {
-      addSigner()
-    }
-  }, [])
-
   return (
     <Box className={styles.shell} as="form" onSubmit={handleSubmit(onSubmit)}>
       <Stack direction={'horizontal'}>
