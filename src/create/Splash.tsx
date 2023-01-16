@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { Box } from '@kalidao/reality'
 import * as styles from './create.css'
+import { useThemeStore } from '~/hooks'
 
 const c = 10
 
-export const Splash = () => {
+export const Splash = ({ type }: { type?: string }) => {
   const [n, setN] = useState(1)
   const [hue, setHue] = useState<number>()
+  const mode = useThemeStore((state) => state.mode)
 
   useEffect(() => {
     setHue(Math.floor(Math.random() * 255))
@@ -15,7 +17,7 @@ export const Splash = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setN(n + 1)
-    }, 1)
+    }, 10)
 
     return () => clearInterval(interval)
   })
@@ -38,17 +40,38 @@ export const Splash = () => {
   let circles = []
   for (let i = 1; i < n; ++i) {
     if (!hue) return null
-    const strokeColor = `hsl(${hue}, 1%, 10%)`
-    const fillColor = `hsl(${hue}, 100%, ${99 - (i / n) * 100}%)`
+
+    let strokeColor, fillColor
+    if (mode === 'dark') {
+      strokeColor = `hsl(${hue}, 100%, 10%)`
+    } else {
+      strokeColor = `hsl(${hue}, 100%, 70%)`
+    }
+    fillColor = `hsl(${hue}, 100%, ${99 - (i / n) * 100}%)`
 
     circles.push(<circle stroke={strokeColor} fill={fillColor} r={10} cx={getXY(i).x} cy={getXY(i).y} key={i} />)
+  }
+
+  if (type == 'loading') {
+    return (
+      <Box className={styles.splashLoading}>
+        {typeof window === 'undefined' ? null : (
+          <svg
+            style={{ backgroundColor: 'transparent', minHeight: '90vh', width: '100%' }}
+            viewBox={`0 0 ${window?.innerWidth} ${window?.innerHeight}`}
+          >
+            {circles}
+          </svg>
+        )}
+      </Box>
+    )
   }
 
   return (
     <Box className={styles.splashContainer}>
       {typeof window === 'undefined' ? null : (
         <svg
-          style={{ backgroundColor: 'black', minHeight: '100vh', width: '100%' }}
+          style={{ backgroundColor: 'transparent', minHeight: '100vh', width: '100%' }}
           viewBox={`0 0 ${window?.innerWidth} ${window?.innerHeight}`}
         >
           {circles}

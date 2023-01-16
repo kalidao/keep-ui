@@ -1,12 +1,20 @@
-import { Card, Stack, Text, Button, IconLightningBolt, Box } from '@kalidao/reality'
+import { Card, Stack, Heading, Text, Button, IconLightningBolt, Box, Divider } from '@kalidao/reality'
 import { useContractRead, useContractWrite, useNetwork, usePrepareContractWrite, useEnsName } from 'wagmi'
 import Back from './Back'
-import { CreateProps } from './types'
 import { ethers } from 'ethers'
 import { useRouter } from 'next/router'
 import { KEEP_ABI, KEEP_FACTORY_ABI, KEEP_FACTORY_ADDRESS } from '~/constants'
+import { useCreateStore } from './useCreateStore'
+import * as styles from './create.css'
+import { Emblem } from './Emblem'
+import { PostIt } from './PostIt'
+import { uploadFile } from '~/utils/upload'
+import { Loading } from './Loading'
+import { Success } from './Success'
+import { Error } from './Error'
 
-export const Confirm = ({ store, setView }: CreateProps) => {
+export const Confirm = () => {
+  const state = useCreateStore((state) => state)
   const router = useRouter()
   const { chain } = useNetwork()
   const { data, error: isDetermineError } = useContractRead({
@@ -14,10 +22,13 @@ export const Confirm = ({ store, setView }: CreateProps) => {
     abi: KEEP_FACTORY_ABI,
     functionName: 'determineKeep',
     chainId: chain ? chain.id : 137,
-    args: [ethers.utils.formatBytes32String(store.name) as `0x${string}`],
+    args: [ethers.utils.formatBytes32String(state.name) as `0x${string}`],
+    onSuccess: (data) => {
+      state.setAddress(data)
+    },
   })
   // write
-  const signers = store.signers.map((signer) => signer.address).sort((a, b) => +a - +b) as `0xstring`[] // TODO: add validation on address
+  const signers = state.signers.map((signer) => signer.address).sort((a, b) => +a - +b) as `0xstring`[] // TODO: add validation on address
 
   // prepare deployment
   let calls = []
@@ -40,73 +51,169 @@ export const Confirm = ({ store, setView }: CreateProps) => {
     abi: KEEP_FACTORY_ABI,
     functionName: 'deployKeep',
     args: [
-      ethers.utils.formatBytes32String(store.name) as `0x{string}`,
+      ethers.utils.formatBytes32String(state.name) as `0x{string}`,
       calls,
       signers,
-      ethers.BigNumber.from(store.threshold),
+      ethers.BigNumber.from(state.threshold),
     ],
     chainId: chain ? Number(chain.id) : 137,
   })
 
   // TODO: Add redirect to keep dashboard
   const {
-    write,
+    writeAsync,
     error: writeError,
     isError: isWriteError,
     isLoading,
   } = useContractWrite({
     ...config,
-    onSuccess: () => {
-      if (chain) {
-        setTimeout(() => 3000)
-        router.push(`/${chain.id}/${data}`)
-      }
-    },
   })
 
-  console.log(
-    'data',
-    ethers.utils.formatBytes32String(store.name) as `0x{string}`,
-    calls,
-    signers,
-    ethers.BigNumber.from(store.threshold),
-  )
-  console.log('errors', prepareError, writeError, write)
-  console.log('isDetermineError', isDetermineError)
+  const deploy = async () => {
+    state.setLoading('loading')
+    if (!chain || isDetermineError || prepareError || isWriteError) {
+      state.setLoading('error')
+      state.setLoadingMessage('Error deploying Keep')
+      return
+    }
+    // state.setLoading('loading')
+    let img: string | Error = ''
+
+    if (state.avatarFile !== undefined) {
+      state.setLoadingMessage('Uploading avatar to IPFS')
+      img = await uploadFile(state.avatarFile)
+
+      if (img instanceof Error) {
+        state.setLoading('error')
+        state.setLoadingMessage('Error uploading avatar to IPFS')
+        return
+      }
+    }
+
+    state.setLoadingMessage('Deploying Keep')
+    const tx = await writeAsync?.().catch((err) => {
+      console.log('err', err)
+      state.setLoading('error')
+      state.setLoadingMessage('Error deploying Keep')
+    })
+    console.log('tx', tx)
+    state.setLoadingMessage('Waiting for confirmation')
+    const receipt = await tx?.wait().catch((err) => {
+      console.log('err', err)
+      state.setLoading('error')
+      state.setLoadingMessage('Error deploying Keep')
+    })
+    console.log('receipt', receipt)
+    state.setLoadingMessage('Setting up Keep')
+
+    const body = {
+      address: state.address,
+      chain: chain?.id,
+      blocknumber: 0,
+      name: state.name,
+      signers: signers,
+      threshold: state.threshold,
+      avatar: img ? img : '',
+      templateId: 'signer',
+      bio: state.bio,
+      params: {
+        borderColor: state.borderColor,
+        borderTextColor: state.borderTextColor,
+        bgColor: state.bgColor,
+        innerTextColor: state.innerTextColor,
+      },
+      socials: {
+        twitter: state.twitter,
+        discord: state.discord,
+        website: state.website,
+      },
+    }
+    console.log('body', body)
+
+    const res = await fetch(`http://localhost:8000/keeps/setup`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    })
+    console.log('res', res)
+    if (!res || res.status !== 200) {
+      state.setLoading('error')
+      state.setLoadingMessage('Error setting up Keep')
+      return
+    }
+
+    const data = await res.json()
+    console.log('data', data)
+
+    state.setLoadingMessage('Keep deployed!')
+    state.setLoading('success')
+  }
+
+  if (state.loading === 'loading') {
+    return <Loading />
+  }
+
+  if (state.loading === 'success') {
+    return <Success />
+  }
+
+  if (state.loading === 'error') {
+    return <Error />
+  }
+
   return (
-    <Box height="full">
-      <Stack>
-        <Back to={2} setView={setView} />
-        <Text>
-          Your multisig will be deployed on {chain ? chain?.name + ' at' : ''}{' '}
-          <Text variant="label">{data ? (data as string) : null}</Text>
-        </Text>
-        <Card padding="5" borderRadius={'medium'} shadow>
-          <Stack direction={'horizontal'} align="center" justify={'space-between'}>
-            <Text size="large">Name</Text>
-            <Text size="large" weight={'bold'}>
-              {store.name}
-            </Text>
+    <Box className={styles.shell}>
+      <Stack direction={'horizontal'}>
+        <Stack>
+          <Stack direction={'horizontal'} align={'center'}>
+            <Back to={'nft'} setView={state.setView} />
+            <Heading level="2">Review</Heading>
           </Stack>
-        </Card>
-        <Card padding="5" borderRadius={'medium'} shadow>
-          <Stack direction={'horizontal'} align="center" justify={'space-between'}>
-            <Text size="large">Threshold</Text>
-            <Text size="large" weight={'bold'}>
-              {store.threshold}/{store.signers.length}
-            </Text>
-          </Stack>
-        </Card>
-        <Stack align={'center'}>
-          <Text size="extraLarge">Signers</Text>
-          {signers.map((signer, index) => (
-            <Signer key={signer} index={index + 1} address={signer} />
-          ))}
+          <Divider />
+          <Box className={styles.form}>
+            <Box display={'flex'} width="full" alignItems={'flex-start'} justifyContent="space-between">
+              <Emblem />
+              <Box width="full" display="flex" flexDirection={'column'} gap="1.5">
+                <Card padding="5" borderRadius={'medium'} width="full" shadow>
+                  <Stack direction={'horizontal'} align="center" justify={'space-between'}>
+                    <Text size="large">Name</Text>
+                    <Text size="large" weight={'bold'}>
+                      {state.name}
+                    </Text>
+                  </Stack>
+                </Card>
+                <Card padding="5" borderRadius={'medium'} width="full" shadow>
+                  <Stack direction={'horizontal'} align="center" justify={'space-between'}>
+                    <Text size="large">Threshold</Text>
+                    <Text size="large" weight={'bold'}>
+                      {state.threshold}/{state.signers.length}
+                    </Text>
+                  </Stack>
+                </Card>
+                <Stack align={'center'}>
+                  <Text size="extraLarge">Signers</Text>
+                  {signers.map((signer, index) => (
+                    <Signer key={signer} index={index + 1} address={signer} />
+                  ))}
+                </Stack>
+              </Box>
+            </Box>
+            {isWriteError && <Text color="red">{writeError?.message}</Text>}
+            <Button width="full" suffix={<IconLightningBolt />} disabled={!writeAsync} onClick={deploy}>
+              {isLoading ? 'Summoning' : 'Summon'}
+            </Button>
+          </Box>
         </Stack>
-        {isWriteError && <Text color="red">{writeError?.message}</Text>}
-        <Button width="full" suffix={<IconLightningBolt />} disabled={!write} onClick={() => write?.()}>
-          {isLoading ? 'Summoning' : 'Summon'}
-        </Button>
+        <Stack>
+          <PostIt title="How to deploy a Keep?">
+            <Text>
+              Click on the Summon button to deploy your Keep. You will be prompted to sign the transaction with your
+              wallet. Once the transaction is mined, you will be redirected to your Keep dashboard.
+            </Text>
+          </PostIt>
+        </Stack>
       </Stack>
     </Box>
   )

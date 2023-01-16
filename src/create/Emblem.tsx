@@ -1,17 +1,8 @@
 import { useCreateStore } from './useCreateStore'
 import { Box } from '@kalidao/reality'
+
 export const Emblem = () => {
   const state = useCreateStore((state) => state)
-
-  const oppColor = (color: string) => {
-    const hex = color.replace('#', '')
-    const r = parseInt(hex.substring(0, 2), 16)
-    const g = parseInt(hex.substring(2, 4), 16)
-    const b = parseInt(hex.substring(4, 6), 16)
-    const o = Math.round(((parseInt(hex.substring(6, 8), 16) || 255) / 255) * 100) / 100
-    const brightness = Math.round((r * 299 + g * 587 + b * 114) / 1000)
-    return brightness > 125 ? '#000000' : '#ffffff'
-  }
 
   return (
     <Box padding={'10'}>
@@ -24,25 +15,37 @@ export const Emblem = () => {
         height="500"
       >
         <defs>
-          <style>@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500');</style>
-
-          <pattern id="net-pattern" width="10" height="10" patternUnits="userSpaceOnUse">
-            {/* diamonds polygon net pattern */}
-            {/* add white bg recentage */}
-            <rect width="10" height="10" fill={state.bgColor} />
-            <polygon points="0,5 5,0 10,5 5,10" fill={state.accentColor} opacity={'0.1'} />
+          <style>
+            @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap'); @import
+            url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
+          </style>
+          <rect width="800%" height="800%" transform="translate(-120,-480)" fill="url(%23a)" />
+          <pattern
+            id="dot-grid-pattern"
+            patternUnits="userSpaceOnUse"
+            width="20"
+            height="20"
+            patternTransform="scale(1) rotate(0)"
+          >
+            <rect x="0" y="0" width="100%" height="100%" fill="hsla(0, 0%, 100%, 1)" />
+            <path
+              d="M 10,-2.55e-7 V 20 Z M -1.1677362e-8,10 H 20 Z"
+              stroke-width="0.5"
+              stroke={state.bgColor}
+              fill="none"
+            />
           </pattern>
+          <rect width="800%" height="800%" transform="translate(-40,0)" fill="url(%23a)" />
         </defs>
         {/* add shadow to rect */}
         <filter id="blur">
           <feGaussianBlur stdDeviation="10" />
         </filter>
-        <rect width="400" height="500" fill={state.bgColor} rx="20" />
-        <rect width="400" height="500" fill={state.bgColor} rx="20" opacity={'0.1'} filter="url(#blur)" />
+        <rect width="400" height="500" fill={state.borderColor} rx="20" />
         {/* enclose the image id=avatar in a stylised box */}
         <g id="avatar">
-          <rect x="20" y="300" width="360" height="180" fill={state.accentColor} rx="20" />
-          <rect x="20" y="40" width="360" height="300" fill={state.accentColor} />
+          <rect x="20" y="300" width="360" height="180" fill={state.bgColor} rx="20" />
+          <rect x="20" y="40" width="360" height="300" fill={state.bgColor} />
           {/* define a circular clip path for avatar  */}
           <clipPath id="avatarClip">
             <circle cx="90" cy="100" r="50" />
@@ -67,7 +70,7 @@ export const Emblem = () => {
             fontFamily: "'JetBrains Mono', monospace",
             fontSize: '20px',
             fontWeight: 'bold',
-            fill: state.textColor,
+            fill: state.borderTextColor,
           }}
         >
           {state.name}
@@ -76,57 +79,133 @@ export const Emblem = () => {
           x="270"
           y="30"
           style={{
-            fontFamily: "'JetBrains Mono', monospace",
+            fontFamily: "'Silkscreen', cursive",
             fontSize: '20px',
             fontWeight: 'bold',
-            fill: state.textColor,
+            fill: state.borderTextColor,
           }}
         >
           SIGNER 🗝
         </text>
-        {/* add a black graph net pattern as background for quorum   */}
 
-        <rect x="20" y="380" width="360" height="30" fill="url(#net-pattern)" />
         <text
           id="quorum_label"
-          x="40"
-          y="400"
+          x="220"
+          y="80"
           style={{
-            fontFamily: "'JetBrains Mono', monospace",
+            fontFamily: "'Silkscreen', cursive",
             fontSize: '20px',
             fontWeight: 'bold',
-            fill: state.textColor,
+            fill: state.innerTextColor,
           }}
         >
-          QUORUM
+          Required
         </text>
+
         <text
           id="quorum"
-          x="280"
-          y="400"
+          x="220"
+          y="110"
           style={{
-            fontFamily: "'JetBrains Mono', monospace",
+            fontFamily: "'Silkscreen', cursive",
             fontSize: '20px',
             fontWeight: 'bold',
-            fill: state.textColor,
+            fill: state.innerTextColor,
           }}
         >
           {state.threshold} of {state.signers.length}
         </text>
-        {/*  */}
 
+        <rect
+          id="txs_notification_bg"
+          x="30"
+          y="165"
+          width="340"
+          height="260"
+          fill="url(#dot-grid-pattern)"
+          rx="15"
+          opacity={'0.5'}
+        />
+        {/* add txs_notification title at the top of the background */}
         <text
-          x="70"
-          y="450"
+          x="40"
+          y="190"
+          style={{
+            fontFamily: "'JetBrains Mono', monospace",
+            fontSize: '20px',
+            fontWeight: 'bold',
+            fill: state.innerTextColor,
+          }}
+        >
+          {/* write title copy for an example multisig tx like token transfer */}
+          Pay Alice
+        </text>
+        {/* add nonce top-right  */}
+        <text
+          x="310"
+          y="190"
+          style={{
+            fontFamily: "'JetBrains Mono', monospace",
+            fontSize: '20px',
+            fontWeight: 'bold',
+            fill: state.innerTextColor,
+          }}
+        >
+          #13
+        </text>
+        {/* add a divider  */}
+        <rect x="30" y="200" width="340" height="5" fill={state.bgColor} />
+        {/* add txs_notification description in foreignObject 'p' below the title */}
+        <foreignObject x="40" y="200" width="320" height="260">
+          <p
+            style={{
+              fontFamily: "'JetBrains Mono', monospace",
+              fontSize: '13px',
+              fontWeight: '400',
+              color: state.innerTextColor,
+              whiteSpace: 'pre-wrap',
+              overflow: 'clip',
+              textAlign: 'justify',
+            }}
+          >
+            {/* write description copy for paying alice for dao contribution */}
+            In order to pay Alice for her contribution to the DAO, you need to sign this transaction.
+          </p>
+        </foreignObject>
+        <rect x="30" y="390" width="340" height="3" fill={state.bgColor} />
+        {/* notifity how many signers have signed this tx */}
+        <text
+          id="signers_label"
+          x="40"
+          y="415"
+          style={{
+            fontFamily: "'JetBrains Mono', monospace",
+            fontSize: '20px',
+            fontWeight: 'bold',
+            fill: state.innerTextColor,
+          }}
+        >
+          0 of {state.signers.length} signed
+        </text>
+        <text
+          id="txs_notification_label"
+          x="250"
+          y="455"
           style={{
             fontFamily: "'JetBrains Mono', monospace",
             fontSize: '20px',
             fontWeight: 'bold',
             // fill color should be the opposite of the accent color
-            fill: oppColor(state.accentColor),
+            fill: state.innerTextColor,
           }}
         >
-          You're all caught up.
+          1 Pending
+          <animate
+            attributeName="fill"
+            values={state.innerTextColor + ';' + state.bgColor + ';' + state.innerTextColor}
+            dur="0.8s"
+            repeatCount="indefinite"
+          />
         </text>
       </svg>
     </Box>

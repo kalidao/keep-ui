@@ -1,13 +1,26 @@
-import { Box, Button, IconArrowRight, Input, Textarea } from '@kalidao/reality'
+import {
+  Box,
+  Button,
+  Stack,
+  IconArrowRight,
+  Input,
+  Text,
+  Heading,
+  Textarea,
+  Divider,
+  FieldSet,
+  IconTwitter,
+  IconDiscord,
+  IconLink,
+} from '@kalidao/reality'
 import Back from './Back'
-import { CreateProps } from './types'
 import { useForm } from 'react-hook-form'
-import { Store } from './types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import * as styles from './create.css'
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
-import { useCreateStore } from './useCreateStore'
+import { CreateStore, useCreateStore } from './useCreateStore'
+import { PostIt } from './PostIt'
 
 const schema = z.object({
   name: z
@@ -18,28 +31,26 @@ const schema = z.object({
   bio: z.string().max(420, { message: 'Bio must be less than 420 characters' }),
 })
 
-interface Schema {
-  name: string
-  bio: string
-}
-
-export const Name = ({ store, setStore, setView }: CreateProps) => {
+export const Name = () => {
   const state = useCreateStore((state) => state)
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Schema>({
+  } = useForm<CreateStore>({
     defaultValues: {
       name: state.name,
       bio: state.bio,
+      twitter: state.twitter,
+      discord: state.discord,
+      website: state.website,
     },
     mode: 'onBlur',
     resolver: zodResolver(schema),
   })
   const { connectedWallets } = useDynamicContext()
 
-  const onSubmit = (data: Schema) => {
+  const onSubmit = (data: CreateStore) => {
     const { name, bio } = data
 
     if (connectedWallets.length === 0) {
@@ -53,30 +64,84 @@ export const Name = ({ store, setStore, setView }: CreateProps) => {
       state.setSigners([{ address: connectedWallets[0].address }])
     }
 
-    setView(2)
+    state.setView('signers')
   }
 
   // TODO: Name needs to be unique per chain. Add check.
   return (
-    <Box className={styles.container} as="form" onSubmit={handleSubmit(onSubmit)}>
-      <Back setView={setView} to={0} />
-      <Input
-        label="Name"
-        description="This will be the on-chain name of your multisig."
-        type="text"
-        inputMode="text"
-        {...register('name')}
-        error={errors?.name && errors?.name?.message}
-      />
-      <Textarea
-        label="Bio"
-        description="This will be the on-chain bio of your multisig."
-        {...register('bio')}
-        error={errors?.bio && errors?.bio?.message}
-      />
-      <Button suffix={<IconArrowRight />} width="full" type="submit">
-        Next
-      </Button>
+    <Box className={styles.shell} as="form" onSubmit={handleSubmit(onSubmit)}>
+      <Stack direction={'horizontal'}>
+        <Stack>
+          <Stack direction={'horizontal'}>
+            <Back setView={state.setView} to={'type'} />
+            <Heading level="2">Identity</Heading>
+          </Stack>
+          <Divider />
+          <Box className={styles.form}>
+            <Input
+              label="Name"
+              description="This will be the on-chain name of your multisig."
+              type="text"
+              inputMode="text"
+              {...register('name')}
+              error={errors?.name && errors?.name?.message}
+            />
+            <Textarea
+              label="Bio"
+              description="This will be description for signer NFTs."
+              {...register('bio')}
+              error={errors?.bio && errors?.bio?.message}
+            />
+            <Divider />
+            {/* fieldset for social links - twitter, discord, website */}
+            <Text size="headingTwo">
+              <strong>Socials</strong>
+            </Text>
+            <Input
+              label="Twitter"
+              width={'full'}
+              type="text"
+              inputMode="text"
+              {...register('twitter')}
+              prefix={<IconTwitter />}
+              hideLabel
+              error={errors?.twitter && errors?.twitter?.message}
+            />
+            <Input
+              label="Discord"
+              width={'full'}
+              type="text"
+              inputMode="text"
+              {...register('discord')}
+              prefix={<IconDiscord />}
+              hideLabel
+              error={errors?.discord && errors?.discord?.message}
+            />
+            <Input
+              label="Website"
+              width={'full'}
+              type="text"
+              inputMode="text"
+              {...register('website')}
+              prefix={<IconLink />}
+              hideLabel
+              error={errors?.website && errors?.website?.message}
+            />
+
+            <Button suffix={<IconArrowRight />} width="full" type="submit">
+              Next
+            </Button>
+          </Box>
+        </Stack>
+        <Stack>
+          <PostIt title={'What is a multisig?'}>
+            <Text>
+              A multisig is a group wallet that requires multiple signers to authorize transactions. You can create a
+              multisig with any number of signers, but the more signers you add, the more secure your wallet will be.
+            </Text>
+          </PostIt>
+        </Stack>
+      </Stack>
     </Box>
   )
 }

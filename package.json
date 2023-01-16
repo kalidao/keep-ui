@@ -29,6 +29,7 @@
     "@vercel/og": "^0.0.25",
     "@xmtp/xmtp-js": "^7.7.3",
     "axios": "^1.2.2",
+    "colorthief": "^2.3.2",
     "dayjs": "^1.11.7",
     "ethers": "5.7.2",
     "lodash.merge": "^4.6.2",

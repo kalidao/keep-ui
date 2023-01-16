@@ -10,7 +10,7 @@ import { Menu } from '@design/Menu'
 
 const Home: NextPage = () => {
   return (
-    <Box className={layout} backgroundColor="black" position={'relative'}>
+    <Box className={layout} position={'relative'}>
       <Head>
         <title>Keep - Home</title>
         <meta name="description" content={'This is the homepage of Keep.'} />
@@ -22,10 +22,7 @@ const Home: NextPage = () => {
           <Menu />
         </Stack>
       </Box>
-      <Box>
-        <Splash />
-        <Create />
-      </Box>
+      <Create />
     </Box>
   )
 }

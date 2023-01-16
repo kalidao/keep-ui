@@ -1,7 +1,19 @@
 import create from 'zustand'
-import { vars } from '@kalidao/reality'
 
-type CreateStore = {
+export type CreateStore = {
+  // general
+  view: 'type' | 'identity' | 'signers' | 'nft' | 'confirm'
+  setView: (view: 'type' | 'identity' | 'signers' | 'nft' | 'confirm') => void
+
+  loading: 'review' | 'loading' | 'success' | 'error'
+  setLoading: (loading: 'review' | 'loading' | 'success' | 'error') => void
+  loadingMessage?: string
+  setLoadingMessage: (loadingMessage: string) => void
+
+  address: string
+  setAddress: (address: string) => void
+
+  // form
   type: number
   setType: (type: number) => void
   name: string
@@ -10,6 +22,9 @@ type CreateStore = {
   setBio: (bio: string) => void
   avatar?: string // url of uploaded avatar image
   setAvatar: (avatar: string) => void
+  avatarFile?: File // file of uploaded avatar image
+  setAvatarFile: (avatarFile: File) => void
+
   twitter?: string
   setTwitter: (twitter: string) => void
   discord?: string
@@ -24,15 +39,30 @@ type CreateStore = {
   setSigners: (signers: { address: string }[]) => void
 
   // nft
+  borderColor: string
+  setBorderColor: (bgColor: string) => void
+  borderTextColor: string
+  setBorderTextColor: (textColor: string) => void
   bgColor: string
-  setBgColor: (bgColor: string) => void
-  textColor: string
-  setTextColor: (textColor: string) => void
-  accentColor: string
-  setAccentColor: (accentColor: string) => void
+  setBgColor: (accentColor: string) => void
+  innerTextColor: string
+  setInnerTextColor: (textColor: string) => void
 }
 
 export const useCreateStore = create<CreateStore>((set) => ({
+  // general
+  view: 'type',
+  setView: (view) => set({ view }),
+
+  loading: 'review',
+  setLoading: (loading) => set({ loading }),
+  loadingMessage: undefined,
+  setLoadingMessage: (loadingMessage) => set({ loadingMessage }),
+
+  address: '',
+  setAddress: (address) => set({ address }),
+
+  // form
   type: 0,
   setType: (type) => set({ type }),
   name: '',
@@ -40,7 +70,10 @@ export const useCreateStore = create<CreateStore>((set) => ({
   bio: '',
   setBio: (bio) => set({ bio }),
   avatar: 'https://pbs.twimg.com/profile_images/1582658266630606848/QQ8I_mLG_400x400.jpg',
+
   setAvatar: (avatar) => set({ avatar }),
+  avatarFile: undefined,
+  setAvatarFile: (avatarFile) => set({ avatarFile }),
   twitter: '',
   setTwitter: (twitter) => set({ twitter }),
   discord: '',
@@ -53,10 +86,12 @@ export const useCreateStore = create<CreateStore>((set) => ({
   setSigners: (signers) => set({ signers }),
 
   // nft
-  bgColor: '#000000',
+  borderColor: '#000000',
+  setBorderColor: (borderColor) => set({ borderColor }),
+  borderTextColor: '#ffffff',
+  setBorderTextColor: (borderTextColor) => set({ borderTextColor }),
+  bgColor: '#ffffff',
   setBgColor: (bgColor) => set({ bgColor }),
-  textColor: '#ffffff',
-  setTextColor: (textColor) => set({ textColor }),
-  accentColor: vars.colors.indigo, // kali purple
-  setAccentColor: (accentColor) => set({ accentColor }),
+  innerTextColor: '#000000',
+  setInnerTextColor: (innerTextColor) => set({ innerTextColor }),
 }))

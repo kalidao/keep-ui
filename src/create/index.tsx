@@ -1,31 +1,24 @@
 import { Box } from '@kalidao/reality'
-import { useState } from 'react'
 import { container } from './create.css'
 import { Type } from './Type'
 import { Name } from './Name'
 import { Signers } from './Signers'
 import { Confirm } from './Confirm'
 import { NFT } from './NFT'
-
-import type { Store } from './types'
+import { CreateStore, useCreateStore } from './useCreateStore'
 
 const Create = () => {
-  const [store, setStore] = useState<Store>({
-    type: 0,
-    name: '',
-    bio: '',
-    signers: [{ address: '' }],
-    threshold: 1,
-  })
-  const [view, setView] = useState<number>(0)
+  const view = useCreateStore((state) => state.view)
 
-  const views = [
-    <Type key="type" store={store} setStore={setStore} setView={setView} />,
-    <Name key="name" store={store} setStore={setStore} setView={setView} />,
-    <Signers key="signers" store={store} setStore={setStore} setView={setView} />,
-    <NFT key="nft" store={store} setStore={setStore} setView={setView} />,
-    <Confirm key="confirm" store={store} setStore={setStore} setView={setView} />,
-  ]
+  const views: {
+    [key in CreateStore['view']]: JSX.Element
+  } = {
+    type: <Type key="type" />,
+    identity: <Name key="name" />,
+    signers: <Signers key="signers" />,
+    nft: <NFT key="nft" />,
+    confirm: <Confirm key="review" />,
+  }
 
   return <Box className={container}>{views[view]}</Box>
 }

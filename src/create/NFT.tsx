@@ -4,81 +4,122 @@ import {
   Heading,
   Stack,
   IconArrowRight,
-  Input,
   MediaPicker,
   IconMoon,
   IconSun,
   Field,
+  Divider,
+  Text,
 } from '@kalidao/reality'
 import Back from './Back'
-import { CreateProps } from './types'
 import * as styles from './create.css'
-import { useQuery } from '@tanstack/react-query'
 import { ColorPicker } from '@design/ColorPicker/ColorPicker'
 import { useCreateStore } from './useCreateStore'
 import { Emblem } from './Emblem'
+import { PostIt } from './PostIt'
+import { getDominantColor } from '~/utils/getDominantColor'
+import { useEffect } from 'react'
 
-export const NFT = ({ store, setStore, setView }: CreateProps) => {
+// Opposite color function
+const oppColor = (color: string) => {
+  // Convert hex to RGB
+  const hex = color.replace('#', '')
+  const r = parseInt(hex.substring(0, 2), 16)
+  const g = parseInt(hex.substring(2, 4), 16)
+  const b = parseInt(hex.substring(4, 6), 16)
+
+  // Determine whether the color is light or dark
+  const brightness = Math.round((r * 299 + g * 587 + b * 114) / 1000)
+  // Return the opposite color
+  return brightness > 125 ? '#000000' : '#ffffff'
+}
+
+export const NFT = () => {
   const state = useCreateStore((state) => state)
-  const { data } = useQuery(['daoAvatar', state.name, state.threshold, state.bio, state.avatar], async () => {
-    // fetch image from api
-    // create url format from store.bio string
-    const bio = store.bio.replace(/\s/g, '%20')
-    const url = `https://api.kali.gg/image/core?name=${store.name}&title=SIGNERS&threshold=${store.threshold}&txs=0&bio=${bio}&avatar=${avatar}`
-    const image = await fetch(url).then((res) => res.text())
 
-    console.log('url', url)
+  const handleSubmit = async (e: any) => {
+    state.setView('confirm')
+  }
 
-    const element = document.getElementById('svgAvatar')
-    if (element) {
-      element.innerHTML = image
-    }
-    console.log('image', image)
+  useEffect(() => {
+    state.setInnerTextColor(oppColor(state.bgColor))
+  }, [state.bgColor])
 
-    return image
-  })
-
-  // TODO: Name needs to be unique per chain. Add check.
   return (
-    <Box className={styles.container} as="form">
-      <Back setView={setView} to={2} />
+    <Box className={styles.shell} as="form">
       <Stack direction={'horizontal'}>
-        <Emblem />
         <Stack>
-          <Heading>Design Signer Key</Heading>
-          {
-            /* background color picker */
-            // accent color picker
-          }
+          <Stack>
+            <Back setView={state.setView} to={'signers'} />
+            <Heading level="2">Design Signer Key</Heading>
+          </Stack>
+          <Divider />
+          <Box className={styles.form}>
+            {/* avatar picker */}
+            <Field label="Upload Avatar for Keep">
+              <MediaPicker
+                name={'avatar'}
+                label="Avatar"
+                compact={true}
+                onChange={async (file: any) => {
+                  console.log('file', file)
+                  state.setAvatarFile(file)
+                  // convert image file to a url for preview
+                  const reader = new FileReader()
+                  reader.readAsDataURL(file)
+                  reader.onloadend = async () => {
+                    console.log('reader', reader)
+                    state.setAvatar(reader.result as string)
 
-          {/* black and white mode picker */}
-          <Button
-            shape="circle"
-            size="small"
-            type="button"
-            onClick={() => {
-              if (state.bgColor === '#000000') {
-                state.setBgColor('#ffffff')
-                state.setTextColor('#000000')
-              } else {
-                state.setBgColor('#000000')
-                state.setTextColor('#ffffff')
-              }
-            }}
-            variant="transparent"
-          >
-            {state.bgColor == '#000000' ? <IconMoon /> : <IconSun />}
-          </Button>
-          <Field label="Accent">
-            <ColorPicker color={state.accentColor} setColor={state.setAccentColor} />
-          </Field>
+                    const dominantColor = await getDominantColor(reader.result as string)
+                    console.log('dominantColor', dominantColor)
+                    state.setBgColor(dominantColor)
+                  }
+                }}
+              />
+            </Field>
+            <Divider />
+            <Stack direction={'horizontal'}>
+              <Emblem />
+              <Stack>
+                <Stack direction={'horizontal'} align="center">
+                  <Text variant="label">Mode</Text>
+                  <Button
+                    size="small"
+                    type="button"
+                    onClick={() => {
+                      if (state.borderColor === '#000000') {
+                        state.setBorderColor('#ffffff')
+                        state.setBorderTextColor('#000000')
+                      } else {
+                        state.setBorderColor('#000000')
+                        state.setBorderTextColor('#ffffff')
+                      }
+                    }}
+                    variant="transparent"
+                  >
+                    {state.bgColor === '#000000' ? <IconSun /> : <IconMoon />}
+                  </Button>
+                </Stack>
+                <Field label="Background Color">
+                  <ColorPicker color={state.bgColor} setColor={state.setBgColor} />
+                </Field>
+              </Stack>
+            </Stack>
+            <Button suffix={<IconArrowRight />} width="full" onClick={handleSubmit}>
+              Next
+            </Button>
+          </Box>
+        </Stack>
+        <Stack>
+          <PostIt title="What is a Signer Key?">
+            <Text>
+              A dynamic NFT representing the right to sign a transaction on <i>{state.name}</i> Keep. The latest
+              transaction to sign and other notifications will appear on it.
+            </Text>
+          </PostIt>
         </Stack>
       </Stack>
-      {/* avatar picker */}
-      <MediaPicker label="Avatar" compact={true} />
-      <Button suffix={<IconArrowRight />} width="full" type="submit">
-        Next
-      </Button>
     </Box>
   )
 }
