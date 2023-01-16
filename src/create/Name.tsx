@@ -29,6 +29,12 @@ const schema = z.object({
     .min(1, { message: 'A name is required' })
     .max(69, { message: 'Name must be less than 69 characters' }),
   bio: z.string().max(420, { message: 'Bio must be less than 420 characters' }),
+  // validate twitter
+  // they can be empty, but if they are not, they must be valid
+  // they are valid if they are a url or a string that starts
+  twitter: z.union([z.string().url(), z.string().max(0)]).optional(),
+  discord: z.union([z.string().url(), z.string().max(0)]).optional(),
+  website: z.union([z.string().url(), z.string().max(0)]).optional(),
 })
 
 export const Name = () => {
@@ -52,7 +58,7 @@ export const Name = () => {
 
   const onSubmit = (data: CreateStore) => {
     const { name, bio, twitter, discord, website } = data
-
+    console.log('data', data)
     state.setName(name)
     state.setBio(bio)
     twitter && state.setTwitter(twitter)
@@ -64,6 +70,8 @@ export const Name = () => {
       state.setBio(bio)
       state.setSigners([{ address: connectedWallets[0].address }])
     }
+
+    console.log('state', state)
 
     state.setView('signers')
   }
