@@ -60,40 +60,39 @@ const Home: NextPage = () => {
 
       <Box className={container}>
         <Box className={styles.hero}>
-          <Box>
-            <Stack>
-              <Slide>
-                <Link href="https://github.com/kalidao/keep" className={styles.pill}>
-                  Learn more about Keep on our{' '}
-                  <span
-                    style={{
-                      fontWeight: 600,
-                    }}
-                  >
-                    GitHub <span aria-hidden="true">&rarr;</span>
-                  </span>
+          <Slide>
+            <Stack align={'stretch'} justify="center">
+              <Link href="https://github.com/kalidao/keep" className={styles.pill}>
+                Learn more about Keep on our{' '}
+                <span
+                  style={{
+                    fontWeight: 600,
+                  }}
+                >
+                  GitHub <span aria-hidden="true">&rarr;</span>
+                </span>
+              </Link>
+              <Balencer>
+                <Box as="h1" style={bodoni.style} className={styles.heading}>
+                  Keep.
+                </Box>
+              </Balencer>
+              {/* marketing copy for no-code legally complian multisig + dao launcher */}
+              <Balencer>
+                <Box as="h2" style={bodoni.style} className={styles.subheading}>
+                  Secure and manage digital assets.
+                </Box>
+              </Balencer>
+              <Stack direction={'horizontal'}>
+                <Link href="/create" legacyBehavior>
+                  <Button as="a" variant="secondary">
+                    Get Started
+                  </Button>
                 </Link>
-                <Balencer>
-                  <Box as="h1" style={bodoni.style} className={styles.heading}>
-                    Keep.
-                  </Box>
-                </Balencer>
-                {/* marketing copy for no-code legally complian multisig + dao launcher */}
-                <Balencer>
-                  <Box as="h2" style={bodoni.style} className={styles.subheading}>
-                    Secure and manage digital assets.
-                  </Box>
-                </Balencer>
-                <Stack direction={'horizontal'}>
-                  <Link href="/create" legacyBehavior>
-                    <Button as="a" variant="secondary">
-                      Get Started
-                    </Button>
-                  </Link>
-                </Stack>
-              </Slide>
+              </Stack>
             </Stack>
-          </Box>
+          </Slide>
+
           <Castle />
         </Box>
       </Box>

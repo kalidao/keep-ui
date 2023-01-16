@@ -15,6 +15,9 @@ export const pill = style({
   fontSize: '14px',
   fontWeight: 400,
   lineHeight: '24px',
+  textAlign: 'center',
+  alignItems: 'center',
+
   border: `1px solid ${vars.colors.foregroundTertiary}`,
   ':hover': {
     border: `1px solid ${vars.colors.foregroundSecondary}`,
