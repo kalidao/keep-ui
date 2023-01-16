@@ -130,7 +130,7 @@ export const Confirm = () => {
     }
     console.log('body', body)
 
-    const res = await fetch(`http://localhost:8000/keeps/setup`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/setup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

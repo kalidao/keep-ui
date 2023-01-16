@@ -51,12 +51,13 @@ export const Name = () => {
   const { connectedWallets } = useDynamicContext()
 
   const onSubmit = (data: CreateStore) => {
-    const { name, bio } = data
+    const { name, bio, twitter, discord, website } = data
 
-    if (connectedWallets.length === 0) {
-      state.setName(name)
-      state.setBio(bio)
-    }
+    state.setName(name)
+    state.setBio(bio)
+    twitter && state.setTwitter(twitter)
+    discord && state.setDiscord(discord)
+    website && state.setWebsite(website)
 
     if (connectedWallets.length > 0) {
       state.setName(name)

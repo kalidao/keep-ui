@@ -12,7 +12,7 @@ const Back = ({ setView, to }: Props) => {
   }
 
   return (
-    <Button shape="circle" variant="transparent" size="small" onClick={navigate}>
+    <Button type="button" shape="circle" variant="transparent" size="small" onClick={navigate}>
       <IconArrowLeft />
     </Button>
   )

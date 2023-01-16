@@ -34,9 +34,11 @@ export type CreateStore = {
   threshold: number
   setThreshold: (threshold: number) => void
   signers: {
+    index?: number
     address: string
+    ens?: string
   }[]
-  setSigners: (signers: { address: string }[]) => void
+  setSigners: (signers: { address: string; ens?: string }[]) => void
 
   // nft
   borderColor: string
@@ -80,7 +82,7 @@ export const useCreateStore = create<CreateStore>((set) => ({
   setDiscord: (discord) => set({ discord }),
   website: '',
   setWebsite: (website) => set({ website }),
-  threshold: 0,
+  threshold: 1,
   setThreshold: (threshold) => set({ threshold }),
   signers: [],
   setSigners: (signers) => set({ signers }),

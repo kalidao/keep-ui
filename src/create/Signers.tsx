@@ -16,6 +16,28 @@ import Back from './Back'
 import * as styles from './create.css'
 import { PostIt } from './PostIt'
 import { CreateStore, useCreateStore } from './useCreateStore'
+import { getEnsAddress } from '~/utils/ens'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useEffect } from 'react'
+
+const schema = z.object({
+  signers: z.array(
+    z.object({
+      // check if address is a valid ethereum address or ends with '.eth'
+      address: z.string().refine(
+        (address) => {
+          if (address.endsWith('.eth')) {
+            return true
+          }
+          return address.match(/^0x[a-fA-F0-9]{40}$/)
+        },
+        { message: 'Invalid address' },
+      ),
+    }),
+  ),
+  threshold: z.coerce.number().min(1, { message: 'Threshold must be greater than 0' }),
+})
 
 export const Signers = () => {
   const state = useCreateStore((state) => state)
@@ -25,12 +47,14 @@ export const Signers = () => {
     handleSubmit,
     formState: { errors },
     setError,
+    setValue,
   } = useForm<CreateStore>({
     defaultValues: {
       signers: state.signers,
       threshold: state.threshold,
     },
     mode: 'onBlur',
+    resolver: zodResolver(schema),
   })
   const { fields, append, remove } = useFieldArray({
     name: 'signers',
@@ -45,9 +69,28 @@ export const Signers = () => {
     control,
   })
 
-  const onSubmit = (data: CreateStore) => {
-    const { signers, threshold } = data
+  const onSubmit = async (data: CreateStore) => {
+    let { signers, threshold } = data
+    console.log('signers', signers)
 
+    for (let i = 0; i < signers.length; i++) {
+      const signer = signers[i]
+      if (signer.address.endsWith('.eth')) {
+        const ensAddress = await getEnsAddress(signer.address)
+        if (ensAddress) {
+          signers[i].address = ensAddress
+          signers[i].ens = signer.address
+        } else {
+          setError(`signers.${i}.address`, {
+            type: 'ens',
+            message: 'Invalid ENS address',
+          })
+          return
+        }
+      }
+    }
+
+    console.log('signers', signers)
     state.setSigners(signers)
     state.setThreshold(threshold)
 
@@ -67,6 +110,18 @@ export const Signers = () => {
       address: '',
     })
   }
+
+  useEffect(() => {
+    if (watchedSigners.length === 0) {
+      addSigner()
+    }
+  }, [])
+
+  useEffect(() => {
+    if (watchedSigners.length === 0) {
+      addSigner()
+    }
+  }, [watchedSigners])
 
   return (
     <Box className={styles.shell} as="form" onSubmit={handleSubmit(onSubmit)}>
@@ -96,14 +151,17 @@ export const Signers = () => {
                         label="Signer"
                         hideLabel
                         placeholder="0x"
-                        {...register(`signers.${index}.address` as const, {
-                          required: {
-                            value: true,
-                            message: 'Address is required',
-                          },
-                          pattern: {
-                            value: /^0x[a-fA-F0-9]{40}$/,
-                            message: 'Not a valid ethereum address',
+                        {...(register(`signers.${index}.address` as const),
+                        {
+                          onBlur: async (e) => {
+                            const value = e.target.value.trim()
+                            if (value.endsWith('.eth')) {
+                              const ensAddress = await getEnsAddress(value)
+                              if (ensAddress != null) {
+                                setValue(`signers.${index}.address`, ensAddress)
+                                setValue(`signers.${index}.ens`, value)
+                              }
+                            }
                           },
                         })}
                         defaultValue={field.address}
