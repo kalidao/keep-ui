@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css'
-import { vars } from '@kalidao/reality'
+import { responsiveStyle, vars } from '@kalidao/reality'
 
 export const pill = style({
   // "text-zinc-400 relative overflow-hidden rounded-full py-1.5 px-4 text-sm leading-6 ring-1 ring-zinc-100/10 hover:ring-zinc-100/30 duration-150"
@@ -36,11 +36,29 @@ export const pill = style({
   },
 })
 
-export const subheading = style({
-  fontWeight: 600,
-  fontSize: '32px',
-  color: vars.colors.text,
-})
+export const subheading = style([
+  style({
+    fontWeight: 600,
+    color: vars.colors.text,
+  }),
+  responsiveStyle({
+    xs: {
+      fontSize: '24px',
+    },
+    sm: {
+      fontSize: '40px',
+    },
+    md: {
+      fontSize: '48px',
+    },
+    lg: {
+      fontSize: '56px',
+    },
+    xl: {
+      fontSize: '64px',
+    },
+  }),
+])
 
 export const features = style({
   minHeight: '100vh',
@@ -52,37 +70,76 @@ export const features = style({
   textAlign: 'center',
 })
 
-export const feature = style({
-  display: 'flex',
-  flexDirection: 'row',
-  gap: vars.space['10'],
-  alignItems: 'flex-start',
-  justifyContent: 'center',
-  textAlign: 'start',
-  marginTop: vars.space['64'],
-  marginBottom: vars.space['64'],
-})
+export const feature = style([
+  style({
+    display: 'flex',
+    flexDirection: 'row',
+    gap: vars.space['10'],
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    textAlign: 'start',
+    marginTop: vars.space['64'],
+    marginBottom: vars.space['64'],
+  }),
+  responsiveStyle({
+    xs: {
+      flexDirection: 'column',
+    },
+    sm: {
+      flexDirection: 'column',
+    },
+  }),
+])
 
-export const featureReverse = style({
-  display: 'flex',
-  flexDirection: 'row-reverse',
-  gap: vars.space['10'],
-  alignItems: 'flex-start',
-  justifyContent: 'center',
-  textAlign: 'start',
-})
+export const featureReverse = style([
+  style({
+    display: 'flex',
+    flexDirection: 'row-reverse',
+    gap: vars.space['10'],
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    textAlign: 'start',
+  }),
+  responsiveStyle({
+    xs: {
+      flexDirection: 'column',
+    },
+    sm: {
+      flexDirection: 'column',
+    },
+  }),
+])
 
 export const keep = style({
   color: vars.colors.textTertiary,
   textTransform: 'lowercase',
 })
 
-export const featureTitle = style({
-  fontWeight: 600,
-  fontSize: '48px',
-  color: vars.colors.text,
-  textDecoration: 'underline',
-})
+export const featureTitle = style([
+  style({
+    fontWeight: 600,
+    fontSize: '48px',
+    color: vars.colors.text,
+    textDecoration: 'underline',
+  }),
+  responsiveStyle({
+    xs: {
+      fontSize: '32px',
+    },
+    sm: {
+      fontSize: '40px',
+    },
+    md: {
+      fontSize: '48px',
+    },
+    lg: {
+      fontSize: '56px',
+    },
+    xl: {
+      fontSize: '64px',
+    },
+  }),
+])
 
 export const featureDescription = style({
   fontWeight: 400,
@@ -130,13 +187,29 @@ export const preview = style({
   },
 })
 
-export const heading = style({
-  fontWeight: 600,
-  fontSize: '180px',
-  color: vars.colors.textPrimary,
-  minHeight: '200px',
-  minWidth: '200px',
-})
+export const heading = style([
+  style({
+    fontWeight: 600,
+    color: vars.colors.textPrimary,
+  }),
+  responsiveStyle({
+    xs: {
+      fontSize: '80px',
+    },
+    sm: {
+      fontSize: '100px',
+    },
+    md: {
+      fontSize: '120px',
+    },
+    lg: {
+      fontSize: '140px',
+    },
+    xl: {
+      fontSize: '160px',
+    },
+  }),
+])
 
 export const hero = style({
   position: 'absolute',
@@ -159,7 +232,6 @@ export const intro = style({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  border: `1px solid rgba(255, 255, 255, 0.2)`,
 })
 
 export const introHeading = style({
@@ -180,5 +252,27 @@ export const introBlurb = style([
     padding: vars.space['6'],
     paddingRight: vars.space['10'],
     paddingLeft: vars.space['10'],
+  }),
+  responsiveStyle({
+    xs: {
+      width: '100vw',
+      fontSize: '13px',
+    },
+    sm: {
+      width: '100vw',
+      fontSize: '15px',
+    },
+    md: {
+      width: '90vw',
+      fontSize: '17px',
+    },
+    lg: {
+      width: '80vw',
+      fontSize: '19px',
+    },
+    xl: {
+      width: '70vw',
+      fontSize: '21px',
+    },
   }),
 ])

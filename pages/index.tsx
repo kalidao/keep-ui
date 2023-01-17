@@ -100,12 +100,35 @@ const Home: NextPage = () => {
         </Box>
       </Box>
 
+      <Box className={styles.intro}>
+        <Fade>
+          <Box as="h3" style={bodoni.style} className={styles.introHeading}>
+            What is this?
+          </Box>
+          <Box as="p" style={bodoni.style} className={styles.introBlurb}>
+            You may wonder how apps are owned. Corporations, contributors, users? Digital orgs — DAOs — show better ways
+            to own together online. Where group power, such as finance, is handled by apps and code. Keep builds on this
+            idea by using code and corporate tools where they really count. Start with a wallet, assign roles, add
+            community governance and work with companies. Learn more by reading the{' '}
+            <a href="https://docs.kali.gg/" className={link}>
+              docs
+            </a>
+            .
+          </Box>
+        </Fade>
+      </Box>
+
       <Box className={styles.features}>
         {features.map((feature, i) => {
           return (
             <Box key={i} className={i % 2 == 0 ? styles.feature : styles.featureReverse}>
               <Slide>
-                <Stack align="flex-start">
+                <Stack
+                  direction={{
+                    xs: 'vertical',
+                  }}
+                  align="flex-start"
+                >
                   <Box>
                     <Box
                       style={{
@@ -162,23 +185,7 @@ const Home: NextPage = () => {
           )
         })}
       </Box>
-      <Box className={styles.intro}>
-        <Fade>
-          <Box as="h3" style={bodoni.style} className={styles.introHeading}>
-            What is this?
-          </Box>
-          <Box as="p" style={bodoni.style} className={styles.introBlurb}>
-            You may wonder how apps are owned. Corporations, contributors, users? Digital orgs — DAOs — show better ways
-            to own together online. Where group power, such as finance, is handled by apps and code. Keep builds on this
-            idea by using code and corporate tools where they really count. Start with a wallet, assign roles, add
-            community governance and work with companies. Learn more by reading the{' '}
-            <a href="https://docs.kali.gg/" className={link}>
-              docs
-            </a>
-            .
-          </Box>
-        </Fade>
-      </Box>
+
       <Footer />
     </Box>
   )
