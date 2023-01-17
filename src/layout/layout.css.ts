@@ -3,19 +3,20 @@ import { vars } from '@kalidao/reality'
 
 export const layout = style({
   minHeight: '100vh',
+  minWidth: '100vw',
   paddingRight: vars.space['5'],
   paddingLeft: vars.space['5'],
 })
 
 export const header = style({
   height: '10vh',
+  width: vars.space.full,
+
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'flex-end',
+
   zIndex: 10,
-  position: 'relative',
-  paddingRight: vars.space['5'],
-  paddingLeft: vars.space['5'],
 })
 
 export const dashboardHeader = style({

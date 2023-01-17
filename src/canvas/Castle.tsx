@@ -1,9 +1,14 @@
 import { useEffect } from 'react'
 import { useThemeStore } from '~/hooks'
 import * as styles from './castle.css'
+import { useMediaQuery } from 'react-responsive'
 
 export const Castle = () => {
   const mode = useThemeStore((state) => state.mode)
+  const sm = useMediaQuery({ query: '(min-width: 640px)' })
+  const md = useMediaQuery({ query: '(min-width: 768px)' })
+  const lg = useMediaQuery({ query: '(min-width: 1024px)' })
+  const xl = useMediaQuery({ query: '(min-width: 1280px)' })
 
   useEffect(() => {
     let path = document.querySelector(`.${styles.path}`) as SVGPathElement
@@ -23,13 +28,32 @@ export const Castle = () => {
     path.style.strokeDashoffset = '0'
   }, [])
 
+  // set size for all screen sizes
+  let size = 500
+  // set size for small screens
+  if (sm) {
+    size = 700
+  }
+  // set size for medium screens
+  if (md) {
+    size = 800
+  }
+  // set size for large screens
+  if (lg) {
+    size = 900
+  }
+  // set size for extra large screens
+  if (xl) {
+    size = 1000
+  }
+
   return (
     <svg
       version="1.1"
       id="svg190"
-      width="1000"
-      height="1000"
-      viewBox="0 0 1000 1000"
+      width={size}
+      height={size}
+      viewBox={`0 0 ${size} ${size}`}
       xmlns="http://www.w3.org/2000/svg"
     >
       <g id="layer1">

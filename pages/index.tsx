@@ -51,11 +51,10 @@ const Home: NextPage = () => {
   ]
 
   return (
-    <Box className={layout} lang="en">
+    <Box className={layout}>
       <Head>
         <title>Keep - Home</title>
         <meta name="description" content={'This is the homepage of Keep.'} />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Box className={header}>
         <Stack direction={'horizontal'}>
@@ -63,7 +62,6 @@ const Home: NextPage = () => {
           <Menu />
         </Stack>
       </Box>
-
       <Box className={container}>
         <Box className={styles.hero}>
           <Slide>
@@ -98,7 +96,6 @@ const Home: NextPage = () => {
               </Stack>
             </Stack>
           </Slide>
-
           <Castle />
         </Box>
       </Box>

@@ -15,6 +15,7 @@ import { Inter } from '@next/font/google'
 import { Bodoni_Moda } from '@next/font/google'
 import App from 'next/app'
 import { Mode } from '@kalidao/reality/dist/types/tokens'
+import Head from 'next/head'
 
 export const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 export const bodoni = Bodoni_Moda({ subsets: ['latin'], variable: '--font-bodoni' })
@@ -45,6 +46,13 @@ function MyApp({ Component, pageProps, theme }: AppProps & { theme: Mode }) {
           theme={theme}
         >
           <DynamicWagmiConnector>
+            <Head>
+              <meta
+                name="viewport"
+                content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0"
+              />
+              <link rel="icon" href="/favicon.ico" />
+            </Head>
             <main className={inter.className}>
               <Component {...pageProps} />
             </main>
