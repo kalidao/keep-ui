@@ -1,5 +1,5 @@
 import type { AppContext, AppProps } from 'next/app'
-import { GetServerSideProps } from 'next'
+import { useEffect } from 'react'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { DynamicContextProvider } from '@dynamic-labs/sdk-react'
@@ -14,34 +14,35 @@ import '@design/app.css'
 import { Inter } from '@next/font/google'
 import { Bodoni_Moda } from '@next/font/google'
 import App from 'next/app'
+import { Mode } from '@kalidao/reality/dist/types/tokens'
 
 export const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 export const bodoni = Bodoni_Moda({ subsets: ['latin'], variable: '--font-bodoni' })
 
 const queryClient = new QueryClient()
 
-function MyApp({ Component, pageProps }: AppProps) {
-  const mode = useThemeStore((state) => state.mode)
+function MyApp({ Component, pageProps, theme }: AppProps & { theme: Mode }) {
+  const setMode = useThemeStore((state) => state.setMode)
   const router = useRouter()
 
-  console.log(pageProps)
-
-  // console.log('pageProps', pageProps)
+  useEffect(() => {
+    setMode(theme)
+  }, [theme])
 
   return (
-    <ThemeProvider defaultMode={mode === 'dark' ? 'dark' : 'light'} defaultAccent="indigo">
+    <ThemeProvider defaultMode={theme} defaultAccent="indigo">
       <QueryClientProvider client={queryClient}>
         <DynamicContextProvider
           settings={{
             environmentId: process.env.NEXT_PUBLIC_DYNAMIC_ID ?? '',
             multiWallet: true,
             onAuthSuccess: (args) => {
-              if (router.pathname === '/') {
+              if (router.pathname === '/' || router.pathname === '/login') {
                 router.push('/dashboard')
               }
             },
           }}
-          theme={mode === 'dark' ? 'dark' : 'light'}
+          theme={theme}
         >
           <DynamicWagmiConnector>
             <main className={inter.className}>
@@ -64,7 +65,8 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
     ?.split(';')
     .find((c) => c.trim().startsWith('mode='))
     ?.split('=')[1]
-
+  console.log('themeCookie', themeCookie)
+  console.log('appProps', appProps)
   return { ...appProps, theme: themeCookie ?? 'light' }
 }
 

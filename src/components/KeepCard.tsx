@@ -1,5 +1,6 @@
-import { Avatar, Text, Stack } from '@kalidao/reality'
+import { Box, Avatar, Text, Stack, Tag } from '@kalidao/reality'
 import Link from 'next/link'
+import * as styles from './styles.css'
 
 type Props = {
   name: string
@@ -7,10 +8,15 @@ type Props = {
   keep: string
   avatar: string | undefined
   bio: string | undefined
+  txs: any
 }
 
-const KeepCard = ({ name, chainId, keep, avatar }: Props) => {
+const KeepCard = ({ name, chainId, keep, avatar, txs }: Props) => {
   console.log('name', name, avatar)
+  // check if keep has pending transactions
+  const pendingTxs = txs.filter((tx: any) => tx.status === 'pending')
+  const isPending = pendingTxs.length > 0 ? true : false
+
   return (
     <Link
       href={`/${chainId}/${keep}`}
@@ -18,19 +24,25 @@ const KeepCard = ({ name, chainId, keep, avatar }: Props) => {
         textDecoration: 'none',
       }}
     >
-      <Stack direction={'horizontal'} align="center">
-        <Avatar
-          shape="square"
-          src={avatar ? avatar : ''}
-          placeholder={avatar ? false : true}
-          size="10"
-          label={name + ' avatar'}
-          address={keep}
-        />
-        <Text align="center" weight="bold">
-          {name}
-        </Text>
-      </Stack>
+      <Box className={styles.keepCard}>
+        <Stack direction={'horizontal'} align="center">
+          <Avatar
+            shape="circle"
+            src={avatar ? avatar : ''}
+            placeholder={avatar ? false : true}
+            size="8"
+            label={name + ' avatar'}
+            address={keep}
+            noBorder
+          />
+          <Text align="center">{name}</Text>
+        </Stack>
+        {isPending && (
+          <Tag tone="green" size="small">
+            {pendingTxs.length}
+          </Tag>
+        )}
+      </Box>
     </Link>
   )
 }

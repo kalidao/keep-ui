@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { Box, Card, Text, Divider, Heading, Stack } from '@kalidao/reality'
+import { Box, Card, Text, Divider, Heading, Stack, Skeleton } from '@kalidao/reality'
 import Layout from '~/layout'
 import { fetcher } from '~/utils'
 import { useQuery } from '@tanstack/react-query'
@@ -27,11 +27,16 @@ const parsePendingTransactions = (keeps: any) => {
 
 const Dashboard: NextPage = () => {
   const { user } = useDynamicContext()
-  const { data: keeps } = useQuery(['userKeeps', user?.walletPublicKey], async () => {
+  const router = useRouter()
+
+  if (!user) {
+    router.push('/login')
+  }
+
+  const { data: keeps, isLoading } = useQuery(['userKeeps', user?.walletPublicKey], async () => {
     const data = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps?signer=${user?.walletPublicKey}`)
     return data
   })
-  const router = useRouter()
 
   // only return the 'pending' transactions from the keeps
   const pendingTransactions = parsePendingTransactions(keeps)
@@ -58,58 +63,63 @@ const Dashboard: NextPage = () => {
           justify="center"
           align="flex-start"
         >
-          <Stack direction={'vertical'} justify="stretch" wrap align="stretch">
-            {keeps ? (
-              keeps.map((keep: any) => {
-                return (
-                  <KeepCard
-                    key={`${keep?.address}-${keep?.chainId}`}
-                    name={keep?.name}
-                    avatar={keep?.avatar}
-                    chainId={keep?.chainId}
-                    keep={keep?.address}
-                    bio={keep?.bio}
-                  />
-                )
-              })
-            ) : (
-              <Card>
-                <Stack>
-                  <Heading>Get started</Heading>
-                  <Divider />
-                  <Text>
-                    No Keeps yet? Create one to get started. You can create a Keep for yourself or for your
-                    organization.
-                  </Text>
-                </Stack>
-              </Card>
-            )}
-          </Stack>
+          <Skeleton height={'80'} width="32" loading={isLoading}>
+            <Box>
+              {keeps ? (
+                keeps.map((keep: any) => {
+                  return (
+                    <KeepCard
+                      key={`${keep?.address}-${keep?.chainId}`}
+                      name={keep?.name}
+                      avatar={keep?.avatar}
+                      chainId={keep?.chainId}
+                      keep={keep?.address}
+                      txs={keep?.transactions}
+                      bio={keep?.bio}
+                    />
+                  )
+                })
+              ) : (
+                <Card>
+                  <Stack>
+                    <Heading>Get started</Heading>
+                    <Divider />
+                    <Text>
+                      No Keeps yet? Create one to get started. You can create a Keep for yourself or for your
+                      organization.
+                    </Text>
+                  </Stack>
+                </Card>
+              )}
+            </Box>
+          </Skeleton>
           <Divider orientation="vertical" />
-          <Box
-            width={{
-              xs: 'screenSm',
-              md: 'screenLg',
-            }}
-          >
-            {pendingTransactions &&
-              pendingTransactions.map((tx: any) => {
-                return (
-                  <ProposalCard
-                    key={tx.txHash}
-                    txHash={tx.txHash}
-                    chainId={tx.keepChainId}
-                    keep={tx.keepAddress}
-                    proposer={tx.authorAddress}
-                    title={tx.title}
-                    description={tx.content}
-                    timestamp={tx.createdAt}
-                    type={'Transaction'}
-                    status={tx.status}
-                  />
-                )
-              })}
-          </Box>
+          <Skeleton height={'36'} width="256" loading={isLoading}>
+            <Box
+              width={{
+                xs: 'screenSm',
+                md: 'screenLg',
+              }}
+            >
+              {pendingTransactions &&
+                pendingTransactions.map((tx: any) => {
+                  return (
+                    <ProposalCard
+                      key={tx.txHash}
+                      txHash={tx.txHash}
+                      chainId={tx.keepChainId}
+                      keep={tx.keepAddress}
+                      proposer={tx.authorAddress}
+                      title={tx.title}
+                      description={tx.content}
+                      timestamp={tx.createdAt}
+                      type={'Transaction'}
+                      status={tx.status}
+                    />
+                  )
+                })}
+            </Box>
+          </Skeleton>
         </Stack>
       </Stack>
     </Layout>
