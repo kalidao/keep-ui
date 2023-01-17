@@ -24,7 +24,7 @@ const Layout = ({ title, content, children }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Box className={dashboardHeader}>
-        <Link href="/">
+        <Link href="/create">
           <Image alt="brand logo and back button" src="/favicon-32x32.png" height="25" width="25" />
         </Link>
         <Stack direction={'horizontal'}>

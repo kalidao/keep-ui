@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import { useRouter } from 'next/router'
 import Image from 'next/image'
 import { Stack, Button, Box } from '@kalidao/reality'
 import * as styles from '@design/landing.css'
@@ -12,8 +13,17 @@ import { Menu } from '@design/Menu'
 import { Castle } from '~/canvas/Castle'
 import { Fade, Slide } from 'react-awesome-reveal'
 import { bodoni } from './_app'
+import { useDynamicContext } from '@dynamic-labs/sdk-react'
 
 const Home: NextPage = () => {
+  const { user } = useDynamicContext()
+  const router = useRouter()
+
+  if (user) {
+    // redirect to dashboard
+    router.push('/dashboard')
+  }
+
   const features = [
     {
       title: 'moving',

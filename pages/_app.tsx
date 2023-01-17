@@ -1,4 +1,5 @@
-import type { AppProps } from 'next/app'
+import type { AppContext, AppProps } from 'next/app'
+import { GetServerSideProps } from 'next'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { DynamicContextProvider } from '@dynamic-labs/sdk-react'
@@ -12,6 +13,7 @@ import '@design/app.css'
 
 import { Inter } from '@next/font/google'
 import { Bodoni_Moda } from '@next/font/google'
+import App from 'next/app'
 
 export const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 export const bodoni = Bodoni_Moda({ subsets: ['latin'], variable: '--font-bodoni' })
@@ -22,8 +24,12 @@ function MyApp({ Component, pageProps }: AppProps) {
   const mode = useThemeStore((state) => state.mode)
   const router = useRouter()
 
+  console.log(pageProps)
+
+  // console.log('pageProps', pageProps)
+
   return (
-    <ThemeProvider defaultMode={mode} defaultAccent="indigo">
+    <ThemeProvider defaultMode={mode === 'dark' ? 'dark' : 'light'} defaultAccent="indigo">
       <QueryClientProvider client={queryClient}>
         <DynamicContextProvider
           settings={{
@@ -46,6 +52,20 @@ function MyApp({ Component, pageProps }: AppProps) {
       </QueryClientProvider>
     </ThemeProvider>
   )
+}
+
+MyApp.getInitialProps = async (appContext: AppContext) => {
+  // Stuff you want to do BEFORE loading props from the individual page
+
+  const appProps = await App.getInitialProps(appContext)
+
+  // Stuff you want to do AFTER loading props from the individual page
+  const themeCookie = appContext?.ctx?.req?.headers?.cookie
+    ?.split(';')
+    .find((c) => c.trim().startsWith('mode='))
+    ?.split('=')[1]
+
+  return { ...appProps, theme: themeCookie ?? 'light' }
 }
 
 export default MyApp

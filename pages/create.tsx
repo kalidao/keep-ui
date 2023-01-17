@@ -4,7 +4,6 @@ import { Stack, Box } from '@kalidao/reality'
 import Head from 'next/head'
 import { layout, header } from '~/layout/layout.css'
 import Create from '~/create'
-import { Splash } from '~/create/Splash'
 import { ConnectButton } from '~/components/ConnectButton'
 import { Menu } from '@design/Menu'
 

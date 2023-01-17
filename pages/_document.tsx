@@ -8,17 +8,14 @@ interface Props {
 export default class MyDocument extends Document<Props> {
   static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps & Props> {
     const initialProps = await Document.getInitialProps(ctx)
+    console.log('ctx.req.headers.cookie', ctx?.req?.headers?.cookie)
 
-    let theme = 'dark'
-    const cookies = ctx?.req?.headers?.cookie
-    if (cookies) {
-      const themeCookie = cookies.split(';').find((c) => c.trim().startsWith('mode='))
-      if (themeCookie) {
-        theme = themeCookie.split('=')[1]
-      }
-    }
+    const themeCookie = ctx?.req?.headers?.cookie
+      ?.split(';')
+      .find((c) => c.trim().startsWith('mode='))
+      ?.split('=')[1]
 
-    return { ...initialProps, theme }
+    return { ...initialProps, theme: themeCookie ?? 'light' }
   }
 
   render() {
@@ -29,9 +26,7 @@ export default class MyDocument extends Document<Props> {
           backgroundColor: this.props.theme === 'dark' ? '#000' : '#fff',
         }}
       >
-        <Head>
-          <style></style>
-        </Head>
+        <Head></Head>
         <body>
           <Main />
           <NextScript />

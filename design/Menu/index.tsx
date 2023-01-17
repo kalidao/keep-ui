@@ -16,10 +16,12 @@ import { arrow, content, item, itemLink, itemText, label, trigger, separator } f
 import { useThemeStore } from '~/hooks/useThemeStore'
 import { setThemeMode } from '~/utils/cookies'
 import { ReactNodeNoStrings } from '@kalidao/reality/dist/types/types'
+import { useDynamicContext } from '@dynamic-labs/sdk-react'
 
 export const Menu = () => {
   const { mode, setMode } = useTheme()
   const toggleModeState = useThemeStore((state) => state.toggleMode)
+  const { user } = useDynamicContext()
 
   const toggleMode = useCallback(() => {
     const nextMode = mode === 'dark' ? 'light' : 'dark'
@@ -38,7 +40,7 @@ export const Menu = () => {
         </DropdownMenuPrimitive.Trigger>
         <DropdownMenuPrimitive.Portal>
           <DropdownMenuPrimitive.Content className={content}>
-            <Item label="Home" href="/" isExternal={false} />
+            <Item label="Home" href={user ? '/dashboard' : '/'} isExternal={false} />
             <Item label="Create" href="/create" isExternal={false} />
             <Item label="Docs" href="https://github.com/kalidao/keep#model" isExternal={true} />
             <Item label="Contact" href="mailto:contact@kali.gg" isExternal={true} />
