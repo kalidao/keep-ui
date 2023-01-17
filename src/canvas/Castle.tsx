@@ -14,6 +14,8 @@ export const Castle = () => {
     let path = document.querySelector(`.${styles.path}`) as SVGPathElement
     let length = path.getTotalLength()
 
+    console.log('path', length)
+
     // Clear any previous transition
     path.style.transition = path.style.transition = 'none'
     // Set up the starting positions
