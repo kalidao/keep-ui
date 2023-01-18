@@ -36,7 +36,7 @@ const DashboardLayout = ({ title, content, children }: Props) => {
         {/* add og tags */}
         <meta name="og:title" content={heading} />
         <meta name="og:description" content={content} />
-        <meta name="og:image" content={'https://keep.kali.gg/api/og?title=' + title} />
+        <meta name="og:image" content={`https://keep.kali.gg/api/og?title=${data?.name}`} />
         <meta name="og:url" content={'https://keep.kali.gg/keeps/' + chainId + '/' + keep} />
         <meta name="og:type" content="website" />
         <meta name="og:site_name" content="Keep" />
@@ -46,7 +46,7 @@ const DashboardLayout = ({ title, content, children }: Props) => {
         <meta name="twitter:creator" content="@kalidao" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={content} />
-        <meta name="twitter:image" content={'https://keep.kali.gg/api/og?title=' + title} />
+        <meta name="twitter:image" content={`https://keep.kali.gg/api/og?title=${data?.name}`} />
         <meta name="twitter:url" content={'https://keep.kali.gg/keeps/' + chainId + '/' + keep} />
         <meta name="description" content={content} />
         <link rel="icon" href="/favicon.ico" />
