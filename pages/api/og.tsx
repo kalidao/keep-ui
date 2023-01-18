@@ -20,11 +20,14 @@ export default async function handler(req: NextRequest) {
   const hasTitle = searchParams.has('title')
   const title = hasTitle ? searchParams.get('title')?.slice(0, 100) : 'Keep'
 
+  // ?hue
+  const hasHue = searchParams.has('hue')
+  const hue = hasHue ? searchParams.get('hue') : Math.floor(Math.random() * 255)
+
   const fontData = await normalBodoni
   const italicFontData = await italicBodoni
 
   const n = 500
-  const hue = Math.floor(Math.random() * 255)
   const c = 10
   const width = 600
   const height = 600
