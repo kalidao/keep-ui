@@ -12,6 +12,8 @@ export type CreateStore = {
 
   address: string
   setAddress: (address: string) => void
+  chainId: number
+  setChainId: (chainId: number) => void
 
   // form
   type: number
@@ -56,13 +58,15 @@ export const useCreateStore = create<CreateStore>((set) => ({
   view: 'type',
   setView: (view) => set({ view }),
 
-  loading: 'review',
+  loading: 'success',
   setLoading: (loading) => set({ loading }),
   loadingMessage: undefined,
   setLoadingMessage: (loadingMessage) => set({ loadingMessage }),
 
   address: '',
   setAddress: (address) => set({ address }),
+  chainId: 1,
+  setChainId: (chainId) => set({ chainId }),
 
   // form
   type: 0,

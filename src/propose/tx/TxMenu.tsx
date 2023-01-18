@@ -17,11 +17,6 @@ export const TxMenu = () => {
       label: 'Send Token',
       view: 'send_token',
     },
-    {
-      icon: <IconMenu className={styles.menuIcon} />,
-      label: 'Apps & Services',
-      view: 'app',
-    },
   ]
 
   return (

@@ -12,11 +12,13 @@ import { uploadFile } from '~/utils/upload'
 import { Loading } from './Loading'
 import { Success } from './Success'
 import { Error } from './Error'
+import { useDynamicContext } from '@dynamic-labs/sdk-react'
 
 export const Confirm = () => {
   const state = useCreateStore((state) => state)
   const router = useRouter()
   const { chain } = useNetwork()
+  const { user } = useDynamicContext()
   const { data, error: isDetermineError } = useContractRead({
     address: KEEP_FACTORY_ADDRESS,
     abi: KEEP_FACTORY_ABI,
@@ -76,6 +78,8 @@ export const Confirm = () => {
       state.setLoadingMessage('Error deploying Keep')
       return
     }
+
+    state.setChainId(chain.id)
     // state.setLoading('loading')
     let img: string | Error = ''
 

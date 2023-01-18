@@ -8,7 +8,7 @@ const Create = () => {
 
   const views: { [key: string]: React.ReactNode } = {
     signal: <Signal setView={setView} />,
-    tx: <Transaction setView={setView} />,
+    tx: <Transaction />,
   }
 
   return (

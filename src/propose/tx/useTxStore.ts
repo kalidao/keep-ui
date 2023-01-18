@@ -1,8 +1,8 @@
 import create from 'zustand'
 
 export type TxStore = {
-  view: 'menu' | 'send_token' | 'send_nft' | 'app' | 'app_tribute'
-  setView: (view: 'menu' | 'send_token' | 'send_nft' | 'app' | 'app_tribute') => void
+  view: 'menu' | 'send_token' | 'send_nft' | 'app_tribute'
+  setView: (view: 'menu' | 'send_token' | 'send_nft' | 'app_tribute') => void
   op: number
   setOp: (op: number) => void
   to: `0x${string}`

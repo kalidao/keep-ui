@@ -1,5 +1,5 @@
 import { Card, Stack, Heading, Divider, Box, IconExclamationCircleSolid } from '@kalidao/reality'
-
+import { useMediaQuery } from 'react-responsive'
 export const PostIt = ({
   title,
   warning,
@@ -9,6 +9,12 @@ export const PostIt = ({
   warning?: boolean
   children: React.ReactNode
 }) => {
+  const sm = useMediaQuery({ query: '(max-width: 640px)' })
+
+  if (sm) {
+    return null
+  }
+
   if (warning) {
     return (
       <Card width="112" padding="6">

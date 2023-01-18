@@ -20,20 +20,13 @@ import { getEnsAddress } from '~/utils/ens'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useEffect } from 'react'
+import { ethers } from 'ethers'
 
 const schema = z.object({
   signers: z.array(
     z.object({
       // check if address is a valid ethereum address or ends with '.eth'
-      address: z.string().refine(
-        (address) => {
-          if (address.endsWith('.eth')) {
-            return true
-          }
-          return address.match(/^0x[a-fA-F0-9]{40}$/)
-        },
-        { message: 'Invalid address' },
-      ),
+      address: z.string(),
     }),
   ),
   threshold: z.coerce.number().min(1, { message: 'Threshold must be greater than 0' }),

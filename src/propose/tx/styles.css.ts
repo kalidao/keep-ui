@@ -1,6 +1,12 @@
 import { vars } from '@kalidao/reality'
 import { style } from '@vanilla-extract/css'
 
+export const toolboxRoot = style([
+  style({
+    display: 'flex',
+  }),
+])
+
 export const menuItem = style({
   display: 'flex',
   flexDirection: 'row',

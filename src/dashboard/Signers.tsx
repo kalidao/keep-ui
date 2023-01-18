@@ -21,7 +21,7 @@ const Signers = ({ signers }: { signers: any[] }) => {
   )
 }
 
-const Signer = ({ signer }: { signer: string }) => {
+export const Signer = ({ signer }: { signer: string }) => {
   const { data: ensName } = useEnsName({
     address: signer as `0x${string}`,
     chainId: 1,

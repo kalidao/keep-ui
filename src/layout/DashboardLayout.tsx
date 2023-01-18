@@ -33,6 +33,42 @@ const DashboardLayout = ({ title, content, children }: Props) => {
     <Box className={layout} lang="en">
       <Head>
         <title>{heading}</title>
+        {/* add og tags */}
+        <meta name="og:title" content={heading} />
+        <meta name="og:description" content={content} />
+        <meta name="og:image" content={'https://keep.kali.gg/api/og?title=' + heading} />
+        <meta name="og:url" content={'https://keep.kali.gg/keeps/' + chainId + '/' + keep} />
+        <meta name="og:type" content="website" />
+        <meta name="og:site_name" content="Keep" />
+        <meta name="og:locale" content="en_US" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@kalidao" />
+        <meta name="twitter:creator" content="@kalidao" />
+        <meta name="twitter:title" content={heading} />
+        <meta name="twitter:description" content={content} />
+        <meta name="twitter:image" content={'https://keep.kali.gg/api/og?title=' + heading} />
+        <meta name="twitter:url" content={'https://keep.kali.gg/keeps/' + chainId + '/' + keep} />
+        <meta name="twitter:label1" content="Created" />
+        <meta name="twitter:data1" content={data?.created_at} />
+        <meta name="twitter:label2" content="Signers" />
+        <meta name="twitter:data2" content={data?.signers.length} />
+        <meta name="twitter:label3" content="Treasury" />
+        <meta name="twitter:data3" content={treasury?.items.length} />
+        <meta name="twitter:label4" content="NFTs" />
+        <meta name="twitter:data4" content={treasury?.nft.length} />
+        <meta name="twitter:label5" content="Native" />
+        <meta
+          name="twitter:data5"
+          content={treasury?.items.filter((item: any) => item.native_token == true)[0]?.amount}
+        />
+        <meta name="twitter:label7" content="Website" />
+        <meta name="twitter:data7" content={data?.website_url} />
+        <meta name="twitter:label9" content="Discord" />
+        <meta name="twitter:data9" content={data?.discord_url} />
+        <meta name="twitter:label10" content="Address" />
+        <meta name="twitter:data10" content={data?.address} />
+        <meta name="twitter:label11" content="Description" />
+        <meta name="twitter:data11" content={data?.description} />
         <meta name="description" content={content} />
         <link rel="icon" href="/favicon.ico" />
       </Head>

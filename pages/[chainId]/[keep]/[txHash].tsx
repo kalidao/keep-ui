@@ -1,4 +1,4 @@
-import type { NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import Link from 'next/link'
 import { Heading, Text, Stack, Card, Button, Spinner, IconArrowLeft } from '@kalidao/reality'
 import Layout from '~/layout/DashboardLayout'
@@ -23,22 +23,43 @@ type Sign = {
   s: `0xstring`
 }
 
-const Tx: NextPage = () => {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const chainId = params?.chainId as string
+  const keep = params?.keep as string
+  const txHash = params?.txHash as string
+
+  const res = await fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/txs/${txHash}`)
+  const data = await res.json()
+
+  console.log('data', data)
+
+  if (data?.error || !data) {
+    return {
+      redirect: {
+        destination: `/${chainId}/${keep}`,
+        permanent: false,
+      },
+    }
+  }
+
+  return {
+    props: {
+      data,
+    },
+  }
+}
+
+const Tx: NextPage = (props: any) => {
+  const data = props?.data
   const router = useRouter()
-  const { address } = useAccount()
   const { chainId, keep, txHash } = router.query
-  const { data, isLoading: isLoadingTx } = useQuery(['keep', chainId, keep, txHash], async () =>
-    fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/txs/${txHash}`),
-  )
+  const { address } = useAccount()
   const { authToken } = useDynamicContext()
 
   const op = toOp(data?.op) ?? 0
   const sigs = data?.sigs
     ?.map((sig: any) => (sig = [sig.signer, sig.v, sig.r, sig.s]))
     .sort((a: any[], b: any[]) => +a[0] - +b[0]) as Sign[] // TODO: Add typing
-
-  console.log('sigs', sigs)
-  console.log('tx', data?.op, Number(op), data?.to, data?.value, data?.data, sigs)
   const { config } = usePrepareContractWrite({
     address: keep as typeof address,
     abi: KEEP_ABI,
@@ -85,10 +106,6 @@ const Tx: NextPage = () => {
       },
       body: JSON.stringify(body),
     }).then((res) => res.json())
-
-    console.log('post', send)
-
-    // TODO: Add confirmation toast
   }
 
   return (
@@ -104,10 +121,8 @@ const Tx: NextPage = () => {
             <IconArrowLeft />
           </Button>
         </Link>
-        <Card padding="6">
-          {isLoadingTx ? (
-            <Spinner />
-          ) : data ? (
+        <Card padding="6" width="viewWidth">
+          {data ? (
             <Stack>
               <Stack direction="horizontal" align="center" justify={'space-between'}>
                 <Stack>
@@ -117,22 +132,26 @@ const Tx: NextPage = () => {
                     <Author author={data ? data?.authorAddress : ''} />
                   </Stack>
                 </Stack>
-                <Delete
-                  txHash={data?.txHash}
-                  chainId={chainId ? (chainId as string) : '137'}
-                  keep={keep ? (keep as string) : ''}
-                  router={router}
-                />
               </Stack>
-              <Stack direction={'horizontal'}>
+              <Stack direction={'horizontal'} justify="space-between">
                 <Stack>
                   <Text>{data?.content}</Text>
                   <ViewTx tx={data} />
                 </Stack>
-                <Quorum sigs={data?.sigs} />
               </Stack>
               <Stack direction={'horizontal'} align="center">
-                {data?.status == 'pending' && <UpVote onClick={sign} />}
+                {data?.status == 'pending' && (
+                  <>
+                    {' '}
+                    <UpVote onClick={sign} />{' '}
+                    <Delete
+                      txHash={data?.txHash}
+                      chainId={chainId ? (chainId as string) : '137'}
+                      keep={keep ? (keep as string) : ''}
+                      router={router}
+                    />
+                  </>
+                )}
                 {data?.status != 'executed' && write && (
                   <Button disabled={!write} onClick={() => write?.()}>
                     Execute
@@ -149,6 +168,7 @@ const Tx: NextPage = () => {
             </Stack>
           )}
         </Card>
+        <Quorum sigs={data?.sigs} />
       </Stack>
     </Layout>
   )

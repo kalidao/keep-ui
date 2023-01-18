@@ -1,4 +1,4 @@
-import { vars } from '@kalidao/reality'
+import { vars, responsiveStyle } from '@kalidao/reality'
 import { style } from '@vanilla-extract/css'
 
 export const container = style({
@@ -11,21 +11,62 @@ export const container = style({
 
 export const typeContainer = style({})
 
-export const typeShell = style({
-  position: 'absolute',
-  width: '67.5vw',
-  // position the type container to the right of the splash container
-  right: 0,
-  top: 0,
-  bottom: 0,
+export const typeShell = style([
+  style({
+    width: '67.5vw',
+    // position the type container to the right of the splash container
+    right: 0,
+    top: 0,
+    bottom: 0,
 
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'stretch',
-  justifyContent: 'center',
-  gap: vars.space['10'],
-  backgroundColor: vars.colors.background,
-})
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    justifyContent: 'center',
+    gap: vars.space['10'],
+    backgroundColor: vars.colors.background,
+  }),
+  responsiveStyle({
+    xs: {
+      width: '100vw',
+      position: 'relative',
+      right: 'auto',
+      left: 'auto',
+      top: 'auto',
+      bottom: 'auto',
+    },
+    sm: {
+      width: '100vw',
+      position: 'relative',
+      right: 'auto',
+      left: 'auto',
+      top: 'auto',
+      bottom: 'auto',
+    },
+    md: {
+      width: '100vw',
+      position: 'relative',
+      right: 'auto',
+      left: 'auto',
+      top: 'auto',
+      bottom: 'auto',
+    },
+    lg: {
+      width: '67.5vw',
+      position: 'absolute',
+      right: 0,
+      top: 0,
+      bottom: 0,
+    },
+    xl: {
+      width: '67.5vw',
+      position: 'absolute',
+      right: 0,
+      top: 0,
+      bottom: 0,
+    },
+  }),
+])
 
 export const splashContainer = style({
   minHeight: '100vh',

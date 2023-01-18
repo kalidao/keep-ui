@@ -11,9 +11,9 @@ import { useQuery } from 'wagmi'
 import { fetcher } from '~/utils'
 import { TxMenu } from './TxMenu'
 import { TxStore, useTxStore } from './useTxStore'
-import { AppsMenu } from './AppsMenu'
 import { AppTribute } from './AppTribute'
 import { SendNFT } from './SendNFT'
+import { Toolbox } from './Toolbox'
 
 type Props = {
   setView: React.Dispatch<React.SetStateAction<string>>
@@ -30,7 +30,7 @@ const operation = (op: number) => {
   }
 }
 
-const Transaction = ({}: Props) => {
+const Transaction = () => {
   const router = useRouter()
   const { chainId, keep } = router.query
   const { address: author } = useAccount()
@@ -116,14 +116,6 @@ const Transaction = ({}: Props) => {
     router.push(`/${chainId}/${keep}`)
   }
 
-  const views: { [key in TxStore['view']]: React.ReactNode } = {
-    menu: <TxMenu />,
-    send_token: <SendToken />,
-    send_nft: <SendNFT />,
-    app: <AppsMenu />,
-    app_tribute: <AppTribute />,
-  }
-
   // TODO: Signal for Guilds
   return (
     <Box className={highBackground}>
@@ -142,8 +134,7 @@ const Transaction = ({}: Props) => {
               placeholder="What is this transaction about?"
               onChange={(e) => setContent(e.currentTarget.value)}
             />
-            {views[view]}
-            <Text>To: {state.to}</Text>
+            <Toolbox />
             <Button onClick={handleTx} disabled={isLoading || isError || notSigner}>
               Submit
             </Button>

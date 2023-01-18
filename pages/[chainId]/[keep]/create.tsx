@@ -1,11 +1,11 @@
 import type { NextPage } from 'next'
 import Layout from '~/layout/DashboardLayout'
-import Create from '~/propose/Create'
+import { Transaction } from '~/propose/tx/'
 
 const Tx: NextPage = () => {
   return (
     <Layout title={'Dashboard'} content={'Manage your Keep'}>
-      <Create />
+      <Transaction />
     </Layout>
   )
 }
