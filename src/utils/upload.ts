@@ -1,7 +1,7 @@
 import axios from 'axios'
 const { Readable } = require('stream')
 
-const JWT = `Bearer ${process.env.NEXT_PUBLIC_PINATA_JWT}}`
+const JWT = `Bearer ${process.env.NEXT_PUBLIC_PINATA_JWT}`
 
 export const convertIpfsHash = (source: string): string => {
   const desiredGatewayPrefix = 'https://content.wrappr.wtf/ipfs/'
@@ -52,7 +52,7 @@ export async function uploadFile(attachment: any, name?: string) {
     return convertIpfsHash(res.data.IpfsHash)
   } catch (error) {
     console.log(error)
-    return new Error('Something wrong with upload.')
+    return ''
   }
 }
 

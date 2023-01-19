@@ -12,6 +12,7 @@ import { uploadFile } from '~/utils/upload'
 import { Loading } from './Loading'
 import { Success } from './Success'
 import { Error } from './Error'
+import { AxiosError } from 'axios'
 
 export const Confirm = () => {
   const state = useCreateStore((state) => state)
@@ -78,17 +79,10 @@ export const Confirm = () => {
 
     state.setChainId(chain.id)
 
-    let img: string | Error = ''
+    let img = ''
 
-    if (state.avatarFile !== undefined) {
-      state.setLoadingMessage('Uploading avatar to IPFS')
-      img = await uploadFile(state.avatarFile)
-
-      if (img instanceof Error) {
-        state.setLoading('error')
-        state.setLoadingMessage('Error uploading avatar to IPFS')
-        return
-      }
+    if (state.avatarFile !== undefined && state.avatar?.includes('https://content.wrappr.wtf/ipfs/')) {
+      img = state.avatar
     }
 
     writeAsync?.()

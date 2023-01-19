@@ -19,8 +19,6 @@ import { CreateStore, useCreateStore } from './useCreateStore'
 import { getEnsAddress } from '~/utils/ens'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useEffect } from 'react'
-import { ethers } from 'ethers'
 
 const schema = z.object({
   signers: z.array(
@@ -182,7 +180,6 @@ export const Signers = () => {
               type="number"
               inputMode="numeric"
               min="1"
-              max={watchedSigners.length.toString()}
               error={errors?.threshold && errors?.threshold?.message}
               {...register(`threshold`, {
                 required: true,

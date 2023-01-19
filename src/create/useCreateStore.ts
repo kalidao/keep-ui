@@ -79,11 +79,12 @@ export const useCreateStore = create<CreateStore>((set) => ({
   setName: (name) => set({ name }),
   bio: '',
   setBio: (bio) => set({ bio }),
-  avatar: 'https://pbs.twimg.com/profile_images/1582658266630606848/QQ8I_mLG_400x400.jpg',
 
+  avatar: 'https://pbs.twimg.com/profile_images/1582658266630606848/QQ8I_mLG_400x400.jpg',
   setAvatar: (avatar) => set({ avatar }),
   avatarFile: undefined,
   setAvatarFile: (avatarFile) => set({ avatarFile }),
+
   twitter: '',
   setTwitter: (twitter) => set({ twitter }),
   discord: '',

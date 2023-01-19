@@ -18,7 +18,8 @@ import { useCreateStore } from './useCreateStore'
 import { Emblem } from './Emblem'
 import { PostIt } from './PostIt'
 import { getDominantColor } from '~/utils/getDominantColor'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { uploadFile } from '~/utils/upload'
 
 // Opposite color function
 const oppColor = (color: string) => {
@@ -36,6 +37,9 @@ const oppColor = (color: string) => {
 
 export const NFT = () => {
   const state = useCreateStore((state) => state)
+  const [error, setError] = useState<{
+    message: string
+  }>()
 
   const handleSubmit = async (e: any) => {
     state.setView('confirm')
@@ -44,6 +48,22 @@ export const NFT = () => {
   useEffect(() => {
     state.setInnerTextColor(oppColor(state.bgColor))
   }, [state.bgColor])
+
+  console.log(state.avatar)
+
+  const uploadAvatar = async (file: File) => {
+    if (file) {
+      await uploadFile(file)
+        .then((url) => {
+          state.setAvatar(url)
+        })
+        .catch((err) => {
+          setError({
+            message: 'Error uploading file. Please try again.',
+          })
+        })
+    }
+  }
 
   return (
     <Box className={styles.shell} as="form">
@@ -56,7 +76,7 @@ export const NFT = () => {
           <Divider />
           <Box className={styles.form}>
             {/* avatar picker */}
-            <Field label="Upload Avatar for Keep">
+            <Field label="Upload Avatar for Keep" error={error && error.message}>
               <MediaPicker
                 name={'avatar'}
                 label="Avatar"
@@ -75,6 +95,7 @@ export const NFT = () => {
                     console.log('dominantColor', dominantColor)
                     state.setBgColor(dominantColor)
                   }
+                  await uploadAvatar(file)
                 }}
               />
             </Field>
