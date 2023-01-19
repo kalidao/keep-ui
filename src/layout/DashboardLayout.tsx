@@ -27,8 +27,6 @@ const DashboardLayout = ({ title, content, children }: Props) => {
     fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/treasury`),
   )
 
-  console.log('treasury', treasury)
-
   return (
     <Box className={layout} lang="en">
       <Head>
@@ -47,6 +45,7 @@ const DashboardLayout = ({ title, content, children }: Props) => {
         <meta name="twitter:image" content={`https://keep.kali.gg/api/og?title=${data?.name}`} />
         <meta name="twitter:url" content={'https://keep.kali.gg/keeps/' + chainId + '/' + keep} />
         <meta name="description" content={content} />
+
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Box className={dashboardHeader} as="header">

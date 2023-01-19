@@ -6,3 +6,9 @@ globalStyle('html, body', {
   padding: 0,
   background: vars.colors.background,
 })
+
+globalStyle('a', {
+  color: vars.colors.textPrimary,
+  cursor: 'pointer',
+  textDecoration: 'underline',
+})

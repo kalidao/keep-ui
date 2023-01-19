@@ -138,3 +138,24 @@ export const preview = style({
   width: '100%',
   height: '100%',
 })
+
+export const successGrid = style({
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+
+  gap: vars.space['5'],
+  width: '100%',
+  height: '100%',
+  marginTop: vars.space['5'],
+  marginBottom: vars.space['5'],
+})
+
+export const successMessage = style({
+  all: 'unset',
+
+  ':hover': {
+    cursor: 'pointer',
+    // transform the card up and to the right a bit when it's hovered
+    transform: 'translate(4px, -4px)',
+  },
+})
