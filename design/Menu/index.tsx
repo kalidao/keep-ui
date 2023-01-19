@@ -31,59 +31,57 @@ export const Menu = () => {
   }, [mode, setMode, toggleModeState])
 
   return (
-    <Box>
-      <DropdownMenuPrimitive.Root>
-        <DropdownMenuPrimitive.Trigger asChild className={trigger}>
-          <Button shape="circle">
-            <IconChevronDown color={'text'} />
-          </Button>
-        </DropdownMenuPrimitive.Trigger>
-        <DropdownMenuPrimitive.Portal>
-          <DropdownMenuPrimitive.Content className={content}>
-            <Item label="Home" href={user ? '/dashboard' : '/'} isExternal={false} />
-            <Item label="Create" href="/create" isExternal={false} />
-            <Item label="Docs" href="https://github.com/kalidao/keep#model" isExternal={true} />
-            <Item label="Contact" href="mailto:contact@kali.gg" isExternal={true} />
-            <Item
-              type="button"
-              icon={mode === 'dark' ? <IconSun /> : <IconMoon />}
-              label={mode === 'dark' ? 'Light' : 'Dark'}
-              onClick={toggleMode}
-            />
-            <DropdownMenuPrimitive.Separator className={separator} />
-            <DropdownMenuPrimitive.Label className={label}>Socials</DropdownMenuPrimitive.Label>
-            <Item
-              label={
-                <Stack direction={'horizontal'} align="center" justify={'flex-start'}>
-                  <IconTwitter aria-label="Twitter" />
-                  <Box className={itemText}>Twitter</Box>
-                </Stack>
-              }
-              href="https://twitter.com/kali__gg"
-            />
-            <Item
-              label={
-                <Stack direction={'horizontal'} align="center" justify={'flex-start'}>
-                  <IconDiscord aria-label="Discord" />
-                  <Box className={itemText}>Discord</Box>
-                </Stack>
-              }
-              href="http://discord.gg/UKCS9ghzUE"
-            />
-            <Item
-              label={
-                <Stack direction={'horizontal'} align="center" justify={'flex-start'}>
-                  <IconGitHub aria-label="GitHub" />
-                  <Box className={itemText}>GitHub</Box>
-                </Stack>
-              }
-              href="https://github.com/kalidao/"
-            />
-            <DropdownMenuPrimitive.Arrow className={arrow} />
-          </DropdownMenuPrimitive.Content>
-        </DropdownMenuPrimitive.Portal>
-      </DropdownMenuPrimitive.Root>
-    </Box>
+    <DropdownMenuPrimitive.Root>
+      <DropdownMenuPrimitive.Trigger asChild className={trigger}>
+        <Button shape="circle" aria-label="Menu">
+          <IconChevronDown color={'text'} />
+        </Button>
+      </DropdownMenuPrimitive.Trigger>
+      <DropdownMenuPrimitive.Portal>
+        <DropdownMenuPrimitive.Content className={content}>
+          <Item label="Home" href={user ? '/dashboard' : '/'} isExternal={false} />
+          <Item label="Create" href="/create" isExternal={false} />
+          <Item label="Docs" href="https://github.com/kalidao/keep#model" isExternal={true} />
+          <Item label="Contact" href="mailto:contact@kali.gg" isExternal={true} />
+          <Item
+            type="button"
+            icon={mode === 'dark' ? <IconSun /> : <IconMoon />}
+            label={mode === 'dark' ? 'Light' : 'Dark'}
+            onClick={toggleMode}
+          />
+          <DropdownMenuPrimitive.Separator className={separator} />
+          <DropdownMenuPrimitive.Label className={label}>Socials</DropdownMenuPrimitive.Label>
+          <Item
+            label={
+              <Stack direction={'horizontal'} align="center" justify={'flex-start'}>
+                <IconTwitter aria-label="Twitter" />
+                <Box className={itemText}>Twitter</Box>
+              </Stack>
+            }
+            href="https://twitter.com/kali__gg"
+          />
+          <Item
+            label={
+              <Stack direction={'horizontal'} align="center" justify={'flex-start'}>
+                <IconDiscord aria-label="Discord" />
+                <Box className={itemText}>Discord</Box>
+              </Stack>
+            }
+            href="http://discord.gg/UKCS9ghzUE"
+          />
+          <Item
+            label={
+              <Stack direction={'horizontal'} align="center" justify={'flex-start'}>
+                <IconGitHub aria-label="GitHub" />
+                <Box className={itemText}>GitHub</Box>
+              </Stack>
+            }
+            href="https://github.com/kalidao/"
+          />
+          <DropdownMenuPrimitive.Arrow className={arrow} />
+        </DropdownMenuPrimitive.Content>
+      </DropdownMenuPrimitive.Portal>
+    </DropdownMenuPrimitive.Root>
   )
 }
 

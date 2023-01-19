@@ -2,10 +2,9 @@ import { style } from '@vanilla-extract/css'
 import { responsiveStyle, vars } from '@kalidao/reality'
 
 export const pill = style({
-  // "text-zinc-400 relative overflow-hidden rounded-full py-1.5 px-4 text-sm leading-6 ring-1 ring-zinc-100/10 hover:ring-zinc-100/30 duration-150"
-  // convert the above tailwind classes to vanilla-extract
   all: 'unset',
-  color: vars.colors.textTertiary,
+  color: vars.colors.textSecondary,
+  backgroundColor: vars.colors.backgroundSecondary,
   position: 'relative',
   overflow: 'hidden',
   borderRadius: vars.radii['2xLarge'],
@@ -18,21 +17,10 @@ export const pill = style({
   textAlign: 'center',
   alignItems: 'center',
 
-  border: `1px solid ${vars.colors.foregroundTertiary}`,
+  border: `1px solid ${vars.colors.foregroundSecondary}`,
   ':hover': {
-    border: `1px solid ${vars.colors.foregroundSecondary}`,
-  },
-  transition: 'all 150ms',
-
-  ':after': {
-    content: '""',
-    position: 'absolute',
-    top: '0',
-    right: '0',
-    bottom: '0',
-    left: '0',
-    transform: 'translateX(-100%)',
-    transition: 'transform 150ms',
+    border: `1px solid ${vars.colors.foregroundSecondaryHover}`,
+    transition: 'all 150ms',
   },
 })
 
