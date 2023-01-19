@@ -47,9 +47,7 @@ export const NFT = () => {
 
   useEffect(() => {
     state.setInnerTextColor(oppColor(state.bgColor))
-  }, [state.bgColor])
-
-  console.log(state.avatar)
+  }, [state.bgColor, state.setInnerTextColor])
 
   const uploadAvatar = async (file: File) => {
     if (file) {

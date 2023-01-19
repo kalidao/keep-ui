@@ -16,10 +16,10 @@ export const Success = () => {
   useEffect(() => {
     if (!chain) return
 
-    // const timer = setTimeout(() => {
-    //   router.push(`/${chain?.id}/${state.address}`)
-    // }, 30000)
-    // return () => clearTimeout(timer)
+    const timer = setTimeout(() => {
+      router.push(`/${chain?.id}/${state.address}`)
+    }, 30000)
+    return () => clearTimeout(timer)
   })
 
   const messages = [

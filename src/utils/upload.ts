@@ -1,8 +1,6 @@
 import axios from 'axios'
 const { Readable } = require('stream')
 
-const JWT = `Bearer ${process.env.NEXT_PUBLIC_PINATA_JWT}`
-
 export const convertIpfsHash = (source: string): string => {
   const desiredGatewayPrefix = 'https://content.wrappr.wtf/ipfs/'
   return desiredGatewayPrefix + source
@@ -16,7 +14,7 @@ export async function uploadImageData(data: any, name?: string) {
     img.append('file', stream, name || 'image')
     const res = await axios.post('https://api.pinata.cloud/pinning/pinFileToIPFS', data, {
       headers: {
-        Authorization: JWT,
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_PINATA_JWT}`,
       },
     })
     console.log(res.data)
@@ -45,7 +43,7 @@ export async function uploadFile(attachment: any, name?: string) {
       headers: {
         // @ts-ignore
         'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
-        Authorization: JWT,
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_PINATA_JWT}`,
       },
     })
     console.log(res.data)
@@ -62,7 +60,7 @@ export async function uploadJSON(obj: any) {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: JWT,
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_PINATA_JWT}`,
       },
       body: JSON.stringify(obj),
     }).then((res) => res.json())

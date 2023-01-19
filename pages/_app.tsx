@@ -30,7 +30,7 @@ function MyApp({ Component, pageProps, theme }: AppProps & { theme: Mode }) {
 
   useEffect(() => {
     setMode(theme)
-  }, [theme])
+  }, [theme, setMode])
 
   return (
     <ThemeProvider defaultMode={theme} defaultAccent="indigo">
