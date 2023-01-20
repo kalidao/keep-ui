@@ -1,11 +1,12 @@
 import { ethers } from 'ethers'
-import { useRouter } from 'next/router'
-import { useAccount, useContractRead } from 'wagmi'
-import { KEEP_ABI } from '~/constants'
 import 'react-step-progress-bar/styles.css'
 import { ProgressBar } from 'react-step-progress-bar'
 import { Card, Divider, Heading, Stack, Stat, Tag, Text } from '@kalidao/reality'
 import { Signer } from '~/dashboard/Signers'
+import { useKeepStore } from '~/dashboard/useKeepStore'
+import { fetcher } from '~/utils'
+import { useQuery } from '@tanstack/react-query'
+import { Key } from 'react'
 
 type Sig = {
   signer: string
@@ -14,23 +15,33 @@ type Sig = {
   s: string
 }
 
-const Quorum = ({ sigs }: { sigs: Sig[] }) => {
-  const { address } = useAccount()
-  const router = useRouter()
-  const { chainId, keep } = router.query
-  const { data, error } = useContractRead({
-    address: keep as typeof address,
-    abi: KEEP_ABI,
-    chainId: Number(chainId),
-    functionName: 'quorum',
+const Quorum = () => {
+  const state = useKeepStore((state) => state)
+  const { data: tx } = useQuery(
+    ['keep', state.txHash],
+    () => fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/txs/${state.txHash}`),
+    {
+      enabled: !!state.txHash,
+      refetchInterval: 1000,
+    },
+  )
+  const { data: keep } = useQuery(['keep', state.chainId, state.address], async () => {
+    const result = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${state.chainId}/${state.address}/`)
+    return result
   })
-
-  const quorum = data ? ethers.utils.formatUnits(data, 0) : 0
-  const percentage = (sigs.length / Number(quorum)) * 100
-  console.log('quorum', sigs, sigs?.length, quorum, (sigs?.length / Number(quorum)) * 100, error)
+  console.log('tx', tx)
+  console.log('keep', keep)
+  const quorum = keep ? ethers.utils.formatUnits(keep?.threshold, 0) : 0
+  const percentage = tx && (tx.sigs.length / Number(quorum)) * 100
 
   return (
-    <Card padding="6" width="128">
+    <Card
+      padding="6"
+      width={{
+        xs: 'full',
+        lg: '1/4',
+      }}
+    >
       <Stack>
         <Stack direction={'horizontal'} align="center" justify={'space-between'}>
           <Heading>Status</Heading>
@@ -43,14 +54,14 @@ const Quorum = ({ sigs }: { sigs: Sig[] }) => {
         <ProgressBar percent={percentage} filledBackground="linear-gradient(to right, #fefb72, #f0bb31)"></ProgressBar>
         <Stack direction={'horizontal'} align="center" justify={'space-between'}>
           <Text>Yes</Text>
-          <Text>{sigs.length}</Text>
+          <Text>{tx?.sigs?.length}</Text>
         </Stack>
         <Divider />
         <Heading>
-          Signed by {sigs.length} of {quorum}
+          Signed by {tx?.sigs?.length} of {quorum}
         </Heading>
-        {sigs.length > 0 && <Divider />}
-        {sigs?.map((sig) => (
+        {tx?.sigs?.length > 0 && <Divider />}
+        {tx?.sigs?.map((sig: Sig) => (
           <Signer key={sig.signer} signer={sig.signer} />
         ))}
       </Stack>

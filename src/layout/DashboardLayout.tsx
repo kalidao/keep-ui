@@ -9,6 +9,8 @@ import Footer from './Footer'
 import { Signers, Profile, Wrappr, Treasury } from '~/dashboard'
 import { ConnectButton } from '~/components/ConnectButton'
 import { Menu } from '@design/Menu'
+import { useKeepStore } from '~/dashboard/useKeepStore'
+import { useEffect } from 'react'
 
 type Props = {
   title: string
@@ -19,13 +21,27 @@ type Props = {
 const DashboardLayout = ({ title, content, children }: Props) => {
   const router = useRouter()
   const { chainId, keep } = router.query
-  const { data } = useQuery(['keep', chainId, keep], async () =>
-    fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/`),
-  )
+  const state = useKeepStore((state) => state)
+  const { data } = useQuery(['keep', chainId, keep], async () => {
+    const res = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/`)
+    return res
+  })
   const heading = title + data ? ((' ' + data?.name) as string) + ' ' : '' + '- Keep'
   const { data: treasury } = useQuery(['keep', 'treasury', chainId, keep], async () =>
     fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/treasury`),
   )
+
+  useEffect(() => {
+    if (chainId && state.chainId !== parseInt(chainId as string)) {
+      state.setChainId(parseInt(chainId as string))
+    }
+  }, [chainId])
+
+  useEffect(() => {
+    if (keep && state.address !== keep) {
+      state.setAddress(keep as string)
+    }
+  }, [keep])
 
   return (
     <Box className={layout} lang="en">
@@ -62,7 +78,13 @@ const DashboardLayout = ({ title, content, children }: Props) => {
       </Box>
       <Box className={container}>
         <Stack>
-          <Stack direction={'horizontal'} justify="space-between">
+          <Stack
+            direction={{
+              xs: 'vertical',
+              md: 'horizontal',
+            }}
+            justify="space-between"
+          >
             <Profile
               name={data?.name}
               avatar={data?.avatar}

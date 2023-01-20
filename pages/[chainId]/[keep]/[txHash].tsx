@@ -1,11 +1,9 @@
 import type { GetServerSideProps, NextPage } from 'next'
 import Link from 'next/link'
-import { Heading, Text, Stack, Card, Button, Spinner, IconArrowLeft } from '@kalidao/reality'
+import { Heading, Text, Stack, Card, Button, IconArrowLeft } from '@kalidao/reality'
 import Layout from '~/layout/DashboardLayout'
 import { useRouter } from 'next/router'
 import { ViewTx } from '~/proposal'
-import { fetcher } from '~/utils'
-import { useQuery } from '@tanstack/react-query'
 import { PrettyDate, Author, Quorum } from '~/components'
 import { useAccount, useContractWrite, usePrepareContractWrite } from 'wagmi'
 import { ethers } from 'ethers'
@@ -15,6 +13,8 @@ import { tryTypedSigningV4 } from '~/utils/sign'
 import UpVote from '@design/YesVote'
 import { toOp } from '~/utils/toOp'
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
+import { useEffect } from 'react'
+import { useKeepStore } from '~/dashboard/useKeepStore'
 
 type Sign = {
   user: `0xstring`
@@ -55,6 +55,15 @@ const Tx: NextPage = (props: any) => {
   const { chainId, keep, txHash } = router.query
   const { address } = useAccount()
   const { authToken } = useDynamicContext()
+  const state = useKeepStore((state) => state)
+
+  useEffect(() => {
+    if (txHash) {
+      if (state.txHash !== txHash) {
+        state.setTxHash(txHash as string)
+      }
+    }
+  }, [txHash, state])
 
   const op = toOp(data?.op) ?? 0
   const sigs = data?.sigs
@@ -121,28 +130,36 @@ const Tx: NextPage = (props: any) => {
             <IconArrowLeft />
           </Button>
         </Link>
-        <Card padding="6" width="viewWidth">
+        <Card
+          padding="6"
+          width={{
+            xs: 'full',
+            md: '1/2',
+            lg: '3/4',
+          }}
+        >
           {data ? (
             <Stack>
               <Stack direction="horizontal" align="center" justify={'space-between'}>
                 <Stack>
                   <Heading>{data?.title}</Heading>
-                  <Stack direction={'horizontal'}>
+                  <Stack
+                    direction={{
+                      xs: 'vertical',
+                      md: 'horizontal',
+                    }}
+                  >
                     <PrettyDate timestamp={data?.createdAt} />
                     <Author author={data ? data?.authorAddress : ''} />
                   </Stack>
                 </Stack>
               </Stack>
-              <Stack direction={'horizontal'} justify="space-between">
-                <Stack>
-                  <Text>{data?.content}</Text>
-                  <ViewTx tx={data} />
-                </Stack>
-              </Stack>
+              <Text>{data?.content}</Text>
+              <ViewTx tx={data} />
+
               <Stack direction={'horizontal'} align="center">
                 {data?.status == 'pending' && (
                   <>
-                    {' '}
                     <UpVote onClick={sign} />{' '}
                     <Delete
                       txHash={data?.txHash}
@@ -168,7 +185,7 @@ const Tx: NextPage = (props: any) => {
             </Stack>
           )}
         </Card>
-        <Quorum sigs={data?.sigs} />
+        <Quorum />
       </Stack>
     </Layout>
   )
