@@ -39,7 +39,7 @@ const DashboardLayout = ({ title, content, children }: Props) => {
 
   useEffect(() => {
     if (keep && state.address !== keep) {
-      state.setAddress(keep as string)
+      state.setAddress(keep as `0xstring`)
     }
   }, [keep])
 
