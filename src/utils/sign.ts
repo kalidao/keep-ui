@@ -2,7 +2,7 @@ import { ethers } from 'ethers'
 import { toOp } from './toOp'
 
 export type TxArgs = {
-  op: string
+  op: number
   to: string
   value: string // in wei
   data: string
@@ -41,7 +41,7 @@ export const tryTypedSigningV4 = async (keep: Keep, txArgs: TxArgs, user: string
     const types = getTypes()
 
     const values = {
-      op: 0,
+      op: txArgs.op,
       to: txArgs.to,
       value: txArgs.value,
       data: txArgs.data,
@@ -85,7 +85,7 @@ export const tryTypedSigning = async (keep: Keep, txArgs: TxArgs, user: string):
       ],
     }
     const values = {
-      op: toOp(txArgs.op),
+      op: txArgs.op,
       to: txArgs.to,
       value: ethers.BigNumber.from(txArgs.value),
       data: txArgs.data,

@@ -4,21 +4,23 @@ import { truncAddress } from '~/utils'
 import { ethers } from 'ethers'
 import * as styles from './styles.css'
 import * as RadixCollapsible from '@radix-ui/react-collapsible'
+import { useTxStore } from '~/dashboard/useTxStore'
 
-const ViewTx = ({ tx }: { tx: any }) => {
+const ViewTx = () => {
   const [open, setOpen] = React.useState(false)
+  const tx = useTxStore((state) => state)
 
   return (
-    <RadixCollapsible.Root open={open} onOpenChange={setOpen}>
+    <RadixCollapsible.Root className={styles.viewTxRoot} open={open} onOpenChange={setOpen}>
       <Box display="flex" flexDirection={'column'} gap="3">
         <RadixCollapsible.Trigger asChild>
           <Box className={styles.viewTxTrigger}>
-            <Text>This will send {ethers.utils.formatEther(tx.value)} ETH to shivanshi.eth</Text>
+            <Text>This will send {ethers.utils.formatEther(tx?.value ? tx.value : '0')} ETH to shivanshi.eth</Text>
             <IconChevronDown />
           </Box>
         </RadixCollapsible.Trigger>
         <RadixCollapsible.Content>
-          <Box className={styles.viewTxRoot}>
+          <Box className={styles.viewTxBox}>
             <Stack direction={'horizontal'} justify="space-between" align="center">
               <Text>Type</Text>
               <Text weight="bold">{tx?.op?.toUpperCase()}</Text>
@@ -29,11 +31,11 @@ const ViewTx = ({ tx }: { tx: any }) => {
             </Stack>
             <Stack direction={'horizontal'} justify="space-between" align="center">
               <Text>To</Text>
-              <Text weight="bold">{truncAddress(tx?.to)}</Text>
+              <Text weight="bold">{truncAddress(tx?.to ? tx.to : '')}</Text>
             </Stack>
             <Stack direction={'horizontal'} justify="space-between" align="center">
               <Text>Value</Text>
-              <Text weight="bold">{ethers.utils.formatEther(tx?.value)}</Text>
+              <Text weight="bold">{ethers.utils.formatEther(tx?.value ? tx?.value : '0')}</Text>
             </Stack>
             <Text>Data</Text>
             <Box backgroundColor={'backgroundSecondary'} padding="2" borderRadius={'large'} width="full">

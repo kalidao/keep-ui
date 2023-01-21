@@ -9,6 +9,16 @@ export const viewTxRoot = style({
   gap: vars.space[2],
   width: '100%',
   height: '100%',
+})
+
+export const viewTxBox = style({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'space-between',
+  justifyContent: 'space-between',
+  gap: vars.space[2],
+  width: '100%',
+  height: '100%',
 
   border: `1px solid ${vars.colors.foregroundSecondary}`,
   borderRadius: vars.radii['large'],

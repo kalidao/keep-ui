@@ -1,21 +1,27 @@
 import { useState } from 'react'
-import { NextRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { Button, Stack, Heading, Text, IconClose } from '@kalidao/reality'
 import { Dialog } from '@headlessui/react'
 import { dialog, dialogPanel } from '@design/dialog.css'
 import toast, { Toaster } from 'react-hot-toast'
+import { useKeepStore } from '~/dashboard/useKeepStore'
+import { useTxStore } from '~/dashboard/useTxStore'
+import { useDynamicContext } from '@dynamic-labs/sdk-react'
+import { ethers } from 'ethers'
+import { tryTypedSigningV4 } from '~/utils/sign'
+import { toOp } from '~/utils/toOp'
 
-type Props = {
-  txHash: string
-  router: NextRouter
-  chainId: string
-  keep: string
-}
-
-const Delete = ({ txHash, router, chainId, keep }: Props) => {
+const DownVote = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const router = useRouter()
+  const keep = useKeepStore((state) => state)
+  const tx = useTxStore((state) => state)
+  const { authToken, user } = useDynamicContext()
+
+  console.log('user', user)
+
   const deleteTx = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/txs/${txHash}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/txs/${tx?.txHash}`, {
       method: 'POST',
     }).then((res) => res.json())
 
@@ -23,14 +29,54 @@ const Delete = ({ txHash, router, chainId, keep }: Props) => {
 
     if (res) {
       toast('Transaction deleted!')
-      router.push(`/${chainId}/${keep}`)
+      router.push(`/${keep?.chainId}/${keep?.address}`)
       return
     }
   }
 
+  const downvote = async () => {
+    if (!keep.address || !keep.chainId || !tx.nonce) return
+
+    const sign = await tryTypedSigningV4(
+      {
+        chainId: keep.chainId,
+        address: keep.address,
+      },
+      {
+        op: 0,
+        to: ethers.constants.AddressZero,
+        value: '0',
+        data: ethers.constants.HashZero,
+        nonce: tx.nonce,
+      },
+      user?.walletPublicKey as string,
+    )
+
+    if (!sign) return
+    const { v, r, s } = ethers.utils.splitSignature(sign)
+    const body = {
+      user: user?.walletPublicKey,
+      v: v,
+      r: r,
+      s: s,
+      type: 'no',
+    }
+
+    const send = await fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/txs/${tx?.txHash}/sign`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${authToken}`,
+      },
+      body: JSON.stringify(body),
+    })
+      .then((res) => res.json())
+      .catch((err) => console.log(err))
+  }
+
   return (
     <>
-      <Button shape="circle" variant="secondary" tone="red" size="small" onClick={() => setIsOpen(true)}>
+      <Button shape="circle" variant="secondary" tone="red" size="small" onClick={downvote}>
         <IconClose />
       </Button>
       <Dialog open={isOpen} onClose={() => setIsOpen(false)} className={dialog}>
@@ -57,4 +103,4 @@ const Delete = ({ txHash, router, chainId, keep }: Props) => {
   )
 }
 
-export default Delete
+export default DownVote

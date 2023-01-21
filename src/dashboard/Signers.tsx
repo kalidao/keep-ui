@@ -29,11 +29,15 @@ export const Signer = ({ signer }: { signer: string }) => {
   const { data: user, error } = useQuery(['signerDashProfile', signer], () =>
     fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/users/${signer}`),
   )
-  console.log('user', user?.picture?.original?.url, error)
 
   return (
     <Stack direction="horizontal" align="center">
-      <Avatar src={user?.picture?.original?.url} label={signer} address={signer} />
+      <Avatar
+        size="8"
+        src={user?.picture?.uri ? user?.picture?.uri : user?.picture?.original?.url}
+        label={signer}
+        address={signer}
+      />
       <Text>{user?.handle != undefined ? user?.handle : ensName ? ensName : truncAddress(signer)}</Text>
     </Stack>
   )

@@ -6,5 +6,7 @@ export const toOp = (op: string) => {
       return 1
     case 'create':
       return 2
+    default:
+      return 0
   }
 }
