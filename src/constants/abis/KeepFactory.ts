@@ -94,25 +94,6 @@ export const KEEP_FACTORY_ABI = [
   {
     inputs: [
       {
-        internalType: 'bytes[]',
-        name: 'data',
-        type: 'bytes[]',
-      },
-    ],
-    name: 'multicall',
-    outputs: [
-      {
-        internalType: 'bytes[]',
-        name: 'results',
-        type: 'bytes[]',
-      },
-    ],
-    stateMutability: 'payable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
         internalType: 'bytes32',
         name: 'name',
         type: 'bytes32',
@@ -127,6 +108,25 @@ export const KEEP_FACTORY_ABI = [
       },
     ],
     stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'bytes[]',
+        name: 'data',
+        type: 'bytes[]',
+      },
+    ],
+    name: 'multicall',
+    outputs: [
+      {
+        internalType: 'bytes[]',
+        name: 'results',
+        type: 'bytes[]',
+      },
+    ],
+    stateMutability: 'payable',
     type: 'function',
   },
 ] as const
