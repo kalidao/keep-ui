@@ -36,5 +36,9 @@ yarn-error.log*
 next-env.d.ts
 .vscode
 
-public/*.js
-public/*.map
+public/sw.js
+public/sw.js.map
+public/workbox-212689ce.js 
+public/workbox-212689ce.js.map
+
+
