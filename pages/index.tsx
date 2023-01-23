@@ -122,64 +122,62 @@ const Home: NextPage = () => {
         {features.map((feature, i) => {
           return (
             <Box key={i} className={i % 2 == 0 ? styles.feature : styles.featureReverse}>
-              <Slide direction="up" cascade={true} duration={500}>
-                <Stack
-                  direction={{
-                    xs: 'vertical',
-                  }}
-                  align="flex-start"
-                >
-                  <Box>
-                    <Box
-                      style={{
-                        ...bodoni.style,
-                      }}
-                      className={styles.keep}
-                    >
-                      keep
-                    </Box>
-                    <Box
-                      style={{
-                        ...bodoni.style,
-                      }}
-                      className={styles.featureTitle}
-                    >
-                      {feature.title}
-                    </Box>
+              <Stack
+                direction={{
+                  xs: 'vertical',
+                }}
+                align="flex-start"
+              >
+                <Box>
+                  <Box
+                    style={{
+                      ...bodoni.style,
+                    }}
+                    className={styles.keep}
+                  >
+                    keep
                   </Box>
                   <Box
                     style={{
                       ...bodoni.style,
                     }}
-                    className={styles.featureDescription}
+                    className={styles.featureTitle}
                   >
-                    {feature.description}
+                    {feature.title}
                   </Box>
-                  <i>
-                    <Box
-                      as="a"
-                      href={feature.link}
-                      style={{
-                        ...bodoni.style,
-                        fontStyle: 'italic',
-                      }}
-                      className={styles.featureStyled}
-                    >
-                      {feature.styledFeature}
-                    </Box>
-                  </i>
-                </Stack>
+                </Box>
+                <Box
+                  style={{
+                    ...bodoni.style,
+                  }}
+                  className={styles.featureDescription}
+                >
+                  {feature.description}
+                </Box>
+                <i>
+                  <Box
+                    as="a"
+                    href={feature.link}
+                    style={{
+                      ...bodoni.style,
+                      fontStyle: 'italic',
+                    }}
+                    className={styles.featureStyled}
+                  >
+                    {feature.styledFeature}
+                  </Box>
+                </i>
+              </Stack>
 
-                {feature.image && (
-                  <Image
-                    src={feature.image}
-                    alt={`${feature.title} image`}
-                    width={800}
-                    height={500}
-                    className={styles.featureImage}
-                  />
-                )}
-              </Slide>
+              {feature.image && (
+                <Image
+                  src={feature.image}
+                  alt={`${feature.title} image`}
+                  width={800}
+                  height={500}
+                  className={styles.featureImage}
+                />
+              )}
             </Box>
           )
         })}

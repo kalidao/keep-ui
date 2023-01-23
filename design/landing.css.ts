@@ -71,10 +71,10 @@ export const feature = style([
   }),
   responsiveStyle({
     xs: {
-      flexDirection: 'column',
+      flexDirection: 'row',
     },
     sm: {
-      flexDirection: 'column',
+      flexDirection: 'row',
     },
   }),
 ])
@@ -90,10 +90,10 @@ export const featureReverse = style([
   }),
   responsiveStyle({
     xs: {
-      flexDirection: 'column',
+      flexDirection: 'row-reverse',
     },
     sm: {
-      flexDirection: 'column',
+      flexDirection: 'row-reverse',
     },
   }),
 ])
