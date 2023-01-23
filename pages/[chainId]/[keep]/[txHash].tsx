@@ -76,6 +76,9 @@ const Tx: NextPage = (props: any) => {
 
       tx.setSigs(data?.sigs)
 
+      tx.setExecutedOn(data?.executedOn)
+      tx.setExecutionHash(data?.executionHash)
+
       return data
     },
     {

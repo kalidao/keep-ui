@@ -1,12 +1,5 @@
 import create from 'zustand'
-
-type Sig = {
-  signer: string
-  type: 'yes' | 'no'
-  v: string
-  r: string
-  s: string
-}
+import { Sig } from './types'
 
 type TxStore = {
   txHash: string | undefined
@@ -33,6 +26,10 @@ type TxStore = {
   setSigs: (sigs: Sig[]) => void
   author: string | undefined
   setAuthor: (author: string) => void
+  executedOn: number | undefined
+  setExecutedOn: (executedOn: number) => void
+  executionHash: string | undefined
+  setExecutionHash: (executionHash: string) => void
 }
 export const useTxStore = create<TxStore>((set) => ({
   txHash: undefined,
@@ -59,4 +56,8 @@ export const useTxStore = create<TxStore>((set) => ({
   setSigs: (sigs: Sig[]) => set({ sigs }),
   author: undefined,
   setAuthor: (author: string) => set({ author }),
+  executedOn: undefined,
+  setExecutedOn: (executedOn: number) => set({ executedOn }),
+  executionHash: undefined,
+  setExecutionHash: (executionHash: string) => set({ executionHash }),
 }))

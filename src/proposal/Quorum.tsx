@@ -10,30 +10,12 @@ import { capitalize } from '~/utils/capitalize'
 import { useEnsName } from 'wagmi'
 import { truncAddress } from '~/utils'
 import { useTxStore } from '~/dashboard/useTxStore'
-
-type Sig = {
-  signer: string
-  type: 'yes' | 'no'
-  v: string
-  r: string
-  s: string
-}
+import { VoteProgress } from './VoteProgress'
+import { Sig } from '~/dashboard/types'
+import { Result } from './Result'
 
 const Quorum = () => {
-  const keep = useKeepStore((state) => state)
   const tx = useTxStore((state) => state)
-  const { data } = useQuery(['keep', keep.chainId, keep.address], async () => {
-    const result = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${keep.chainId}/${keep.address}/`)
-    return result
-  })
-
-  const quorum = data ? ethers.utils.formatUnits(data?.threshold, 0) : 0
-
-  const yesSigs = tx?.sigs?.filter((sig: Sig) => sig.type === 'yes')
-  const noSigs = tx?.sigs?.filter((sig: Sig) => sig.type === 'no')
-
-  const yesPercentage = tx && (yesSigs?.length / Number(quorum)) * 100
-  const noPercentage = tx && (noSigs?.length / Number(quorum)) * 100
 
   return (
     <Card
@@ -51,28 +33,7 @@ const Quorum = () => {
           </Tag>
         </Stack>
         <Divider />
-
-        <ProgressBar
-          percent={yesPercentage}
-          filledBackground="linear-gradient(to right, rgb(48, 209, 88), rgb(52, 199, 89))"
-        />
-
-        <Stack direction={'horizontal'} align="center" justify={'space-between'}>
-          <Text weight="semiBold">Yes</Text>
-          <Text weight="semiBold">
-            {yesSigs?.length}/{data?.threshold}
-          </Text>
-        </Stack>
-        <ProgressBar
-          percent={noPercentage}
-          filledBackground="linear-gradient(to right, rgb(255, 69, 58), rgb(255, 59, 48))"
-        />
-        <Stack direction={'horizontal'} align="center" justify={'space-between'}>
-          <Text weight="semiBold">No</Text>
-          <Text weight="semiBold">
-            {noSigs?.length}/{data?.threshold}
-          </Text>
-        </Stack>
+        {tx.status === 'executed' ? <Result /> : <VoteProgress />}
         <Divider />
         <Box
           style={{
@@ -85,7 +46,7 @@ const Quorum = () => {
           Signed
         </Box>
         {tx?.sigs?.map((sig: Sig) => (
-          <Signer key={sig.signer} signer={sig.signer} type={sig.type} />
+          <Signer key={sig.signer + sig.type} signer={sig.signer} type={sig.type} />
         ))}
       </Stack>
     </Card>

@@ -24,12 +24,13 @@ const DashboardLayout = ({ title, content, children }: Props) => {
   const state = useKeepStore((state) => state)
   const { data } = useQuery(['keep', chainId, keep], async () => {
     const res = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/`)
+    state.setThreshold(res?.threshold)
     return res
   })
   const heading = title + data ? ((' ' + data?.name) as string) + ' ' : '' + '- Keep'
-  const { data: treasury } = useQuery(['keep', 'treasury', chainId, keep], async () =>
-    fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/treasury`),
-  )
+  const { data: treasury } = useQuery(['keep', 'treasury', chainId, keep], async () => {
+    return fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/treasury`)
+  })
 
   useEffect(() => {
     if (chainId && state.chainId !== parseInt(chainId as string)) {

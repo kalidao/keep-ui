@@ -5,20 +5,13 @@ import { usePrepareContractWrite, useContractWrite } from 'wagmi'
 import { ethers } from 'ethers'
 import { KEEP_ABI } from '~/constants'
 import { useKeepStore } from '~/dashboard/useKeepStore'
+import { Sig } from '~/dashboard/types'
 
 type Sign = {
   user: `0xstring`
   v: number
   r: `0xstring`
   s: `0xstring`
-}
-
-type Sig = {
-  signer: string
-  type: 'yes' | 'no'
-  v: string
-  r: string
-  s: string
 }
 
 const Execute = () => {

@@ -7,12 +7,11 @@ import { fetcher, prettyDate, truncAddress } from '~/utils'
 const Proposals = () => {
   const router = useRouter()
   const { keep, chainId } = router.query
-  console.log('keep', keep, chainId)
   const { data: transactions, error } = useQuery(['keepTxs', chainId, keep], async () =>
     fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/txs/${chainId}/${keep}/`),
   )
+  console.log('txs', transactions)
 
-  console.log('proposals', transactions, error)
   return (
     <Box>
       <Stack>
@@ -25,7 +24,7 @@ const Proposals = () => {
           </Link>
         </Stack>
         {transactions &&
-          transactions.length != 0 &&
+          transactions?.length != 0 &&
           transactions?.map((transaction: any) => (
             <ProposalCard
               key={transaction.txHash}
