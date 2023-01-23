@@ -214,13 +214,23 @@ export const hero = style({
   borderRadius: vars.radii['2xLarge'],
 })
 
-export const intro = style({
-  minHeight: '40vh',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-})
+export const intro = style([
+  style({
+    minHeight: '30vh',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  }),
+  responsiveStyle({
+    xs: {
+      margin: '0 0 0 0',
+    },
+    md: {
+      marginTop: vars.space['10'],
+    },
+  }),
+])
 
 export const introHeading = style({
   fontWeight: 600,
