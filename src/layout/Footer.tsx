@@ -3,9 +3,7 @@ import Link from 'next/link'
 import * as styles from './layout.css'
 import { bodoni } from '../../pages/_app'
 import { timestampToTimepassed } from '~/utils/prettyDate'
-import { useBlockNumber, useTransaction } from 'wagmi'
-import { getProvider } from '~/utils/getProvider'
-import { useQuery } from '@tanstack/react-query'
+
 const Footer = () => {
   return (
     <Box padding="6" as="footer" position="relative" zIndex="10">

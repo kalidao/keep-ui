@@ -7,7 +7,7 @@
     {
       "diplay_type": "date",
       "trait_type": "Summoned",
-      "value": 1620000000 // unix timestamp of summoning
+      "value": 1620000000
     }
   ]
 }

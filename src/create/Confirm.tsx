@@ -2,17 +2,14 @@ import { Card, Stack, Heading, Text, Button, IconLightningBolt, Box, Divider } f
 import { useContractRead, useContractWrite, useNetwork, usePrepareContractWrite, useEnsName } from 'wagmi'
 import Back from './Back'
 import { ethers } from 'ethers'
-import { useRouter } from 'next/router'
 import { KEEP_ABI, KEEP_FACTORY_ABI, KEEP_FACTORY_ADDRESS } from '~/constants'
 import { useCreateStore } from './useCreateStore'
 import * as styles from './create.css'
 import { Emblem } from './Emblem'
 import { PostIt } from './PostIt'
-import { uploadFile } from '~/utils/upload'
 import { Loading } from './Loading'
 import { Success } from './Success'
 import { Error } from './Error'
-import { AxiosError } from 'axios'
 
 export const Confirm = () => {
   const state = useCreateStore((state) => state)

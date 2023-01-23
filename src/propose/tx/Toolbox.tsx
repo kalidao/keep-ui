@@ -1,7 +1,7 @@
 import { AppTribute } from './AppTribute'
 import { SendNFT } from './SendNFT'
 import { TxMenu } from './TxMenu'
-import { TxStore, useTxStore } from './useTxStore'
+import { TxStore } from './useTxStore'
 import { SendToken } from './SendToken'
 import { Box } from '@kalidao/reality'
 import * as styles from './styles.css'

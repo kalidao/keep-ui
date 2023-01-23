@@ -8,7 +8,6 @@ import {
   Heading,
   Textarea,
   Divider,
-  FieldSet,
   IconTwitter,
   IconDiscord,
   IconLink,

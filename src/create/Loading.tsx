@@ -1,4 +1,4 @@
-import { Box, Stack, Heading, Divider } from '@kalidao/reality'
+import { Box, Stack, Divider } from '@kalidao/reality'
 import * as styles from './create.css'
 import { useCreateStore } from './useCreateStore'
 import { Splash } from './Splash'

@@ -1,4 +1,4 @@
-import { Stack, Box, Text, IconTokens, IconMenu } from '@kalidao/reality'
+import { Stack, Box, Text, IconTokens } from '@kalidao/reality'
 import { TxStore, useTxStore } from './useTxStore'
 import * as styles from './styles.css'
 
