@@ -6,7 +6,7 @@ import UpVote from './UpVote'
 const Vote = () => {
   const tx = useTxStore((state) => state)
 
-  if (tx?.status === 'process') {
+  if (tx?.status === 'process' || tx?.status === 'executed') {
     return null
   }
 

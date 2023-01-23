@@ -46,7 +46,7 @@ const Execute = () => {
       tx?.to ? (tx?.to as `0xstring`) : ethers.constants.AddressZero,
       tx?.value ? ethers.BigNumber.from(tx?.value) : ethers.BigNumber.from(0),
       tx?.data ? (tx?.data as `0xstring`) : ethers.constants.HashZero,
-      (yesSigs as unknown) as Sign[],
+      yesSigs as unknown as Sign[],
     ],
   })
   const { write: sayYes } = useContractWrite(configYes)
@@ -61,7 +61,7 @@ const Execute = () => {
       ethers.constants.AddressZero,
       ethers.BigNumber.from(0),
       ethers.constants.HashZero,
-      (noSigs as unknown) as Sign[],
+      noSigs as unknown as Sign[],
     ],
   })
   const { write: sayNo } = useContractWrite(configNo)
