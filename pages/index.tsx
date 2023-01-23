@@ -122,7 +122,7 @@ const Home: NextPage = () => {
         {features.map((feature, i) => {
           return (
             <Box key={i} className={i % 2 == 0 ? styles.feature : styles.featureReverse}>
-              <Slide>
+              <Slide direction="up" cascade={true} duration={500}>
                 <Stack
                   direction={{
                     xs: 'vertical',
@@ -169,9 +169,8 @@ const Home: NextPage = () => {
                     </Box>
                   </i>
                 </Stack>
-              </Slide>
-              {feature.image && (
-                <Slide direction="right">
+
+                {feature.image && (
                   <Image
                     src={feature.image}
                     alt={`${feature.title} image`}
@@ -179,8 +178,8 @@ const Home: NextPage = () => {
                     height={500}
                     className={styles.featureImage}
                   />
-                </Slide>
-              )}
+                )}
+              </Slide>
             </Box>
           )
         })}
