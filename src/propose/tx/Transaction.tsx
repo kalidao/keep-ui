@@ -34,7 +34,6 @@ const Transaction = () => {
   const router = useRouter()
   const { chainId, keep } = router.query
   const { address: author } = useAccount()
-  const view = useTxStore((state) => state.view)
   const {
     data: meta,
     isLoading,
@@ -42,8 +41,6 @@ const Transaction = () => {
   } = useQuery(['keep', chainId, keep], async () =>
     fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/`),
   )
-  const [title, setTitle] = useState('')
-  const [content, setContent] = useState('')
   const state = useTxStore((state) => state)
 
   const { refetch: refetchNonce } = useContractRead({
@@ -95,8 +92,8 @@ const Transaction = () => {
         nonce: nonce.toString(),
         value: state.value,
         txHash: digest,
-        title: title,
-        content: content,
+        title: state.title,
+        content: state.content,
         authorAddress: author,
       }
       console.log('body', body)
@@ -127,12 +124,17 @@ const Transaction = () => {
         </Link>
         <Box width="full">
           <Stack>
-            <Input label="Title" description="" placeholder="Title" onChange={(e) => setTitle(e.currentTarget.value)} />
+            <Input
+              label="Title"
+              description=""
+              placeholder="Title"
+              onChange={(e) => state.setTitle(e.currentTarget.value)}
+            />
             <Textarea
               label="Description"
               description=""
               placeholder="What is this transaction about?"
-              onChange={(e) => setContent(e.currentTarget.value)}
+              onChange={(e) => state.setContent(e.currentTarget.value)}
             />
             <Toolbox />
             <Button onClick={handleTx} disabled={isLoading || isError || notSigner}>
