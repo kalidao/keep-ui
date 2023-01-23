@@ -178,11 +178,6 @@ const Tx: NextPage = (props: any) => {
             </Box>
             <Stack direction={'horizontal'} align="center">
               <Vote />
-              {data?.status == 'process' && write && (
-                <Button disabled={!write} onClick={() => write?.()}>
-                  Execute
-                </Button>
-              )}
               <Execute />
             </Stack>
           </Box>

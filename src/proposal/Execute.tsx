@@ -46,7 +46,7 @@ const Execute = () => {
       tx?.to ? (tx?.to as `0xstring`) : ethers.constants.AddressZero,
       tx?.value ? ethers.BigNumber.from(tx?.value) : ethers.BigNumber.from(0),
       tx?.data ? (tx?.data as `0xstring`) : ethers.constants.HashZero,
-      yesSigs as unknown as Sign[],
+      (yesSigs as unknown) as Sign[],
     ],
   })
   const { write: sayYes } = useContractWrite(configYes)
@@ -61,23 +61,23 @@ const Execute = () => {
       ethers.constants.AddressZero,
       ethers.BigNumber.from(0),
       ethers.constants.HashZero,
-      noSigs as unknown as Sign[],
+      (noSigs as unknown) as Sign[],
     ],
   })
   const { write: sayNo } = useContractWrite(configNo)
 
   if (tx?.status === 'process_yes') {
     return (
-      <Button disabled={!sayYes} onClick={() => sayYes?.()}>
-        Execute Yes
+      <Button disabled={!sayYes} tone="green" onClick={() => sayYes?.()}>
+        Execute
       </Button>
     )
   }
 
   if (tx?.status === 'process_no') {
     return (
-      <Button disabled={!sayNo} onClick={() => sayNo?.()}>
-        Execute No
+      <Button disabled={!sayNo} tone="red" onClick={() => sayNo?.()}>
+        Cancel
       </Button>
     )
   }
@@ -85,11 +85,11 @@ const Execute = () => {
   if (tx?.status === 'process') {
     return (
       <Stack direction="horizontal" align="center" justify={'flex-start'}>
-        <Button disabled={!sayYes} onClick={() => sayYes?.()}>
-          Execute Yes
+        <Button disabled={!sayYes} tone="green" onClick={() => sayYes?.()}>
+          Execute
         </Button>
-        <Button disabled={!sayNo} onClick={() => sayNo?.()}>
-          Execute No
+        <Button disabled={!sayNo} tone="red" onClick={() => sayNo?.()}>
+          Cancel
         </Button>
       </Stack>
     )
