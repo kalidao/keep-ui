@@ -27,7 +27,7 @@
     "@radix-ui/react-progress": "^1.0.1",
     "@tanstack/react-query": "^4.22.0",
     "@vanilla-extract/css": "^1.9.2",
-    "@vercel/og": "^0.0.25",
+    "@vercel/og": "^0.0.27",
     "@xmtp/xmtp-js": "^7.7.3",
     "axios": "^1.2.2",
     "colorthief": "^2.3.2",
