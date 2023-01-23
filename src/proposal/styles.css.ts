@@ -56,3 +56,45 @@ export const viewTxTrigger = style({
     backgroundColor: vars.colors.backgroundTertiary,
   },
 })
+
+export const progressRoot = style({
+  // position: relative;
+  // overflow: hidden;
+  // background: var(--blackA9);
+  // border-radius: 99999px;
+  // width: 300px;
+  // height: 25px;
+
+  // /* Fix overflow clipping in Safari */
+  // /* https://gist.github.com/domske/b66047671c780a238b51c51ffde8d3a0 */
+  // transform: translateZ(0);
+  position: 'relative',
+  overflow: 'hidden',
+  background: vars.colors.backgroundSecondary,
+  borderRadius: vars.radii['large'],
+  width: '100%',
+  height: '25px',
+  transform: 'translateZ(0)',
+})
+
+export const progressYesIndicator = style({
+  // background-color: white;
+  // width: 100%;
+  // height: 100%;
+  // transition: transform 660ms cubic-bezier(0.65, 0, 0.35, 1);
+  backgroundColor: vars.colors.green,
+  width: '100%',
+  height: '100%',
+  transition: 'transform 660ms cubic-bezier(0.65, 0, 0.35, 1)',
+})
+
+export const progressNoIndicator = style({
+  // background-color: white;
+  // width: 100%;
+  // height: 100%;
+  // transition: transform 660ms cubic-bezier(0.65, 0, 0.35, 1);
+  backgroundColor: vars.colors.red,
+  width: '100%',
+  height: '100%',
+  transition: 'transform 660ms cubic-bezier(0.65, 0, 0.35, 1)',
+})

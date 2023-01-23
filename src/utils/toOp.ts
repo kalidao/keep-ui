@@ -1,4 +1,4 @@
-export const toOp = (op: string) => {
+export const toOp = (op: string): number => {
   switch (op) {
     case 'call':
       return 0

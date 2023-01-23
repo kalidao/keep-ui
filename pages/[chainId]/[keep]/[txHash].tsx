@@ -4,19 +4,20 @@ import { Heading, Box, Text, Stack, Card, Button, IconArrowLeft } from '@kalidao
 import Layout from '~/layout/DashboardLayout'
 import { useRouter } from 'next/router'
 import { ViewTx } from '~/proposal'
-import { PrettyDate, Author, Quorum } from '~/components'
-import { useAccount, useContractWrite, usePrepareContractWrite } from 'wagmi'
+import { PrettyDate, Author } from '~/components'
+import { useContractWrite, usePrepareContractWrite } from 'wagmi'
 import { ethers } from 'ethers'
 import { KEEP_ABI } from '~/constants'
-import Delete from '~/components/Delete'
-import { tryTypedSigningV4 } from '~/utils/sign'
-import UpVote from '@design/YesVote'
+import UpVote from '~/proposal/UpVote'
 import { toOp } from '~/utils/toOp'
-import { useDynamicContext } from '@dynamic-labs/sdk-react'
 import { useEffect } from 'react'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 import { useTxStore } from '~/dashboard/useTxStore'
 import { useQuery } from '@tanstack/react-query'
+import DownVote from '~/proposal/DownVote'
+import Vote from '~/proposal/Vote'
+import Execute from '~/proposal/Execute'
+import Quorum from '~/proposal/Quorum'
 
 type Sign = {
   user: `0xstring`
@@ -178,16 +179,13 @@ const Tx: NextPage = (props: any) => {
               <ViewTx />
             </Box>
             <Stack direction={'horizontal'} align="center">
-              {data?.status == 'pending' && (
-                <>
-                  <UpVote /> <Delete />
-                </>
-              )}
+              <Vote />
               {data?.status == 'process' && write && (
                 <Button disabled={!write} onClick={() => write?.()}>
                   Execute
                 </Button>
               )}
+              <Execute />
             </Stack>
           </Box>
         </Card>

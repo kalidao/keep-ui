@@ -6,7 +6,7 @@ import { useTxStore } from '~/dashboard/useTxStore'
 import { toOp } from '~/utils/toOp'
 import { ethers } from 'ethers'
 
-const YesVote = () => {
+const UpVote = () => {
   const { authToken, user } = useDynamicContext()
   const keep = useKeepStore((state) => state)
   const tx = useTxStore((state) => state)
@@ -58,4 +58,4 @@ const YesVote = () => {
   )
 }
 
-export default YesVote
+export default UpVote

@@ -52,6 +52,7 @@ const Quorum = () => {
         </Stack>
         <Divider />
 
+
         <ProgressBar
           percent={yesPercentage}
           filledBackground="linear-gradient(to right, rgb(48, 209, 88), rgb(52, 199, 89))"

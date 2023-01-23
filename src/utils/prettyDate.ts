@@ -1,3 +1,8 @@
+import dayjs from 'dayjs'
+import relative from 'dayjs/plugin/relativeTime'
+
+dayjs.extend(relative)
+
 export const prettyDate = (time: string) => {
   var date = new Date((time || '').replace(/-/g, '/').replace(/[TZ]/g, ' ')),
     diff = (new Date().getTime() - date.getTime()) / 1000,
@@ -16,4 +21,8 @@ export const prettyDate = (time: string) => {
     (day_diff < 7 && day_diff + ' days ago') ||
     (day_diff < 31 && Math.ceil(day_diff / 7) + ' weeks ago')
   )
+}
+
+export const timestampToTimepassed = (timestamp: number) => {
+  return dayjs.unix(timestamp).fromNow(true)
 }
