@@ -1,7 +1,5 @@
 import { Stack, Button } from '@kalidao/reality'
 import { useTxStore } from '~/dashboard/useTxStore'
-import DownVote from './DownVote'
-import UpVote from './UpVote'
 import { toOp } from '~/utils/toOp'
 import { usePrepareContractWrite, useContractWrite } from 'wagmi'
 import { ethers } from 'ethers'

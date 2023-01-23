@@ -1,18 +1,14 @@
 import Link from 'next/link'
 import { highBackground } from '@design/blur.css'
-import { Box, Text, Stack, Input, Textarea, Button, IconArrowLeft } from '@kalidao/reality'
+import { Box, Stack, Input, Textarea, Button, IconArrowLeft } from '@kalidao/reality'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useAccount, useContractRead } from 'wagmi'
 import { KEEP_ABI } from '~/constants'
 import { getTxHash } from '../getTxHash'
-import { SendToken } from './SendToken'
 import { useQuery } from 'wagmi'
 import { fetcher } from '~/utils'
-import { TxMenu } from './TxMenu'
-import { TxStore, useTxStore } from './useTxStore'
-import { AppTribute } from './AppTribute'
-import { SendNFT } from './SendNFT'
+import { useTxStore } from './useTxStore'
 import { Toolbox } from './Toolbox'
 
 type Props = {
@@ -34,7 +30,6 @@ const Transaction = () => {
   const router = useRouter()
   const { chainId, keep } = router.query
   const { address: author } = useAccount()
-  const view = useTxStore((state) => state.view)
   const {
     data: meta,
     isLoading,

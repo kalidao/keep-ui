@@ -1,4 +1,4 @@
-import { Box, Stack, Button, IconRefresh, Heading, Divider } from '@kalidao/reality'
+import { Box, Stack, Button, IconRefresh, Divider } from '@kalidao/reality'
 import { useCreateStore } from './useCreateStore'
 import * as styles from './create.css'
 import { bodoni } from '../../pages/_app'

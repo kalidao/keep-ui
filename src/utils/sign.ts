@@ -1,5 +1,4 @@
 import { ethers } from 'ethers'
-import { toOp } from './toOp'
 
 export type TxArgs = {
   op: number

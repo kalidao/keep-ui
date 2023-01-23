@@ -9,7 +9,6 @@ import { useTxStore } from '~/dashboard/useTxStore'
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
 import { ethers } from 'ethers'
 import { tryTypedSigningV4 } from '~/utils/sign'
-import { toOp } from '~/utils/toOp'
 
 const DownVote = () => {
   const [isOpen, setIsOpen] = useState(false)
