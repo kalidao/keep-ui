@@ -1,4 +1,11 @@
 import create from 'zustand'
+import { ethers } from 'ethers'
+
+export type SendToken = {
+  token_address: string
+    to: string
+    amount: number
+  }
 
 export type TxStore = {
   title: string
@@ -18,6 +25,10 @@ export type TxStore = {
   setData: (data: `0x${string}`) => void
   nonce: number
   setNonce: (nonce: number) => void
+
+  // send token
+  send_token: SendToken[]
+  setSendToken: (send_token: SendToken[]) => void
 }
 
 export const useTxStore = create<TxStore>((set) => ({
@@ -38,4 +49,12 @@ export const useTxStore = create<TxStore>((set) => ({
   setData: (data) => set({ data }),
   nonce: 0,
   setNonce: (nonce) => set({ nonce }),
+
+  // send token
+  send_token: [{
+    token_address: ethers.constants.AddressZero,
+    to: `0x${'0'.repeat(40)}`,
+    amount: 0,
+  }],
+  setSendToken: (send_token) => set({ send_token }),
 }))

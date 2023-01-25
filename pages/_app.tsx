@@ -83,13 +83,6 @@ function MyApp({ Component, pageProps, theme }: AppProps & { theme: Mode }) {
               <meta name="twitter:image" content="https://yourdomain.com/icons/android-chrome-192x192.png" />
               <meta name="twitter:creator" content="@kali__gg" />
 
-              <meta property="og:type" content="website" />
-              <meta property="og:title" content="Keep" />
-              <meta property="og:description" content="" />
-              <meta property="og:site_name" content="Keep" />
-              <meta property="og:url" content="https://keep.kali.gg/" />
-              <meta property="og:image" content="https://keep.kali.gg/" />
-
               <link rel="apple-touch-startup-image" href="/images/apple_splash_2048.png" sizes="2048x2732" />
               <link rel="apple-touch-startup-image" href="/images/apple_splash_1668.png" sizes="1668x2224" />
               <link rel="apple-touch-startup-image" href="/images/apple_splash_1536.png" sizes="1536x2048" />

@@ -12,6 +12,7 @@
     justify-content: center !important;
     font-family: var(--font-bodoni) !important;
     font-weight: 600 !important;
+    cursor: url(/golden_key.png), auto !important;
 }
 
 .connectButtonDark {
