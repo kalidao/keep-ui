@@ -45,7 +45,7 @@ const SelectItem = React.forwardRef<
   <SelectPrimitive.Item ref={ref} className={styles.item} {...props}>
     <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
       <SelectPrimitive.ItemIndicator>
-        <IconCheck className="h-4 w-4" />
+        <IconCheck className={styles.check} />
       </SelectPrimitive.ItemIndicator>
     </span>
 

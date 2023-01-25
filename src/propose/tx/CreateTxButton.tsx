@@ -32,7 +32,11 @@ export const CreateTxButton = () => {
     functionName: 'nonce',
     chainId: Number(keep.chainId),
   })
-  const { data: meta, isLoading, isError } = useQuery(['keep', keep.chainId, keep.address], async () =>
+  const {
+    data: meta,
+    isLoading,
+    isError,
+  } = useQuery(['keep', keep.chainId, keep.address], async () =>
     fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${keep.chainId}/${keep.address}/`),
   )
   const notSigner = meta?.signers?.find((s: string) => s === address?.toLowerCase()) == undefined ? true : false
