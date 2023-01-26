@@ -16,6 +16,7 @@ export const pill = style({
   lineHeight: '24px',
   textAlign: 'center',
   alignItems: 'center',
+  width: 'fit-content',
 
   border: `1px solid ${vars.colors.foregroundSecondary}`,
   ':hover': {
@@ -28,23 +29,8 @@ export const subheading = style([
   style({
     fontWeight: 600,
     color: vars.colors.text,
-  }),
-  responsiveStyle({
-    xs: {
-      fontSize: '24px',
-    },
-    sm: {
-      fontSize: '40px',
-    },
-    md: {
-      fontSize: '48px',
-    },
-    lg: {
-      fontSize: '56px',
-    },
-    xl: {
-      fontSize: '64px',
-    },
+    fontSize: vars.fontSizes.headingTwo,
+    lineHeight: vars.lineHeights['2'],
   }),
 ])
 
@@ -179,6 +165,7 @@ export const heading = style([
   style({
     fontWeight: 600,
     color: vars.colors.textPrimary,
+    marginBottom: 0,
   }),
   responsiveStyle({
     xs: {

@@ -9,23 +9,28 @@ type Props = {
 }
 
 const Treasury = ({ tokens, synced }: Props) => {
-  const totalValueLocked = tokens
-    .reduce((acc: any, token: any) => {
-      return acc + parseFloat(ethers.utils.formatUnits(token.balance, token.contract_decimals)) * token?.quote_rate
-    }, 0)
-    .toFixed(2)
+  const totalValueLocked =
+    tokens &&
+    tokens
+      .reduce((acc: any, token: any) => {
+        return acc + parseFloat(ethers.utils.formatUnits(token.balance, token.contract_decimals)) * token?.quote_rate
+      }, 0)
+      .toFixed(2)
   // order tokens by value
-  const _tokens = tokens
-    .filter((token: any) => {
-      // filter out tokens with no value
-      const value = parseFloat(ethers.utils.formatUnits(token.balance, token.contract_decimals)) * token?.quote_rate
-      return value > 0
-    })
-    .sort((a: any, b: any) => {
-      const aVal = parseFloat(ethers.utils.formatUnits(a.balance, a.contract_decimals)) * a?.quote_rate
-      const bVal = parseFloat(ethers.utils.formatUnits(b.balance, b.contract_decimals)) * b?.quote_rate
-      return bVal - aVal
-    })
+  const _tokens =
+    tokens &&
+    tokens
+      .filter((token: any) => {
+        // filter out tokens with no value
+
+        const value = parseFloat(ethers.utils.formatUnits(token.balance, token.contract_decimals)) * token?.quote_rate
+        return value > 0
+      })
+      .sort((a: any, b: any) => {
+        const aVal = parseFloat(ethers.utils.formatUnits(a.balance, a.contract_decimals)) * a?.quote_rate
+        const bVal = parseFloat(ethers.utils.formatUnits(b.balance, b.contract_decimals)) * b?.quote_rate
+        return bVal - aVal
+      })
   console.log('tokens', tokens)
 
   // const _nfts = nfts ? nfts?.length : 0

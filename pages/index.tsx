@@ -23,33 +23,33 @@ const Home: NextPage = () => {
     // redirect to dashboard
     router.push('/dashboard')
   }
-
+  /*
   const features = [
     {
-      title: 'moving',
-      description: 'Group decisions at the speed of code.',
-      styledFeature: 'Backed by DAO & Multisig.',
+      header: 'Create roles, multisigs and DAOs based on ERC1155 tokens',
+      headerLink: 'https://github.com/kalidao/keep#empowering-collectives',
+      styledFeature: 'Multicellular organizing.',
       image: '/features/kConnected.png',
       link: 'https://github.com/kalidao/keep#empowering-collectives',
     },
 
     {
-      title: 'building',
-      description: 'Projects that automatically reward contributors.',
+      header: 'Drop NFTs to gamify participation and record achievements',
+      headerLink: 'https://github.com/kalidao/keep#empowering-collectives',
       styledFeature: 'Automagick incentives.',
       image: '/features/kBuilding.png',
       link: 'https://github.com/kalidao/keep#keep-cooperative',
     },
 
     {
-      title: 'company',
-      description: 'Legal that connects to the internet.',
-      styledFeature: 'Robot lawyering.',
+      header: 'Access to the biggest DAO law library and tools',
+      headerLink: 'https://github.com/kalidao/keep#empowering-collectives',
+      styledFeature: 'Smart legal.',
       image: '/features/kLegal.png',
       link: 'https://github.com/kalidao/keep#keep-company',
     },
   ]
-
+  */
   return (
     <Box className={layout}>
       <Head>
@@ -99,17 +99,15 @@ const Home: NextPage = () => {
           <Castle />
         </Box>
       </Box>
-
+      {/*}
       <Box className={styles.intro}>
         <Fade>
-          <Box as="h3" style={bodoni.style} className={styles.introHeading}>
-            ?
-          </Box>
           <Box as="p" style={bodoni.style} className={styles.introBlurb}>
-            Digital orgs — DAOs — show better ways to win together, where you truly own your contributions and can trust
-            in code. Keep builds on this promise by bringing together world-class contracts, legal automation and
-            usability for DAOs. Start with a wallet, assign roles, grow community governance and work with real world
-            legal systems. Learn more by reading the{' '}
+            Everyone wants to be a part of something bigger that also works. Digital orgs — DAOs — show better ways to
+            win together, where you truly own your contributions and can trust in code. Keep builds on the promise of
+            DAOs by combining world-class contracts, legal automation and usability to make this technology more
+            accessible. You can start with a wallet, assign roles, grow community governance and handle real world legal
+            systems all from your Keep. Learn more by reading the{' '}
             <a href="https://docs.kali.gg/" className={link}>
               docs
             </a>
@@ -128,32 +126,6 @@ const Home: NextPage = () => {
                 }}
                 align="flex-start"
               >
-                <Box>
-                  <Box
-                    style={{
-                      ...bodoni.style,
-                    }}
-                    className={styles.keep}
-                  >
-                    keep
-                  </Box>
-                  <Box
-                    style={{
-                      ...bodoni.style,
-                    }}
-                    className={styles.featureTitle}
-                  >
-                    {feature.title}
-                  </Box>
-                </Box>
-                <Box
-                  style={{
-                    ...bodoni.style,
-                  }}
-                  className={styles.featureDescription}
-                >
-                  {feature.description}
-                </Box>
                 <i>
                   <Box
                     as="a"
@@ -167,22 +139,19 @@ const Home: NextPage = () => {
                     {feature.styledFeature}
                   </Box>
                 </i>
+                <Link href={feature.headerLink} className={styles.pill}>
+                  {feature.header}
+                </Link>
               </Stack>
 
               {feature.image && (
-                <Image
-                  src={feature.image}
-                  alt={`${feature.title} image`}
-                  width={800}
-                  height={500}
-                  className={styles.featureImage}
-                />
+                <Image src={feature.image} alt={`$ image`} width={800} height={500} className={styles.featureImage} />
               )}
             </Box>
           )
         })}
       </Box>
-
+      */}
       <Footer />
     </Box>
   )
