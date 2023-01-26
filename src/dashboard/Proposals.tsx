@@ -3,6 +3,7 @@ import { Card, Heading, Text, Stack, Button, IconPlus, Tag, Avatar, Box } from '
 import { useRouter } from 'next/router'
 import { useQuery } from '@tanstack/react-query'
 import { fetcher, prettyDate, truncAddress } from '~/utils'
+import { User } from '~/components/User'
 
 const Proposals = () => {
   const router = useRouter()
@@ -79,7 +80,7 @@ export const ProposalCard = ({
             <Stack direction={'horizontal'} justify="space-between" align="flex-start">
               <Stack>
                 <Stack direction={'horizontal'} align="center">
-                  <Avatar src={profile?.picture?.original?.url} label={`profile picture ${proposer}`} size="8" />
+                  <User address={proposer} size="sm" />
                   <Heading level="2">{title}</Heading>
                 </Stack>
                 <Stack direction={'horizontal'} align="center">
