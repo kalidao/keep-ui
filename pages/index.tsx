@@ -84,7 +84,7 @@ const Home: NextPage = () => {
               {/* marketing copy for no-code legally complian multisig + dao launcher */}
               <Balencer>
                 <Box as="h2" style={bodoni.style} className={styles.subheading}>
-                  Secure and manage digital assets.
+                  Secure and govern digital assets.
                 </Box>
               </Balencer>
               <Stack direction={'horizontal'}>
@@ -103,13 +103,13 @@ const Home: NextPage = () => {
       <Box className={styles.intro}>
         <Fade>
           <Box as="h3" style={bodoni.style} className={styles.introHeading}>
-            What is this?
+            ?
           </Box>
           <Box as="p" style={bodoni.style} className={styles.introBlurb}>
-            You may wonder how apps are owned. Corporations, contributors, users? Digital orgs — DAOs — show better ways
-            to own together online. Where group power, such as finance, is handled by apps and code. Keep builds on this
-            idea by using code and corporate tools where they really count. Start with a wallet, assign roles, add
-            community governance and work with companies. Learn more by reading the{' '}
+            Digital orgs — DAOs — show better ways to win together, where you truly own your contributions and can trust
+            in code. Keep builds on this promise by bringing together world-class contracts, legal automation and
+            usability for DAOs. Start with a wallet, assign roles, grow community governance and work with real world
+            legal systems. Learn more by reading the{' '}
             <a href="https://docs.kali.gg/" className={link}>
               docs
             </a>
