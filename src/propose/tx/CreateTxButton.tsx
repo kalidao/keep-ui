@@ -24,7 +24,7 @@ export const CreateTxButton = () => {
   const router = useRouter()
   const keep = useKeepStore((state) => state)
   const tx = useTxStore((state) => state)
-  const { address } = useAccount()
+  const { address: author } = useAccount()
 
   const { refetch: refetchNonce } = useContractRead({
     address: keep.address as `0xstring`,
@@ -39,7 +39,7 @@ export const CreateTxButton = () => {
   } = useQuery(['keep', keep.chainId, keep.address], async () =>
     fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${keep.chainId}/${keep.address}/`),
   )
-  const notSigner = meta?.signers?.find((s: string) => s === address?.toLowerCase()) == undefined ? true : false
+  const notSigner = meta?.signers?.find((s: string) => s === author?.toLowerCase()) == undefined ? true : false
 
   const handleTx = async () => {
     if (keep.chainId && keep.address) {

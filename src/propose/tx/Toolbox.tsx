@@ -121,7 +121,11 @@ export const Toolbox = () => {
       <Toolbar.ToggleGroup
         type="single"
         aria-label="Text formatting"
-        onValueChange={(value: TxStore['view']) => tx.setView(value)}
+        // exclude undefined in type TxStore['view']
+        value={tx.view as Exclude<TxStore['view'], undefined>}
+        onValueChange={(value: string) => {
+          tx.setView(value as Exclude<TxStore['view'], undefined>)
+        }}
       >
         <Tooltip label="Send Tokens">
           <Toolbar.ToggleItem className={styles.ToolbarToggleItem} value="send_token" aria-label="Tokens">

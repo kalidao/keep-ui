@@ -10,8 +10,9 @@ const Transaction = () => {
   const keep = useKeepStore((state) => state)
   const tx = useTxStore((state) => state)
 
-  const views: { [key in TxStore['view']]: React.ReactNode } = {
+  const views: { [key in Exclude<TxStore['view'], undefined>]: React.ReactNode } = {
     send_token: <SendToken />,
+    send_nft: <SendToken />,
   }
 
   return (
@@ -36,7 +37,7 @@ const Transaction = () => {
               placeholder="What is this transaction about?"
               onChange={(e) => tx.setContent(e.currentTarget.value)}
             />
-            {views[tx.view]}
+            {tx.view && views[tx.view]}
             <Toolbox />
           </Stack>
         </Box>

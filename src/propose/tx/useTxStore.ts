@@ -12,9 +12,11 @@ export type TxStore = {
   setTitle: (title: string) => void
   content: string
   setContent: (content: string) => void
+  author: string
+  setAuthor: (author: string) => void
 
-  view: 'toolbox' | 'send_token' | 'send_nft' | 'app_tribute'
-  setView: (view: 'toolbox' | 'send_token' | 'send_nft' | 'app_tribute') => void
+  view?: 'send_token' | 'send_nft'
+  setView: (view: 'send_token' | 'send_nft') => void
   op: number
   setOp: (op: number) => void
   to: `0x${string}`
@@ -36,8 +38,10 @@ export const useTxStore = create<TxStore>((set) => ({
   setTitle: (title) => set({ title }),
   content: '',
   setContent: (content) => set({ content }),
+  author: '',
+  setAuthor: (author) => set({ author }),
 
-  view: 'toolbox',
+  view: undefined,
   setView: (view) => set({ view }),
   op: 0,
   setOp: (op) => set({ op }),
