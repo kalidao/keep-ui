@@ -1,6 +1,19 @@
 import Link from 'next/link'
-import { Stack, Heading, Avatar, Text, Card, IconLink, IconTwitter, IconDiscord, Divider } from '@kalidao/reality'
+import {
+  Stack,
+  Heading,
+  Avatar,
+  Text,
+  Card,
+  IconLink,
+  IconTwitter,
+  IconDiscord,
+  Divider,
+  Button,
+  IconPlus,
+} from '@kalidao/reality'
 import * as styles from './styles.css'
+import GiveMoney from './GiveMoney'
 
 type Props = {
   name: string
@@ -37,6 +50,7 @@ const Profile = ({ name, avatar, bio, twitter, website, discord, address }: Prop
             >
               {bio}
             </Text>
+            <GiveMoney />
           </Stack>
         </Stack>
         <Divider />
