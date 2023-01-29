@@ -1,14 +1,15 @@
-import { Avatar, Card, Heading, Stack, Text } from '@kalidao/reality'
+import { Avatar, Box, Card, Heading, Stack, Text } from '@kalidao/reality'
 import { useEnsName } from 'wagmi'
 import { truncAddress } from '~/utils'
 import { useQuery } from '@tanstack/react-query'
 import { fetcher } from '~/utils'
+import * as styles from './styles.css'
 
 const Signers = ({ signers }: { signers: any[] }) => {
   // const signers = ['shivanshi.eth', 'z0r0z.eth', 'audsssy.eth', 'jordanteague.eth']
   return (
     <Card padding="6">
-      <Stack space="4" align={'flex-start'}>
+      <Box className={styles.signers}>
         <Heading transform="capitalize">Signers</Heading>
         <Stack space={'2'}>
           {signers &&
@@ -16,7 +17,7 @@ const Signers = ({ signers }: { signers: any[] }) => {
               return <Signer key={signer} signer={signer} />
             })}
         </Stack>
-      </Stack>
+      </Box>
     </Card>
   )
 }

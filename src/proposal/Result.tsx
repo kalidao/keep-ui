@@ -3,6 +3,7 @@ import { timestampToTimepassed } from '~/utils/prettyDate'
 import { useTxStore } from '~/dashboard/useTxStore'
 import { getExplorerLink } from '~/utils/getExplorerLink'
 import { useKeepStore } from '~/dashboard/useKeepStore'
+import * as styles from './styles.css'
 
 export const Result = () => {
   const tx = useTxStore((state) => state)
@@ -22,6 +23,7 @@ export const Result = () => {
           style={{
             fontStyle: 'italic',
           }}
+          className={styles.executedTxLink}
         >
           Executed {timestampToTimepassed(tx?.executedOn)}
           {' ago.'}

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Stack, Heading, Avatar, Text, Card, IconLink, IconTwitter, IconDiscord, Divider } from '@kalidao/reality'
+import * as styles from './styles.css'
 
 type Props = {
   name: string
@@ -14,7 +15,7 @@ type Props = {
 const Profile = ({ name, avatar, bio, twitter, website, discord, address }: Props) => {
   return (
     <Card padding="6" width="full">
-      <Stack space="4" align="center" justify={'center'}>
+      <Stack space="10" align="center" justify={'space-between'}>
         <Stack direction="horizontal" align="center" justify={'space-between'}>
           <Avatar
             shape="circle"
@@ -39,20 +40,21 @@ const Profile = ({ name, avatar, bio, twitter, website, discord, address }: Prop
           </Stack>
         </Stack>
         <Divider />
-        <Stack direction={'horizontal'}>
+        <Stack direction={'horizontal'} align="center" justify={'center'}>
           {twitter && (
-            <Link href={twitter}>
-              <IconTwitter />
+            <Link href={twitter} className={styles.socialIcon}>
+              <IconTwitter color="foreground" />
+            </Link>
+          )}
+
+          {discord && (
+            <Link href={discord} className={styles.socialIcon}>
+              <IconDiscord color="foreground" />
             </Link>
           )}
           {website && (
-            <Link href={website}>
-              <IconLink />
-            </Link>
-          )}
-          {discord && (
-            <Link href={discord}>
-              <IconDiscord />
+            <Link href={website} className={styles.socialIcon}>
+              <IconLink color="foreground" />
             </Link>
           )}
         </Stack>

@@ -98,3 +98,16 @@ export const progressNoIndicator = style({
   height: '100%',
   transition: 'transform 660ms cubic-bezier(0.65, 0, 0.35, 1)',
 })
+
+export const executedTxLink = style({
+  ':hover': {
+    textDecoration: 'underline',
+  },
+  ':active': {
+    textDecoration: 'underline',
+  },
+  // if link used, change color
+  ':visited': {
+    color: vars.colors.accent,
+  },
+})
