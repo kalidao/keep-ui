@@ -4,8 +4,6 @@ import { vars } from '@kalidao/reality'
 export const layout = style({
   minHeight: '100vh',
   minWidth: '100vw',
-  paddingRight: vars.space['5'],
-  paddingLeft: vars.space['5'],
 })
 
 export const header = style({

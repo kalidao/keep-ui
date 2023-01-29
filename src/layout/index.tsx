@@ -6,6 +6,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { ConnectButton } from '~/components/ConnectButton'
 import { Menu } from '@design/Menu'
+import Banner from '~/components/Banner'
 
 type Props = {
   title: string
@@ -23,6 +24,7 @@ const Layout = ({ title, content, children }: Props) => {
         <meta name="description" content={content} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Banner label="We are only on mainnet and polygon. Switch chain to interact!" />
       <Box className={dashboardHeader}>
         <Link href="/create">
           <Image alt="brand logo and back button" src="/favicon-32x32.png" height="25" width="25" />

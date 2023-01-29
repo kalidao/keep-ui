@@ -14,7 +14,7 @@ import { Castle } from '~/canvas/Castle'
 import { Fade, Slide } from 'react-awesome-reveal'
 import { bodoni } from './_app'
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
-
+import Banner from '~/components/Banner'
 const Home: NextPage = () => {
   const { user } = useDynamicContext()
   const router = useRouter()
@@ -52,10 +52,12 @@ const Home: NextPage = () => {
   */
   return (
     <Box className={layout}>
+      <Banner label="We are only on mainnet and polygon. Switch chain to interact!" />
       <Head>
         <title>Keep - Home</title>
         <meta name="description" content={'This is the homepage of Keep.'} />
       </Head>
+
       <Box className={header}>
         <Stack direction={'horizontal'}>
           <ConnectButton />

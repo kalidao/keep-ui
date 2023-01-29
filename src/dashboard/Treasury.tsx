@@ -1,7 +1,7 @@
+import { useMemo } from 'react'
 import { Card, Box, Stack, Heading, Text, Button, IconArrowRight, Stat, Tag } from '@kalidao/reality'
 import { ethers } from 'ethers'
 import { prettyDate } from '~/utils'
-import { capitalize } from '~/utils/capitalize'
 
 type Props = {
   tokens: any
@@ -9,29 +9,32 @@ type Props = {
 }
 
 const Treasury = ({ tokens, synced }: Props) => {
-  const totalValueLocked =
-    tokens &&
-    tokens
-      .reduce((acc: any, token: any) => {
-        return acc + parseFloat(ethers.utils.formatUnits(token.balance, token.contract_decimals)) * token?.quote_rate
-      }, 0)
-      .toFixed(2)
+  const totalValueLocked = useMemo(() => {
+    if (!tokens) {
+      return 0
+    }
+    tokens.reduce((acc: number, item: any) => {
+      console.log('acc total balance', acc, item)
+      const price = item?.quote_rate ?? 0
+      return acc + parseFloat(ethers.utils.formatUnits(item?.balance, item?.contract_decimals)) * price
+    }, 0)
+  }, [tokens])
   // order tokens by value
   const _tokens =
     tokens &&
     tokens
-      .filter((token: any) => {
-        // filter out tokens with no value
+      // .filter((token: any) => {
+      //   // filter out tokens with no value
 
-        const value = parseFloat(ethers.utils.formatUnits(token.balance, token.contract_decimals)) * token?.quote_rate
-        return value > 0
-      })
+      //   const value = parseFloat(ethers.utils.formatUnits(token.balance, token.contract_decimals)) * token?.quote_rate
+      //   return value > 0
+      // })
       .sort((a: any, b: any) => {
         const aVal = parseFloat(ethers.utils.formatUnits(a.balance, a.contract_decimals)) * a?.quote_rate
         const bVal = parseFloat(ethers.utils.formatUnits(b.balance, b.contract_decimals)) * b?.quote_rate
         return bVal - aVal
       })
-  console.log('tokens', tokens)
+  console.log('tokens', tokens, totalValueLocked, _tokens)
 
   // const _nfts = nfts ? nfts?.length : 0
 
@@ -47,9 +50,11 @@ const Treasury = ({ tokens, synced }: Props) => {
       <Stack>
         <Stack direction={'horizontal'} align="center" justify={'space-between'}>
           <Heading>Treasury</Heading>
-          <Tag tone="green" label={`$`}>
-            {totalValueLocked}
-          </Tag>
+          {totalValueLocked && (
+            <Tag tone="green" label={`$`}>
+              {totalValueLocked}
+            </Tag>
+          )}
         </Stack>
         <Box height="40" display="flex" flexDirection={'column'} gap="3">
           {_tokens &&
