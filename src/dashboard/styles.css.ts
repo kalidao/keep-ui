@@ -20,4 +20,6 @@ export const signers = style({
 
   // add scroll if overflow
   overflowY: 'scroll',
+  scrollbarColor: vars.colors.accent,
+  scrollbarWidth: vars.space[1],
 })
