@@ -66,38 +66,34 @@ const Home: NextPage = () => {
       </Box>
       <Box className={container}>
         <Box className={styles.hero}>
-          <Slide>
-            <Stack align={'stretch'} justify="center">
-              <Link href="https://github.com/kalidao/keep" className={styles.pill}>
-                Learn more about Keep on our{' '}
-                <span
-                  style={{
-                    fontWeight: 600,
-                  }}
-                >
-                  GitHub <span aria-hidden="true">&rarr;</span>
-                </span>
-              </Link>
-              <Balencer>
-                <Box as="h1" style={bodoni.style} className={styles.heading}>
-                  Keep.
-                </Box>
-              </Balencer>
-              {/* marketing copy for no-code legally complian multisig + dao launcher */}
-              <Balencer>
-                <Box as="h2" style={bodoni.style} className={styles.subheading}>
-                  Secure and govern digital assets.
-                </Box>
-              </Balencer>
-              <Stack direction={'horizontal'}>
-                <Link href="/create" legacyBehavior>
-                  <Button as="a" variant="secondary">
-                    Get Started
-                  </Button>
-                </Link>
-              </Stack>
-            </Stack>
-          </Slide>
+          <Stack align={'flex-start'} justify="stretch">
+            <Link href="https://github.com/kalidao/keep" className={styles.pill}>
+              Learn more about Keep on our{' '}
+              <span
+                style={{
+                  fontWeight: 600,
+                }}
+              >
+                GitHub <span aria-hidden="true">&rarr;</span>
+              </span>
+            </Link>
+            <Balencer>
+              <Box as="h1" style={bodoni.style} className={styles.heading}>
+                Keep.
+              </Box>
+            </Balencer>
+            {/* marketing copy for no-code legally complian multisig + dao launcher */}
+            <Balencer>
+              <Box as="h2" style={bodoni.style} className={styles.subheading}>
+                Secure and govern digital assets.
+              </Box>
+            </Balencer>
+            <Link href="/create" legacyBehavior>
+              <Button as="a" variant="secondary">
+                Get Started
+              </Button>
+            </Link>
+          </Stack>
           <Castle />
         </Box>
       </Box>
@@ -127,7 +123,9 @@ const Home: NextPage = () => {
                   xs: 'vertical',
                 }}
                 align="flex-start"
-              >
+              >[
+
+              ]
                 <i>
                   <Box
                     as="a"

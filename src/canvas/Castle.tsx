@@ -9,6 +9,9 @@ export const Castle = () => {
   const md = useMediaQuery({ query: '(min-width: 768px)' })
   const lg = useMediaQuery({ query: '(min-width: 1024px)' })
   const xl = useMediaQuery({ query: '(min-width: 1280px)' })
+  const twoXl = useMediaQuery({
+    query: '(min-width: 1900pxS)',
+  })
 
   useEffect(() => {
     let path = document.querySelector(`.${styles.path}`) as SVGPathElement
@@ -47,6 +50,9 @@ export const Castle = () => {
   // set size for extra large screens
   if (xl) {
     size = 1000
+  }
+  if (twoXl) {
+    size = 2000
   }
 
   return (

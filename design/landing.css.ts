@@ -187,14 +187,10 @@ export const heading = style([
 ])
 
 export const hero = style({
-  position: 'absolute',
-  top: '10%',
-  left: '10%',
-  right: '10%',
-  margin: '-50px 0 0 -50px',
   display: 'flex',
   flexDirection: 'row',
-  gap: vars.space['10'],
+  justifyContent: 'space-between',
+  width: '50%',
 
   paddingLeft: vars.space['5'],
   paddingBottom: vars.space['5'],

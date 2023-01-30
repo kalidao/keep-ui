@@ -28,9 +28,14 @@ export const dashboardHeader = style({
 
 export const container = style({
   minHeight: '90vh',
+  width: '100vw',
   position: 'relative',
   paddingRight: vars.space['5'],
   paddingLeft: vars.space['5'],
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
 })
 
 export const splashContainer = style({
