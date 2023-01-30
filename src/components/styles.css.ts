@@ -49,13 +49,13 @@ export const keepCard = style({
   backgroundColor: vars.colors.background,
 
   boxShadow: `rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px`,
-  padding: 8,
+  padding: vars.space[6],
 
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'space-between',
-  minWidth: vars.space[32],
+  minWidth: vars.space[64],
   gap: vars.space[4],
 
   // transform the card up and to the right a bit when it's hovered

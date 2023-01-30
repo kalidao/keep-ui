@@ -14,7 +14,7 @@ const Proposals = () => {
   console.log('txs', transactions)
 
   return (
-    <Box>
+    <Box padding="3">
       <Stack>
         <Stack direction="horizontal" justify={'space-between'} align="center">
           <Heading>Proposals</Heading>

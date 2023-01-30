@@ -189,6 +189,7 @@ export const heading = style([
 export const hero = style({
   display: 'flex',
   flexDirection: 'row',
+  alignItems: 'flex-start',
   justifyContent: 'space-between',
   width: '50%',
 

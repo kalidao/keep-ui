@@ -17,7 +17,7 @@ export const signers = style({
   display: 'flex',
   flexDirection: 'column',
   gap: vars.space[3],
-  height: '25vh',
+
   // add scroll if overflow
-  overflow: 'scroll',
+  overflowY: 'scroll',
 })

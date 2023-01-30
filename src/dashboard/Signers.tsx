@@ -8,7 +8,7 @@ import * as styles from './styles.css'
 const Signers = ({ signers }: { signers: any[] }) => {
   // const signers = ['shivanshi.eth', 'z0r0z.eth', 'audsssy.eth', 'jordanteague.eth']
   return (
-    <Card padding="6">
+    <Card padding="6" width="1/4">
       <Box className={styles.signers}>
         <Heading transform="capitalize">Signers</Heading>
         <Stack space={'2'}>

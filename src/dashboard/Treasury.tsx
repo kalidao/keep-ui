@@ -44,7 +44,7 @@ const Treasury = ({ tokens, synced }: Props) => {
       width={{
         sm: 'full',
         md: 'full',
-        lg: '96',
+        lg: '1/3',
       }}
     >
       <Stack>

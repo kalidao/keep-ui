@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { Box, Stack } from '@kalidao/reality'
 import Head from 'next/head'
-import { layout, dashboardHeader, container } from './layout.css'
+import { layout, dashboardHeader, dashboardContainer, container } from './layout.css'
 import { useQuery } from '@tanstack/react-query'
 import { fetcher } from '~/utils'
 import Footer from './Footer'
@@ -77,30 +77,22 @@ const DashboardLayout = ({ title, content, children }: Props) => {
           <Menu />
         </Stack>
       </Box>
-      <Box className={container}>
-        <Stack>
-          <Stack
-            direction={{
-              xs: 'vertical',
-              md: 'horizontal',
-            }}
-            justify="space-between"
-          >
-            <Profile
-              name={data?.name}
-              avatar={data?.avatar}
-              address={data?.address}
-              bio={data?.bio}
-              website={data?.website_url}
-              twitter={data?.twitter_url}
-              discord={data?.discord_url}
-            />
-            <Treasury tokens={treasury?.items} synced={treasury?.updated_at} />
-            <Wrappr />
-            <Signers signers={data?.signers} />
-          </Stack>
-          {children}
-        </Stack>
+      <Box className={dashboardContainer}>
+        <Box display="flex" width="full" gap="6" height="96">
+          <Profile
+            name={data?.name}
+            avatar={data?.avatar}
+            address={data?.address}
+            bio={data?.bio}
+            website={data?.website_url}
+            twitter={data?.twitter_url}
+            discord={data?.discord_url}
+          />
+          <Treasury tokens={treasury?.items} synced={treasury?.updated_at} />
+
+          <Signers signers={data?.signers} />
+        </Box>
+        <Box width="full">{children}</Box>
       </Box>
       <Footer />
     </Box>

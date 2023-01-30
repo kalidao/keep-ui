@@ -49,7 +49,15 @@ const Dashboard: NextPage = () => {
 
   return (
     <Layout title={'Home'} content={'Create a Keep'}>
-      <Stack align="center" justify={'stretch'}>
+      <Box
+        width="full"
+        height="viewHeight"
+        display="flex"
+        flexDirection={'column'}
+        gap="10"
+        alignItems={'center'}
+        justifyContent="flex-start"
+      >
         <Heading>
           {user?.ens?.name}
           {user?.ens?.name && "'s"} dashboard
@@ -63,65 +71,62 @@ const Dashboard: NextPage = () => {
           justify="center"
           align="flex-start"
         >
-          <Skeleton height={'80'} width="32" loading={isLoading}>
-            <Box>
-              {keeps ? (
-                keeps.map((keep: any) => {
-                  return (
-                    <KeepCard
-                      key={`${keep?.address}-${keep?.chainId}`}
-                      name={keep?.name}
-                      avatar={keep?.avatar}
-                      chainId={keep?.chainId}
-                      keep={keep?.address}
-                      txs={keep?.transactions}
-                      bio={keep?.bio}
-                    />
-                  )
-                })
-              ) : (
-                <Card>
-                  <Stack>
-                    <Heading>Get started</Heading>
-                    <Divider />
-                    <Text>
-                      No Keeps yet? Create one to get started. You can create a Keep for yourself or for your
-                      organization.
-                    </Text>
-                  </Stack>
-                </Card>
-              )}
-            </Box>
-          </Skeleton>
+          {keeps ? (
+            <Stack direction={'vertical'} wrap>
+              {keeps.map((keep: any) => {
+                return (
+                  <KeepCard
+                    key={`${keep?.address}-${keep?.chainId}`}
+                    name={keep?.name}
+                    avatar={keep?.avatar}
+                    chainId={keep?.chainId}
+                    keep={keep?.address}
+                    txs={keep?.transactions}
+                    bio={keep?.bio}
+                  />
+                )
+              })}
+            </Stack>
+          ) : (
+            <Card>
+              <Stack>
+                <Heading>Get started</Heading>
+                <Divider />
+                <Text>
+                  No Keeps yet? Create one to get started. You can create a Keep for yourself or for your organization.
+                </Text>
+              </Stack>
+            </Card>
+          )}
           <Divider orientation="vertical" />
-          <Skeleton height={'36'} width="256" loading={isLoading}>
-            <Box
-              width={{
-                xs: 'screenSm',
-                md: 'screenLg',
-              }}
-            >
-              {pendingTransactions &&
-                pendingTransactions.map((tx: any) => {
-                  return (
-                    <ProposalCard
-                      key={tx.txHash}
-                      txHash={tx.txHash}
-                      chainId={tx.keepChainId}
-                      keep={tx.keepAddress}
-                      proposer={tx.authorAddress}
-                      title={tx.title}
-                      description={tx.content}
-                      timestamp={tx.createdAt}
-                      type={'Transaction'}
-                      status={tx.status}
-                    />
-                  )
-                })}
-            </Box>
-          </Skeleton>
+          <Box
+            width={{
+              xs: 'screenSm',
+              md: 'screenMd',
+              lg: 'screenLg',
+              xl: 'screenXl',
+            }}
+          >
+            {pendingTransactions &&
+              pendingTransactions.map((tx: any) => {
+                return (
+                  <ProposalCard
+                    key={tx.txHash}
+                    txHash={tx.txHash}
+                    chainId={tx.keepChainId}
+                    keep={tx.keepAddress}
+                    proposer={tx.authorAddress}
+                    title={tx.title}
+                    description={tx.content}
+                    timestamp={tx.createdAt}
+                    type={'Transaction'}
+                    status={tx.status}
+                  />
+                )
+              })}
+          </Box>
         </Stack>
-      </Stack>
+      </Box>
     </Layout>
   )
 }
