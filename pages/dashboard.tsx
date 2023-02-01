@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { Box, Card, Text, Divider, Heading, Stack, Skeleton } from '@kalidao/reality'
+import { Box, Card, Text, Divider, Heading, Stack, Skeleton, Avatar } from '@kalidao/reality'
 import Layout from '~/layout'
 import { fetcher } from '~/utils'
 import { useQuery } from '@tanstack/react-query'
@@ -62,7 +62,7 @@ const Dashboard: NextPage = () => {
           {user?.ens?.name}
           {user?.ens?.name && "'s"} dashboard
         </Heading>
-        <Divider />
+
         <Stack
           direction={{
             xs: 'vertical',
@@ -71,7 +71,7 @@ const Dashboard: NextPage = () => {
           justify="center"
           align="flex-start"
         >
-          {keeps ? (
+          {/* {keeps ? (
             <Stack direction={'vertical'} wrap>
               {keeps.map((keep: any) => {
                 return (
@@ -97,8 +97,8 @@ const Dashboard: NextPage = () => {
                 </Text>
               </Stack>
             </Card>
-          )}
-          <Divider orientation="vertical" />
+          )} */}
+
           <Box
             width={{
               xs: 'screenSm',
@@ -106,6 +106,9 @@ const Dashboard: NextPage = () => {
               lg: 'screenLg',
               xl: 'screenXl',
             }}
+            display="flex"
+            flexDirection={'column'}
+            gap="3"
           >
             {pendingTransactions &&
               pendingTransactions.map((tx: any) => {
