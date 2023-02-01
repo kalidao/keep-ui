@@ -50,85 +50,33 @@ const Dashboard: NextPage = () => {
   return (
     <Layout title={'Home'} content={'Create a Keep'}>
       <Box
-        width="full"
-        minHeight="viewHeight"
+        width={{
+          xs: 'screenSm',
+          md: 'screenMd',
+          lg: 'screenLg',
+          xl: 'screenXl',
+        }}
         display="flex"
         flexDirection={'column'}
-        gap="10"
-        alignItems={'center'}
-        justifyContent="flex-start"
+        gap="3"
       >
-        <Heading>
-          {user?.ens?.name}
-          {user?.ens?.name && "'s"} dashboard
-        </Heading>
-
-        <Stack
-          direction={{
-            xs: 'vertical',
-            md: 'horizontal',
-          }}
-          justify="center"
-          align="flex-start"
-        >
-          {/* {keeps ? (
-            <Stack direction={'vertical'} wrap>
-              {keeps.map((keep: any) => {
-                return (
-                  <KeepCard
-                    key={`${keep?.address}-${keep?.chainId}`}
-                    name={keep?.name}
-                    avatar={keep?.avatar}
-                    chainId={keep?.chainId}
-                    keep={keep?.address}
-                    txs={keep?.transactions}
-                    bio={keep?.bio}
-                  />
-                )
-              })}
-            </Stack>
-          ) : (
-            <Card>
-              <Stack>
-                <Heading>Get started</Heading>
-                <Divider />
-                <Text>
-                  No Keeps yet? Create one to get started. You can create a Keep for yourself or for your organization.
-                </Text>
-              </Stack>
-            </Card>
-          )} */}
-
-          <Box
-            width={{
-              xs: 'screenSm',
-              md: 'screenMd',
-              lg: 'screenLg',
-              xl: 'screenXl',
-            }}
-            display="flex"
-            flexDirection={'column'}
-            gap="3"
-          >
-            {pendingTransactions &&
-              pendingTransactions.map((tx: any) => {
-                return (
-                  <ProposalCard
-                    key={tx.txHash}
-                    txHash={tx.txHash}
-                    chainId={tx.keepChainId}
-                    keep={tx.keepAddress}
-                    proposer={tx.authorAddress}
-                    title={tx.title}
-                    description={tx.content}
-                    timestamp={tx.createdAt}
-                    type={'Transaction'}
-                    status={tx.status}
-                  />
-                )
-              })}
-          </Box>
-        </Stack>
+        {pendingTransactions &&
+          pendingTransactions.map((tx: any) => {
+            return (
+              <ProposalCard
+                key={tx.txHash}
+                txHash={tx.txHash}
+                chainId={tx.keepChainId}
+                keep={tx.keepAddress}
+                proposer={tx.authorAddress}
+                title={tx.title}
+                description={tx.content}
+                timestamp={tx.createdAt}
+                type={'Transaction'}
+                status={tx.status}
+              />
+            )
+          })}
       </Box>
     </Layout>
   )

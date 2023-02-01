@@ -25,7 +25,7 @@ const KeepCard = ({ name, chainId, keep, avatar, txs }: Props) => {
       }}
     >
       <Box className={styles.keepCard}>
-        <Stack direction={'horizontal'} align="center">
+        <Stack direction={'vertical'} align="center">
           <Avatar
             shape="circle"
             src={avatar ? avatar : ''}

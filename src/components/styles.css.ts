@@ -46,17 +46,9 @@ export const slideLeftAndFade = keyframes({
 })
 
 export const keepCard = style({
-  backgroundColor: vars.colors.background,
-
-  boxShadow: `rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px`,
-  padding: vars.space[6],
-
-  display: 'flex',
-  flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  minWidth: vars.space[64],
-  gap: vars.space[4],
+  padding: vars.space[3],
+  borderRadius: vars.radii['2xLarge'],
+  backgroundColor: vars.colors.backgroundSecondary,
 
   // transform the card up and to the right a bit when it's hovered
   selectors: {

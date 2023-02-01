@@ -9,7 +9,7 @@ export const content = style({
   minWidth: 220,
   background: vars.colors.background,
 
-  borderRadius: vars.radii.none,
+  borderRadius: vars.radii['2xLarge'],
   padding: vars.space[2],
   boxShadow: `${vars.shadows[1]} ${vars.colors.foregroundTertiary}`,
   zIndex: 9999,

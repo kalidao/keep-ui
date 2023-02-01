@@ -3,7 +3,7 @@ import { vars } from '@kalidao/reality'
 
 export const layout = style({
   minHeight: '100vh',
-  minWidth: '100vw',
+  width: '100vw',
 })
 
 export const header = style({
@@ -77,4 +77,46 @@ export const link = style({
   ':hover': {
     color: vars.colors.accent,
   },
+})
+
+export const leftbar = style({
+  // twitter-like dashboard sidebar
+  position: 'fixed',
+  top: 0,
+  bottom: 0,
+  left: 0,
+  width: '33vw',
+  minWidth: '200px',
+  maxWidth: '300px',
+  height: '100vh',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  gap: vars.space[10],
+  padding: vars.space[10],
+  backgroundColor: vars.colors.background,
+  borderRight: `1px solid ${vars.colors.foregroundSecondary}`,
+  zIndex: 10,
+})
+
+export const rightbar = style({
+  // twitter-like dashboard sidebar
+  position: 'fixed',
+  top: 0,
+  bottom: 0,
+  right: 0,
+  width: '30vw',
+  minWidth: '200px',
+  maxWidth: '300px',
+  height: '100vh',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  gap: vars.space[10],
+  padding: vars.space[10],
+  backgroundColor: vars.colors.background,
+  borderLeft: `1px solid ${vars.colors.foregroundSecondary}`,
+  zIndex: 10,
 })

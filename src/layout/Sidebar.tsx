@@ -1,4 +1,4 @@
-import { Avatar, Box, Spinner, Stack } from '@kalidao/reality'
+import { Avatar, Button, Box, IconPlus, Spinner, Stack } from '@kalidao/reality'
 import { fetcher } from '~/utils'
 import { useQuery } from '@tanstack/react-query'
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
@@ -45,20 +45,18 @@ export const Sidebar = () => {
       <Stack>
         {keeps &&
           keeps.map((keep: any) => {
+            console.log('keep', `/${keep.chainId}/${keep.address}`)
             return (
-              <Tooltip label={keep.name} key={keep.address + keep.chainId}>
-                <Link
-                  href={`/${keep.chainId}/${keep.address}`}
-                  style={{
-                    textDecoration: 'none',
-                  }}
-                  passHref
-                >
-                  <Avatar label={`${keep.name} link`} src={keep.avatar} />
-                </Link>
-              </Tooltip>
+              <Link href={`/${keep.chainId}/${keep.address}`}>
+                <Tooltip label={keep.name} key={keep.address + keep.chainId}>
+                  <Avatar size="13" label={`${keep.name} link`} src={keep.avatar} />
+                </Tooltip>
+              </Link>
             )
           })}
+        <Button shape="circle" tone="green" variant="secondary">
+          <IconPlus />
+        </Button>
       </Stack>
     </Box>
   )
