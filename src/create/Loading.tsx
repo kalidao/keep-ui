@@ -1,8 +1,9 @@
-import { Box, Stack, Divider } from '@kalidao/reality'
+import { Box, Divider, Stack } from '@kalidao/reality'
+
+import { bodoni } from '../../pages/_app'
+import { Splash } from './Splash'
 import * as styles from './create.css'
 import { useCreateStore } from './useCreateStore'
-import { Splash } from './Splash'
-import { bodoni } from '../../pages/_app'
 
 export const Loading = () => {
   const state = useCreateStore((state) => state)

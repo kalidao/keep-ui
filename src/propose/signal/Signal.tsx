@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { Card, Stack, Input, Textarea, Button, IconArrowLeft } from '@kalidao/reality'
+
+import { Button, Card, IconArrowLeft, Input, Stack, Textarea } from '@kalidao/reality'
 
 type Props = {
   setView: React.Dispatch<React.SetStateAction<string>>

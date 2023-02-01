@@ -1,25 +1,26 @@
+import { useDynamicContext } from '@dynamic-labs/sdk-react'
+import { zodResolver } from '@hookform/resolvers/zod'
 import {
   Box,
   Button,
-  Stack,
-  IconArrowRight,
-  Input,
-  Text,
-  Heading,
-  Textarea,
   Divider,
-  IconTwitter,
+  Heading,
+  IconArrowRight,
   IconDiscord,
   IconLink,
+  IconTwitter,
+  Input,
+  Stack,
+  Text,
+  Textarea,
 } from '@kalidao/reality'
-import Back from './Back'
 import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
-import * as styles from './create.css'
-import { useDynamicContext } from '@dynamic-labs/sdk-react'
-import { CreateStore, useCreateStore } from './useCreateStore'
+
+import Back from './Back'
 import { PostIt } from './PostIt'
+import * as styles from './create.css'
+import { CreateStore, useCreateStore } from './useCreateStore'
 
 const schema = z.object({
   name: z

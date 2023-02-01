@@ -1,5 +1,5 @@
-import { style } from '@vanilla-extract/css'
 import { responsiveStyle, vars } from '@kalidao/reality'
+import { style } from '@vanilla-extract/css'
 
 export const pill = style({
   all: 'unset',

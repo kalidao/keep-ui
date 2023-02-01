@@ -1,4 +1,4 @@
-import { vars, responsiveStyle } from '@kalidao/reality'
+import { responsiveStyle, vars } from '@kalidao/reality'
 import { style } from '@vanilla-extract/css'
 
 export const container = style({

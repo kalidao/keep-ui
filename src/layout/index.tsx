@@ -1,15 +1,17 @@
 import Head from 'next/head'
+import Image from 'next/image'
+import Link from 'next/link'
+
+import { useDynamicContext } from '@dynamic-labs/sdk-react'
+import { Box, Button, IconCheck, IconCog, IconUserGroupSolid, IconWallet, Stack, Text } from '@kalidao/reality'
+
+import Banner from '~/components/Banner'
+import { User } from '~/components/User'
+
+import { Menu } from '@design/Menu'
+
 import Footer from './Footer'
 import * as styles from './layout.css'
-import { Box, Stack, Button, Text, IconUserGroupSolid, IconWallet, IconCheck, IconCog } from '@kalidao/reality'
-import Link from 'next/link'
-import Image from 'next/image'
-import { ConnectButton } from '~/components/ConnectButton'
-import { Menu } from '@design/Menu'
-import Banner from '~/components/Banner'
-import { Sidebar } from './Sidebar'
-import { useDynamicContext } from '@dynamic-labs/sdk-react'
-import { User } from '~/components/User'
 
 type Props = {
   title: string

@@ -1,5 +1,6 @@
 import { Stack } from '@kalidao/reality'
 import { useTxStore } from '~/dashboard/useTxStore'
+
 import DownVote from './DownVote'
 import UpVote from './UpVote'
 

@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+
 import Layout from '~/layout/DashboardLayout'
 import { Transaction } from '~/propose/tx/'
 

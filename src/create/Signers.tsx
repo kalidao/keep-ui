@@ -1,24 +1,25 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import {
-  Stack,
-  Input,
+  Box,
   Button,
+  Divider,
+  FieldSet,
   Heading,
   IconArrowRight,
-  IconPlus,
   IconClose,
-  Box,
-  Divider,
+  IconPlus,
+  Input,
+  Stack,
   Text,
-  FieldSet,
 } from '@kalidao/reality'
-import { useForm, useFieldArray, useWatch } from 'react-hook-form'
-import Back from './Back'
-import * as styles from './create.css'
-import { PostIt } from './PostIt'
-import { CreateStore, useCreateStore } from './useCreateStore'
-import { getEnsAddress } from '~/utils/ens'
+import { useFieldArray, useForm, useWatch } from 'react-hook-form'
 import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { getEnsAddress } from '~/utils/ens'
+
+import Back from './Back'
+import { PostIt } from './PostIt'
+import * as styles from './create.css'
+import { CreateStore, useCreateStore } from './useCreateStore'
 
 const schema = z.object({
   signers: z.array(

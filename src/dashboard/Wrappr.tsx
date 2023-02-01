@@ -1,4 +1,4 @@
-import { Card, Stack, Heading, Text, Avatar } from '@kalidao/reality'
+import { Avatar, Card, Heading, Stack, Text } from '@kalidao/reality'
 
 const Wrappr = () => {
   const wrappr = undefined

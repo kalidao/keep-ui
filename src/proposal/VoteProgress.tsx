@@ -1,8 +1,8 @@
 import { Skeleton, Stack, Text } from '@kalidao/reality'
-import { useKeepStore } from '~/dashboard/useKeepStore'
-import { useTxStore } from '~/dashboard/useTxStore'
 import { ProgressBar } from 'react-step-progress-bar'
 import { Sig } from '~/dashboard/types'
+import { useKeepStore } from '~/dashboard/useKeepStore'
+import { useTxStore } from '~/dashboard/useTxStore'
 
 export const VoteProgress = () => {
   const tx = useTxStore((state) => state)

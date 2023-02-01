@@ -1,12 +1,15 @@
-import { useRouter } from 'next/router'
-import Link from 'next/link'
-import { Box, Card, Stack, Text, Divider, Button, IconArrowRight, IconTwitter } from '@kalidao/reality'
 import { useEffect } from 'react'
+
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+
+import { Box, Button, Card, Divider, IconArrowRight, IconTwitter, Stack, Text } from '@kalidao/reality'
+import { useNetwork } from 'wagmi'
+import { getExplorerLink } from '~/utils/getExplorerLink'
+
+import { bodoni } from '../../pages/_app'
 import * as styles from './create.css'
 import { useCreateStore } from './useCreateStore'
-import { useNetwork } from 'wagmi'
-import { bodoni } from '../../pages/_app'
-import { getExplorerLink } from '~/utils/getExplorerLink'
 
 export const Success = () => {
   const state = useCreateStore((state) => state)

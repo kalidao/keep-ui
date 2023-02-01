@@ -1,4 +1,5 @@
 import { ethers } from 'ethers'
+
 import { getProvider } from './getProvider'
 
 export const validateEns = async (ens: string) => {}

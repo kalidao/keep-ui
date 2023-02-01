@@ -1,7 +1,7 @@
-import Signers from './Signers'
 import Profile from './Profile'
-import Wrappr from './Wrappr'
 import Proposals from './Proposals'
+import Signers from './Signers'
 import Treasury from './Treasury'
+import Wrappr from './Wrappr'
 
 export { Signers, Profile, Wrappr, Proposals, Treasury }

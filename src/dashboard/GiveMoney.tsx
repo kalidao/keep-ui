@@ -1,15 +1,18 @@
 import { useState } from 'react'
+
 import { useRouter } from 'next/router'
-import { Button, Stack, Heading, Text, IconClose, Input } from '@kalidao/reality'
+
+import { useDynamicContext } from '@dynamic-labs/sdk-react'
 import { Dialog } from '@headlessui/react'
-import { dialog, dialogPanel } from '@design/dialog.css'
+import { Button, Heading, IconClose, Input, Stack, Text } from '@kalidao/reality'
+import { BigNumber, ethers } from 'ethers'
 import toast, { Toaster } from 'react-hot-toast'
+import { usePrepareSendTransaction, useSendTransaction } from 'wagmi'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 import { useTxStore } from '~/dashboard/useTxStore'
-import { useDynamicContext } from '@dynamic-labs/sdk-react'
-import { ethers, BigNumber } from 'ethers'
 import { tryTypedSigningV4 } from '~/utils/sign'
-import { useSendTransaction, usePrepareSendTransaction } from 'wagmi'
+
+import { dialog, dialogPanel } from '@design/dialog.css'
 
 const GiveMoney = () => {
   const [isOpen, setIsOpen] = useState(false)

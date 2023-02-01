@@ -1,5 +1,5 @@
-import { keyframes, style } from '@vanilla-extract/css'
 import { vars } from '@kalidao/reality'
+import { keyframes, style } from '@vanilla-extract/css'
 
 export const slideUpAndFade = keyframes({
   from: {

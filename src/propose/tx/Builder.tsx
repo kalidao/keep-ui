@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { Stack, Heading, Input, Card } from '@kalidao/reality'
 import { ChangeEvent } from 'react'
+
+import { Card, Heading, Input, Stack } from '@kalidao/reality'
 
 type Props = {
   value: string

@@ -1,12 +1,14 @@
 import React from 'react'
-import { Stack, Box, Text, IconChevronDown } from '@kalidao/reality'
-import { truncAddress } from '~/utils'
-import { ethers } from 'ethers'
-import * as styles from './styles.css'
+
+import { Box, IconChevronDown, Stack, Text } from '@kalidao/reality'
 import * as RadixCollapsible from '@radix-ui/react-collapsible'
-import { useTxStore } from '~/dashboard/useTxStore'
-import { useKeepStore } from '~/dashboard/useKeepStore'
 import { useQuery } from '@tanstack/react-query'
+import { ethers } from 'ethers'
+import { useKeepStore } from '~/dashboard/useKeepStore'
+import { useTxStore } from '~/dashboard/useTxStore'
+import { truncAddress } from '~/utils'
+
+import * as styles from './styles.css'
 
 const ViewTx = () => {
   const [open, setOpen] = React.useState(false)

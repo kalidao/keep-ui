@@ -1,25 +1,28 @@
+import { useEffect, useState } from 'react'
+
 import {
   Box,
   Button,
+  Divider,
+  Field,
   Heading,
-  Stack,
   IconArrowRight,
-  MediaPicker,
   IconMoon,
   IconSun,
-  Field,
-  Divider,
+  MediaPicker,
+  Stack,
   Text,
 } from '@kalidao/reality'
-import Back from './Back'
-import * as styles from './create.css'
+import { getDominantColor } from '~/utils/getDominantColor'
+import { uploadFile } from '~/utils/upload'
+
 import { ColorPicker } from '@design/ColorPicker/ColorPicker'
-import { useCreateStore } from './useCreateStore'
+
+import Back from './Back'
 import { Emblem } from './Emblem'
 import { PostIt } from './PostIt'
-import { getDominantColor } from '~/utils/getDominantColor'
-import { useEffect, useState } from 'react'
-import { uploadFile } from '~/utils/upload'
+import * as styles from './create.css'
+import { useCreateStore } from './useCreateStore'
 
 // Opposite color function
 const oppColor = (color: string) => {

@@ -1,13 +1,13 @@
 import type { NextPage } from 'next'
-import Layout from '~/layout/'
-
-import { fetcher } from '~/utils'
-import { useQuery } from '@tanstack/react-query'
-import { useDynamicContext } from '@dynamic-labs/sdk-react'
 import { useRouter } from 'next/router'
-import { KeepCard } from '~/components'
+
+import { useDynamicContext } from '@dynamic-labs/sdk-react'
 import { Box, Divider, Heading, Stack } from '@kalidao/reality'
+import { useQuery } from '@tanstack/react-query'
+import { KeepCard } from '~/components'
 import * as styles from '~/dashboard/communities.css'
+import Layout from '~/layout/'
+import { fetcher } from '~/utils'
 
 const Communities: NextPage = () => {
   const { user } = useDynamicContext()

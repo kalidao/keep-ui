@@ -1,16 +1,22 @@
-import { useRouter } from 'next/router'
-import Link from 'next/link'
-import { Box, Stack } from '@kalidao/reality'
-import Head from 'next/head'
-import { layout, dashboardHeader, dashboardContainer, container } from './layout.css'
-import { useQuery } from '@tanstack/react-query'
-import { fetcher } from '~/utils'
-import Footer from './Footer'
-import { Signers, Profile, Wrappr, Treasury } from '~/dashboard'
-import { ConnectButton } from '~/components/ConnectButton'
-import { Menu } from '@design/Menu'
-import { useKeepStore } from '~/dashboard/useKeepStore'
 import { useEffect } from 'react'
+
+import Head from 'next/head'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+
+import { Box, Stack } from '@kalidao/reality'
+import { useQuery } from '@tanstack/react-query'
+import { Profile, Signers, Treasury, Wrappr } from '~/dashboard'
+import { useKeepStore } from '~/dashboard/useKeepStore'
+import { fetcher } from '~/utils'
+
+import { ConnectButton } from '~/components/ConnectButton'
+
+import { Menu } from '@design/Menu'
+
+import Layout from '.'
+import Footer from './Footer'
+import { container, dashboardContainer, dashboardHeader, layout } from './layout.css'
 
 type Props = {
   title: string
@@ -45,7 +51,7 @@ const DashboardLayout = ({ title, content, children }: Props) => {
   }, [keep])
 
   return (
-    <Box className={layout} lang="en">
+    <Layout title={title} content={content}>
       <Head>
         <title>{heading}</title>
         {/* add og tags */}
@@ -65,20 +71,8 @@ const DashboardLayout = ({ title, content, children }: Props) => {
 
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Box className={dashboardHeader} as="header">
-        <Link href="/" passHref legacyBehavior>
-          <Box fontSize="headingTwo" as="a">
-            🏯
-          </Box>
-          {/* <Image alt="brand-logo and back button" src="/favicon-32x32.png" height="25" width="25" /> */}
-        </Link>
-        <Stack direction={'horizontal'}>
-          <ConnectButton />
-          <Menu />
-        </Stack>
-      </Box>
       <Box className={dashboardContainer}>
-        <Box display="flex" width="full" gap="6" height="96">
+        <Box display="flex" width="full" gap="6">
           <Profile
             name={data?.name}
             avatar={data?.avatar}
@@ -89,13 +83,11 @@ const DashboardLayout = ({ title, content, children }: Props) => {
             discord={data?.discord_url}
           />
           <Treasury tokens={treasury?.items} synced={treasury?.updated_at} />
-
           <Signers signers={data?.signers} />
         </Box>
         <Box width="full">{children}</Box>
       </Box>
-      <Footer />
-    </Box>
+    </Layout>
   )
 }
 

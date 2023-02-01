@@ -1,8 +1,9 @@
 import { Avatar, Box, Card, Heading, Stack, Text } from '@kalidao/reality'
+import { useQuery } from '@tanstack/react-query'
 import { useEnsName } from 'wagmi'
 import { truncAddress } from '~/utils'
-import { useQuery } from '@tanstack/react-query'
 import { fetcher } from '~/utils'
+
 import * as styles from './styles.css'
 
 const Signers = ({ signers }: { signers: any[] }) => {

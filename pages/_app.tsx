@@ -1,21 +1,24 @@
-import type { AppContext, AppProps } from 'next/app'
 import { useEffect } from 'react'
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import type { AppContext, AppProps } from 'next/app'
+import { useRouter } from 'next/router'
+
 import { DynamicContextProvider } from '@dynamic-labs/sdk-react'
 import { DynamicWagmiConnector } from '@dynamic-labs/wagmi-connector'
-import { useRouter } from 'next/router'
 import { ThemeProvider } from '@kalidao/reality'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useThemeStore } from '~/hooks/useThemeStore'
+
 import '@design/global.css'
 import '@kalidao/reality/styles'
 import '@design/app.css'
 
+import App from 'next/app'
+import Head from 'next/head'
+
+import { Mode } from '@kalidao/reality/dist/types/tokens'
 import { Inter } from '@next/font/google'
 import { Bodoni_Moda } from '@next/font/google'
-import App from 'next/app'
-import { Mode } from '@kalidao/reality/dist/types/tokens'
-import Head from 'next/head'
 
 export const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 export const bodoni = Bodoni_Moda({ subsets: ['latin'], variable: '--font-bodoni' })

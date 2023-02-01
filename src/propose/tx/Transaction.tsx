@@ -1,10 +1,13 @@
 import Link from 'next/link'
-import { highBackground } from '@design/blur.css'
-import { Box, Stack, Input, Textarea, Button, IconArrowLeft } from '@kalidao/reality'
-import { TxStore, useTxStore } from './useTxStore'
-import { Toolbox } from './Toolbox'
+
+import { Box, Button, IconArrowLeft, Input, Stack, Textarea } from '@kalidao/reality'
 import { useKeepStore } from '~/dashboard/useKeepStore'
+
+import { highBackground } from '@design/blur.css'
+
 import { SendToken } from './SendToken'
+import { Toolbox } from './Toolbox'
+import { TxStore, useTxStore } from './useTxStore'
 
 const Transaction = () => {
   const keep = useKeepStore((state) => state)

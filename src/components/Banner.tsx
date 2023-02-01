@@ -1,7 +1,9 @@
-import { Box, Button, IconClose } from '@kalidao/reality'
 import { useEffect, useState } from 'react'
-import * as styles from './banner.css'
+
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
+import { Box, Button, IconClose } from '@kalidao/reality'
+
+import * as styles from './banner.css'
 
 export default function Banner({ label }: { label: string }) {
   const { network } = useDynamicContext()

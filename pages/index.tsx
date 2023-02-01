@@ -1,19 +1,23 @@
 import type { NextPage } from 'next'
-import { useRouter } from 'next/router'
-import Image from 'next/image'
-import { Stack, Button, Box } from '@kalidao/reality'
-import * as styles from '@design/landing.css'
 import Head from 'next/head'
-import Footer from '~/layout/Footer'
-import { layout, header, container } from '~/layout/layout.css'
+import Image from 'next/image'
 import Link from 'next/link'
-import Balencer from 'react-wrap-balancer'
-import { ConnectButton } from '~/components/ConnectButton'
-import { Menu } from '@design/Menu'
-import { Castle } from '~/canvas/Castle'
-import { bodoni } from './_app'
+import { useRouter } from 'next/router'
+
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
+import { Box, Button, Stack } from '@kalidao/reality'
+import Balencer from 'react-wrap-balancer'
+import { Castle } from '~/canvas/Castle'
+import Footer from '~/layout/Footer'
+import { container, header, layout } from '~/layout/layout.css'
+
 import Banner from '~/components/Banner'
+import { ConnectButton } from '~/components/ConnectButton'
+
+import { Menu } from '@design/Menu'
+import * as styles from '@design/landing.css'
+
+import { bodoni } from './_app'
 
 const Home: NextPage = () => {
   const { user } = useDynamicContext()

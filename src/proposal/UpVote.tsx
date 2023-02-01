@@ -1,10 +1,10 @@
-import { Button, IconCheck } from '@kalidao/reality'
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
-import { tryTypedSigningV4 } from '~/utils/sign'
+import { Button, IconCheck } from '@kalidao/reality'
+import { ethers } from 'ethers'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 import { useTxStore } from '~/dashboard/useTxStore'
+import { tryTypedSigningV4 } from '~/utils/sign'
 import { toOp } from '~/utils/toOp'
-import { ethers } from 'ethers'
 
 const UpVote = () => {
   const { authToken, user } = useDynamicContext()

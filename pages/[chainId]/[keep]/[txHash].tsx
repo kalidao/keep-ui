@@ -1,21 +1,23 @@
+import { useEffect } from 'react'
+
 import type { GetServerSideProps, NextPage } from 'next'
 import Link from 'next/link'
-import { Heading, Box, Text, Stack, Card, Button, IconArrowLeft } from '@kalidao/reality'
-import Layout from '~/layout/DashboardLayout'
 import { useRouter } from 'next/router'
-import { ViewTx } from '~/proposal'
-import { PrettyDate, Author } from '~/components'
-import { useContractWrite, usePrepareContractWrite } from 'wagmi'
+
+import { Box, Button, Card, Heading, IconArrowLeft, Stack, Text } from '@kalidao/reality'
+import { useQuery } from '@tanstack/react-query'
 import { ethers } from 'ethers'
+import { useContractWrite, usePrepareContractWrite } from 'wagmi'
+import { Author, PrettyDate } from '~/components'
 import { KEEP_ABI } from '~/constants'
-import { toOp } from '~/utils/toOp'
-import { useEffect } from 'react'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 import { useTxStore } from '~/dashboard/useTxStore'
-import { useQuery } from '@tanstack/react-query'
-import Vote from '~/proposal/Vote'
+import Layout from '~/layout/DashboardLayout'
+import { ViewTx } from '~/proposal'
 import Execute from '~/proposal/Execute'
 import Quorum from '~/proposal/Quorum'
+import Vote from '~/proposal/Vote'
+import { toOp } from '~/utils/toOp'
 
 type Sign = {
   user: `0xstring`

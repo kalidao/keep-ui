@@ -1,10 +1,11 @@
 import { Box } from '@kalidao/reality'
-import { container } from './create.css'
-import { Type } from './Type'
-import { Name } from './Name'
-import { Signers } from './Signers'
+
 import { Confirm } from './Confirm'
 import { NFT } from './NFT'
+import { Name } from './Name'
+import { Signers } from './Signers'
+import { Type } from './Type'
+import { container } from './create.css'
 import { CreateStore, useCreateStore } from './useCreateStore'
 
 const Create = () => {

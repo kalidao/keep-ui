@@ -1,18 +1,21 @@
 import { ethers } from 'ethers'
+
 import 'react-step-progress-bar/styles.css'
-import { ProgressBar } from 'react-step-progress-bar'
-import { Avatar, Card, Divider, Heading, Stack, Box, Tag, Text } from '@kalidao/reality'
-import { useKeepStore } from '~/dashboard/useKeepStore'
-import { fetcher } from '~/utils'
+
+import { Avatar, Box, Card, Divider, Heading, Stack, Tag, Text } from '@kalidao/reality'
 import { useQuery } from '@tanstack/react-query'
 import { bodoni } from 'pages/_app'
-import { capitalize } from '~/utils/capitalize'
+import { ProgressBar } from 'react-step-progress-bar'
 import { useEnsName } from 'wagmi'
-import { truncAddress } from '~/utils'
-import { useTxStore } from '~/dashboard/useTxStore'
-import { VoteProgress } from './VoteProgress'
 import { Sig } from '~/dashboard/types'
+import { useKeepStore } from '~/dashboard/useKeepStore'
+import { useTxStore } from '~/dashboard/useTxStore'
+import { fetcher } from '~/utils'
+import { truncAddress } from '~/utils'
+import { capitalize } from '~/utils/capitalize'
+
 import { Result } from './Result'
+import { VoteProgress } from './VoteProgress'
 
 const Quorum = () => {
   const tx = useTxStore((state) => state)

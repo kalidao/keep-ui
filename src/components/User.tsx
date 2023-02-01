@@ -1,7 +1,7 @@
-import { useEnsName } from 'wagmi'
-import { useQuery } from '@tanstack/react-query'
-import { fetcher } from '~/utils'
 import { Avatar, Card, Heading, Stack, Text } from '@kalidao/reality'
+import { useQuery } from '@tanstack/react-query'
+import { useEnsName } from 'wagmi'
+import { fetcher } from '~/utils'
 import { truncAddress } from '~/utils'
 
 export const User = ({ address, size }: { address: string; size: 'sm' | 'lg' }) => {

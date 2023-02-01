@@ -1,5 +1,7 @@
-import { Box, Avatar, Text, Stack, Tag } from '@kalidao/reality'
 import Link from 'next/link'
+
+import { Avatar, Box, Stack, Tag, Text } from '@kalidao/reality'
+
 import * as styles from './styles.css'
 
 type Props = {

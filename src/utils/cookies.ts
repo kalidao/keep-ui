@@ -1,5 +1,5 @@
-import { parseCookies, setCookie } from 'nookies'
 import { Mode } from '@kalidao/reality/dist/types/tokens'
+import { parseCookies, setCookie } from 'nookies'
 
 export const modeKey = 'mode'
 export const setThemeMode = (mode: string) =>

@@ -1,6 +1,9 @@
-import { Text, Stack } from '@kalidao/reality'
-import { useRouter } from 'next/router'
 import { useEffect } from 'react'
+
+import { useRouter } from 'next/router'
+
+import { Stack, Text } from '@kalidao/reality'
+
 import { createPayload } from '../createPayload'
 import { useTxStore } from './useTxStore'
 

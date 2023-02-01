@@ -1,5 +1,5 @@
 import Author from './Author'
-import PrettyDate from './PrettyDate'
 import KeepCard from './KeepCard'
+import PrettyDate from './PrettyDate'
 
 export { Author, PrettyDate, KeepCard }

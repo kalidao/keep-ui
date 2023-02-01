@@ -1,13 +1,15 @@
 import React from 'react'
+
 import type { NextPage } from 'next'
-import { Stack, Box } from '@kalidao/reality'
 import Head from 'next/head'
-import { layout, header } from '~/layout/layout.css'
+import { useRouter } from 'next/router'
+
+import { useDynamicContext } from '@dynamic-labs/sdk-react'
+import { Box, Stack } from '@kalidao/reality'
+import { header, layout } from '~/layout/layout.css'
+import { Login } from '~/login'
 
 import { Menu } from '@design/Menu'
-import { Login } from '~/login'
-import { useDynamicContext } from '@dynamic-labs/sdk-react'
-import { useRouter } from 'next/router'
 
 const Home: NextPage = () => {
   const { user } = useDynamicContext()

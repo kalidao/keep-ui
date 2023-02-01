@@ -1,15 +1,16 @@
-import { Card, Stack, Heading, Text, Button, IconLightningBolt, Box, Divider } from '@kalidao/reality'
-import { useContractRead, useContractWrite, useNetwork, usePrepareContractWrite, useEnsName } from 'wagmi'
-import Back from './Back'
+import { Box, Button, Card, Divider, Heading, IconLightningBolt, Stack, Text } from '@kalidao/reality'
 import { ethers } from 'ethers'
+import { useContractRead, useContractWrite, useEnsName, useNetwork, usePrepareContractWrite } from 'wagmi'
 import { KEEP_ABI, KEEP_FACTORY_ABI, KEEP_FACTORY_ADDRESS } from '~/constants'
-import { useCreateStore } from './useCreateStore'
-import * as styles from './create.css'
+
+import Back from './Back'
 import { Emblem } from './Emblem'
-import { PostIt } from './PostIt'
-import { Loading } from './Loading'
-import { Success } from './Success'
 import { Error } from './Error'
+import { Loading } from './Loading'
+import { PostIt } from './PostIt'
+import { Success } from './Success'
+import * as styles from './create.css'
+import { useCreateStore } from './useCreateStore'
 
 export const Confirm = () => {
   const state = useCreateStore((state) => state)

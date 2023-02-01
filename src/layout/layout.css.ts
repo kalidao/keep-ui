@@ -1,5 +1,5 @@
-import { style } from '@vanilla-extract/css'
 import { vars } from '@kalidao/reality'
+import { style } from '@vanilla-extract/css'
 
 export const layout = style({
   minHeight: '100vh',
@@ -28,10 +28,10 @@ export const dashboardHeader = style({
 
 export const dashboardContainer = style({
   minHeight: '90vh',
-  width: '100vw',
   position: 'relative',
   paddingRight: vars.space['5'],
   paddingLeft: vars.space['5'],
+  paddingTop: vars.space['10'],
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',

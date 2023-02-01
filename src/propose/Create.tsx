@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Card, Box, Stack, Heading, Text, Button, IconArrowRight } from '@kalidao/reality'
-import { Transaction } from '~/propose/tx/'
+
+import { Box, Button, Card, Heading, IconArrowRight, Stack, Text } from '@kalidao/reality'
 import { Signal } from '~/propose/signal/'
+import { Transaction } from '~/propose/tx/'
 
 const Create = () => {
   const [view, setView] = useState('tx')

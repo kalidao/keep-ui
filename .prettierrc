@@ -4,6 +4,18 @@
     "tabWidth": 2,
     "singleQuote": true,
     "semi": false,
-    "trailingComma": "all"
+    "trailingComma": "all",
+    "importOrder": [
+        "^(react/(.*)$)|^(react$)",
+        "^(next/(.*)$)|^(next$)",
+        "<THIRD_PARTY_MODULES>",
+        "",
+        "^~/components/(.*)$",
+        "^@design/(.*)$",
+        "^[./]"
+      ],
+    "importOrderSeparation": true,
+    "importOrderSortSpecifiers": true,
+    "plugins": ["@ianvs/prettier-plugin-sort-imports"]
 }
 

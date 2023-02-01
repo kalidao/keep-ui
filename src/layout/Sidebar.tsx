@@ -1,9 +1,11 @@
-import { Avatar, Button, Box, IconPlus, Spinner, Stack } from '@kalidao/reality'
-import { fetcher } from '~/utils'
-import { useQuery } from '@tanstack/react-query'
-import { useDynamicContext } from '@dynamic-labs/sdk-react'
-import Link from 'next/link'
 import Image from 'next/image'
+import Link from 'next/link'
+
+import { useDynamicContext } from '@dynamic-labs/sdk-react'
+import { Avatar, Box, Button, IconPlus, Spinner, Stack } from '@kalidao/reality'
+import { useQuery } from '@tanstack/react-query'
+import { fetcher } from '~/utils'
+
 import Tooltip from '~/components/Tooltip'
 
 export const Sidebar = () => {

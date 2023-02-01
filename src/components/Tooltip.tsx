@@ -1,5 +1,7 @@
 import React from 'react'
+
 import * as RadixTooltip from '@radix-ui/react-tooltip'
+
 import * as styles from './styles.css'
 
 const Tooltip = ({ children, label }: { children: React.ReactNode; label: string }) => {

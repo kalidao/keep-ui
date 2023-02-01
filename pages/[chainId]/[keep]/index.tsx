@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
-import Layout from '~/layout/DashboardLayout'
+
 import { Proposals } from '~/dashboard'
+import Layout from '~/layout/DashboardLayout'
 
 const Dashboard: NextPage = () => {
   return (

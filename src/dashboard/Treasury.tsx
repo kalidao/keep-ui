@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
-import { Card, Box, Stack, Heading, Text, Button, IconArrowRight, Stat, Tag } from '@kalidao/reality'
+
+import { Box, Button, Card, Heading, IconArrowRight, Stack, Stat, Tag, Text } from '@kalidao/reality'
 import { ethers } from 'ethers'
 import { prettyDate } from '~/utils'
 

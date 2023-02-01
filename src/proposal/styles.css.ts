@@ -1,5 +1,5 @@
-import { style } from '@vanilla-extract/css'
 import { vars } from '@kalidao/reality'
+import { style } from '@vanilla-extract/css'
 
 export const viewTxRoot = style({
   display: 'flex',

@@ -1,8 +1,10 @@
-import { Box, Stack } from '@kalidao/reality'
 import Link from 'next/link'
-import * as styles from './layout.css'
-import { bodoni } from '../../pages/_app'
+
+import { Box, Stack } from '@kalidao/reality'
 import { timestampToTimepassed } from '~/utils/prettyDate'
+
+import { bodoni } from '../../pages/_app'
+import * as styles from './layout.css'
 
 const Footer = () => {
   return (

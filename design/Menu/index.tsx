@@ -1,22 +1,24 @@
 import React, { useCallback } from 'react'
-import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu'
+
+import { useDynamicContext } from '@dynamic-labs/sdk-react'
 import {
   Box,
   Button,
+  IconChevronDown,
+  IconDiscord,
+  IconGitHub,
   IconMoon,
   IconSun,
   IconTwitter,
-  IconDiscord,
-  IconGitHub,
   Stack,
   useTheme,
-  IconChevronDown,
 } from '@kalidao/reality'
-import { arrow, content, item, itemLink, itemText, label, trigger, separator } from './styles.css'
+import { ReactNodeNoStrings } from '@kalidao/reality/dist/types/types'
+import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu'
 import { useThemeStore } from '~/hooks/useThemeStore'
 import { setThemeMode } from '~/utils/cookies'
-import { ReactNodeNoStrings } from '@kalidao/reality/dist/types/types'
-import { useDynamicContext } from '@dynamic-labs/sdk-react'
+
+import { arrow, content, item, itemLink, itemText, label, separator, trigger } from './styles.css'
 
 export const Menu = () => {
   const { mode, setMode } = useTheme()

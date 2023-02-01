@@ -1,12 +1,14 @@
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { Box, Card, Text, Divider, Heading, Stack, Skeleton, Avatar } from '@kalidao/reality'
+
+import { useDynamicContext } from '@dynamic-labs/sdk-react'
+import { Avatar, Box, Card, Divider, Heading, Skeleton, Stack, Text } from '@kalidao/reality'
+import { useQuery } from '@tanstack/react-query'
+import { ProposalCard } from '~/dashboard/Proposals'
 import Layout from '~/layout'
 import { fetcher } from '~/utils'
-import { useQuery } from '@tanstack/react-query'
+
 import { KeepCard } from '~/components/'
-import { useDynamicContext } from '@dynamic-labs/sdk-react'
-import { ProposalCard } from '~/dashboard/Proposals'
 
 const parsePendingTransactions = (keeps: any) => {
   if (!keeps) {

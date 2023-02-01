@@ -1,8 +1,9 @@
-import { Stack, Box, Text } from '@kalidao/reality'
-import { timestampToTimepassed } from '~/utils/prettyDate'
+import { Box, Stack, Text } from '@kalidao/reality'
+import { useKeepStore } from '~/dashboard/useKeepStore'
 import { useTxStore } from '~/dashboard/useTxStore'
 import { getExplorerLink } from '~/utils/getExplorerLink'
-import { useKeepStore } from '~/dashboard/useKeepStore'
+import { timestampToTimepassed } from '~/utils/prettyDate'
+
 import * as styles from './styles.css'
 
 export const Result = () => {

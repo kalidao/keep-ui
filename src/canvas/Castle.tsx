@@ -1,7 +1,9 @@
 import { useEffect } from 'react'
-import { useThemeStore } from '~/hooks'
-import * as styles from './castle.css'
+
 import { useMediaQuery } from 'react-responsive'
+import { useThemeStore } from '~/hooks'
+
+import * as styles from './castle.css'
 
 export const Castle = () => {
   const mode = useThemeStore((state) => state.mode)

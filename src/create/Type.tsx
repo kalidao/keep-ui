@@ -1,6 +1,7 @@
-import { Box, Card, Stack, Heading, Text, Button, IconArrowRight } from '@kalidao/reality'
-import * as styles from './create.css'
+import { Box, Button, Card, Heading, IconArrowRight, Stack, Text } from '@kalidao/reality'
+
 import { Splash } from './Splash'
+import * as styles from './create.css'
 import { useCreateStore } from './useCreateStore'
 
 export const Type = () => {

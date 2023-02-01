@@ -1,6 +1,6 @@
-import { useAccount, useContractRead, useContractWrite, useSignTypedData, useNetwork } from 'wagmi'
 import { Button, Stack } from '@kalidao/reality'
-import { ethers, BigNumber } from 'ethers'
+import { BigNumber, ethers } from 'ethers'
+import { useAccount, useContractRead, useContractWrite, useNetwork, useSignTypedData } from 'wagmi'
 import { getKeepContractConfig } from '~/hooks'
 
 const TEST = '0x9D37f810a7E7fa723Bb76A1138ef8C08d161f5F7'

@@ -1,10 +1,14 @@
 import React from 'react'
+
 import type { NextPage } from 'next'
-import { Stack, Box } from '@kalidao/reality'
 import Head from 'next/head'
-import { layout, header } from '~/layout/layout.css'
+
+import { Box, Stack } from '@kalidao/reality'
 import Create from '~/create'
+import { header, layout } from '~/layout/layout.css'
+
 import { ConnectButton } from '~/components/ConnectButton'
+
 import { Menu } from '@design/Menu'
 
 const Home: NextPage = () => {

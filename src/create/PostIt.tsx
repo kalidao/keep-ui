@@ -1,5 +1,6 @@
-import { Card, Stack, Heading, Divider, Box, IconExclamationCircleSolid } from '@kalidao/reality'
+import { Box, Card, Divider, Heading, IconExclamationCircleSolid, Stack } from '@kalidao/reality'
 import { useMediaQuery } from 'react-responsive'
+
 export const PostIt = ({
   title,
   warning,
