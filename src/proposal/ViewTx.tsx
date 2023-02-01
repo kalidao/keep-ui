@@ -5,17 +5,32 @@ import { ethers } from 'ethers'
 import * as styles from './styles.css'
 import * as RadixCollapsible from '@radix-ui/react-collapsible'
 import { useTxStore } from '~/dashboard/useTxStore'
+import { useKeepStore } from '~/dashboard/useKeepStore'
+import { useQuery } from '@tanstack/react-query'
 
 const ViewTx = () => {
   const [open, setOpen] = React.useState(false)
   const tx = useTxStore((state) => state)
+  const keep = useKeepStore((state) => state)
+  const { data } = useQuery(['decodeTx', tx.data], async () => {
+    const data = await fetch(
+      `${process.env.NEXT_PUBLIC_KEEP_API}/about/tx?chainId=${keep.chainId}&data=${tx.data}&value=${tx.value}&to=${tx.to}`,
+    )
+    const json = await data.json()
+
+    return json
+  })
+
+  console.log('decoded tx', data, keep.chainId, tx.data, tx.value, tx.to)
 
   return (
     <RadixCollapsible.Root className={styles.viewTxRoot} open={open} onOpenChange={setOpen}>
       <Box display="flex" flexDirection={'column'} gap="3">
         <RadixCollapsible.Trigger asChild>
           <Box className={styles.viewTxTrigger}>
-            <Text>This will send {ethers.utils.formatEther(tx?.value ? tx.value : '0')} ETH to shivanshi.eth</Text>
+            <Text>
+              {data ? (data?.ok == true ? data?.message : 'Unknown Transaction Summary') : 'Transaction Summary'}
+            </Text>
             <IconChevronDown />
           </Box>
         </RadixCollapsible.Trigger>

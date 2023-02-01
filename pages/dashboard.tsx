@@ -51,7 +51,7 @@ const Dashboard: NextPage = () => {
     <Layout title={'Home'} content={'Create a Keep'}>
       <Box
         width="full"
-        height="viewHeight"
+        minHeight="viewHeight"
         display="flex"
         flexDirection={'column'}
         gap="10"
