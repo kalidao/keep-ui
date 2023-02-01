@@ -33,22 +33,24 @@ const Communities: NextPage = () => {
         <Heading>Communities</Heading>
       </Box>
       <Divider />
-      <Box className={styles.communityGrid}>
-        {keeps &&
-          keeps.map((keep: any) => {
-            console.log('keep', `/${keep.chainId}/${keep.address}`)
-            return (
-              <KeepCard
-                key={keep.address}
-                name={keep.name}
-                keep={keep.address}
-                chainId={keep.chainId}
-                avatar={keep.avatar}
-                txs={keep.transactions}
-                bio={keep.bio}
-              />
-            )
-          })}
+      <Box display="flex" alignItems={'center'} width="full" justifyContent={'center'}>
+        <Box className={styles.communityGrid}>
+          {keeps &&
+            keeps.map((keep: any) => {
+              console.log('keep', `/${keep.chainId}/${keep.address}`)
+              return (
+                <KeepCard
+                  key={keep.address}
+                  name={keep.name}
+                  keep={keep.address}
+                  chainId={keep.chainId}
+                  avatar={keep.avatar}
+                  txs={keep.transactions}
+                  bio={keep.bio}
+                />
+              )
+            })}
+        </Box>
       </Box>
     </Layout>
   )

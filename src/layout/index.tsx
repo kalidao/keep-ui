@@ -10,7 +10,6 @@ import { User } from '~/components/User'
 
 import { Menu } from '@design/Menu'
 
-import Footer from './Footer'
 import * as styles from './layout.css'
 
 type Props = {
@@ -33,12 +32,8 @@ const Layout = ({ title, content, children }: Props) => {
       <Banner label="We are only on mainnet and polygon. Switch chain to interact!" />
       <Box className={styles.leftbar}>
         <Box display="flex" flexDirection={'column'} paddingTop="10" gap="10">
-          <Box display="flex" alignItems={'flex-start'} justifyContent="flex-start" gap="5">
-            <Image alt="brand logo and back button" src="/favicon-32x32.png" height="25" width="25" />
-            {/* <Text size="headingOne">Keep</Text> */}
-          </Box>
           <Box display="flex" flexDirection={'column'} gap="2">
-            <Button variant="transparent" prefix={<IconWallet />}>
+            <Button variant="transparent" prefix={<IconWallet />} as="a" href="/dashboard">
               Home
             </Button>
             <Button variant="transparent" prefix={<IconUserGroupSolid />} as="a" href={`/dashboard/communities`}>

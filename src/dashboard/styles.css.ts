@@ -23,3 +23,40 @@ export const signers = style({
   scrollbarColor: vars.colors.accent,
   scrollbarWidth: vars.space[1],
 })
+
+export const tabRoot = style({
+  width: '60vw',
+})
+
+export const tabList = style({
+  display: 'flex',
+  flexDirection: 'row',
+
+  borderBottom: `1px solid ${vars.colors.foregroundSecondary}`,
+})
+
+export const tabTrigger = style({
+  all: 'unset',
+  padding: vars.space[3],
+  cursor: 'pointer',
+  transition: 'all 0.1s ease-in-out',
+  fontWeight: vars.fontWeights.semiBold,
+
+  selectors: {
+    // hover
+    '&:hover': {
+      backgroundColor: vars.colors.foregroundSecondary,
+    },
+    '&:focus': {
+      outline: 'none',
+      backgroundColor: vars.colors.foregroundSecondary,
+    },
+    '&:active': {
+      backgroundColor: vars.colors.foregroundSecondary,
+    },
+    // data state active
+    '&[data-state="active"]': {
+      borderBottom: `2px solid ${vars.colors.accent}`,
+    },
+  },
+})
