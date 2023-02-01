@@ -40,14 +40,7 @@ const Treasury = ({ tokens, synced }: Props) => {
   // const _nfts = nfts ? nfts?.length : 0
 
   return (
-    <Card
-      padding="6"
-      width={{
-        sm: 'full',
-        md: 'full',
-        lg: '1/3',
-      }}
-    >
+    <Card padding="6" width="full">
       <Stack>
         <Stack direction={'horizontal'} align="center" justify={'space-between'}>
           <Heading>Treasury</Heading>
@@ -57,7 +50,7 @@ const Treasury = ({ tokens, synced }: Props) => {
             </Tag>
           )}
         </Stack>
-        <Box height="40" display="flex" flexDirection={'column'} gap="3">
+        <Box display="flex" flexDirection={'column'} gap="3">
           {_tokens &&
             _tokens?.slice(0, 5).map((token: any) => {
               return (

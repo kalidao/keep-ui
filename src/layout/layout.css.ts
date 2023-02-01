@@ -4,6 +4,8 @@ import { style } from '@vanilla-extract/css'
 export const layout = style({
   minHeight: '100vh',
   width: '100vw',
+  display: 'flex',
+  flexDirection: 'row',
 })
 
 export const header = style({
@@ -27,29 +29,12 @@ export const dashboardHeader = style({
 })
 
 export const dashboardContainer = style({
-  minHeight: '90vh',
-  position: 'relative',
-  paddingRight: vars.space['5'],
-  paddingLeft: vars.space['5'],
-  paddingTop: vars.space['10'],
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-start',
-  justifyContent: 'stretch',
-  gap: vars.space[10],
+  width: '60vw',
 })
 
 export const container = style({
-  minHeight: '90vh',
-  width: '100vw',
-  position: 'relative',
-  paddingRight: vars.space['5'],
-  paddingLeft: vars.space['5'],
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  gap: vars.space[10],
+  minHeight: '100vh',
+  width: '60vw',
 })
 
 export const splashContainer = style({
@@ -81,11 +66,11 @@ export const link = style({
 
 export const leftbar = style({
   // twitter-like dashboard sidebar
-  position: 'fixed',
+  position: 'sticky',
   top: 0,
   bottom: 0,
   left: 0,
-  width: '33vw',
+  width: '30vw',
   minWidth: '200px',
   maxWidth: '300px',
   height: '100vh',
@@ -102,7 +87,7 @@ export const leftbar = style({
 
 export const rightbar = style({
   // twitter-like dashboard sidebar
-  position: 'fixed',
+  position: 'sticky',
   top: 0,
   bottom: 0,
   right: 0,

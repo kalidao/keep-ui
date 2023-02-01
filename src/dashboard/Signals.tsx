@@ -7,7 +7,7 @@ import { fetcher, prettyDate, truncAddress } from '~/utils'
 
 import { User } from '~/components/User'
 
-const Proposals = () => {
+const Signals = () => {
   const router = useRouter()
   const { keep, chainId } = router.query
   const { data: transactions, error } = useQuery(['keepTxs', chainId, keep], async () =>
@@ -101,4 +101,4 @@ export const ProposalCard = ({
   )
 }
 
-export default Proposals
+export default Signals

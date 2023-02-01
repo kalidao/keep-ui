@@ -1,22 +1,23 @@
 import { useEffect } from 'react'
 
 import Head from 'next/head'
-import Link from 'next/link'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 
-import { Box, Stack } from '@kalidao/reality'
+import { useDynamicContext } from '@dynamic-labs/sdk-react'
+import { Box, Button, Divider, IconUserGroupSolid, IconWallet, Stack, Text } from '@kalidao/reality'
 import { useQuery } from '@tanstack/react-query'
-import { Profile, Signers, Treasury, Wrappr } from '~/dashboard'
+import { bodoni } from 'pages/_app'
+import { Profile, Signers, Treasury } from '~/dashboard'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 import { fetcher } from '~/utils'
 
-import { ConnectButton } from '~/components/ConnectButton'
+import { User } from '~/components/User'
 
 import { Menu } from '@design/Menu'
 
 import Layout from '.'
-import Footer from './Footer'
-import { container, dashboardContainer, dashboardHeader, layout } from './layout.css'
+import * as styles from './layout.css'
 
 type Props = {
   title: string
@@ -37,6 +38,7 @@ const DashboardLayout = ({ title, content, children }: Props) => {
   const { data: treasury } = useQuery(['keep', 'treasury', chainId, keep], async () => {
     return fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/treasury`)
   })
+  const { user } = useDynamicContext()
 
   useEffect(() => {
     if (chainId && state.chainId !== parseInt(chainId as string)) {
@@ -51,7 +53,7 @@ const DashboardLayout = ({ title, content, children }: Props) => {
   }, [keep])
 
   return (
-    <Layout title={title} content={content}>
+    <Box className={styles.layout} lang="en">
       <Head>
         <title>{heading}</title>
         {/* add og tags */}
@@ -71,23 +73,47 @@ const DashboardLayout = ({ title, content, children }: Props) => {
 
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Box className={dashboardContainer}>
-        <Box display="flex" width="full" gap="6">
-          <Profile
-            name={data?.name}
-            avatar={data?.avatar}
-            address={data?.address}
-            bio={data?.bio}
-            website={data?.website_url}
-            twitter={data?.twitter_url}
-            discord={data?.discord_url}
-          />
+      <Box className={styles.leftbar}>
+        <Box display="flex" flexDirection={'column'} paddingTop="10" gap="10">
+          <Box display="flex" flexDirection={'column'} gap="2">
+            <Button variant="transparent" prefix={<IconWallet />} as="a" href={`/dashboard`}>
+              Home
+            </Button>
+            <Button variant="transparent" prefix={<IconUserGroupSolid />} as="a" href={`/dashboard/communities`}>
+              Communities
+            </Button>
+            {/* <Button variant="secondary" tone="green" prefix={<IconCog />} as="a" href="/create">
+              Create
+            </Button> */}
+          </Box>
+        </Box>
+        <Box display="flex" alignItems={'center'}>
+          <Box backgroundColor={'backgroundSecondary'} padding="3" borderRadius={'4xLarge'}>
+            {user && <User address={user.walletPublicKey as string} size="lg" />}
+          </Box>
+          <Menu />
+        </Box>
+      </Box>
+      <Box className={styles.container}>
+        <Profile
+          name={data?.name}
+          avatar={data?.avatar}
+          address={data?.address}
+          bio={data?.bio}
+          website={data?.website_url}
+          twitter={data?.twitter_url}
+          discord={data?.discord_url}
+        />
+        <Divider />
+        <Box className={styles.dashboardContainer}>{children}</Box>
+      </Box>
+      <Box className={styles.rightbar}>
+        <Stack>
           <Treasury tokens={treasury?.items} synced={treasury?.updated_at} />
           <Signers signers={data?.signers} />
-        </Box>
-        <Box width="full">{children}</Box>
+        </Stack>
       </Box>
-    </Layout>
+    </Box>
   )
 }
 

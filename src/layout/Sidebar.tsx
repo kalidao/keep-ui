@@ -49,7 +49,7 @@ export const Sidebar = () => {
           keeps.map((keep: any) => {
             console.log('keep', `/${keep.chainId}/${keep.address}`)
             return (
-              <Link href={`/${keep.chainId}/${keep.address}`}>
+              <Link key={keep.chainId + keep.address} href={`/${keep.chainId}/${keep.address}`}>
                 <Tooltip label={keep.name} key={keep.address + keep.chainId}>
                   <Avatar size="13" label={`${keep.name} link`} src={keep.avatar} />
                 </Tooltip>
