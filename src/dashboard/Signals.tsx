@@ -10,16 +10,16 @@ import { User } from '~/components/User'
 const Signals = () => {
   const router = useRouter()
   const { keep, chainId } = router.query
-  const { data: transactions, error } = useQuery(['keepTxs', chainId, keep], async () =>
-    fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/txs/${chainId}/${keep}/`),
+  const { data: signals, error } = useQuery(['keepSignals', chainId, keep], async () =>
+    fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/signals`),
   )
-  console.log('txs', transactions)
+  console.log('txs', signals)
 
   return (
     <Box padding="3" display="flex" flexDirection={'column'} gap="2">
-      {transactions &&
-        transactions?.length != 0 &&
-        transactions?.map((transaction: any) => (
+      {signals &&
+        signals?.length != 0 &&
+        signals?.map((transaction: any) => (
           <ProposalCard
             key={transaction.txHash}
             txHash={transaction.txHash}

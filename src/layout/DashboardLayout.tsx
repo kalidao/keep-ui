@@ -12,6 +12,7 @@ import { Profile, Signers, Treasury } from '~/dashboard'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 import { fetcher } from '~/utils'
 
+import { ConnectButton } from '~/components/ConnectButton'
 import { User } from '~/components/User'
 
 import { Menu } from '@design/Menu'
@@ -22,22 +23,23 @@ import * as styles from './layout.css'
 type Props = {
   title: string
   content: string
+  sidebar: React.ReactNode
   children: React.ReactNode
 }
 
-const DashboardLayout = ({ title, content, children }: Props) => {
+const DashboardLayout = ({ title, content, sidebar, children }: Props) => {
   const router = useRouter()
   const { chainId, keep } = router.query
   const state = useKeepStore((state) => state)
+
   const { data } = useQuery(['keep', chainId, keep], async () => {
     const res = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/`)
     state.setThreshold(res?.threshold)
+    state.setSigners(res?.signers)
     return res
   })
   const heading = title + data ? ((' ' + data?.name) as string) + ' ' : '' + '- Keep'
-  const { data: treasury } = useQuery(['keep', 'treasury', chainId, keep], async () => {
-    return fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/treasury`)
-  })
+
   const { user } = useDynamicContext()
 
   useEffect(() => {
@@ -89,7 +91,7 @@ const DashboardLayout = ({ title, content, children }: Props) => {
         </Box>
         <Box display="flex" alignItems={'center'}>
           <Box backgroundColor={'backgroundSecondary'} padding="3" borderRadius={'4xLarge'}>
-            {user && <User address={user.walletPublicKey as string} size="lg" />}
+            {user ? <User address={user.walletPublicKey as string} size="lg" /> : <ConnectButton />}
           </Box>
           <Menu />
         </Box>
@@ -100,6 +102,7 @@ const DashboardLayout = ({ title, content, children }: Props) => {
           avatar={data?.avatar}
           address={data?.address}
           bio={data?.bio}
+          chainId={data?.chainId}
           website={data?.website_url}
           twitter={data?.twitter_url}
           discord={data?.discord_url}
@@ -107,12 +110,7 @@ const DashboardLayout = ({ title, content, children }: Props) => {
         <Divider />
         <Box className={styles.dashboardContainer}>{children}</Box>
       </Box>
-      <Box className={styles.rightbar}>
-        <Stack>
-          <Treasury tokens={treasury?.items} synced={treasury?.updated_at} />
-          <Signers signers={data?.signers} />
-        </Stack>
-      </Box>
+      <Box className={styles.rightbar}>{sidebar}</Box>
     </Box>
   )
 }

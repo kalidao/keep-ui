@@ -126,26 +126,27 @@ const Tx: NextPage = (props: any) => {
   const { write } = useContractWrite(config)
 
   return (
-    <Layout title={'Dashboard'} content={'Manage your Keep'}>
-      <Stack
-        direction={{
-          xs: 'vertical',
-          md: 'horizontal',
-        }}
-      >
-        <Link href={`/${keep.chainId}/${keep.address}`} passHref legacyBehavior>
-          <Button size="small" variant="transparent" as="a">
-            <IconArrowLeft />
-          </Button>
-        </Link>
-        <Card
-          padding="6"
-          width={{
-            xs: 'full',
-            md: '1/2',
-            lg: '3/4',
+    <Layout
+      title={'Dashboard'}
+      content={'Manage your Keep'}
+      sidebar={
+        <Stack>
+          <Quorum />
+        </Stack>
+      }
+    >
+      <Box padding={'3'}>
+        <Stack
+          direction={{
+            xs: 'vertical',
+            md: 'horizontal',
           }}
         >
+          <Link href={`/${keep.chainId}/${keep.address}`} passHref legacyBehavior>
+            <Button size="small" variant="transparent" as="a">
+              <IconArrowLeft />
+            </Button>
+          </Link>
           <Box
             height="full"
             width={'full'}
@@ -155,7 +156,15 @@ const Tx: NextPage = (props: any) => {
             justifyContent={'space-between'}
             gap="5"
           >
-            <Box width="full" height="full" display={'flex'} flexDirection="column" alignItems={'baseline'} gap="5">
+            <Box
+              width="full"
+              height="full"
+              display={'flex'}
+              flexDirection="column"
+              alignItems={'baseline'}
+              justifyContent="center"
+              gap="5"
+            >
               <Stack
                 direction={{
                   xs: 'vertical',
@@ -173,6 +182,8 @@ const Tx: NextPage = (props: any) => {
                     xs: 'vertical',
                     md: 'horizontal',
                   }}
+                  align="center"
+                  justify={'center'}
                 >
                   <PrettyDate timestamp={data?.createdAt} />
                   <Author author={data ? data?.authorAddress : ''} />
@@ -186,9 +197,8 @@ const Tx: NextPage = (props: any) => {
               <Execute />
             </Stack>
           </Box>
-        </Card>
-        <Quorum />
-      </Stack>
+        </Stack>
+      </Box>
     </Layout>
   )
 }

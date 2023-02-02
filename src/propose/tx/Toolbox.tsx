@@ -16,6 +16,7 @@ import {
 import { Button } from '@kalidao/reality'
 import * as Toolbar from '@radix-ui/react-toolbar'
 import { useQuery } from '@tanstack/react-query'
+import { ethers } from 'ethers'
 import { useAccount, useContractRead } from 'wagmi'
 import { KEEP_ABI } from '~/constants'
 import { useKeepStore } from '~/dashboard/useKeepStore'
@@ -27,7 +28,7 @@ import key from '../../../public/key.webp'
 import { getTxHash } from '../getTxHash'
 import { CreateTxButton } from './CreateTxButton'
 import * as styles from './styles.css'
-import { TxStore, useTxStore } from './useTxStore'
+import { SendStore, useSendStore } from './useTxStore'
 
 const operation = (op: number) => {
   switch (op) {
@@ -43,8 +44,8 @@ const operation = (op: number) => {
 export const Toolbox = () => {
   const router = useRouter()
   const keep = useKeepStore((state) => state)
-  const tx = useTxStore((state) => state)
-  const { address } = useAccount()
+  const tx = useSendStore((state) => state)
+  const { user } = useDynamicContext()
 
   const { refetch: refetchNonce } = useContractRead({
     address: keep.address as `0xstring`,
@@ -59,65 +60,109 @@ export const Toolbox = () => {
   } = useQuery(['keep', keep.chainId, keep.address], async () =>
     fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${keep.chainId}/${keep.address}/`),
   )
-  const notSigner = meta?.signers?.find((s: string) => s === address?.toLowerCase()) == undefined ? true : false
+  const notSigner =
+    meta?.signers?.find((s: string) => s === user?.walletPublicKey?.toLowerCase()) == undefined ? true : false
 
   const handleTx = async () => {
-    if (keep.chainId && keep.address) {
-      const { data: nonce } = await refetchNonce()
-      if (!nonce) return
-      const digest = await getTxHash(
-        Number(keep.chainId),
-        keep.address as string,
-        tx.op,
-        tx.to,
-        tx.value,
-        tx.data,
-        nonce.toString(),
-      )
-      console.log('nonce', nonce)
-      console.log(
-        'digest',
-        Number(keep.chainId),
-        keep.address as string,
-        tx.op,
-        tx.to,
-        tx.value,
-        tx.data,
-        nonce.toString(),
-        digest,
-      )
+    console.log('user', user)
+    if (!user) {
+      alert('Please connect your wallet')
+      return
+    } else {
+      tx.setAuthor(user.walletPublicKey)
+    }
 
-      if (digest == 'error') {
+    if (notSigner) {
+      alert('You are not a signer of this keep')
+      return
+    }
+
+    if (keep.chainId && keep.address) {
+      if (!tx.title || !tx.content) {
+        alert('Title and Description are required')
         return
       }
 
-      if (!nonce) return
-      const body = {
-        op: operation(tx.op),
-        to: tx.to,
-        data: tx.data,
-        nonce: nonce.toString(),
-        value: tx.value,
-        txHash: digest,
-        title: tx.title,
-        content: tx.content,
-        authorAddress: tx.author,
+      if (!tx.author) {
+        alert('Author is required')
+        return
       }
-      console.log('body', body)
 
-      const send = await fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${keep.chainId}/${keep.address}/addTx`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(body),
-      }).then((res) => res.json())
+      if (tx.to == ethers.constants.AddressZero) {
+        // submit signal
+        const body = {
+          title: tx.title,
+          content: tx.content,
+          authorAddress: tx.author,
+        }
 
-      console.log('send', send)
+        const send = await fetch(
+          `${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${keep.chainId}/${keep.address}/addSignal`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body),
+          },
+        )
+          .then((res) => res.json())
+          .catch((e) => {
+            console.log('error', e)
+            alert('Error: Invalid transaction')
+          })
+          .finally(() => router.push(`/${keep.chainId}/${keep.address}`))
+      } else {
+        // isSignal or isTx ?
+
+        const { data: nonce } = await refetchNonce()
+        if (!nonce) return
+        const digest = await getTxHash(
+          Number(keep.chainId),
+          keep.address as string,
+          tx.op,
+          tx.to,
+          tx.value,
+          tx.data,
+          nonce.toString(),
+        )
+
+        if (digest == 'error') {
+          alert('Error: Invalid transaction')
+          return
+        }
+
+        if (!nonce) return
+        const body = {
+          op: operation(tx.op),
+          to: tx.to,
+          data: tx.data,
+          nonce: nonce.toString(),
+          value: tx.value,
+          txHash: digest,
+          title: tx.title,
+          content: tx.content,
+          authorAddress: tx.author,
+        }
+        console.log('body', body)
+
+        const send = await fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${keep.chainId}/${keep.address}/addTx`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(body),
+        })
+          .then((res) => res.json())
+          .catch((e) => {
+            console.log('error', e)
+            alert('Error: Invalid transaction')
+          })
+          .finally(() => router.push(`/${keep.chainId}/${keep.address}`))
+
+        console.log('send', send)
+      }
     }
-
-    // TODO: Add success/error toast
-    router.push(`/${keep.chainId}/${keep.address}`)
   }
   return (
     <Toolbar.Root className={styles.ToolbarRoot} aria-label="Formatting options">
@@ -125,9 +170,9 @@ export const Toolbox = () => {
         type="single"
         aria-label="Text formatting"
         // exclude undefined in type TxStore['view']
-        value={tx.view as Exclude<TxStore['view'], undefined>}
+        value={tx.view as Exclude<SendStore['view'], undefined>}
         onValueChange={(value: string) => {
-          tx.setView(value as Exclude<TxStore['view'], undefined>)
+          tx.setView(value as Exclude<SendStore['view'], undefined>)
         }}
       >
         <Tooltip label="Send Tokens">

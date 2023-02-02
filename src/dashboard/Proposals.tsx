@@ -40,13 +40,13 @@ const Proposals = () => {
 type ProposalCardProps = {
   chainId: string
   keep: string
-  txHash: string
+  txHash?: string
   title: string
   proposer: string
   description: string
   timestamp: string
   type: 'Signal' | 'Transaction'
-  status: 'Pending' | 'Voting' | 'Executed' | 'Canceled' // TODO: think more about status
+  status?: 'Pending' | 'Voting' | 'Executed' | 'Canceled' // TODO: think more about status
 }
 
 export const ProposalCard = ({
@@ -64,9 +64,9 @@ export const ProposalCard = ({
     return fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/users/${proposer}/`)
   })
 
-  return (
-    <Card padding="6" backgroundColor={'backgroundSecondary'} shadow hover>
-      <Stack>
+  if (type == 'Signal') {
+    return (
+      <Card padding="6" backgroundColor={'backgroundSecondary'} shadow hover>
         <Link href={`/${chainId}/${keep}/${txHash}`} passHref legacyBehavior>
           <Box as="a" display={'flex'} flexDirection="column" gap="5">
             <Stack direction={'horizontal'} justify="space-between" align="flex-start">
@@ -79,24 +79,36 @@ export const ProposalCard = ({
                   <Tag label={profile ? profile?.handle : truncAddress(proposer)}>{prettyDate(timestamp)}</Tag>
                 </Stack>
               </Stack>
-              <Tag tone={status == 'Pending' ? 'blue' : 'green'} label={type}>
-                {status}
-              </Tag>
+              <Tag tone="accent">{type}</Tag>
             </Stack>
             <Text>{description}</Text>
           </Box>
         </Link>
-        <Stack direction={'horizontal'} align="center" justify={'space-between'}>
-          {/* <Stack direction={'horizontal'}>
-            <Button tone="green" shape="circle" size="small" variant="secondary">
-              <IconCheck />
-            </Button>
-            <Button tone="red" shape="circle" size="small" variant="secondary">
-              <IconClose />
-            </Button>
-          </Stack> */}
-        </Stack>
-      </Stack>
+      </Card>
+    )
+  }
+
+  return (
+    <Card padding="6" backgroundColor={'backgroundSecondary'} shadow hover>
+      <Link href={`/${chainId}/${keep}/${txHash}`} passHref legacyBehavior>
+        <Box as="a" display={'flex'} flexDirection="column" gap="5">
+          <Stack direction={'horizontal'} justify="space-between" align="flex-start">
+            <Stack>
+              <Stack direction={'horizontal'} align="center">
+                <User address={proposer} size="sm" />
+                <Heading level="2">{title}</Heading>
+              </Stack>
+              <Stack direction={'horizontal'} align="center">
+                <Tag label={profile ? profile?.handle : truncAddress(proposer)}>{prettyDate(timestamp)}</Tag>
+              </Stack>
+            </Stack>
+            <Tag tone={status == 'Pending' ? 'blue' : 'green'} label={type}>
+              {status}
+            </Tag>
+          </Stack>
+          <Text>{description}</Text>
+        </Box>
+      </Link>
     </Card>
   )
 }

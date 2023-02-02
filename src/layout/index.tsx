@@ -3,7 +3,17 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
-import { Box, Button, IconCheck, IconCog, IconUserGroupSolid, IconWallet, Stack, Text } from '@kalidao/reality'
+import {
+  Box,
+  Button,
+  IconCheck,
+  IconCog,
+  IconLightningBolt,
+  IconUserGroupSolid,
+  IconWallet,
+  Stack,
+  Text,
+} from '@kalidao/reality'
 
 import Banner from '~/components/Banner'
 import { User } from '~/components/User'
@@ -33,8 +43,8 @@ const Layout = ({ title, content, children }: Props) => {
       <Box className={styles.leftbar}>
         <Box display="flex" flexDirection={'column'} paddingTop="10" gap="10">
           <Box display="flex" flexDirection={'column'} gap="2">
-            <Button variant="transparent" prefix={<IconWallet />} as="a" href="/dashboard">
-              Home
+            <Button variant="transparent" prefix={<IconLightningBolt />} as="a" href="/dashboard">
+              Activity
             </Button>
             <Button variant="transparent" prefix={<IconUserGroupSolid />} as="a" href={`/dashboard/communities`}>
               Communities

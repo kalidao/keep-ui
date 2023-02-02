@@ -17,6 +17,7 @@ import {
   Input,
   Skeleton,
   SkeletonGroup,
+  Spinner,
   Stack,
   Tag,
   Text,
@@ -54,7 +55,11 @@ const schema = z.object({
 export const SendToken = () => {
   const router = useRouter()
   const { chainId, keep } = router.query
-  const { data: treasury } = useQuery(
+  const {
+    data: treasury,
+    isLoading,
+    isError,
+  } = useQuery(
     ['keep', 'nfts', keep, chainId],
     async () => {
       const data = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/treasury`)
@@ -84,11 +89,54 @@ export const SendToken = () => {
   }
 
   console.log('tokens', tokens)
+
+  if (isLoading) {
+    return (
+      <Card padding="6">
+        <Stack>
+          <Heading level="2">Send Token</Heading>
+          <Divider />
+          <Spinner />
+        </Stack>
+      </Card>
+    )
+  }
+
+  if (isError) {
+    return (
+      <Card padding="6">
+        <Stack>
+          <Heading level="2">Send Token</Heading>
+          <Divider />
+          <Text>
+            Something went wrong. Please try again. Contact us on our{' '}
+            <a href="https://discord.gg/qWVRw4StaC" target="_blank">
+              Discord
+            </a>{' '}
+            if this problem persists.
+          </Text>
+        </Stack>
+      </Card>
+    )
+  }
+
+  if (tokens?.length === 0) {
+    return (
+      <Card padding="6">
+        <Stack>
+          <Heading level="2">Send Token</Heading>
+          <Divider />
+          <Text>We were not able to find any tokens in this Keep.</Text>
+        </Stack>
+      </Card>
+    )
+  }
   return (
     <>
       <Card padding="6">
         <Stack>
           <Heading level="2">Send Token</Heading>
+          <Divider />
           <Box display={'flex'} width="full" gap="5" as="form" onSubmit={handleSubmit(onSubmit)}>
             <Box width="2/3" padding="6" display="flex" flexDirection={'column'} gap="2">
               {fields.map((field, index) => {

@@ -1,40 +1,48 @@
 import { useMemo } from 'react'
 
 import { Box, Button, Card, Heading, IconArrowRight, Stack, Stat, Tag, Text } from '@kalidao/reality'
+import { useQuery } from '@tanstack/react-query'
 import { ethers } from 'ethers'
 import { prettyDate } from '~/utils'
+import { fetcher } from '~/utils'
 
-type Props = {
-  tokens: any
-  synced: string
-}
+import { useKeepStore } from './useKeepStore'
 
-const Treasury = ({ tokens, synced }: Props) => {
+const Treasury = () => {
+  const keep = useKeepStore()
+  const { data: treasury } = useQuery(
+    ['keep', 'treasury', keep.chainId, keep.address],
+    async () => {
+      return fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${keep.chainId}/${keep.address}/treasury`)
+    },
+    {
+      enabled: !!keep.chainId && !!keep.address,
+    },
+  )
+
+  const tokens = treasury?.items
+  const synced = treasury?.updated_at
+
   const totalValueLocked = useMemo(() => {
     if (!tokens) {
       return 0
     }
-    tokens.reduce((acc: number, item: any) => {
-      console.log('acc total balance', acc, item)
-      const price = item?.quote_rate ?? 0
-      return acc + parseFloat(ethers.utils.formatUnits(item?.balance, item?.contract_decimals)) * price
-    }, 0)
+    return tokens
+      .reduce((acc: number, item: any) => {
+        const price = item?.quote_rate ?? 0
+        return acc + parseFloat(ethers.utils.formatUnits(item?.balance, item?.contract_decimals)) * price
+      }, 0)
+      .toFixed(2)
   }, [tokens])
+
   // order tokens by value
   const _tokens =
     tokens &&
-    tokens
-      // .filter((token: any) => {
-      //   // filter out tokens with no value
-
-      //   const value = parseFloat(ethers.utils.formatUnits(token.balance, token.contract_decimals)) * token?.quote_rate
-      //   return value > 0
-      // })
-      .sort((a: any, b: any) => {
-        const aVal = parseFloat(ethers.utils.formatUnits(a.balance, a.contract_decimals)) * a?.quote_rate
-        const bVal = parseFloat(ethers.utils.formatUnits(b.balance, b.contract_decimals)) * b?.quote_rate
-        return bVal - aVal
-      })
+    tokens.sort((a: any, b: any) => {
+      const aVal = parseFloat(ethers.utils.formatUnits(a.balance, a.contract_decimals)) * a?.quote_rate
+      const bVal = parseFloat(ethers.utils.formatUnits(b.balance, b.contract_decimals)) * b?.quote_rate
+      return bVal - aVal
+    })
   console.log('tokens', tokens, totalValueLocked, _tokens)
 
   // const _nfts = nfts ? nfts?.length : 0

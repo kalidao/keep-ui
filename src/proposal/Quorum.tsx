@@ -21,13 +21,7 @@ const Quorum = () => {
   const tx = useTxStore((state) => state)
 
   return (
-    <Card
-      padding="6"
-      width={{
-        xs: 'full',
-        lg: '1/4',
-      }}
-    >
+    <Card padding="6" width="full">
       <Stack>
         <Stack direction={'horizontal'} align="center" justify={'space-between'}>
           <Heading>Status</Heading>

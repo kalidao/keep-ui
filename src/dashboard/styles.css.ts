@@ -41,6 +41,7 @@ export const tabTrigger = style({
   cursor: 'pointer',
   transition: 'all 0.1s ease-in-out',
   fontWeight: vars.fontWeights.semiBold,
+  color: vars.colors.textSecondary,
 
   selectors: {
     // hover

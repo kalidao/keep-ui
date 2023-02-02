@@ -9,7 +9,7 @@ import { Box, Button, Stack } from '@kalidao/reality'
 import Balencer from 'react-wrap-balancer'
 import { Castle } from '~/canvas/Castle'
 import Footer from '~/layout/Footer'
-import { container, header, layout } from '~/layout/layout.css'
+import { container, header } from '~/layout/layout.css'
 
 import Banner from '~/components/Banner'
 import { ConnectButton } from '~/components/ConnectButton'
@@ -29,7 +29,7 @@ const Home: NextPage = () => {
   }
 
   return (
-    <Box className={layout}>
+    <Box>
       <Banner label="We are only on mainnet and polygon. Switch chain to interact!" />
       <Head>
         <title>Keep - Home</title>
@@ -42,7 +42,7 @@ const Home: NextPage = () => {
           <Menu />
         </Stack>
       </Box>
-      <Box className={container}>
+      <Box className={styles.container}>
         <Box className={styles.hero}>
           <Stack align={'flex-start'} justify="stretch">
             <Link href="https://github.com/kalidao/keep" className={styles.pill}>

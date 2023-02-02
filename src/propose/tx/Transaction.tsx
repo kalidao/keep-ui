@@ -7,13 +7,13 @@ import { highBackground } from '@design/blur.css'
 
 import { SendToken } from './SendToken'
 import { Toolbox } from './Toolbox'
-import { TxStore, useTxStore } from './useTxStore'
+import { SendStore, useSendStore } from './useTxStore'
 
 const Transaction = () => {
   const keep = useKeepStore((state) => state)
-  const tx = useTxStore((state) => state)
+  const tx = useSendStore((state) => state)
 
-  const views: { [key in Exclude<TxStore['view'], undefined>]: React.ReactNode } = {
+  const views: { [key in Exclude<SendStore['view'], undefined>]: React.ReactNode } = {
     send_token: <SendToken />,
     send_nft: <SendToken />,
   }

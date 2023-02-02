@@ -1,6 +1,14 @@
 import { responsiveStyle, vars } from '@kalidao/reality'
 import { style } from '@vanilla-extract/css'
 
+export const container = style({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  minHeight: '90vh',
+})
+
 export const pill = style({
   all: 'unset',
   color: vars.colors.textSecondary,

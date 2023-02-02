@@ -5,9 +5,14 @@ import { truncAddress } from '~/utils'
 import { fetcher } from '~/utils'
 
 import * as styles from './styles.css'
+import { useKeepStore } from './useKeepStore'
 
-const Signers = ({ signers }: { signers: any[] }) => {
-  // const signers = ['shivanshi.eth', 'z0r0z.eth', 'audsssy.eth', 'jordanteague.eth']
+const Signers = () => {
+  const signers = useKeepStore((state) => state.signers)
+
+  if (!signers) return null
+  if (signers.length === 0) return null
+
   return (
     <Card padding="6" width="full">
       <Box className={styles.signers}>

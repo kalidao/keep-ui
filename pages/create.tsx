@@ -13,7 +13,7 @@ import { Menu } from '@design/Menu'
 
 const Home: NextPage = () => {
   return (
-    <Box className={layout} position={'relative'}>
+    <Box>
       <Head>
         <title>Keep - Home</title>
         <meta name="description" content={'This is the homepage of Keep.'} />

@@ -29,7 +29,7 @@ const Communities: NextPage = () => {
 
   return (
     <Layout title={'Dashboard'} content={'Manage your Keep'}>
-      <Box width="full" display="flex" alignItems={'center'} justifyContent="center" paddingTop="10">
+      <Box width="full" display="flex" alignItems={'center'} justifyContent="center" paddingTop="5" paddingBottom={'5'}>
         <Heading>Communities</Heading>
       </Box>
       <Divider />

@@ -7,6 +7,8 @@ type KeepStore = {
   setAddress: (address: `0xstring`) => void
   threshold: number | undefined
   setThreshold: (threshold: number) => void
+  signers: string[]
+  setSigners: (signers: []) => void
 }
 
 export const useKeepStore = create<KeepStore>((set) => ({
@@ -16,4 +18,6 @@ export const useKeepStore = create<KeepStore>((set) => ({
   setAddress: (address: `0xstring`) => set({ address }),
   threshold: undefined,
   setThreshold: (threshold: number) => set({ threshold }),
+  signers: [],
+  setSigners: (signers: string[]) => set({ signers }),
 }))

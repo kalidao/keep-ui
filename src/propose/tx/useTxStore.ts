@@ -7,7 +7,7 @@ export type SendToken = {
   amount: number
 }
 
-export type TxStore = {
+export type SendStore = {
   title: string
   setTitle: (title: string) => void
   content: string
@@ -33,7 +33,7 @@ export type TxStore = {
   setSendToken: (send_token: SendToken[]) => void
 }
 
-export const useTxStore = create<TxStore>((set) => ({
+export const useSendStore = create<SendStore>((set) => ({
   title: '',
   setTitle: (title) => set({ title }),
   content: '',
@@ -45,11 +45,11 @@ export const useTxStore = create<TxStore>((set) => ({
   setView: (view) => set({ view }),
   op: 0,
   setOp: (op) => set({ op }),
-  to: `0x${'0'.repeat(40)}`,
+  to: ethers.constants.AddressZero,
   setTo: (to) => set({ to }),
   value: '0',
   setValue: (value) => set({ value }),
-  data: `0x${'0'.repeat(40)}`,
+  data: ethers.constants.HashZero,
   setData: (data) => set({ data }),
   nonce: 0,
   setNonce: (nonce) => set({ nonce }),

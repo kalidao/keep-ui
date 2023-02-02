@@ -26,9 +26,10 @@ type Props = {
   website?: string
   twitter?: string
   discord?: string
+  chainId: number
 }
 
-const Profile = ({ name, avatar, bio, twitter, website, discord, address }: Props) => {
+const Profile = ({ name, avatar, bio, twitter, website, discord, address, chainId }: Props) => {
   return (
     <Box padding="5" display="flex" flexDirection={'column'} alignItems="center" justifyContent={'center'}>
       <Box>
@@ -73,6 +74,9 @@ const Profile = ({ name, avatar, bio, twitter, website, discord, address }: Prop
               <IconLink color="foreground" />
             </Link>
           )}
+          <Button tone="green" size="small" as="a" href={`/${chainId}/${address}/create`}>
+            <IconPlus />
+          </Button>
         </Stack>
       </Box>
     </Box>

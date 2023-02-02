@@ -22,7 +22,7 @@ export const blur = style({
 })
 
 export const highBackground = style({
-  minHeight: '40vh',
+  minHeight: '75vh',
   borderRadius: vars.radii['2xLarge'],
   padding: vars.space['6'],
   width: '100%',
