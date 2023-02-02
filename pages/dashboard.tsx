@@ -42,6 +42,11 @@ const parseSignals = (keeps: any) => {
     })
   })
 
+  //  order by date created
+  signals.sort((a: any, b: any) => {
+    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  })
+
   return signals
 }
 

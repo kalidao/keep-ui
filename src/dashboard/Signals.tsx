@@ -10,9 +10,18 @@ import { User } from '~/components/User'
 const Signals = () => {
   const router = useRouter()
   const { keep, chainId } = router.query
-  const { data: signals, error } = useQuery(['keepSignals', chainId, keep], async () =>
-    fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/signals`),
-  )
+  const { data: signals, error } = useQuery(['keepSignals', chainId, keep], async () => {
+    const signals = fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/signals`).then(
+      (signals: any) => {
+        // order by date created
+        return signals.sort((a: any, b: any) => {
+          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        })
+      },
+    )
+
+    return signals
+  })
   console.log('txs', signals)
 
   return (
