@@ -17,18 +17,16 @@ import { Button } from '@kalidao/reality'
 import * as Toolbar from '@radix-ui/react-toolbar'
 import { useQuery } from '@tanstack/react-query'
 import { ethers } from 'ethers'
-import { useAccount, useContractRead } from 'wagmi'
+import { useContractRead } from 'wagmi'
 import { KEEP_ABI } from '~/constants'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 import { fetcher } from '~/utils'
 
 import Tooltip from '~/components/Tooltip'
 
-import key from '../../../public/key.webp'
 import { getTxHash } from '../getTxHash'
-import { CreateTxButton } from './CreateTxButton'
 import * as styles from './styles.css'
-import { SendStore, useSendStore } from './useTxStore'
+import { SendStore, useSendStore } from './useSendStore'
 
 const operation = (op: number) => {
   switch (op) {
@@ -69,7 +67,7 @@ export const Toolbox = () => {
       alert('Please connect your wallet')
       return
     } else {
-      tx.setAuthor(user.walletPublicKey)
+      if (user.walletPublicKey) tx.setAuthor(user.walletPublicKey)
     }
 
     if (notSigner) {
@@ -114,7 +112,6 @@ export const Toolbox = () => {
           .finally(() => router.push(`/${keep.chainId}/${keep.address}`))
       } else {
         // isSignal or isTx ?
-
         const { data: nonce } = await refetchNonce()
         if (!nonce) return
         const digest = await getTxHash(

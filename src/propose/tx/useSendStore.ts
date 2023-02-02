@@ -55,12 +55,6 @@ export const useSendStore = create<SendStore>((set) => ({
   setNonce: (nonce) => set({ nonce }),
 
   // send token
-  send_token: [
-    {
-      token_address: ethers.constants.AddressZero,
-      to: `0x${'0'.repeat(40)}`,
-      amount: 0,
-    },
-  ],
+  send_token: [],
   setSendToken: (send_token) => set({ send_token }),
 }))

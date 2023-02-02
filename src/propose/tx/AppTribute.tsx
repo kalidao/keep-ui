@@ -5,16 +5,16 @@ import { useRouter } from 'next/router'
 import { Stack, Text } from '@kalidao/reality'
 
 import { createPayload } from '../createPayload'
-import { useTxStore } from './useTxStore'
+import { useSendStore } from './useSendStore'
 
 export const AppTribute = () => {
   // check balance of mint key on tribute contract to see if its active or not
   const isActive = false
 
-  const setData = useTxStore((state) => state.setData)
-  const setTo = useTxStore((state) => state.setTo)
-  const setOp = useTxStore((state) => state.setOp)
-  const setValue = useTxStore((state) => state.setValue)
+  const setData = useSendStore((state) => state.setData)
+  const setTo = useSendStore((state) => state.setTo)
+  const setOp = useSendStore((state) => state.setOp)
+  const setValue = useSendStore((state) => state.setValue)
   const router = useRouter()
   const address = router.query.keep as `0xstring`
   const chainId = parseInt(router.query.chainId as string)

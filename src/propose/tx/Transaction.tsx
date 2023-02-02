@@ -7,7 +7,7 @@ import { highBackground } from '@design/blur.css'
 
 import { SendToken } from './SendToken'
 import { Toolbox } from './Toolbox'
-import { SendStore, useSendStore } from './useTxStore'
+import { SendStore, useSendStore } from './useSendStore'
 
 const Transaction = () => {
   const keep = useKeepStore((state) => state)
