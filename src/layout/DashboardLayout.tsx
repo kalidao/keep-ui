@@ -5,10 +5,9 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
-import { Box, Button, Divider, IconUserGroupSolid, IconWallet, Stack, Text } from '@kalidao/reality'
+import { Box, Button, Divider, IconLightningBolt, IconPlus, IconUserGroupSolid } from '@kalidao/reality'
 import { useQuery } from '@tanstack/react-query'
-import { bodoni } from 'pages/_app'
-import { Profile, Signers, Treasury } from '~/dashboard'
+import { Profile } from '~/dashboard'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 import { fetcher } from '~/utils'
 
@@ -17,7 +16,6 @@ import { User } from '~/components/User'
 
 import { Menu } from '@design/Menu'
 
-import Layout from '.'
 import * as styles from './layout.css'
 
 type Props = {
@@ -78,11 +76,21 @@ const DashboardLayout = ({ title, content, sidebar, children }: Props) => {
       <Box className={styles.leftbar}>
         <Box display="flex" flexDirection={'column'} paddingTop="10" gap="10">
           <Box display="flex" flexDirection={'column'} gap="2">
-            <Button variant="transparent" prefix={<IconWallet />} as="a" href={`/dashboard`}>
-              Home
+            <Button variant="transparent" prefix={<IconLightningBolt />} as="a" href={`/dashboard`}>
+              Activity
             </Button>
             <Button variant="transparent" prefix={<IconUserGroupSolid />} as="a" href={`/dashboard/communities`}>
               Communities
+            </Button>
+            <Button
+              tone="accent"
+              as="a"
+              variant="secondary"
+              href={`/${state.chainId}/${state.address}/create`}
+              prefix={<IconPlus />}
+              justifyContent="center"
+            >
+              Propose
             </Button>
             {/* <Button variant="secondary" tone="green" prefix={<IconCog />} as="a" href="/create">
               Create

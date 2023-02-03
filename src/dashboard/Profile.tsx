@@ -74,9 +74,6 @@ const Profile = ({ name, avatar, bio, twitter, website, discord, address, chainI
               <IconLink color="foreground" />
             </Link>
           )}
-          <Button tone="green" size="small" as="a" href={`/${chainId}/${address}/create`}>
-            <IconPlus />
-          </Button>
         </Stack>
       </Box>
     </Box>

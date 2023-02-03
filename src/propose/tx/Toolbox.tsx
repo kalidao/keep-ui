@@ -45,12 +45,15 @@ export const Toolbox = () => {
   const tx = useSendStore((state) => state)
   const { user } = useDynamicContext()
 
-  const { refetch: refetchNonce } = useContractRead({
+  const { data: nonce, refetch: refetchNonce } = useContractRead({
     address: keep.address as `0xstring`,
     abi: KEEP_ABI,
     functionName: 'nonce',
     chainId: Number(keep.chainId),
   })
+
+  console.log('nonce', nonce?.toString())
+
   const {
     data: meta,
     isLoading,

@@ -9,8 +9,6 @@ import { BigNumber, ethers } from 'ethers'
 import toast, { Toaster } from 'react-hot-toast'
 import { usePrepareSendTransaction, useSendTransaction } from 'wagmi'
 import { useKeepStore } from '~/dashboard/useKeepStore'
-import { useTxStore } from '~/dashboard/useTxStore'
-import { tryTypedSigningV4 } from '~/utils/sign'
 
 import { dialog, dialogPanel } from '@design/dialog.css'
 
@@ -25,7 +23,6 @@ const GiveMoney = () => {
   })
   const { data, isLoading, isSuccess, sendTransaction } = useSendTransaction(config)
 
-  console.log('send tx', error)
   return (
     <>
       <Button shape="circle" variant="transparent" size="small" onClick={() => setIsOpen(true)}>

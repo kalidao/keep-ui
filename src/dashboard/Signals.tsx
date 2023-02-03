@@ -28,47 +28,44 @@ const Signals = () => {
     <Box padding="3" display="flex" flexDirection={'column'} gap="2">
       {signals &&
         signals?.length != 0 &&
-        signals?.map((transaction: any) => (
-          <ProposalCard
-            key={transaction.txHash}
-            txHash={transaction.txHash}
-            chainId={transaction.keepChainId}
-            keep={transaction.keepAddress}
-            proposer={transaction.authorAddress}
-            title={transaction.title}
-            description={transaction.content}
-            timestamp={transaction.createdAt}
-            type={'Transaction'}
-            status={transaction.status}
+        signals?.map((signal: any) => (
+          <SignalCard
+            key={signal.id}
+            id={signal.id}
+            chainId={signal.keepChainId}
+            keep={signal.keepAddress}
+            proposer={signal.authorAddress}
+            title={signal.title}
+            description={signal.content}
+            timestamp={signal.createdAt}
+            type={'Signal'}
           />
         ))}
     </Box>
   )
 }
 
-type ProposalCardProps = {
+type SignalCardProps = {
   chainId: string
   keep: string
-  txHash: string
+  id: string
   title: string
   proposer: string
   description: string
   timestamp: string
-  type: 'Signal' | 'Transaction'
-  status: 'Pending' | 'Voting' | 'Executed' | 'Canceled' // TODO: think more about status
+  type: 'Signal'
 }
 
-export const ProposalCard = ({
+export const SignalCard = ({
   chainId,
   keep,
-  txHash,
+  id,
   title,
   proposer,
   description,
   timestamp,
-  type,
-  status,
-}: ProposalCardProps) => {
+  type = 'Signal',
+}: SignalCardProps) => {
   const { data: profile } = useQuery(['proposalCard', proposer], async () => {
     return fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/users/${proposer}/`)
   })
@@ -76,7 +73,7 @@ export const ProposalCard = ({
   return (
     <Card padding="6" backgroundColor={'backgroundSecondary'} shadow hover>
       <Stack>
-        <Link href={`/${chainId}/${keep}/${txHash}`} passHref legacyBehavior>
+        <Link href={`/${chainId}/${keep}/signal/${id}`} passHref legacyBehavior>
           <Box as="a" display={'flex'} flexDirection="column" gap="5">
             <Stack direction={'horizontal'} justify="space-between" align="flex-start">
               <Stack>

@@ -24,8 +24,9 @@ import {
 } from '@kalidao/reality'
 import { ethers } from 'ethers'
 import { useFieldArray, useForm, useWatch } from 'react-hook-form'
-import { useQuery } from 'wagmi'
+import { erc20ABI, useQuery } from 'wagmi'
 import z from 'zod'
+import { KEEP_ABI } from '~/constants'
 import { Signer } from '~/dashboard/Signers'
 import { fetcher } from '~/utils'
 
@@ -97,13 +98,47 @@ export const SendToken = () => {
       )
     })
 
+    // op, to, value, data
+    const calls = transfers.map((transfer: any) => {
+      const token = tokens.find(
+        (token: any) => token.contract_address.toLowerCase() === transfer.token_address.toLowerCase(),
+      )
+      if (token.native_token) {
+        return {
+          op: 0,
+          to: transfer.to,
+          value: ethers.utils.parseUnits(transfer.amount.toString(), token.contract_decimals).toString(),
+          data: ethers.constants.HashZero,
+        }
+      }
+
+      const iface = new ethers.utils.Interface(erc20ABI)
+      const data = iface.encodeFunctionData('transfer', [
+        transfer.to,
+        ethers.utils.parseUnits(transfer.amount.toString(), token.contract_decimals).toString(),
+      ])
+
+      return {
+        op: 0,
+        to: transfer.token_address,
+        value: 0,
+        data,
+      }
+    })
+
+    // multiexecute
+
+    const iface = new ethers.utils.Interface(KEEP_ABI)
+    const executedata = iface.encodeFunctionData('multiexecute', [calls])
+
+    tx.setOp(0)
+    tx.setTo(keep as `0xstring`)
+    tx.setValue('0')
+    tx.setData(executedata as `0xstring`)
+
     // overwrite send store
     tx.setSendToken([...transfers])
   }
-
-  console.log('tokens', tokens)
-
-  console.log('submit', tx.send_token)
 
   if (isLoading) {
     return (

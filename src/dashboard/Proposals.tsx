@@ -7,19 +7,33 @@ import { fetcher, prettyDate, truncAddress } from '~/utils'
 
 import { User } from '~/components/User'
 
+import { useKeepStore } from './useKeepStore'
+
 const Proposals = () => {
-  const router = useRouter()
-  const { keep, chainId } = router.query
-  const { data: transactions, error } = useQuery(['keepTxs', chainId, keep], async () =>
-    fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/txs/${chainId}/${keep}/`),
+  const state = useKeepStore((state) => state)
+  const { data: transactions, error } = useQuery(['keepTxs', state.chainId, state.address], async () =>
+    fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/txs/${state.chainId}/${state.address}/`),
   )
-  console.log('txs', transactions)
+
+  const filteredTransactions =
+    transactions &&
+    transactions
+      ?.filter((tx: any) => {
+        if (state.txFilter === 'all') return true
+        if (state.txFilter === 'pending') return tx.status === 'pending'
+        if (state.txFilter === 'executed') return tx.status === 'executed'
+        if (state.txFilter === 'process')
+          return tx.status === 'process' || tx.status === 'process_yes' || tx.status === 'process_no'
+      })
+      .sort((a: any, b: any) => {
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      })
 
   return (
     <Box padding="3" display="flex" flexDirection={'column'} gap="2">
-      {transactions &&
-        transactions?.length != 0 &&
-        transactions?.map((transaction: any) => (
+      {filteredTransactions &&
+        filteredTransactions?.length != 0 &&
+        filteredTransactions?.map((transaction: any) => (
           <ProposalCard
             key={transaction.txHash}
             txHash={transaction.txHash}
@@ -67,7 +81,7 @@ export const ProposalCard = ({
   if (type == 'Signal') {
     return (
       <Card padding="6" backgroundColor={'backgroundSecondary'} shadow hover>
-        <Link href={`/${chainId}/${keep}/${txHash}`} passHref legacyBehavior>
+        <Link href={`/${chainId}/${keep}/tx/${txHash}`} passHref legacyBehavior>
           <Box as="a" display={'flex'} flexDirection="column" gap="5">
             <Stack direction={'horizontal'} justify="space-between" align="flex-start">
               <Stack>

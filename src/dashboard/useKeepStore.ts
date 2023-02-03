@@ -1,6 +1,6 @@
 import create from 'zustand'
 
-type KeepStore = {
+export type KeepStore = {
   chainId: number | undefined
   setChainId: (chainId: number) => void
   address: `0xstring` | undefined
@@ -9,6 +9,8 @@ type KeepStore = {
   setThreshold: (threshold: number) => void
   signers: string[]
   setSigners: (signers: []) => void
+  txFilter: 'all' | 'pending' | 'executed' | 'process'
+  setTxFilter: (txFilter: 'all' | 'pending' | 'executed' | 'process') => void
 }
 
 export const useKeepStore = create<KeepStore>((set) => ({
@@ -20,4 +22,6 @@ export const useKeepStore = create<KeepStore>((set) => ({
   setThreshold: (threshold: number) => set({ threshold }),
   signers: [],
   setSigners: (signers: string[]) => set({ signers }),
+  txFilter: 'pending',
+  setTxFilter: (txFilter: 'all' | 'pending' | 'executed' | 'process') => set({ txFilter }),
 }))
