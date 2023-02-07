@@ -1,40 +1,62 @@
-import { useEffect } from 'react'
-
-import type { GetServerSideProps, NextPage } from 'next'
+import type { NextPage } from 'next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import { Box, Button, Card, Heading, IconArrowLeft, Spinner, Stack, Text } from '@kalidao/reality'
+import { useDynamicContext } from '@dynamic-labs/sdk-react'
+import { Box, Button, Heading, IconArrowLeft, IconCheck, IconClose, Spinner, Stack, Text } from '@kalidao/reality'
 import { useQuery } from '@tanstack/react-query'
-import { ethers } from 'ethers'
-import { useContractWrite, usePrepareContractWrite } from 'wagmi'
 import { Author, PrettyDate } from '~/components'
-import { KEEP_ABI } from '~/constants'
 import { useKeepStore } from '~/dashboard/useKeepStore'
-import { useTxStore } from '~/dashboard/useTxStore'
 import Layout from '~/layout/DashboardLayout'
-import { ViewTx } from '~/proposal'
-import Execute from '~/proposal/Execute'
 import Quorum from '~/proposal/Quorum'
-import Vote from '~/proposal/Vote'
 import { fetcher } from '~/utils'
-import { toOp } from '~/utils/toOp'
 
-type Sign = {
-  user: `0xstring`
-  v: number
-  r: `0xstring`
-  s: `0xstring`
-}
-
-const Signal: NextPage = (props: any) => {
+const Signal: NextPage = () => {
   const keep = useKeepStore((state) => state)
   const { signalId } = useRouter().query
   const { data, isError, isLoading } = useQuery(['keepSignal', signalId], async () =>
     fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/signals/${signalId}`),
   )
+  const { user, authToken } = useDynamicContext()
 
-  console.log('data', data)
+  const yes = async () => {
+    try {
+      await fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/signals/${signalId}/vote`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${authToken}`,
+        },
+        body: JSON.stringify({
+          user: user,
+          vote: true,
+        }),
+      })
+    } catch (error) {
+      console.error(error)
+      alert('Something went wrong')
+    }
+  }
+
+  const no = async () => {
+    try {
+      await fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/signals/${signalId}/vote`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${authToken}`,
+        },
+        body: JSON.stringify({
+          user: user,
+          vote: false,
+        }),
+      })
+    } catch (error) {
+      console.error(error)
+      alert('Something went wrong')
+    }
+  }
+
   return (
     <Layout
       title={'Dashboard'}
@@ -111,7 +133,12 @@ const Signal: NextPage = (props: any) => {
                 </>
               </Box>
               <Stack direction={'horizontal'} align="center">
-                <Vote />
+                <Button variant="secondary" tone="green" shape="circle" onClick={yes}>
+                  <IconCheck />
+                </Button>
+                <Button variant="secondary" tone="red" shape="circle" onClick={no}>
+                  <IconClose />
+                </Button>
               </Stack>
             </Box>
           )}

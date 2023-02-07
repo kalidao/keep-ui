@@ -1,11 +1,9 @@
-import React from 'react'
-
-import type { NextPage } from 'next'
+import { NextPage } from 'next'
 import Head from 'next/head'
 
 import { Box, Stack } from '@kalidao/reality'
 import Create from '~/create'
-import { header, layout } from '~/layout/layout.css'
+import * as styles from '~/layout/layout.css'
 
 import { ConnectButton } from '~/components/ConnectButton'
 
@@ -19,7 +17,7 @@ const Home: NextPage = () => {
         <meta name="description" content={'This is the homepage of Keep.'} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Box className={header}>
+      <Box className={styles.header}>
         <Stack direction={'horizontal'}>
           <ConnectButton />
           <Menu />

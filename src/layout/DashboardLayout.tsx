@@ -1,20 +1,15 @@
 import { useEffect } from 'react'
 
 import Head from 'next/head'
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 
-import { useDynamicContext } from '@dynamic-labs/sdk-react'
 import { Box, Button, Divider, IconLightningBolt, IconPlus, IconUserGroupSolid } from '@kalidao/reality'
 import { useQuery } from '@tanstack/react-query'
 import { Profile } from '~/dashboard'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 import { fetcher } from '~/utils'
 
-import { ConnectButton } from '~/components/ConnectButton'
-import { User } from '~/components/User'
-
-import { Menu } from '@design/Menu'
+import { UserMenu } from '~/components/UserMenu'
 
 import * as styles from './layout.css'
 
@@ -37,8 +32,6 @@ const DashboardLayout = ({ title, content, sidebar, children }: Props) => {
     return res
   })
   const heading = title + data ? ((' ' + data?.name) as string) + ' ' : '' + '- Keep'
-
-  const { user } = useDynamicContext()
 
   useEffect(() => {
     if (chainId && state.chainId !== parseInt(chainId as string)) {
@@ -97,12 +90,7 @@ const DashboardLayout = ({ title, content, sidebar, children }: Props) => {
             </Button> */}
           </Box>
         </Box>
-        <Box display="flex" alignItems={'center'}>
-          <Box backgroundColor={'backgroundSecondary'} padding="3" borderRadius={'4xLarge'}>
-            {user ? <User address={user.walletPublicKey as string} size="lg" /> : <ConnectButton />}
-          </Box>
-          <Menu />
-        </Box>
+        <UserMenu />
       </Box>
       <Box className={styles.container}>
         <Profile

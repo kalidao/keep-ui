@@ -7,16 +7,7 @@ import * as styles from '~/dashboard/styles.css'
 import { KeepStore, useKeepStore } from '~/dashboard/useKeepStore'
 import Layout from '~/layout/DashboardLayout'
 
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectSeparator,
-  SelectTrigger,
-  SelectValue,
-} from '@design/Select'
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@design/Select'
 
 const Dashboard: NextPage = () => {
   const setTxFilter = useKeepStore((state) => state.setTxFilter)
@@ -55,7 +46,7 @@ const Dashboard: NextPage = () => {
                 <SelectTrigger>
                   <SelectValue placeholder="Filter" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent position="popper">
                   <SelectGroup>
                     <SelectItem value={'all'}>All</SelectItem>
                     <SelectItem value={'pending'}>Pending</SelectItem>

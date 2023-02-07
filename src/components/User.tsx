@@ -4,7 +4,7 @@ import { useEnsName } from 'wagmi'
 import { fetcher } from '~/utils'
 import { truncAddress } from '~/utils'
 
-export const User = ({ address, size }: { address: string; size: 'sm' | 'lg' }) => {
+export const User = ({ address, size, alias }: { address: string; size: 'sm' | 'lg'; alias?: string }) => {
   const { data: ensName } = useEnsName({
     address: address as `0x${string}`,
     chainId: 1,
@@ -24,6 +24,8 @@ export const User = ({ address, size }: { address: string; size: 'sm' | 'lg' }) 
     )
   }
 
+  const name = alias ? alias : user?.handle != undefined ? user?.handle : ensName ? ensName : truncAddress(address)
+
   return (
     <Stack direction="horizontal" align="center">
       <Avatar
@@ -32,7 +34,7 @@ export const User = ({ address, size }: { address: string; size: 'sm' | 'lg' }) 
         label={address}
         address={address}
       />
-      <Text>{user?.handle != undefined ? user?.handle : ensName ? ensName : truncAddress(address)}</Text>
+      <Text>{name}</Text>
     </Stack>
   )
 }

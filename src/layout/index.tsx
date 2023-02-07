@@ -1,24 +1,9 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import Link from 'next/link'
 
-import { useDynamicContext } from '@dynamic-labs/sdk-react'
-import {
-  Box,
-  Button,
-  IconCheck,
-  IconCog,
-  IconLightningBolt,
-  IconUserGroupSolid,
-  IconWallet,
-  Stack,
-  Text,
-} from '@kalidao/reality'
+import { Box, Button, IconLightningBolt, IconUserGroupSolid } from '@kalidao/reality'
 
 import Banner from '~/components/Banner'
-import { User } from '~/components/User'
-
-import { Menu } from '@design/Menu'
+import { UserMenu } from '~/components/UserMenu'
 
 import * as styles from './layout.css'
 
@@ -30,7 +15,6 @@ type Props = {
 
 const Layout = ({ title, content, children }: Props) => {
   const heading = title + '- Keep'
-  const { user } = useDynamicContext()
 
   return (
     <Box className={styles.layout} lang="en">
@@ -49,17 +33,9 @@ const Layout = ({ title, content, children }: Props) => {
             <Button variant="transparent" prefix={<IconUserGroupSolid />} as="a" href={`/dashboard/communities`}>
               Communities
             </Button>
-            {/* <Button variant="secondary" tone="green" prefix={<IconCog />} as="a" href="/create">
-              Create
-            </Button> */}
           </Box>
         </Box>
-        <Box display="flex" alignItems={'center'}>
-          <Box backgroundColor={'backgroundSecondary'} padding="3" borderRadius={'4xLarge'}>
-            {user && <User address={user.walletPublicKey as string} size="lg" />}
-          </Box>
-          <Menu />
-        </Box>
+        <UserMenu />
       </Box>
       <Box className={styles.container}>{children}</Box>
       <Box className={styles.rightbar}></Box>

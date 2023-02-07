@@ -11,6 +11,7 @@ export const trigger = style({
   border: `1px solid ${vars.colors.foregroundSecondary}`,
   background: 'transparent',
   padding: vars.space[4],
+  gap: vars.space[2],
 
   fontSize: vars.fontSizes['base'],
   color: vars.colors.textPrimary,
@@ -65,6 +66,12 @@ export const item = style({
       opacity: '0.5',
     },
   },
+})
+
+export const triggerIcon = style({
+  height: vars.space[5],
+  width: vars.space[5],
+  opacity: 0.5,
 })
 
 export const separator = style({

@@ -6,6 +6,7 @@ import { Avatar, Box, Card, Divider, Heading, Skeleton, Spinner, Stack, Text } f
 import * as Tabs from '@radix-ui/react-tabs'
 import { useQuery } from '@tanstack/react-query'
 import { ProposalCard } from '~/dashboard/Proposals'
+import { SignalCard } from '~/dashboard/Signals'
 import * as styles from '~/dashboard/styles.css'
 import Layout from '~/layout'
 import { fetcher } from '~/utils'
@@ -107,19 +108,18 @@ const Dashboard: NextPage = () => {
         <Tabs.Content className="TabsContent" value="signals">
           <Box padding={'3'} display="flex" flexDirection={'column'} gap="3">
             {signals ? (
-              signals.map((tx: any) => {
+              signals.map((signal: any) => {
                 return (
-                  <ProposalCard
-                    key={tx.txHash}
-                    txHash={tx.txHash}
-                    chainId={tx.keepChainId}
-                    keep={tx.keepAddress}
-                    proposer={tx.authorAddress}
-                    title={tx.title}
-                    description={tx.content}
-                    timestamp={tx.createdAt}
+                  <SignalCard
+                    key={signal.id}
+                    id={signal.id}
+                    chainId={signal.keepChainId}
+                    keep={signal.keepAddress}
+                    proposer={signal.authorAddress}
+                    title={signal.title}
+                    description={signal.content}
+                    timestamp={signal.createdAt}
                     type={'Signal'}
-                    status={tx.status}
                   />
                 )
               })

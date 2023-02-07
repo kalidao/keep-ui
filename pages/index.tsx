@@ -1,6 +1,5 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
@@ -9,7 +8,7 @@ import { Box, Button, Stack } from '@kalidao/reality'
 import Balencer from 'react-wrap-balancer'
 import { Castle } from '~/canvas/Castle'
 import Footer from '~/layout/Footer'
-import { container, header } from '~/layout/layout.css'
+import { header } from '~/layout/layout.css'
 
 import Banner from '~/components/Banner'
 import { ConnectButton } from '~/components/ConnectButton'
@@ -60,7 +59,6 @@ const Home: NextPage = () => {
                 Keep.
               </Box>
             </Balencer>
-            {/* marketing copy for no-code legally complian multisig + dao launcher */}
             <Balencer>
               <Box as="h2" style={bodoni.style} className={styles.subheading}>
                 Secure and govern digital assets.
