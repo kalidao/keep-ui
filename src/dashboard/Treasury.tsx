@@ -1,5 +1,7 @@
 import { useMemo } from 'react'
 
+import Link from 'next/link'
+
 import { Box, Button, Card, Heading, IconArrowRight, Stack, Stat, Tag, Text } from '@kalidao/reality'
 import { useQuery } from '@tanstack/react-query'
 import { ethers } from 'ethers'
@@ -10,18 +12,8 @@ import { useKeepStore } from './useKeepStore'
 
 const Treasury = () => {
   const keep = useKeepStore()
-  const { data: treasury } = useQuery(
-    ['keep', 'treasury', keep.chainId, keep.address],
-    async () => {
-      return fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${keep.chainId}/${keep.address}/treasury`)
-    },
-    {
-      enabled: !!keep.chainId && !!keep.address,
-    },
-  )
 
-  const tokens = treasury?.items
-  const synced = treasury?.updated_at
+  const tokens = keep.tokens
 
   const totalValueLocked = useMemo(() => {
     if (!tokens) {
@@ -48,37 +40,44 @@ const Treasury = () => {
   // const _nfts = nfts ? nfts?.length : 0
 
   return (
-    <Card padding="6" width="full">
-      <Stack>
-        <Stack direction={'horizontal'} align="center" justify={'space-between'}>
-          <Heading>Treasury</Heading>
-          {totalValueLocked && (
-            <Tag tone="green" label={`$`}>
-              {totalValueLocked}
-            </Tag>
-          )}
-        </Stack>
-        <Box display="flex" flexDirection={'column'} gap="3">
-          {_tokens &&
-            _tokens?.slice(0, 5).map((token: any) => {
-              return (
-                <Stack key={token.contract_address} space="3">
-                  <Stack direction={'horizontal'} justify={'space-between'} space="3">
-                    <Stack direction={'horizontal'}>
-                      <img src={token.logo_url} alt={token.name} width="20" height="20" />
-                      <Text>{token.contract_ticker_symbol}</Text>
+    <Link
+      href={`/${keep.chainId}/${keep.address}/treasury`}
+      style={{
+        all: 'unset',
+      }}
+    >
+      <Card padding="6" width="full" hover shadow>
+        <Stack>
+          <Stack direction={'horizontal'} align="center" justify={'space-between'}>
+            <Heading>Treasury</Heading>
+            {totalValueLocked && (
+              <Tag tone="green" label={`$`}>
+                {totalValueLocked}
+              </Tag>
+            )}
+          </Stack>
+          <Box display="flex" flexDirection={'column'} gap="3">
+            {_tokens &&
+              _tokens?.slice(0, 5).map((token: any) => {
+                return (
+                  <Stack key={token.contract_address} space="3">
+                    <Stack direction={'horizontal'} justify={'space-between'} space="3">
+                      <Stack direction={'horizontal'}>
+                        <img src={token.logo_url} alt={token.name} width="20" height="20" />
+                        <Text>{token.contract_ticker_symbol}</Text>
+                      </Stack>
+                      <Text>
+                        {parseFloat(ethers.utils.formatUnits(token.balance, token.contract_decimals)).toFixed(1)}
+                      </Text>
                     </Stack>
-                    <Text>
-                      {parseFloat(ethers.utils.formatUnits(token.balance, token.contract_decimals)).toFixed(1)}
-                    </Text>
                   </Stack>
-                </Stack>
-              )
-            })}
-        </Box>
-        <Text color="foregroundSecondary">Synced {prettyDate(synced)}</Text>
-      </Stack>
-    </Card>
+                )
+              })}
+          </Box>
+          <Text color="foregroundSecondary">Synced {prettyDate(keep.treasuryUpdatedAt)}</Text>
+        </Stack>
+      </Card>
+    </Link>
   )
 }
 

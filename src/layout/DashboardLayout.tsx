@@ -28,9 +28,33 @@ const DashboardLayout = ({ title, content, sidebar, children }: Props) => {
   const { data } = useQuery(['keep', chainId, keep], async () => {
     const res = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/`)
     state.setThreshold(res?.threshold)
-    state.setSigners(res?.signers)
+    console.log('signers', res?.signers)
+    const signers = res?.signers?.map((s: any) => s.signerId)
+    state.setSigners(signers)
     return res
   })
+  const { data: treasury } = useQuery(
+    ['keep', 'treasury', chainId, keep],
+    async () => {
+      if (!chainId || !keep) {
+        return new Error('No chainId or keep')
+      }
+      if (state.treasuryUpdatedAt != '') {
+        return new Error('Treasury already updated')
+      }
+      const res = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/treasury`)
+
+      state.setCollectibles(res?.collectibles)
+      state.setTokens(res?.tokens)
+      state.setTreasuryUpdatedAt(res?.updated_at)
+
+      return res
+    },
+    {
+      enabled: !!chainId && !!keep,
+    },
+  )
+
   const heading = title + data ? ((' ' + data?.name) as string) + ' ' : '' + '- Keep'
 
   useEffect(() => {

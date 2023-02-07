@@ -19,6 +19,7 @@ import Head from 'next/head'
 import { Mode } from '@kalidao/reality/dist/types/tokens'
 import { Inter } from '@next/font/google'
 import { Bodoni_Moda } from '@next/font/google'
+import { Toaster } from 'react-hot-toast'
 
 export const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 export const bodoni = Bodoni_Moda({ subsets: ['latin'], variable: '--font-bodoni' })
@@ -95,6 +96,7 @@ function MyApp({ Component, pageProps, theme }: AppProps & { theme: Mode }) {
               <link rel="apple-touch-startup-image" href="/images/apple_splash_640.png" sizes="640x1136" />
             </Head>
             <main className={inter.className}>
+              <Toaster />
               <Component {...pageProps} />
             </main>
           </DynamicWagmiConnector>

@@ -28,6 +28,7 @@ import { erc20ABI, useQuery } from 'wagmi'
 import z from 'zod'
 import { KEEP_ABI } from '~/constants'
 import { Signer } from '~/dashboard/Signers'
+import { useKeepStore } from '~/dashboard/useKeepStore'
 import { fetcher } from '~/utils'
 
 import {
@@ -72,7 +73,7 @@ export const SendToken = () => {
     },
   )
   const tx = useSendStore((state) => state)
-  const tokens = treasury?.items.filter((item: any) => ethers.BigNumber.from(item.balance).gt(ethers.BigNumber.from(0)))
+  const tokens = useKeepStore((state) => state.tokens)
   // set up react-hook-form and zod with field array
   const { register, handleSubmit, watch, formState, setValue, control } = useForm({
     mode: 'onBlur',

@@ -5,6 +5,8 @@ import { useKeepStore } from '~/dashboard/useKeepStore'
 
 import { highBackground } from '@design/blur.css'
 
+import { Builder } from './Builder'
+import { SendNFT } from './SendNFT'
 import { SendToken } from './SendToken'
 import { Toolbox } from './Toolbox'
 import { SendStore, useSendStore } from './useSendStore'
@@ -15,7 +17,8 @@ const Transaction = () => {
 
   const views: { [key in Exclude<SendStore['view'], undefined>]: React.ReactNode } = {
     send_token: <SendToken />,
-    send_nft: <SendToken />,
+    send_nft: <SendNFT />,
+    builder: <Builder />,
   }
 
   return (

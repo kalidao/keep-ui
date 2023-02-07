@@ -3,17 +3,7 @@ import React from 'react'
 import { useRouter } from 'next/router'
 
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
-import {
-  Box,
-  IconBookOpenSolid,
-  IconCollection,
-  IconDocuments,
-  IconDocumentsSolid,
-  IconNFT,
-  IconTokens,
-  IconUserGroupSolid,
-} from '@kalidao/reality'
-import { Button } from '@kalidao/reality'
+import { IconBookOpenSolid, IconDocumentsSolid, IconNFT, IconTokens, IconUserGroupSolid } from '@kalidao/reality'
 import * as Toolbar from '@radix-ui/react-toolbar'
 import { useQuery } from '@tanstack/react-query'
 import { ethers } from 'ethers'
@@ -23,6 +13,8 @@ import { useKeepStore } from '~/dashboard/useKeepStore'
 import { fetcher } from '~/utils'
 
 import Tooltip from '~/components/Tooltip'
+
+import toast from '@design/Toast'
 
 import { getTxHash } from '../getTxHash'
 import * as styles from './styles.css'
@@ -53,39 +45,30 @@ export const Toolbox = () => {
   })
 
   console.log('nonce', nonce?.toString())
-
-  const {
-    data: meta,
-    isLoading,
-    isError,
-  } = useQuery(['keep', keep.chainId, keep.address], async () =>
-    fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${keep.chainId}/${keep.address}/`),
-  )
   const notSigner =
-    meta?.signers?.find((s: string) => s === user?.walletPublicKey?.toLowerCase()) == undefined ? true : false
+    keep?.signers?.find((s: string) => s === user?.walletPublicKey?.toLowerCase()) == undefined ? true : false
 
   const handleTx = async () => {
-    console.log('user', user)
     if (!user) {
-      alert('Please connect your wallet')
+      toast('error', 'You must be logged in to submit a transaction')
       return
     } else {
       if (user.walletPublicKey) tx.setAuthor(user.walletPublicKey)
     }
 
     if (notSigner) {
-      alert('You are not a signer of this keep')
+      toast('error', 'You must be a signer to submit a transaction')
       return
     }
 
     if (keep.chainId && keep.address) {
       if (!tx.title || !tx.content) {
-        alert('Title and Description are required')
+        toast('error', 'Title and content are required')
         return
       }
 
       if (!tx.author) {
-        alert('Author is required')
+        toast('error', 'Author is required')
         return
       }
 
@@ -110,7 +93,7 @@ export const Toolbox = () => {
           .then((res) => res.json())
           .catch((e) => {
             console.log('error', e)
-            alert('Error: Invalid transaction')
+            toast('error', 'Error: Invalid transaction')
           })
           .finally(() => router.push(`/${keep.chainId}/${keep.address}`))
       } else {
@@ -191,7 +174,7 @@ export const Toolbox = () => {
           </Toolbar.ToggleItem>
         </Tooltip>
         <Tooltip label="Contract Call">
-          <Toolbar.ToggleItem className={styles.ToolbarToggleItem} value="call" aria-label="Users">
+          <Toolbar.ToggleItem className={styles.ToolbarToggleItem} value="builder" aria-label="Call Builder">
             <IconDocumentsSolid />
           </Toolbar.ToggleItem>
         </Tooltip>
@@ -202,12 +185,7 @@ export const Toolbox = () => {
           <IconBookOpenSolid />
         </Toolbar.Link>
       </Tooltip>
-      <Toolbar.Button
-        style={{ marginLeft: 'auto' }}
-        onClick={handleTx}
-        disabled={isLoading || isError || notSigner}
-        className={styles.ToolbarButton}
-      >
+      <Toolbar.Button style={{ marginLeft: 'auto' }} onClick={handleTx} className={styles.ToolbarButton}>
         Submit
       </Toolbar.Button>
     </Toolbar.Root>
