@@ -10,6 +10,7 @@ import { SendNFT } from './SendNFT'
 import { SendToken } from './SendToken'
 import { Toolbox } from './Toolbox'
 import { SendStore, useSendStore } from './useSendStore'
+import { ManageSigners } from './ManageSigners'
 
 const Transaction = () => {
   const keep = useKeepStore((state) => state)
@@ -19,6 +20,7 @@ const Transaction = () => {
     send_token: <SendToken />,
     send_nft: <SendNFT />,
     builder: <Builder />,
+    manage_signers: <ManageSigners />,
   }
 
   return (

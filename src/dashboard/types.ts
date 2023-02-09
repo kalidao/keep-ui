@@ -1,5 +1,5 @@
 export type Sig = {
-  signer: string
+  userId: string
   type: 'yes' | 'no'
   v: string
   r: string

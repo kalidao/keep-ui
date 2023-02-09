@@ -3,7 +3,7 @@ import toast from 'react-hot-toast'
 
 export type ToastType = 'success' | 'error' | 'default'
 
-const customToast = (type: ToastType, message: string) => {
+const customToast = (type: ToastType, message: string, duration?: number) => {
   const style = {
     fontSize: vars.fontSizes.large,
     color: vars.colors.textPrimary,
@@ -19,6 +19,7 @@ const customToast = (type: ToastType, message: string) => {
           role: 'status',
           'aria-live': 'polite',
         },
+        duration,
         style,
       })
       break
@@ -30,12 +31,14 @@ const customToast = (type: ToastType, message: string) => {
           role: 'alert',
           'aria-live': 'assertive',
         },
+        duration,
         style,
       })
       break
     default:
       toast(message, {
         style,
+        duration
       })
       break
   }

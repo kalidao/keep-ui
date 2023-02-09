@@ -15,7 +15,7 @@ export type SendStore = {
   author: string
   setAuthor: (author: string) => void
 
-  view?: 'send_token' | 'send_nft' | 'builder'
+  view?: 'send_token' | 'send_nft' | 'builder' | 'manage_signers'
   setView: (view: SendStore['view']) => void
   op: number
   setOp: (op: number) => void
@@ -31,6 +31,13 @@ export type SendStore = {
   // send token
   send_token: SendToken[]
   setSendToken: (send_token: SendToken[]) => void
+
+  // manage signers
+  manage_signers: {
+    signers: string[]
+    threshold: number
+  }
+  setManageSigners: (manage_signers: SendStore['manage_signers']) => void
 }
 
 export const useSendStore = create<SendStore>((set) => ({
@@ -57,4 +64,9 @@ export const useSendStore = create<SendStore>((set) => ({
   // send token
   send_token: [],
   setSendToken: (send_token) => set({ send_token }),
+  manage_signers: {
+    signers: [],
+    threshold: 0,
+  },
+  setManageSigners: (manage_signers) => set({ manage_signers }),
 }))

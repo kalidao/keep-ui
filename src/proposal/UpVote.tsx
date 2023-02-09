@@ -1,3 +1,4 @@
+import toast from '@design/Toast'
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
 import { Button, IconCheck } from '@kalidao/reality'
 import { ethers } from 'ethers'
@@ -12,7 +13,10 @@ const UpVote = () => {
   const tx = useTxStore((state) => state)
 
   const upvote = async () => {
-    if (!keep.address || !keep.chainId || !tx.txHash || !tx.op || !tx.to || !tx.value || !tx.data || !tx.nonce) return
+    if (!keep.address || !keep.chainId || !tx.txHash || !tx.op || !tx.to || !tx.value || !tx.data || !tx.nonce) {
+      toast('error', 'Something went wrong, please try again later.')
+      return
+    }
 
     const sign = await tryTypedSigningV4(
       {
@@ -29,7 +33,11 @@ const UpVote = () => {
       user?.walletPublicKey as string,
     )
 
-    if (!sign) return
+    if (!sign) {
+      toast('error', 'Something went wrong, please try again later.')
+      return
+    }
+
     const { v, r, s } = ethers.utils.splitSignature(sign)
     const body = {
       user: user?.walletPublicKey,
@@ -47,8 +55,20 @@ const UpVote = () => {
       },
       body: JSON.stringify(body),
     })
-      .then((res) => res.json())
-      .catch((err) => console.log(err))
+      .then((res) => {
+        if (res.status === 200) {
+          toast('success', 'Successfully signed transaction.')
+          return res.json()
+        } else {
+          toast('error', 'Something went wrong, please try again later.')
+          return
+        }
+      })
+      .catch((error: Error) => {
+        console.error(error)
+        toast('error', error.message)
+        return
+      })
   }
 
   return (

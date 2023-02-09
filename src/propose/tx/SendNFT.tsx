@@ -1,4 +1,4 @@
-import { Checkbox, Stack, Text } from '@kalidao/reality'
+import { Stack, Text } from '@kalidao/reality'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 
 export const SendNFT = () => {
@@ -9,10 +9,12 @@ export const SendNFT = () => {
       <pre>{JSON.stringify(collectibles, null, 2)}</pre>
       {collectibles.map((collectible) => {
         return (
-          <Stack>
+          <Stack key={
+            collectible.contract_address
+          }>
             {collectible.nft_data.map((nft) => {
               return (
-                <Stack direction={'horizontal'} justify="space-between">
+                <Stack key={nft.token_id} direction={'horizontal'} justify="space-between">
                   <Text>{collectible.contract_name}</Text>
                   <Text>{nft.token_id}</Text>
                   <input type="checkbox" />

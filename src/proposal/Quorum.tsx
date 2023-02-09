@@ -43,7 +43,7 @@ const Quorum = () => {
           Signed
         </Box>
         {tx?.sigs?.map((sig: Sig) => (
-          <Signer key={sig.signer + sig.type} signer={sig.signer} type={sig.type} />
+          <Signer key={sig.userId + sig.type} signer={sig.userId} type={sig.type} />
         ))}
       </Stack>
     </Card>

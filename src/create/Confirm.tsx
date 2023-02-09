@@ -95,7 +95,7 @@ export const Confirm = () => {
               address: state.address,
               chain: chain?.id,
               blocknumber: 0,
-              name: state.name,
+              name: ethers.utils.formatBytes32String(state.name),
               signers: signers,
               threshold: state.threshold,
               avatar: img ? img : '',

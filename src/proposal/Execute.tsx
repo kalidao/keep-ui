@@ -18,13 +18,14 @@ const Execute = () => {
   const keep = useKeepStore((state) => state)
   const tx = useTxStore((state) => state)
   const op: number = tx?.op ? toOp(tx.op) : 0
+  console.log('tx sigs', tx.sigs)
   const yesSigs = tx?.sigs
     ?.filter((sig: Sig) => sig.type === 'yes')
-    ?.map((sig: any) => (sig = [sig.signer, sig.v, sig.r, sig.s]))
+    ?.map((sig: any) => (sig = [sig.userId, sig.v, sig.r, sig.s]))
     .sort((a: any[], b: any[]) => +a[0] - +b[0])
   const noSigs = tx?.sigs
     ?.filter((sig: Sig) => sig.type === 'no')
-    ?.map((sig: any) => (sig = [sig.signer, sig.v, sig.r, sig.s]))
+    ?.map((sig: any) => (sig = [sig.userId, sig.v, sig.r, sig.s]))
     .sort((a: any[], b: any[]) => +a[0] - +b[0])
 
   const { config: configYes } = usePrepareContractWrite({

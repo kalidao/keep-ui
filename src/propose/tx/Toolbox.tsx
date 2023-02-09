@@ -11,7 +11,7 @@ import { useContractRead } from 'wagmi'
 import { KEEP_ABI } from '~/constants'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 import { fetcher } from '~/utils'
-
+import { createManageSignersPayload } from './utils'
 import Tooltip from '~/components/Tooltip'
 
 import toast from '@design/Toast'
@@ -72,6 +72,18 @@ export const Toolbox = () => {
         return
       }
 
+      if (tx.view == 'manage_signers') {
+        tx.to = keep.address
+
+        if (!keep.threshold) {
+          toast('error', 'Error: Invalid transaction')
+          return
+        }
+
+        tx.data = createManageSignersPayload(keep.address, tx.manage_signers, keep.signers, keep.threshold)
+      }
+
+
       if (tx.to == ethers.constants.AddressZero) {
         // submit signal
         const body = {
@@ -97,9 +109,10 @@ export const Toolbox = () => {
           })
           .finally(() => router.push(`/${keep.chainId}/${keep.address}`))
       } else {
-        // isSignal or isTx ?
+      
         const { data: nonce } = await refetchNonce()
         if (!nonce) return
+      
         const digest = await getTxHash(
           Number(keep.chainId),
           keep.address as string,
@@ -111,7 +124,7 @@ export const Toolbox = () => {
         )
 
         if (digest == 'error') {
-          alert('Error: Invalid transaction')
+          toast('error', 'Error: Invalid transaction')
           return
         }
 
@@ -152,10 +165,19 @@ export const Toolbox = () => {
       <Toolbar.ToggleGroup
         type="single"
         aria-label="Text formatting"
-        // exclude undefined in type TxStore['view']
         value={tx.view as Exclude<SendStore['view'], undefined>}
         onValueChange={(value: string) => {
           tx.setView(value as Exclude<SendStore['view'], undefined>)
+
+          if (value == 'manage_signers') {
+            if (!keep.threshold) {
+              return toast('error', 'Threshold is required')
+            }
+            tx.setManageSigners({
+              signers: [...keep.signers, ''],
+              threshold: keep.threshold,
+            })
+          }
         }}
       >
         <Tooltip label="Send Tokens">
@@ -169,7 +191,7 @@ export const Toolbox = () => {
           </Toolbar.ToggleItem>
         </Tooltip>
         <Tooltip label="Manage Signers">
-          <Toolbar.ToggleItem className={styles.ToolbarToggleItem} value="signers" aria-label="Users">
+          <Toolbar.ToggleItem className={styles.ToolbarToggleItem} value="manage_signers" aria-label="Users">
             <IconUserGroupSolid />
           </Toolbar.ToggleItem>
         </Tooltip>
