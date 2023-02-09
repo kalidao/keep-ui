@@ -21,6 +21,7 @@ import { useGetSignal } from '~/hooks/useGetSignal'
 import Layout from '~/layout/DashboardLayout'
 import { vote } from '~/signal/utils'
 
+import { RenderText } from '~/components/RenderText'
 import { User } from '~/components/User'
 
 import toast from '@design/Toast'
@@ -131,7 +132,7 @@ const Signal: NextPage = () => {
                       <Author author={data ? data?.userId : ''} />
                     </Stack>
                   </Stack>
-                  <Text>{data?.content}</Text>
+                  <RenderText>{data?.content}</RenderText>
                 </>
               </Box>
               <Stack direction={'horizontal'} align="center">
