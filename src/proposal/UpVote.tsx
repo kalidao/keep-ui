@@ -1,4 +1,3 @@
-import toast from '@design/Toast'
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
 import { Button, IconCheck } from '@kalidao/reality'
 import { ethers } from 'ethers'
@@ -6,6 +5,8 @@ import { useKeepStore } from '~/dashboard/useKeepStore'
 import { useTxStore } from '~/dashboard/useTxStore'
 import { tryTypedSigningV4 } from '~/utils/sign'
 import { toOp } from '~/utils/toOp'
+
+import toast from '@design/Toast'
 
 const UpVote = () => {
   const { authToken, user } = useDynamicContext()

@@ -3,59 +3,50 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
-import { Box, Button, Heading, IconArrowLeft, IconCheck, IconClose, Spinner, Stack, Text } from '@kalidao/reality'
-import { useQuery } from '@tanstack/react-query'
+import {
+  Box,
+  Button,
+  Divider,
+  Heading,
+  IconArrowLeft,
+  IconCheck,
+  IconClose,
+  Spinner,
+  Stack,
+  Text,
+} from '@kalidao/reality'
 import { Author, PrettyDate } from '~/components'
 import { useKeepStore } from '~/dashboard/useKeepStore'
+import { useGetSignal } from '~/hooks/useGetSignal'
 import Layout from '~/layout/DashboardLayout'
-import Quorum from '~/proposal/Quorum'
-import { fetcher } from '~/utils'
+import { vote } from '~/signal/utils'
+
+import { User } from '~/components/User'
+
+import toast from '@design/Toast'
 
 const Signal: NextPage = () => {
   const keep = useKeepStore((state) => state)
   const { signalId } = useRouter().query
-  const { data, isError, isLoading } = useQuery(['keepSignal', signalId], async () =>
-    fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/signals/${signalId}`),
-  )
+  const { data, isError, isLoading } = useGetSignal(signalId as string)
   const { user, authToken } = useDynamicContext()
 
-  const yes = async () => {
-    try {
-      await fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/signals/${signalId}/vote`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${authToken}`,
-        },
-        body: JSON.stringify({
-          user: user,
-          vote: true,
-        }),
-      })
-    } catch (error) {
-      console.error(error)
-      alert('Something went wrong')
+  const signal = async (support: boolean) => {
+    if (!user || !user.walletPublicKey || !authToken) {
+      toast('error', `Please connect and sign with wallet to signal`)
+      return
     }
+
+    if (!signalId) {
+      toast('error', `Not a valid signal`)
+      return
+    }
+
+    await vote(signalId.toString(), user.walletPublicKey, support, authToken)
   }
 
-  const no = async () => {
-    try {
-      await fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/signals/${signalId}/vote`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${authToken}`,
-        },
-        body: JSON.stringify({
-          user: user,
-          vote: false,
-        }),
-      })
-    } catch (error) {
-      console.error(error)
-      alert('Something went wrong')
-    }
-  }
+  const yesVotes = !isLoading && data && data?.support?.filter((support: any) => support.type === 'yes')
+  const noVotes = !isLoading && data && data?.support?.filter((support: any) => support.type === 'no')
 
   return (
     <Layout
@@ -63,7 +54,18 @@ const Signal: NextPage = () => {
       content={'Manage your Keep'}
       sidebar={
         <Stack>
-          <Quorum />
+          <Heading>Supported</Heading>
+          <Divider />
+          {yesVotes &&
+            yesVotes.map((vote: any) => {
+              return <User key={vote.userId} address={vote.userId} size="lg" />
+            })}
+          <Heading>Rejected</Heading>
+          <Divider />
+          {noVotes &&
+            noVotes.map((vote: any) => {
+              return <User key={vote.userId} address={vote.userId} size="lg" />
+            })}
         </Stack>
       }
     >
@@ -126,17 +128,17 @@ const Signal: NextPage = () => {
                       justify={'center'}
                     >
                       <PrettyDate timestamp={data?.createdAt} />
-                      <Author author={data ? data?.authorAddress : ''} />
+                      <Author author={data ? data?.userId : ''} />
                     </Stack>
                   </Stack>
                   <Text>{data?.content}</Text>
                 </>
               </Box>
               <Stack direction={'horizontal'} align="center">
-                <Button variant="secondary" tone="green" shape="circle" onClick={yes}>
+                <Button size="small" variant="secondary" tone="green" shape="square" onClick={async () => signal(true)}>
                   <IconCheck />
                 </Button>
-                <Button variant="secondary" tone="red" shape="circle" onClick={no}>
+                <Button size="small" variant="secondary" tone="red" shape="square" onClick={async () => signal(false)}>
                   <IconClose />
                 </Button>
               </Stack>

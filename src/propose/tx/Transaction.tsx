@@ -6,11 +6,11 @@ import { useKeepStore } from '~/dashboard/useKeepStore'
 import { highBackground } from '@design/blur.css'
 
 import { Builder } from './Builder'
+import { ManageSigners } from './ManageSigners'
 import { SendNFT } from './SendNFT'
 import { SendToken } from './SendToken'
 import { Toolbox } from './Toolbox'
 import { SendStore, useSendStore } from './useSendStore'
-import { ManageSigners } from './ManageSigners'
 
 const Transaction = () => {
   const keep = useKeepStore((state) => state)

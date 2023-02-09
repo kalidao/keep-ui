@@ -9,9 +9,7 @@ export const SendNFT = () => {
       <pre>{JSON.stringify(collectibles, null, 2)}</pre>
       {collectibles.map((collectible) => {
         return (
-          <Stack key={
-            collectible.contract_address
-          }>
+          <Stack key={collectible.contract_address}>
             {collectible.nft_data.map((nft) => {
               return (
                 <Stack key={nft.token_id} direction={'horizontal'} justify="space-between">

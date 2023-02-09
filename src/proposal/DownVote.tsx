@@ -1,11 +1,11 @@
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
 import { Button, IconClose } from '@kalidao/reality'
 import { ethers } from 'ethers'
-import toast from '@design/Toast'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 import { useTxStore } from '~/dashboard/useTxStore'
 import { tryTypedSigningV4 } from '~/utils/sign'
 
+import toast from '@design/Toast'
 
 const DownVote = () => {
   const keep = useKeepStore((state) => state)
@@ -69,9 +69,9 @@ const DownVote = () => {
   }
 
   return (
-      <Button shape="circle" variant="secondary" tone="red" size="small" onClick={downvote}>
-        <IconClose />
-      </Button>
+    <Button shape="circle" variant="secondary" tone="red" size="small" onClick={downvote}>
+      <IconClose />
+    </Button>
   )
 }
 

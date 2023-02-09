@@ -38,7 +38,7 @@ const customToast = (type: ToastType, message: string, duration?: number) => {
     default:
       toast(message, {
         style,
-        duration
+        duration,
       })
       break
   }

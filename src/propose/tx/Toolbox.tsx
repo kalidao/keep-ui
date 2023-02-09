@@ -11,7 +11,7 @@ import { useContractRead } from 'wagmi'
 import { KEEP_ABI } from '~/constants'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 import { fetcher } from '~/utils'
-import { createManageSignersPayload } from './utils'
+
 import Tooltip from '~/components/Tooltip'
 
 import toast from '@design/Toast'
@@ -19,6 +19,7 @@ import toast from '@design/Toast'
 import { getTxHash } from '../getTxHash'
 import * as styles from './styles.css'
 import { SendStore, useSendStore } from './useSendStore'
+import { createManageSignersPayload } from './utils'
 
 const operation = (op: number) => {
   switch (op) {
@@ -83,7 +84,6 @@ export const Toolbox = () => {
         tx.data = createManageSignersPayload(keep.address, tx.manage_signers, keep.signers, keep.threshold)
       }
 
-
       if (tx.to == ethers.constants.AddressZero) {
         // submit signal
         const body = {
@@ -109,10 +109,9 @@ export const Toolbox = () => {
           })
           .finally(() => router.push(`/${keep.chainId}/${keep.address}`))
       } else {
-      
         const { data: nonce } = await refetchNonce()
         if (!nonce) return
-      
+
         const digest = await getTxHash(
           Number(keep.chainId),
           keep.address as string,
