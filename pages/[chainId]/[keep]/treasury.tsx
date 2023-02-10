@@ -19,7 +19,7 @@ const TreasuryPage: NextPage = () => {
       }
     >
       {/* Proposal/Signal Tab */}
-      <Tabs.Root className={styles.tabRoot} defaultValue="txs">
+      <Tabs.Root className={styles.tabRoot} defaultValue="tokens">
         <Tabs.List className={styles.tabList} aria-label="Review and Sign Transactions">
           <Box width="full" display="flex" flexDirection={'row'} alignItems="center" justifyContent={'space-between'}>
             <Stack direction={'horizontal'}>

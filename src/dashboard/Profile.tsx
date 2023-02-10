@@ -34,18 +34,27 @@ const Profile = ({ name, avatar, bio, twitter, website, discord, address, chainI
     <Box padding="5" display="flex" flexDirection={'column'} alignItems="center" justifyContent={'center'}>
       <Box>
         <Box display="flex" alignItems={'center'} justifyContent="center" gap="10">
-          <Avatar
-            shape="circle"
-            size={{
-              xs: '16',
-              lg: '32',
-            }}
-            label="brand_pic"
-            src={avatar}
-            address={address}
-          />
+          <Link href={`/${chainId}/${address}/`}>
+            <Avatar
+              shape="circle"
+              size={{
+                xs: '16',
+                lg: '32',
+              }}
+              label="brand_pic"
+              src={avatar}
+              address={address}
+            />
+          </Link>
           <Stack direction={'vertical'}>
-            <Heading level="2">{name}</Heading>
+            <Link
+              href={`/${chainId}/${address}/`}
+              style={{
+                textDecoration: 'none',
+              }}
+            >
+              <Heading level="2">{name}</Heading>
+            </Link>
             <Text
               size={{
                 xs: 'small',

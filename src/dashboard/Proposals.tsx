@@ -31,8 +31,7 @@ const Proposals = () => {
 
   return (
     <Box padding="3" display="flex" flexDirection={'column'} gap="2">
-      {filteredTransactions &&
-        filteredTransactions?.length != 0 &&
+      {filteredTransactions && filteredTransactions?.length != 0 ? (
         filteredTransactions?.map((transaction: any) => (
           <ProposalCard
             key={transaction.txHash}
@@ -46,7 +45,10 @@ const Proposals = () => {
             type={'Transaction'}
             status={transaction.status}
           />
-        ))}
+        ))
+      ) : (
+        <Text>Nothing to see here 😴</Text>
+      )}
     </Box>
   )
 }

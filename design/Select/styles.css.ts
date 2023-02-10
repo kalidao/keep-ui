@@ -13,6 +13,7 @@ export const trigger = style({
   padding: vars.space[4],
   gap: vars.space[2],
 
+  fontFamily: vars.fonts.sans,
   fontSize: vars.fontSizes['base'],
   color: vars.colors.textPrimary,
 
@@ -38,6 +39,7 @@ export const content = style({
   minWidth: '8rem',
   overflow: 'hidden',
   borderRadius: vars.radii['large'],
+  fontFamily: vars.fonts.sans,
   border: `1px solid ${vars.colors.foregroundSecondary}`,
   background: vars.colors.background,
   color: vars.colors.textPrimary,
@@ -53,6 +55,8 @@ export const item = style({
   alignItems: 'center',
   borderRadius: vars.radii.medium,
   padding: vars.space[3],
+
+  fontFamily: vars.fonts.sans,
   fontSize: vars.fontSizes['base'],
   fontWeight: vars.fontWeights['medium'],
   outline: 'none',
@@ -88,12 +92,18 @@ export const label = style({
   paddingBottom: vars.space[1],
   paddingRight: vars.space[2],
   paddingLeft: vars.space[8],
+  fontFamily: vars.fonts.sans,
   fontSize: vars.fontSizes['base'],
   fontWeight: vars.fontWeights['semiBold'],
   color: vars.colors.textPrimary,
 })
 
 export const check = style({
-  height: vars.space[1],
-  width: vars.space[1],
+  height: vars.space[5],
+  width: vars.space[5],
+  marginRight: vars.space[2],
+  backgroundColor: vars.colors.green,
+  color: vars.colors.white,
+  borderRadius: vars.radii['full'],
+  padding: vars.space[1],
 })

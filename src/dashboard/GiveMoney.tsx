@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
 import { Dialog } from '@headlessui/react'
-import { Button, Heading, IconClose, Input, Stack, Text } from '@kalidao/reality'
+import { Button, Heading, IconClose, IconEth, Input, Stack, Text } from '@kalidao/reality'
 import { BigNumber, ethers } from 'ethers'
 import toast, { Toaster } from 'react-hot-toast'
 import { usePrepareSendTransaction, useSendTransaction } from 'wagmi'
@@ -25,8 +25,8 @@ const GiveMoney = () => {
 
   return (
     <>
-      <Button shape="circle" variant="transparent" size="small" onClick={() => setIsOpen(true)}>
-        🧧
+      <Button suffix={<IconEth />} size="small" variant="transparent" onClick={() => setIsOpen(true)}>
+        Fund
       </Button>
       <Dialog open={isOpen} onClose={() => setIsOpen(false)} className={dialog}>
         <Dialog.Panel className={dialogPanel}>

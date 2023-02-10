@@ -11,10 +11,13 @@ const Treasury = () => {
   return (
     <Box padding="6" display="flex" justifyContent={'space-between'} flexDirection="column" minHeight={'viewHeight'}>
       <Stack direction={'horizontal'} wrap>
-        {collectibles &&
-          collectibles?.slice(0, 5).map((collectible: Collectible) => {
+        {collectibles && collectibles.length > 0 ? (
+          collectibles?.map((collectible: Collectible) => {
             return <NFT key={collectible.contract_address} collectible={collectible} />
-          })}
+          })
+        ) : (
+          <Text>Nothing to see here 😴</Text>
+        )}
       </Stack>
       <Text color="foregroundSecondary">Synced {prettyDate(synced)}</Text>
     </Box>

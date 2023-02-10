@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
@@ -26,7 +27,7 @@ const parsePendingTransactions = (keeps: any) => {
       }
     })
   })
-
+  console.log('pendingTransactions', pendingTransactions)
   return pendingTransactions
 }
 
@@ -64,7 +65,7 @@ const Dashboard: NextPage = () => {
   const pendingTransactions = parsePendingTransactions(keeps)
   const signals = parseSignals(keeps)
 
-  console.log('pendingTransactions', keeps)
+  console.log('signals', pendingTransactions)
 
   if (!user) {
     router.push('/login')
@@ -84,22 +85,26 @@ const Dashboard: NextPage = () => {
         <Tabs.Content className="TabsContent" value="txs">
           <Box padding="3" display="flex" flexDirection={'column'} gap="3">
             {pendingTransactions ? (
-              pendingTransactions.map((tx: any) => {
-                return (
-                  <ProposalCard
-                    key={tx.txHash}
-                    txHash={tx.txHash}
-                    chainId={tx.keepChainId}
-                    keep={tx.keepAddress}
-                    proposer={tx.authorAddress}
-                    title={tx.title}
-                    description={tx.content}
-                    timestamp={tx.createdAt}
-                    type={'Transaction'}
-                    status={tx.status}
-                  />
-                )
-              })
+              pendingTransactions.length === 0 ? (
+                <Text>No pending transactions.</Text>
+              ) : (
+                pendingTransactions.map((tx: any) => {
+                  return (
+                    <ProposalCard
+                      key={tx.txHash}
+                      txHash={tx.txHash}
+                      chainId={tx.keepChainId}
+                      keep={tx.keepAddress}
+                      proposer={tx.authorAddress}
+                      title={tx.title}
+                      description={tx.content}
+                      timestamp={tx.createdAt}
+                      type={'Transaction'}
+                      status={tx.status}
+                    />
+                  )
+                })
+              )
             ) : (
               <Spinner />
             )}

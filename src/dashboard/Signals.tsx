@@ -26,21 +26,23 @@ const Signals = () => {
 
   return (
     <Box padding="3" display="flex" flexDirection={'column'} gap="2">
-      {signals &&
-        signals?.length != 0 &&
+      {signals && signals?.length != 0 ? (
         signals?.map((signal: any) => (
           <SignalCard
             key={signal.id}
             id={signal.id}
             chainId={signal.keepChainId}
             keep={signal.keepAddress}
-            proposer={signal.authorAddress}
+            proposer={signal.userId}
             title={signal.title}
             description={signal.content}
             timestamp={signal.createdAt}
             type={'Signal'}
           />
-        ))}
+        ))
+      ) : (
+        <Text>Nothing to see here 😴</Text>
+      )}
     </Box>
   )
 }

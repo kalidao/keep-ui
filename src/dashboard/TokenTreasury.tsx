@@ -68,8 +68,8 @@ const Treasury = () => {
           </Box>
         )}
         <Box display="flex" flexDirection={'column'} gap="3">
-          {_tokens &&
-            _tokens?.slice(0, 5).map((token: any) => {
+          {_tokens && _tokens.length > 0 ? (
+            _tokens?.map((token: any) => {
               return (
                 <Box
                   key={token.contract_address}
@@ -91,7 +91,10 @@ const Treasury = () => {
                   </Stack>
                 </Box>
               )
-            })}
+            })
+          ) : (
+            <Text>Nothing to see here 😴</Text>
+          )}
         </Box>
       </Stack>
       <Text color="foregroundSecondary">Synced {prettyDate(synced)}</Text>
