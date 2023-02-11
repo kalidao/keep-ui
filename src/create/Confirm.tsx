@@ -22,7 +22,7 @@ export const Confirm = () => {
     chainId: chain ? chain.id : 137,
     args: [ethers.utils.formatBytes32String(state.name) as `0x${string}`],
     onSuccess: (data) => {
-      state.setAddress(data)
+      state.setAddress(data as `0x${string}`)
     },
   })
   // write
@@ -95,7 +95,7 @@ export const Confirm = () => {
               address: state.address,
               chain: chain?.id,
               blocknumber: 0,
-              name: ethers.utils.formatBytes32String(state.name),
+              name: state.name,
               signers: signers,
               threshold: state.threshold,
               avatar: img ? img : '',

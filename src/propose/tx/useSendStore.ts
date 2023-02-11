@@ -15,7 +15,7 @@ export type SendStore = {
   author: string
   setAuthor: (author: string) => void
 
-  view?: 'send_token' | 'send_nft' | 'builder' | 'manage_signers'
+  view?: 'send_token' | 'send_nft' | 'builder' | 'manage_signers' | 'nft_generator'
   setView: (view: SendStore['view']) => void
   op: number
   setOp: (op: number) => void

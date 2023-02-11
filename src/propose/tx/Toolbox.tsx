@@ -3,7 +3,14 @@ import React from 'react'
 import { useRouter } from 'next/router'
 
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
-import { IconBookOpenSolid, IconDocumentsSolid, IconNFT, IconTokens, IconUserGroupSolid } from '@kalidao/reality'
+import {
+  IconBookOpenSolid,
+  IconDocumentsSolid,
+  IconNFT,
+  IconPlus,
+  IconTokens,
+  IconUserGroupSolid,
+} from '@kalidao/reality'
 import * as Toolbar from '@radix-ui/react-toolbar'
 import { useQuery } from '@tanstack/react-query'
 import { ethers } from 'ethers'
@@ -197,6 +204,11 @@ export const Toolbox = () => {
         <Tooltip label="Contract Call">
           <Toolbar.ToggleItem className={styles.ToolbarToggleItem} value="builder" aria-label="Call Builder">
             <IconDocumentsSolid />
+          </Toolbar.ToggleItem>
+        </Tooltip>
+        <Tooltip label="NFT Generator">
+          <Toolbar.ToggleItem className={styles.ToolbarToggleItem} value="nft_generator" aria-label="NFT Generator">
+            <IconPlus />
           </Toolbar.ToggleItem>
         </Tooltip>
       </Toolbar.ToggleGroup>

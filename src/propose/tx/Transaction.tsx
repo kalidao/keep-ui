@@ -7,6 +7,7 @@ import { highBackground } from '@design/blur.css'
 
 import { Builder } from './Builder'
 import { ManageSigners } from './ManageSigners'
+import { NftGenerator } from './NftGenerator'
 import { SendNFT } from './SendNFT'
 import { SendToken } from './SendToken'
 import { Toolbox } from './Toolbox'
@@ -21,6 +22,7 @@ const Transaction = () => {
     send_nft: <SendNFT />,
     builder: <Builder />,
     manage_signers: <ManageSigners />,
+    nft_generator: <NftGenerator />,
   }
 
   return (

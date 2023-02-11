@@ -186,7 +186,7 @@ const Tx: NextPage = (props: any) => {
                   justify={'center'}
                 >
                   <PrettyDate timestamp={data?.createdAt} />
-                  <Author author={data ? data?.authorAddress : ''} />
+                  <Author author={data ? data?.userId : ''} />
                 </Stack>
               </Stack>
               <Text>{data?.content}</Text>
