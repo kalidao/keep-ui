@@ -23,8 +23,6 @@ const ViewTx = () => {
     return json
   })
 
-  console.log('decoded tx', data, keep.chainId, tx.data, tx.value, tx.to)
-
   return (
     <RadixCollapsible.Root className={styles.viewTxRoot} open={open} onOpenChange={setOpen}>
       <Box display="flex" flexDirection={'column'} gap="3">

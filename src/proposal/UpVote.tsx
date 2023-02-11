@@ -14,8 +14,14 @@ const UpVote = () => {
   const tx = useTxStore((state) => state)
 
   const upvote = async () => {
-    if (!keep.address || !keep.chainId || !tx.txHash || !tx.op || !tx.to || !tx.value || !tx.data || !tx.nonce) {
+    console.log('upvote', keep.address, keep.chainId, tx.txHash, tx.op, tx.to, tx.value, tx.data)
+    if (!keep.address || !keep.chainId || !tx.txHash || !tx.op || !tx.to || !tx.value || !tx.data) {
       toast('error', 'Something went wrong, please try again later.')
+      return
+    }
+
+    if (!tx.nonce && tx.nonce != 0) {
+      toast('error', 'Invalid nonce.')
       return
     }
 
