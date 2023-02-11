@@ -1,50 +1,47 @@
-import { Avatar, Box, Button, Card, Heading, IconArrowRight, Stack, Stat, Tag, Text } from '@kalidao/reality'
+import { Avatar, Box, Spinner, Stack, Text } from '@kalidao/reality'
+import { useNFTsByOwner } from 'ankr-react'
 import { useQuery } from 'wagmi'
 import { fetcher, prettyDate } from '~/utils'
+import { getBlockchainByChainId } from '~/utils/ankr'
 
 import { Collectible, useKeepStore } from './useKeepStore'
 
 const Treasury = () => {
-  const collectibles = useKeepStore((state) => state.collectibles)
-  const synced = useKeepStore((state) => state.treasuryUpdatedAt)
+  const keep = useKeepStore((state) => state)
+  const { data, error, isLoading } = useNFTsByOwner({
+    walletAddress: keep.address ? keep.address : '',
+    blockchain: keep.chainId ? getBlockchainByChainId(keep.chainId) : 'polygon',
+  })
+
+  console.log('getNFTsByOwner', data, error, isLoading)
 
   return (
     <Box padding="6" display="flex" justifyContent={'space-between'} flexDirection="column" minHeight={'viewHeight'}>
       <Stack direction={'horizontal'} wrap>
-        {collectibles && collectibles.length > 0 ? (
-          collectibles?.map((collectible: Collectible) => {
-            return <NFT key={collectible.contract_address} collectible={collectible} />
-          })
-        ) : (
-          <Text>Nothing to see here 😴</Text>
-        )}
+        {/* @ts-ignore */}
+        {isLoading ? <Spinner /> : error ? <Text>{error?.message}</Text> : null}
+
+        {data
+          ? data?.assets?.map((collectible) => {
+              return (
+                <NFT
+                  key={collectible.contractAddress}
+                  image={collectible.imageUrl}
+                  collection_name={collectible.collectionName}
+                />
+              )
+            })
+          : null}
       </Stack>
-      <Text color="foregroundSecondary">Synced {prettyDate(synced)}</Text>
     </Box>
   )
 }
 
-const NFT = ({ collectible }: { collectible: Collectible }) => {
-  const chainId = useKeepStore((state) => state.chainId)
-  const { data } = useQuery(['collectible', collectible], async () =>
-    fetcher(
-      `https://api.covalenthq.com/v1/${chainId}/tokens/${collectible.contract_address}/nft_metadata/${collectible.nft_data[0].token_id}/?quote-currency=USD&format=JSON&key=${process.env.NEXT_PUBLIC_COVALENT_API_KEY}`,
-    ),
-  )
-
-  const metadata = data?.data?.items[0]?.nft_data?.token_url
-
-  console.log('metadata', data?.data?.items[0]?.nft_data?.[0]?.external_data?.image)
-
+const NFT = ({ image, collection_name }: { image: string; collection_name: string }) => {
   return (
     <Stack align="center">
-      <Avatar
-        src={data?.data?.items[0]?.nft_data?.[0]?.external_data?.image}
-        label={collectible.contract_name}
-        shape="square"
-        size="40"
-      />
-      <Text>{collectible.contract_name.slice(0, 20)}</Text>
+      <Avatar src={image} label={collection_name} shape="square" size="40" />
+      <Text>{collection_name.slice(0, 20)}</Text>
     </Stack>
   )
 }

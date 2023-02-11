@@ -33,6 +33,7 @@
     "@vanilla-extract/css": "^1.9.3",
     "@vercel/og": "^0.0.27",
     "@xmtp/xmtp-js": "^7.7.4",
+    "ankr-react": "^0.3.0",
     "axios": "^1.2.3",
     "colorthief": "^2.3.2",
     "dayjs": "^1.11.7",

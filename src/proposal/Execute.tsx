@@ -7,6 +7,8 @@ import { useKeepStore } from '~/dashboard/useKeepStore'
 import { useTxStore } from '~/dashboard/useTxStore'
 import { toOp } from '~/utils/toOp'
 
+import toast from '@design/Toast'
+
 type Sign = {
   user: `0xstring`
   v: number
@@ -41,7 +43,15 @@ const Execute = () => {
       yesSigs as unknown as Sign[],
     ],
   })
-  const { write: sayYes } = useContractWrite(configYes)
+  const { write: sayYes } = useContractWrite({
+    ...configYes,
+    onSuccess: () => {
+      toast('success', 'Transaction executed!')
+    },
+    onError: (error: any) => {
+      toast('error', error.message)
+    },
+  })
 
   const { config: configNo } = usePrepareContractWrite({
     address: keep.address ? keep.address : ethers.constants.AddressZero,
@@ -60,7 +70,14 @@ const Execute = () => {
 
   if (tx?.status === 'process_yes') {
     return (
-      <Button disabled={!sayYes} tone="green" onClick={() => sayYes?.()}>
+      <Button
+        disabled={!sayYes}
+        tone="green"
+        onClick={async () => {
+          await sayYes?.()
+          toast('success', 'Transaction submitted on-chain!')
+        }}
+      >
         Execute
       </Button>
     )
@@ -68,7 +85,14 @@ const Execute = () => {
 
   if (tx?.status === 'process_no') {
     return (
-      <Button disabled={!sayNo} tone="red" onClick={() => sayNo?.()}>
+      <Button
+        disabled={!sayNo}
+        tone="red"
+        onClick={async () => {
+          await sayNo?.()
+          toast('success', 'Transaction submitted!')
+        }}
+      >
         Cancel
       </Button>
     )
@@ -77,10 +101,24 @@ const Execute = () => {
   if (tx?.status === 'process') {
     return (
       <Stack direction="horizontal" align="center" justify={'flex-start'}>
-        <Button disabled={!sayYes} tone="green" onClick={() => sayYes?.()}>
+        <Button
+          disabled={!sayYes}
+          tone="green"
+          onClick={async () => {
+            await sayYes?.()
+            toast('success', 'Transaction submitted!')
+          }}
+        >
           Execute
         </Button>
-        <Button disabled={!sayNo} tone="red" onClick={() => sayNo?.()}>
+        <Button
+          disabled={!sayNo}
+          tone="red"
+          onClick={async () => {
+            await sayNo?.()
+            toast('success', 'Transaction submitted!')
+          }}
+        >
           Cancel
         </Button>
       </Stack>
