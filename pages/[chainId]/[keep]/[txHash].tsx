@@ -18,6 +18,7 @@ import Execute from '~/proposal/Execute'
 import Quorum from '~/proposal/Quorum'
 import Vote from '~/proposal/Vote'
 import { toOp } from '~/utils/toOp'
+import { CopyURL } from '~/components/CopyURL'
 
 type Sign = {
   user: `0xstring`
@@ -132,6 +133,9 @@ const Tx: NextPage = (props: any) => {
       sidebar={
         <Stack>
           <Quorum />
+          <Stack>
+            <CopyURL />
+          </Stack>
         </Stack>
       }
     >

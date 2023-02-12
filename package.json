@@ -50,6 +50,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.42.1",
     "react-hot-toast": "^2.4.0",
+    "react-share": "^4.4.1",
     "react-step-progress-bar": "^1.0.3",
     "react-wrap-balancer": "^0.4.0",
     "wagmi": "^0.10.14",
