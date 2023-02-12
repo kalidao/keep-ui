@@ -112,24 +112,26 @@ const Dashboard: NextPage = () => {
         </Tabs.Content>
         <Tabs.Content className="TabsContent" value="signals">
           <Box padding={'3'} display="flex" flexDirection={'column'} gap="3">
-            {signals ? ( signals.length === 0 ? <Text>
-                No signals yet 😴
-            </Text> :
-              signals.map((signal: any) => {
-                return (
-                  <SignalCard
-                    key={signal.id}
-                    id={signal.id}
-                    chainId={signal.keepChainId}
-                    keep={signal.keepAddress}
-                    proposer={signal.authorAddress}
-                    title={signal.title}
-                    description={signal.content}
-                    timestamp={signal.createdAt}
-                    type={'Signal'}
-                  />
-                )
-              })
+            {signals ? (
+              signals.length === 0 ? (
+                <Text>No signals yet 😴</Text>
+              ) : (
+                signals.map((signal: any) => {
+                  return (
+                    <SignalCard
+                      key={signal.id}
+                      id={signal.id}
+                      chainId={signal.keepChainId}
+                      keep={signal.keepAddress}
+                      proposer={signal.authorAddress}
+                      title={signal.title}
+                      description={signal.content}
+                      timestamp={signal.createdAt}
+                      type={'Signal'}
+                    />
+                  )
+                })
+              )
             ) : (
               <Spinner />
             )}

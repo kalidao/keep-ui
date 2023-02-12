@@ -43,7 +43,7 @@ const Home: NextPage = () => {
       </Box>
       <Box className={styles.container}>
         <Box className={styles.hero}>
-          <Stack align={'flex-start'} justify="stretch">
+          <Stack align={'flex-start'}  justify="stretch">
             <Link href="https://github.com/kalidao/keep" className={styles.pill}>
               Learn more about Keep on our{' '}
               <span

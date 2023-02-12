@@ -9,42 +9,21 @@ import { getExplorerLink } from '~/utils/getExplorerLink'
 
 import * as styles from './treasury.css'
 import { useKeepStore } from './useKeepStore'
+import { useAccountBalance } from 'ankr-react'
+import { getChainName } from '@dynamic-labs/sdk-react'
+import { getBlockchainByChainId } from '~/utils/ankr'
 
 const Treasury = () => {
   const keep = useKeepStore()
+  const { data } = useAccountBalance({
+    blockchain: keep.chainId ? getBlockchainByChainId(keep.chainId) : 'polygon',
+    walletAddress: keep.address ? keep.address : ethers.constants.AddressZero,
+  })
 
-  const tokens = keep.tokens
-  const synced = keep.treasuryUpdatedAt
+  const tokens = data ? data.assets : null
 
-  console.log('tokens', keep, tokens, synced)
+  const totalValueLocked =  data ? parseFloat(data?.totalBalanceUsd).toFixed(2) : 0
 
-  const totalValueLocked = useMemo(() => {
-    if (!tokens) {
-      return 0
-    }
-    return tokens
-      .reduce((acc: number, item: any) => {
-        const price = item?.quote_rate ?? 0
-        return acc + parseFloat(ethers.utils.formatUnits(item?.balance, item?.contract_decimals)) * price
-      }, 0)
-      .toFixed(2)
-  }, [tokens])
-
-  // order tokens by value
-  const _tokens =
-    tokens &&
-    tokens
-      .filter((token: any) => {
-        return parseFloat(ethers.utils.formatUnits(token.balance, token.contract_decimals)) > 0
-      })
-      .sort((a: any, b: any) => {
-        const aVal = parseFloat(ethers.utils.formatUnits(a.balance, a.contract_decimals)) * a?.quote_rate
-        const bVal = parseFloat(ethers.utils.formatUnits(b.balance, b.contract_decimals)) * b?.quote_rate
-        return bVal - aVal
-      })
-  console.log('tokens', tokens, totalValueLocked, _tokens)
-
-  // const _nfts = nfts ? nfts?.length : 0
 
   return (
     <Box
@@ -68,36 +47,35 @@ const Treasury = () => {
           </Box>
         )}
         <Box display="flex" flexDirection={'column'} gap="3">
-          {_tokens && _tokens.length > 0 ? (
-            _tokens?.map((token: any) => {
+          {tokens ? tokens.map((token) => {
               return (
                 <Box
-                  key={token.contract_address}
+                  key={token.contractAddress}
                   padding="3"
                   as="a"
-                  href={getExplorerLink(token.contract_address, 'address', keep.chainId ?? 1)}
+                  href={token?.contractAddress ? getExplorerLink(token.contractAddress, 'address', keep.chainId ?? 1) : ''}
                   target="_blank"
                   className={styles.tokenLinkCard}
                 >
                   <Stack direction={'horizontal'} justify={'space-between'} space="3">
                     <Stack direction={'horizontal'}>
-                      <img src={token.logo_url} alt={token.name} width="20" height="20" />
-                      <Text>{token.contract_name}</Text>
+                      <img src={token.thumbnail} alt={token.tokenName} width="20" height="20" />
+                      <Text>{token.tokenName}</Text>
                     </Stack>
                     <Text weight="semiBold">
-                      {parseFloat(ethers.utils.formatUnits(token.balance, token.contract_decimals)).toFixed(1)}{' '}
-                      {token.contract_ticker_symbol}
+                      {parseFloat(ethers.utils.formatUnits(token.balanceRawInteger, token.tokenDecimals)).toFixed(1)}{' '}
+                      {token.tokenSymbol}
                     </Text>
                   </Stack>
                 </Box>
               )
             })
-          ) : (
+           : (
             <Text>Nothing to see here 😴</Text>
           )}
         </Box>
       </Stack>
-      <Text color="foregroundSecondary">Synced {prettyDate(synced)}</Text>
+      
     </Box>
   )
 }

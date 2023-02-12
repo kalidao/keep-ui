@@ -5,7 +5,7 @@ import * as Tabs from '@radix-ui/react-tabs'
 import { NftTreasury, Signers, TokenTreasury, Treasury } from '~/dashboard'
 import * as styles from '~/dashboard/styles.css'
 import Layout from '~/layout/DashboardLayout'
-
+import GiveMoney from '~/dashboard/GiveMoney'
 const TreasuryPage: NextPage = () => {
   return (
     <Layout
@@ -30,6 +30,7 @@ const TreasuryPage: NextPage = () => {
                 NFTs
               </Tabs.Trigger>
             </Stack>
+            <GiveMoney />
           </Box>
         </Tabs.List>
         <Tabs.Content className="TabsContent" value="tokens">
