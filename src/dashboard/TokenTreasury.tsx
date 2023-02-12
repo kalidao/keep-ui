@@ -1,17 +1,17 @@
 import { useMemo } from 'react'
 
+import { getChainName } from '@dynamic-labs/sdk-react'
 import { Box, Stack, Text } from '@kalidao/reality'
 import { useQuery } from '@tanstack/react-query'
+import { useAccountBalance } from 'ankr-react'
 import { ethers } from 'ethers'
 import { prettyDate } from '~/utils'
 import { fetcher } from '~/utils'
+import { getBlockchainByChainId } from '~/utils/ankr'
 import { getExplorerLink } from '~/utils/getExplorerLink'
 
 import * as styles from './treasury.css'
 import { useKeepStore } from './useKeepStore'
-import { useAccountBalance } from 'ankr-react'
-import { getChainName } from '@dynamic-labs/sdk-react'
-import { getBlockchainByChainId } from '~/utils/ankr'
 
 const Treasury = () => {
   const keep = useKeepStore()
@@ -22,8 +22,7 @@ const Treasury = () => {
 
   const tokens = data ? data.assets : null
 
-  const totalValueLocked =  data ? parseFloat(data?.totalBalanceUsd).toFixed(2) : 0
-
+  const totalValueLocked = data ? parseFloat(data?.totalBalanceUsd).toFixed(2) : 0
 
   return (
     <Box
@@ -47,13 +46,16 @@ const Treasury = () => {
           </Box>
         )}
         <Box display="flex" flexDirection={'column'} gap="3">
-          {tokens ? tokens.map((token) => {
+          {tokens ? (
+            tokens.map((token) => {
               return (
                 <Box
                   key={token.contractAddress}
                   padding="3"
                   as="a"
-                  href={token?.contractAddress ? getExplorerLink(token.contractAddress, 'address', keep.chainId ?? 1) : ''}
+                  href={
+                    token?.contractAddress ? getExplorerLink(token.contractAddress, 'address', keep.chainId ?? 1) : ''
+                  }
                   target="_blank"
                   className={styles.tokenLinkCard}
                 >
@@ -70,12 +72,11 @@ const Treasury = () => {
                 </Box>
               )
             })
-           : (
+          ) : (
             <Text>Nothing to see here 😴</Text>
           )}
         </Box>
       </Stack>
-      
     </Box>
   )
 }

@@ -3,9 +3,10 @@ import type { NextPage } from 'next'
 import { Box, Stack } from '@kalidao/reality'
 import * as Tabs from '@radix-ui/react-tabs'
 import { NftTreasury, Signers, TokenTreasury, Treasury } from '~/dashboard'
+import GiveMoney from '~/dashboard/GiveMoney'
 import * as styles from '~/dashboard/styles.css'
 import Layout from '~/layout/DashboardLayout'
-import GiveMoney from '~/dashboard/GiveMoney'
+
 const TreasuryPage: NextPage = () => {
   return (
     <Layout

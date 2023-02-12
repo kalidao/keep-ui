@@ -42,7 +42,6 @@ export const dialogPanel = style({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  
 
   border: `1px solid ${vars.colors.foregroundSecondary}`,
 })

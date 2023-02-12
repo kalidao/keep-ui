@@ -63,7 +63,6 @@ const Profile = ({ name, avatar, bio, twitter, website, discord, address, chainI
             >
               {bio}
             </Text>
-           
           </Stack>
         </Box>
         <Stack direction={'horizontal'} align="center" justify={'center'}>
