@@ -18,6 +18,7 @@ import Execute from '~/proposal/Execute'
 import Quorum from '~/proposal/Quorum'
 import Vote from '~/proposal/Vote'
 import { toOp } from '~/utils/toOp'
+
 import { CopyURL } from '~/components/CopyURL'
 
 type Sign = {
