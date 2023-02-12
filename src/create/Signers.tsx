@@ -64,7 +64,7 @@ export const Signers = () => {
   const onSubmit = async (data: CreateStore) => {
     let { signers, threshold } = data
     console.log('signers', signers)
-    
+
     state.setSigners(signers)
     state.setThreshold(threshold)
 
@@ -142,7 +142,6 @@ export const Signers = () => {
                         <IconClose />
                       </Button>
                     </Box>
-                   
                   </Box>
                 )
               })}
