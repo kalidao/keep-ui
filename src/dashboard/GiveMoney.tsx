@@ -17,7 +17,7 @@ const GiveMoney = () => {
   const [amount, setAmount] = useState('0')
   const keep = useKeepStore((state) => state)
   const { config, error } = usePrepareSendTransaction({
-    request: { to: keep.address ? keep.address : ethers.constants.AddressZero, value: ethers.utils.parseEther(amount) },
+    request: { to: keep.address ? keep.address : ethers.constants.AddressZero, value: amount ? ethers.utils.parseEther(amount) : BigNumber.from(0) },
     chainId: keep.chainId,
     enabled: !!keep.address,
   })
@@ -40,7 +40,11 @@ const GiveMoney = () => {
               type="number"
               labelSecondary="ETH"
               value={amount}
-              onChange={(e) => setAmount(e.target.value)}
+              onChange={(e) => {
+              
+                  setAmount(e.target.value)
+               
+              }}
             />
           </Dialog.Description>
           <Stack direction={'horizontal'} align="center" justify="center">

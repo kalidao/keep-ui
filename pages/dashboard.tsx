@@ -86,7 +86,7 @@ const Dashboard: NextPage = () => {
           <Box padding="3" display="flex" flexDirection={'column'} gap="3">
             {pendingTransactions ? (
               pendingTransactions.length === 0 ? (
-                <Text>No pending transactions.</Text>
+                <Text>No pending transactions 😴</Text>
               ) : (
                 pendingTransactions.map((tx: any) => {
                   return (
@@ -112,7 +112,9 @@ const Dashboard: NextPage = () => {
         </Tabs.Content>
         <Tabs.Content className="TabsContent" value="signals">
           <Box padding={'3'} display="flex" flexDirection={'column'} gap="3">
-            {signals ? (
+            {signals ? ( signals.length === 0 ? <Text>
+                No signals yet 😴
+            </Text> :
               signals.map((signal: any) => {
                 return (
                   <SignalCard
