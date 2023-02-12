@@ -38,7 +38,7 @@ const Proposals = () => {
             txHash={transaction.txHash}
             chainId={transaction.keepChainId}
             keep={transaction.keepAddress}
-            proposer={transaction.authorAddress}
+            proposer={transaction.userId}
             title={transaction.title}
             description={transaction.content}
             timestamp={transaction.createdAt}

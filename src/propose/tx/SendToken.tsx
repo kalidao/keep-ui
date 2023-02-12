@@ -130,7 +130,7 @@ export const SendToken = () => {
     // multiexecute
 
     const iface = new ethers.utils.Interface(KEEP_ABI)
-    const executedata = iface.encodeFunctionData('multiexecute', [calls])
+    const executedata = iface.encodeFunctionData('multirelay', [calls])
 
     tx.setOp(0)
     tx.setTo(keep as `0xstring`)

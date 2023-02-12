@@ -24,8 +24,8 @@ import { CreateStore, useCreateStore } from './useCreateStore'
 const schema = z.object({
   signers: z.array(
     z.object({
-      // check if address is a valid ethereum address or ends with '.eth'
       address: z.string(),
+      ens: z.string().optional(),
     }),
   ),
   threshold: z.coerce.number().min(1, { message: 'Threshold must be greater than 0' }),
@@ -64,25 +64,7 @@ export const Signers = () => {
   const onSubmit = async (data: CreateStore) => {
     let { signers, threshold } = data
     console.log('signers', signers)
-
-    for (let i = 0; i < signers.length; i++) {
-      const signer = signers[i]
-      if (signer.address.endsWith('.eth')) {
-        const ensAddress = await getEnsAddress(signer.address)
-        if (ensAddress) {
-          signers[i].address = ensAddress
-          signers[i].ens = signer.address
-        } else {
-          setError(`signers.${i}.address`, {
-            type: 'ens',
-            message: 'Invalid ENS address',
-          })
-          return
-        }
-      }
-    }
-
-    console.log('signers', signers)
+    
     state.setSigners(signers)
     state.setThreshold(threshold)
 
@@ -133,7 +115,7 @@ export const Signers = () => {
                         placeholder="0x"
                         {...(register(`signers.${index}.address` as const),
                         {
-                          onBlur: async (e) => {
+                          onChange: async (e) => {
                             const value = e.target.value.trim()
                             if (value.endsWith('.eth')) {
                               const ensAddress = await getEnsAddress(value)
@@ -160,6 +142,7 @@ export const Signers = () => {
                         <IconClose />
                       </Button>
                     </Box>
+                   
                   </Box>
                 )
               })}

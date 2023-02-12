@@ -47,6 +47,6 @@ export const createManageSignersPayload = (
   }
 
   // multiexecute encoding
-  const data = iface.encodeFunctionData('multiexecute', [calls])
+  const data = iface.encodeFunctionData('multirelay', [calls])
   return data as `0xstring`
 }
