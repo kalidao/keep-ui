@@ -4,12 +4,9 @@ import type { GetServerSideProps, NextPage } from 'next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import { Box, Button, Card, Heading, IconArrowLeft, Stack, Text } from '@kalidao/reality'
+import { Box, Button, Heading, IconArrowLeft, Stack, Text } from '@kalidao/reality'
 import { useQuery } from '@tanstack/react-query'
-import { ethers } from 'ethers'
-import { useContractWrite, usePrepareContractWrite } from 'wagmi'
 import { Author, PrettyDate } from '~/components'
-import { KEEP_ABI } from '~/constants'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 import { useTxStore } from '~/dashboard/useTxStore'
 import Layout from '~/layout/DashboardLayout'
@@ -17,14 +14,8 @@ import { ViewTx } from '~/proposal'
 import Execute from '~/proposal/Execute'
 import Quorum from '~/proposal/Quorum'
 import Vote from '~/proposal/Vote'
-import { toOp } from '~/utils/toOp'
 
-type Sign = {
-  user: `0xstring`
-  v: number
-  r: `0xstring`
-  s: `0xstring`
-}
+import { CopyURL } from '~/components/CopyURL'
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const chainId = params?.chainId as string
@@ -112,19 +103,6 @@ const Tx: NextPage = (props: any) => {
     }
   }, [txHash, tx])
 
-  const op = toOp(data?.op) ?? 0
-  const sigs = data?.sigs
-    ?.map((sig: any) => (sig = [sig.signer, sig.v, sig.r, sig.s]))
-    .sort((a: any[], b: any[]) => +a[0] - +b[0]) as Sign[] // TODO: Add typing
-  const { config } = usePrepareContractWrite({
-    address: keep.address ? keep.address : ethers.constants.AddressZero,
-    abi: KEEP_ABI,
-    chainId: keep.chainId,
-    functionName: 'execute',
-    args: [op, data?.to, data ? ethers.BigNumber.from(data?.value) : ethers.BigNumber.from(0), data?.data, sigs],
-  })
-  const { write } = useContractWrite(config)
-
   return (
     <Layout
       title={'Dashboard'}
@@ -132,6 +110,9 @@ const Tx: NextPage = (props: any) => {
       sidebar={
         <Stack>
           <Quorum />
+          <Stack>
+            <CopyURL />
+          </Stack>
         </Stack>
       }
     >
@@ -186,7 +167,7 @@ const Tx: NextPage = (props: any) => {
                   justify={'center'}
                 >
                   <PrettyDate timestamp={data?.createdAt} />
-                  <Author author={data ? data?.authorAddress : ''} />
+                  <Author author={data ? data?.userId : ''} />
                 </Stack>
               </Stack>
               <Text>{data?.content}</Text>

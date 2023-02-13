@@ -6,7 +6,7 @@ import { useDynamicContext } from '@dynamic-labs/sdk-react'
 import { Avatar, Box, Card, Divider, Heading, Skeleton, Spinner, Stack, Text } from '@kalidao/reality'
 import * as Tabs from '@radix-ui/react-tabs'
 import { useQuery } from '@tanstack/react-query'
-import { ProposalCard } from '~/dashboard/Proposals'
+import { TxCard } from '~/dashboard/Proposals'
 import { SignalCard } from '~/dashboard/Signals'
 import * as styles from '~/dashboard/styles.css'
 import Layout from '~/layout'
@@ -90,7 +90,7 @@ const Dashboard: NextPage = () => {
               ) : (
                 pendingTransactions.map((tx: any) => {
                   return (
-                    <ProposalCard
+                    <TxCard
                       key={tx.txHash}
                       txHash={tx.txHash}
                       chainId={tx.keepChainId}
@@ -99,7 +99,6 @@ const Dashboard: NextPage = () => {
                       title={tx.title}
                       description={tx.content}
                       timestamp={tx.createdAt}
-                      type={'Transaction'}
                       status={tx.status}
                     />
                   )

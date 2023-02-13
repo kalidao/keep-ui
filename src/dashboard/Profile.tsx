@@ -58,28 +58,29 @@ const Profile = ({ name, avatar, bio, twitter, website, discord, address, chainI
             <Text
               size={{
                 xs: 'small',
-                lg: 'large',
+                lg: 'base',
               }}
+              font="mono"
             >
-              {bio}
+              <i>{bio}</i>
             </Text>
           </Stack>
         </Box>
         <Stack direction={'horizontal'} align="center" justify={'center'}>
           {twitter && (
             <Link href={twitter} className={styles.socialIcon}>
-              <IconTwitter color="foreground" />
+              <IconTwitter strokeWidth="0.5" color="foreground" size="4" />
             </Link>
           )}
 
           {discord && (
             <Link href={discord} className={styles.socialIcon}>
-              <IconDiscord color="foreground" />
+              <IconDiscord strokeWidth="0.5" color="foreground" size="4" />
             </Link>
           )}
           {website && (
             <Link href={website} className={styles.socialIcon}>
-              <IconLink color="foreground" />
+              <IconLink strokeWidth="0.5" color="foreground" size="4" />
             </Link>
           )}
         </Stack>
