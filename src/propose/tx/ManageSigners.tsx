@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Box, Button, Divider, Input, Stack, Text } from '@kalidao/reality'
+import { Box, IconClose, Button, Divider, Input, Stack, Text } from '@kalidao/reality'
 import { ethers } from 'ethers'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 
@@ -21,8 +21,7 @@ export const ManageSigners = () => {
 
   return (
     <Stack>
-      <Text>Current Signers: {keep.signers.length}</Text>
-      <Divider />
+     
       <Stack direction={'vertical'} align="stretch">
         {manage_signers.signers.map((signer, i) => {
           if (i + 1 === manage_signers.signers.length) return null
@@ -30,12 +29,15 @@ export const ManageSigners = () => {
             <Stack key={i} direction={'horizontal'} align="center" justify="space-between">
               <User address={signer} size="lg" />
               <Button
-                variant="tertiary"
+                variant="secondary"
+                tone="red"
+                shape="square"
+                size="small"
                 onClick={() => {
                   setManageSigners({ ...manage_signers, signers: manage_signers.signers.filter((_, j) => j !== i) })
                 }}
               >
-                Remove
+                <IconClose />
               </Button>
             </Stack>
           )
@@ -68,12 +70,15 @@ export const ManageSigners = () => {
         </Button>
       </Stack>
       <Divider />
-      <Text>Threshold: {keep.threshold}</Text>
+      
       <Input
-        label="Update Quorum"
+        
+        label="Update Threshold"
+        labelSecondary={`Current: ${keep.threshold}/${keep.signers.length}`}
         value={manage_signers.threshold}
         type="number"
         min={'1'}
+      
         onChange={(e) => {
           if (parseInt(e.currentTarget.value) > manage_signers.signers.length) {
             toast(

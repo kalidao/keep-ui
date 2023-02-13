@@ -27,8 +27,8 @@ const schema = z.object({
     .string()
     .trim()
     .min(1, { message: 'A name is required' })
-    .max(69, { message: 'Name must be less than 69 characters' }),
-  bio: z.string().max(420, { message: 'Bio must be less than 420 characters' }),
+    .max(50, { message: 'Name must be less than 50 characters' }),
+  bio: z.string().max(160, { message: 'Bio must be less than 160 characters' }),
   // validate twitter
   // they can be empty, but if they are not, they must be valid
   // they are valid if they are a url or a string that starts

@@ -2,14 +2,14 @@ import { vars } from '@kalidao/reality'
 import { style } from '@vanilla-extract/css'
 
 export const socialIcon = style({
-  padding: vars.space[2],
+  padding: vars.space[1],
   borderRadius: vars.radii.full,
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'center',
 
   ':hover': {
-    border: `1px solid ${vars.colors.foreground}`,
+    transform: 'scale(1.1)',
   },
 })
 
