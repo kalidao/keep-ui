@@ -119,6 +119,7 @@ const Signal: NextPage = () => {
                     }}
                     justify={'space-between'}
                   >
+                    <User address={data ? data?.userId : ''} size="sm" />
                     <Heading>{data?.title}</Heading>
                     <Stack
                       direction={{

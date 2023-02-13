@@ -1,12 +1,6 @@
-import { useMemo } from 'react'
-
-import { getChainName } from '@dynamic-labs/sdk-react'
-import { Box, Stack, Text } from '@kalidao/reality'
-import { useQuery } from '@tanstack/react-query'
+import { Avatar, Box, Stack, Text } from '@kalidao/reality'
 import { useAccountBalance } from 'ankr-react'
 import { ethers } from 'ethers'
-import { prettyDate } from '~/utils'
-import { fetcher } from '~/utils'
 import { getBlockchainByChainId } from '~/utils/ankr'
 import { getExplorerLink } from '~/utils/getExplorerLink'
 
@@ -48,6 +42,23 @@ const Treasury = () => {
         <Box display="flex" flexDirection={'column'} gap="3">
           {tokens ? (
             tokens.map((token) => {
+              if (token.tokenType === 'NATIVE') {
+                return (
+                  <Box key={token.contractAddress} className={styles.tokenCard}>
+                    <Stack direction={'horizontal'} justify={'space-between'} space="3">
+                      <Stack direction={'horizontal'}>
+                        <Avatar shape="circle" src={token.thumbnail} label={token.tokenName} size="5" />
+                        <Text>{token.tokenName}</Text>
+                      </Stack>
+                      <Text weight="semiBold">
+                        {parseFloat(ethers.utils.formatUnits(token.balanceRawInteger, token.tokenDecimals)).toFixed(1)}{' '}
+                        {token.tokenSymbol}
+                      </Text>
+                    </Stack>
+                  </Box>
+                )
+              }
+
               return (
                 <Box
                   key={token.contractAddress}
@@ -61,7 +72,7 @@ const Treasury = () => {
                 >
                   <Stack direction={'horizontal'} justify={'space-between'} space="3">
                     <Stack direction={'horizontal'}>
-                      <img src={token.thumbnail} alt={token.tokenName} width="20" height="20" />
+                      <Avatar shape="circle" src={token.thumbnail} label={token.tokenName} size="5" />
                       <Text>{token.tokenName}</Text>
                     </Stack>
                     <Text weight="semiBold">

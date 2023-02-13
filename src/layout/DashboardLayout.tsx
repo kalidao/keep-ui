@@ -118,6 +118,7 @@ const DashboardLayout = ({ title, content, sidebar, children }: Props) => {
       </Box>
       <Box className={styles.container}>
         <Profile
+          summoned={data?.createdAt}
           name={data?.name}
           avatar={data?.avatar}
           address={data?.address}

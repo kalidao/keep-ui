@@ -1,7 +1,8 @@
-import { vars } from '@kalidao/reality'
+import { responsiveStyle, vars } from '@kalidao/reality'
 import { style } from '@vanilla-extract/css'
 
 export const socialIcon = style({
+  all: 'unset',
   padding: vars.space[1],
   borderRadius: vars.radii.full,
   display: 'inline-flex',
@@ -12,6 +13,38 @@ export const socialIcon = style({
     transform: 'scale(1.1)',
   },
 })
+
+export const labelledLink = style({
+  all: 'unset',
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  gap: vars.space[1],
+  color: vars.colors.textSecondary,
+  padding: vars.space[1],
+  paddingLeft: vars.space[2],
+  paddingRight: vars.space[2],
+  borderRadius: vars.radii.full,
+  cursor: 'pointer',
+  transition: 'all 0.1s ease-in-out',
+
+  ':hover': {
+    transform: 'scale(1.05)',
+  },
+})
+
+export const infoBar = style([
+  style({
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  }),
+  style({
+    backgroundColor: vars.colors.backgroundSecondary,
+    padding: vars.space[3],
+  }),
+])
 
 export const signers = style({
   display: 'flex',
@@ -24,9 +57,16 @@ export const signers = style({
   scrollbarWidth: vars.space[1],
 })
 
-export const tabRoot = style({
-  width: '60vw',
-})
+export const tabRoot = style([
+  responsiveStyle({
+    xs: {
+      width: '100vw',
+    },
+    lg: {
+      width: '60vw',
+    },
+  }),
+])
 
 export const tabList = style({
   display: 'flex',

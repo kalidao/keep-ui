@@ -16,6 +16,7 @@ import Quorum from '~/proposal/Quorum'
 import Vote from '~/proposal/Vote'
 
 import { CopyURL } from '~/components/CopyURL'
+import { User } from '~/components/User'
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const chainId = params?.chainId as string
@@ -157,6 +158,7 @@ const Tx: NextPage = (props: any) => {
                 }}
                 justify={'space-between'}
               >
+                <User address={data ? data?.userId : ''} size="sm" />
                 <Heading>{data?.title}</Heading>
                 <Stack
                   direction={{

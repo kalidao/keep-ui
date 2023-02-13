@@ -1,39 +1,29 @@
-import { useMemo } from 'react'
-
 import Link from 'next/link'
 
-import { Box, Button, Card, Heading, IconArrowRight, Stack, Stat, Tag, Text } from '@kalidao/reality'
-import { useQuery } from '@tanstack/react-query'
+import { Avatar, Box, Card, Heading, Stack, Tag, Text } from '@kalidao/reality'
+import { useAccountBalance } from 'ankr-react'
 import { ethers } from 'ethers'
 import { prettyDate } from '~/utils'
-import { fetcher } from '~/utils'
+import { getBlockchainByChainId } from '~/utils/ankr'
 
 import { useKeepStore } from './useKeepStore'
 
 const Treasury = () => {
   const keep = useKeepStore()
+  const { data } = useAccountBalance({
+    blockchain: keep.chainId ? getBlockchainByChainId(keep.chainId) : 'polygon',
+    walletAddress: keep.address ? keep.address : ethers.constants.AddressZero,
+  })
 
-  const tokens = keep.tokens
+  const tokens = data ? data.assets : null
 
-  const totalValueLocked = useMemo(() => {
-    if (!tokens) {
-      return 0
-    }
-    return tokens
-      .reduce((acc: number, item: any) => {
-        const price = item?.quote_rate ?? 0
-        return acc + parseFloat(ethers.utils.formatUnits(item?.balance, item?.contract_decimals)) * price
-      }, 0)
-      .toFixed(2)
-  }, [tokens])
+  const totalValueLocked = data ? parseFloat(data?.totalBalanceUsd).toFixed(2) : 0
 
   // order tokens by value
   const _tokens =
     tokens &&
-    tokens.sort((a: any, b: any) => {
-      const aVal = parseFloat(ethers.utils.formatUnits(a.balance, a.contract_decimals)) * a?.quote_rate
-      const bVal = parseFloat(ethers.utils.formatUnits(b.balance, b.contract_decimals)) * b?.quote_rate
-      return bVal - aVal
+    tokens.sort((a, b) => {
+      return parseFloat(b.balanceUsd) - parseFloat(a.balanceUsd)
     })
   console.log('tokens', tokens, totalValueLocked, _tokens)
 
@@ -58,17 +48,15 @@ const Treasury = () => {
           </Stack>
           <Box display="flex" flexDirection={'column'} gap="3">
             {_tokens &&
-              _tokens?.slice(0, 5).map((token: any) => {
+              _tokens?.slice(0, 5).map((token) => {
                 return (
-                  <Stack key={token.contract_address} space="3">
+                  <Stack key={token.contractAddress} space="3">
                     <Stack direction={'horizontal'} justify={'space-between'} space="3">
                       <Stack direction={'horizontal'}>
-                        <img src={token.logo_url} alt={token.name} width="20" height="20" />
-                        <Text>{token.contract_ticker_symbol}</Text>
+                        <Avatar src={token.thumbnail} label={token.tokenName} size="5" />
+                        <Text>{token.tokenSymbol}</Text>
                       </Stack>
-                      <Text>
-                        {parseFloat(ethers.utils.formatUnits(token.balance, token.contract_decimals)).toFixed(1)}
-                      </Text>
+                      <Text>{parseFloat(token.balance).toFixed(2)}</Text>
                     </Stack>
                   </Stack>
                 )
