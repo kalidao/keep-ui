@@ -33,8 +33,13 @@ const Signal: NextPage = () => {
   const { user, authToken } = useDynamicContext()
 
   const signal = async (support: boolean) => {
-    if (!user || !user.walletPublicKey || !authToken) {
+    if (!user?.walletPublicKey) {
       toast('error', `Please connect and sign with wallet to signal`)
+      return
+    }
+
+    if (!authToken) {
+      toast('error', `Invalid Auth Token`)
       return
     }
 

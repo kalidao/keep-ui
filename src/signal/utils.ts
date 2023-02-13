@@ -16,8 +16,10 @@ export const vote = async (signalId: string, userId: string, vote: boolean, auth
       if (res.status === 200) {
         toast('success', 'Voted! 💌')
       } else {
-        console.log('res', res)
-        toast('error', 'Something went wrong. Please try again.')
+        res.json().then((data) => {
+          console.log(data.error)
+          toast('error', `Error: ${data.error.name}`)
+        })
       }
     })
     .catch((e) => {
