@@ -1,6 +1,4 @@
-import { useState } from 'react'
-
-import { Box, Button, Divider, IconClose, Input, Stack, Text } from '@kalidao/reality'
+import { Button, Divider, IconClose, Input, Stack, Text } from '@kalidao/reality'
 import { ethers } from 'ethers'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 

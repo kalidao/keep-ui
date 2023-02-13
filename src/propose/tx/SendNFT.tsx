@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Box, Stack, Text } from '@kalidao/reality'
+import { Stack } from '@kalidao/reality'
 import { useNFTsByOwner } from 'ankr-react'
 import { ethers } from 'ethers'
 import { useKeepStore } from '~/dashboard/useKeepStore'
@@ -34,8 +34,6 @@ export const SendNFT = () => {
     e.preventDefault()
     console.log(selected)
   }
-
-  console.log('selectedNFT', selected)
 
   return (
     <form onSubmit={handleSubmit}>

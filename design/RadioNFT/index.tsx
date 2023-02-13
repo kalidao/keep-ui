@@ -1,7 +1,3 @@
-// use forwardRef to access the input element
-// wrap the input and nft image in a label
-// use the onChange event to set the selected nft
-// strongly type
 import { forwardRef } from 'react'
 
 import { Avatar, IconCheck, Stack, Text } from '@kalidao/reality'

@@ -1,21 +1,7 @@
 import Link from 'next/link'
 
-import {
-  Avatar,
-  Box,
-  Button,
-  Card,
-  Divider,
-  Heading,
-  IconDiscord,
-  IconLink,
-  IconPlus,
-  IconTwitter,
-  Stack,
-  Text,
-} from '@kalidao/reality'
+import { Avatar, Box, Heading, IconDiscord, IconLink, IconTwitter, Stack, Text } from '@kalidao/reality'
 
-import GiveMoney from './GiveMoney'
 import * as styles from './styles.css'
 
 type Props = {

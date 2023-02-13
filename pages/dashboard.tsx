@@ -1,9 +1,8 @@
 import type { NextPage } from 'next'
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
-import { Avatar, Box, Card, Divider, Heading, Skeleton, Spinner, Stack, Text } from '@kalidao/reality'
+import { Box, Spinner, Text } from '@kalidao/reality'
 import * as Tabs from '@radix-ui/react-tabs'
 import { useQuery } from '@tanstack/react-query'
 import { TxCard } from '~/dashboard/Proposals'
@@ -11,8 +10,6 @@ import { SignalCard } from '~/dashboard/Signals'
 import * as styles from '~/dashboard/styles.css'
 import Layout from '~/layout'
 import { fetcher } from '~/utils'
-
-import { KeepCard } from '~/components/'
 
 const parsePendingTransactions = (keeps: any) => {
   if (!keeps) {

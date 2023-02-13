@@ -61,13 +61,13 @@ const DashboardLayout = ({ title, content, sidebar, children }: Props) => {
     if (chainId && state.chainId !== parseInt(chainId as string)) {
       state.setChainId(parseInt(chainId as string))
     }
-  }, [chainId])
+  }, [chainId, state.chainId, state.setChainId])
 
   useEffect(() => {
     if (keep && state.address !== keep) {
       state.setAddress(keep as `0xstring`)
     }
-  }, [keep])
+  }, [keep, state.address, state.setAddress])
 
   return (
     <Box className={styles.layout} lang="en">
