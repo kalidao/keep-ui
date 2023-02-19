@@ -12,6 +12,7 @@ import { fetcher } from '~/utils'
 
 import { UserMenu } from '~/components/UserMenu'
 
+import { Navigation } from './Navigation'
 import * as styles from './layout.css'
 
 type Props = {
@@ -91,40 +92,7 @@ const DashboardLayout = ({ title, content, sidebar, children }: Props) => {
 
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Box className={styles.leftbar}>
-        <Box
-          paddingTop={{
-            xs: '0',
-            lg: '10',
-          }}
-          paddingX={{
-            xs: '10',
-            lg: '0',
-          }}
-          gap="10"
-          display="flex"
-          flexDirection={{
-            xs: 'row',
-            lg: 'column',
-          }}
-          alignItems="center"
-          justifyContent={'space-between'}
-        >
-          <NavItem link={`/dashboard`} icon={<IconLightningBolt />}>
-            Activity
-          </NavItem>
-          <NavItem link={`/dashboard/communities`} icon={<IconUserGroupSolid />}>
-            Communities
-          </NavItem>
-          <Link className={styles.navCTA} href={`/${state.chainId}/${state.address}/create`}>
-            <>
-              <IconPlus className={styles.navSVG} />
-              <Box className={styles.navText}>Propose</Box>
-            </>
-          </Link>
-        </Box>
-        <UserMenu />
-      </Box>
+      <Navigation />
       <Box className={styles.container}>
         <Profile
           summoned={data?.createdAt}
@@ -142,25 +110,6 @@ const DashboardLayout = ({ title, content, sidebar, children }: Props) => {
       </Box>
       <Box className={styles.rightbar}>{sidebar}</Box>
     </Box>
-  )
-}
-
-export const NavItem = ({
-  icon,
-  children,
-  link,
-}: {
-  icon: React.ReactNode
-  children: React.ReactNode
-  link: string
-}) => {
-  return (
-    <Link href={link} className={styles.nav}>
-      <>
-        <Box className={styles.navSVG}>{icon}</Box>
-        <Box className={styles.navText}>{children}</Box>
-      </>
-    </Link>
   )
 }
 

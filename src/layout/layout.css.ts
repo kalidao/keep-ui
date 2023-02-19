@@ -46,6 +46,7 @@ export const container = style([
   responsiveStyle({
     xs: {
       width: '100vw',
+      paddingBottom: vars.space[15],
     },
     lg: {
       width: '60vw',
@@ -90,16 +91,19 @@ export const leftbar = style([
       bottom: 0,
       left: 0,
       right: 0,
-      width: vars.space.viewWidth,
+      width: vars.space.full,
       height: vars.space[15],
       display: 'flex',
       flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'justify-between',
+      alignItems: 'stretch',
+      justifyContent: 'stretch',
       paddingTop: vars.space[2],
       paddingBottom: vars.space[2],
-
+      paddingLeft: vars.space[3],
+      paddingRight: vars.space[3],
       backgroundColor: vars.colors.backgroundSecondary,
+      borderTop: `1px solid ${vars.colors.foregroundSecondary}`,
+      zIndex: 10,
     },
     lg: {
       // left bar on large screens
@@ -163,14 +167,6 @@ export const nav = style([
     flexDirection: 'column',
     alignItems: 'flex-start',
     justifyContent: 'center',
-    ':hover': {
-      backgroundColor: vars.colors.backgroundSecondary,
-      borderColor: vars.colors.backgroundTertiary,
-      borderWidth: '1px',
-      borderStyle: 'solid',
-      transform: 'scale(1.05)',
-      transition: 'all 0.1 linear ',
-    },
   }),
   responsiveStyle({
     xs: {
@@ -221,6 +217,10 @@ export const navSVG = style([
     width: vars.space[5],
     height: vars.space[5],
     fill: vars.colors.textPrimary,
+    ':hover': {
+      scale: '1.05',
+      transition: 'all 0.1 linear',
+    },
   }),
 ])
 

@@ -5,6 +5,7 @@ import { Box, Button, IconLightningBolt, IconUserGroupSolid } from '@kalidao/rea
 import Banner from '~/components/Banner'
 import { UserMenu } from '~/components/UserMenu'
 
+import { Navigation } from './Navigation'
 import * as styles from './layout.css'
 
 type Props = {
@@ -21,22 +22,11 @@ const Layout = ({ title, content, children }: Props) => {
       <Head>
         <title>{heading}</title>
         <meta name="description" content={content} />
+        <meta name="robots" content="noindex" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Banner label="We are only on mainnet and polygon. Switch chain to interact!" />
-      <Box className={styles.leftbar}>
-        <Box display="flex" flexDirection={'column'} paddingTop="10" gap="10">
-          <Box display="flex" flexDirection={'column'} gap="2">
-            <Button variant="transparent" prefix={<IconLightningBolt />} as="a" href="/dashboard">
-              Activity
-            </Button>
-            <Button variant="transparent" prefix={<IconUserGroupSolid />} as="a" href={`/dashboard/communities`}>
-              Communities
-            </Button>
-          </Box>
-        </Box>
-        <UserMenu />
-      </Box>
+      <Navigation />
       <Box className={styles.container}>{children}</Box>
       <Box className={styles.rightbar}></Box>
     </Box>
