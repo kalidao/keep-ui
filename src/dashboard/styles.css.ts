@@ -33,8 +33,27 @@ export const labelledLink = style({
   },
 })
 
+export const profileContainer = style([
+  style({
+    // display="flex"  width="full" flexDirection={'column'} alignItems="center" justifyContent={'center'}
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  }),
+  responsiveStyle({
+    xs: {
+      width: '100vw',
+    },
+    lg: {
+      width: '60vw',
+    },
+  }),
+])
+
 export const infoBar = style([
   style({
+    width: vars.space.full,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',

@@ -20,7 +20,7 @@ import { setThemeMode } from '~/utils/cookies'
 
 import { arrow, content, item, itemLink, itemText, label, separator, trigger } from './styles.css'
 
-export const Menu = () => {
+export const Menu = ({ children = <IconChevronDown /> }) => {
   const { mode, setMode } = useTheme()
   const toggleModeState = useThemeStore((state) => state.toggleMode)
   const { user } = useDynamicContext()
@@ -36,7 +36,7 @@ export const Menu = () => {
     <DropdownMenuPrimitive.Root>
       <DropdownMenuPrimitive.Trigger asChild className={trigger}>
         <Button shape="circle" aria-label="Menu">
-          <IconChevronDown color={'text'} />
+          {children}
         </Button>
       </DropdownMenuPrimitive.Trigger>
       <DropdownMenuPrimitive.Portal>

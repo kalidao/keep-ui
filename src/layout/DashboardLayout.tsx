@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 
 import Head from 'next/head'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import { Box, Button, Divider, IconLightningBolt, IconPlus, IconUserGroupSolid } from '@kalidao/reality'
@@ -91,28 +92,36 @@ const DashboardLayout = ({ title, content, sidebar, children }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Box className={styles.leftbar}>
-        <Box display="flex" flexDirection={'column'} paddingTop="10" gap="10">
-          <Box display="flex" flexDirection={'column'} gap="2">
-            <Button variant="transparent" prefix={<IconLightningBolt />} as="a" href={`/dashboard`}>
-              Activity
-            </Button>
-            <Button variant="transparent" prefix={<IconUserGroupSolid />} as="a" href={`/dashboard/communities`}>
-              Communities
-            </Button>
-            <Button
-              tone="accent"
-              as="a"
-              variant="secondary"
-              href={`/${state.chainId}/${state.address}/create`}
-              prefix={<IconPlus />}
-              justifyContent="center"
-            >
-              Propose
-            </Button>
-            {/* <Button variant="secondary" tone="green" prefix={<IconCog />} as="a" href="/create">
-              Create
-            </Button> */}
-          </Box>
+        <Box
+          paddingTop={{
+            xs: '0',
+            lg: '10',
+          }}
+          paddingX={{
+            xs: '10',
+            lg: '0',
+          }}
+          gap="10"
+          display="flex"
+          flexDirection={{
+            xs: 'row',
+            lg: 'column',
+          }}
+          alignItems="center"
+          justifyContent={'space-between'}
+        >
+          <NavItem link={`/dashboard`} icon={<IconLightningBolt />}>
+            Activity
+          </NavItem>
+          <NavItem link={`/dashboard/communities`} icon={<IconUserGroupSolid />}>
+            Communities
+          </NavItem>
+          <Link className={styles.navCTA} href={`/${state.chainId}/${state.address}/create`}>
+            <>
+              <IconPlus className={styles.navSVG} />
+              <Box className={styles.navText}>Propose</Box>
+            </>
+          </Link>
         </Box>
         <UserMenu />
       </Box>
@@ -133,6 +142,25 @@ const DashboardLayout = ({ title, content, sidebar, children }: Props) => {
       </Box>
       <Box className={styles.rightbar}>{sidebar}</Box>
     </Box>
+  )
+}
+
+export const NavItem = ({
+  icon,
+  children,
+  link,
+}: {
+  icon: React.ReactNode
+  children: React.ReactNode
+  link: string
+}) => {
+  return (
+    <Link href={link} className={styles.nav}>
+      <>
+        <Box className={styles.navSVG}>{icon}</Box>
+        <Box className={styles.navText}>{children}</Box>
+      </>
+    </Link>
   )
 }
 

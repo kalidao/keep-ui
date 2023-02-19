@@ -81,32 +81,47 @@ export const link = style({
 })
 
 export const leftbar = style([
-  style({
-    // twitter-like dashboard sidebar
-    position: 'sticky',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    width: '30vw',
-    minWidth: '200px',
-    maxWidth: '300px',
-    height: '100vh',
-
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: vars.space[10],
-    padding: vars.space[10],
-    backgroundColor: vars.colors.background,
-    borderRight: `1px solid ${vars.colors.foregroundSecondary}`,
-    zIndex: 10,
-  }),
+  style({}),
   responsiveStyle({
     xs: {
-      display: 'none',
+      // bottom bar on mobile
+      position: 'fixed',
+      top: 'auto',
+      bottom: 0,
+      left: 0,
+      right: 0,
+      width: vars.space.viewWidth,
+      height: vars.space[15],
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'justify-between',
+      paddingTop: vars.space[2],
+      paddingBottom: vars.space[2],
+
+      backgroundColor: vars.colors.backgroundSecondary,
     },
     lg: {
+      // left bar on large screens
+      // twitter-like dashboard sidebar
+      position: 'sticky',
       display: 'flex',
+      top: 0,
+      bottom: 0,
+      left: 0,
+      width: '30vw',
+      minWidth: '200px',
+      maxWidth: '300px',
+      height: '100vh',
+
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: vars.space[10],
+      padding: vars.space[10],
+      backgroundColor: vars.colors.background,
+      borderRight: `1px solid ${vars.colors.foregroundSecondary}`,
+      zIndex: 10,
     },
   }),
 ])
@@ -136,6 +151,89 @@ export const rightbar = style([
     },
     lg: {
       display: 'flex',
+    },
+  }),
+])
+
+export const nav = style([
+  style({
+    width: vars.space.fit,
+
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    ':hover': {
+      backgroundColor: vars.colors.backgroundSecondary,
+      borderColor: vars.colors.backgroundTertiary,
+      borderWidth: '1px',
+      borderStyle: 'solid',
+      transform: 'scale(1.05)',
+      transition: 'all 0.1 linear ',
+    },
+  }),
+  responsiveStyle({
+    xs: {
+      all: 'unset',
+
+      gap: vars.space[3],
+      color: vars.colors.text,
+      borderRadius: vars.radii.full,
+      padding: vars.space[2],
+    },
+    lg: {
+      all: 'unset',
+      display: 'flex',
+
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      gap: vars.space[3],
+      color: vars.colors.text,
+
+      borderRadius: vars.radii['4xLarge'],
+      paddingTop: vars.space[4],
+      paddingBottom: vars.space[4],
+      paddingLeft: vars.space[3],
+      paddingRight: vars.space[3],
+    },
+  }),
+])
+
+export const navCTA = style([
+  nav,
+  style({
+    backgroundColor: vars.colors.accent,
+    color: vars.colors.background,
+    ':hover': {
+      backgroundColor: vars.colors.accentSecondary,
+      borderColor: vars.colors.accentSecondary,
+      borderWidth: '1px',
+      borderStyle: 'solid',
+      transform: 'scale(1.05)',
+      transition: 'all 0.1 linear ',
+    },
+  }),
+])
+
+export const navSVG = style([
+  style({
+    width: vars.space[5],
+    height: vars.space[5],
+    fill: vars.colors.textPrimary,
+  }),
+])
+
+export const navText = style([
+  style({
+    color: vars.colors.text,
+  }),
+  responsiveStyle({
+    xs: {
+      display: 'none',
+    },
+    lg: {
+      display: 'block',
     },
   }),
 ])

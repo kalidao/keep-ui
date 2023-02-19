@@ -21,9 +21,9 @@ type Props = {
 
 const Profile = ({ summoned, name, avatar, bio, twitter, website, discord, address, chainId }: Props) => {
   return (
-    <Box display="flex" flexDirection={'column'} alignItems="center" justifyContent={'center'}>
-      <Box>
-        <Box padding="5" display="flex" alignItems={'center'} justifyContent="center" gap="10">
+    <Box className={styles.profileContainer}>
+      <Box width="full">
+        <Box padding="5" display="flex" alignItems={'center'} justifyContent="space-between" gap="10">
           <Link href={`/${chainId}/${address}/`}>
             <Avatar
               shape="circle"
@@ -36,7 +36,7 @@ const Profile = ({ summoned, name, avatar, bio, twitter, website, discord, addre
               address={address}
             />
           </Link>
-          <Stack direction={'vertical'}>
+          <Box width="full" display="flex" flexDirection={'column'} gap="1">
             <Link
               href={`/${chainId}/${address}/`}
               style={{
@@ -54,7 +54,7 @@ const Profile = ({ summoned, name, avatar, bio, twitter, website, discord, addre
             >
               <i>{bio}</i>
             </Text>
-          </Stack>
+          </Box>
         </Box>
         <Box className={styles.infoBar}>
           <Link href={getExplorerLink(address, 'address', chainId)} className={styles.socialIcon}>
