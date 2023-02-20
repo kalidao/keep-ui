@@ -19,7 +19,9 @@ export const UserMenu = () => {
         </Menu>
       ) : (
         <Menu>
-          <Box>{user ? <User address={user.walletPublicKey as string} size={'lg'} /> : <IconChevronDown />}</Box>
+          <Box>
+            {user ? <User address={user.walletPublicKey as string} size={'lg'} /> : <User address="" size="lg" />}
+          </Box>
         </Menu>
       )}
     </Box>

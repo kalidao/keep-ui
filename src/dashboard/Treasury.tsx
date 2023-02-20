@@ -62,7 +62,6 @@ const Treasury = () => {
                 )
               })}
           </Box>
-          <Text color="foregroundSecondary">Synced {prettyDate(keep.treasuryUpdatedAt)}</Text>
         </Stack>
       </Card>
     </Link>

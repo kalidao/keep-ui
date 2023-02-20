@@ -15,6 +15,48 @@ export const content = style({
   zIndex: 9999,
 })
 
+export const subtrigger = style([
+  style({
+    all: 'unset',
+
+    fontFamily: vars.fonts.sans,
+    fontSize: vars.fontSizes.base,
+    lineHeight: vars.lineHeights.normal,
+    color: vars.colors.foreground,
+    borderRadius: vars.radii['large'],
+
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+
+    height: vars.space[10],
+
+    position: 'relative',
+    paddingLeft: vars.space[10],
+
+    padding: vars.space[1],
+    userSelect: 'none',
+
+    ':hover': {
+      color: vars.colors.foreground,
+      background: vars.colors.accentSecondaryHover,
+    },
+
+    ':focus': {
+      color: vars.colors.foreground,
+      background: vars.colors.accentSecondaryHover,
+    },
+
+    selectors: {
+      '&[data-state=open]': {
+        backgroundColor: vars.colors.accentSecondary,
+      },
+    },
+  }),
+])
+
+export const subcontent = style([content])
+
 export const item = style({
   all: 'unset',
 

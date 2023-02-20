@@ -57,9 +57,14 @@ const Profile = ({ summoned, name, avatar, bio, twitter, website, discord, addre
           </Box>
         </Box>
         <Box className={styles.infoBar}>
-          <Link href={getExplorerLink(address, 'address', chainId)} className={styles.socialIcon}>
+          <a
+            target="_blank"
+            rel="noopenner noreferrer"
+            href={getExplorerLink(address, 'address', chainId)}
+            className={styles.socialIcon}
+          >
             <Text color="textSecondary">🎂 {prettyDateShort(summoned)}</Text>
-          </Link>
+          </a>
           <Stack direction={'horizontal'} align="center" space="1">
             {twitter && (
               <Link href={twitter} className={styles.labelledLink}>

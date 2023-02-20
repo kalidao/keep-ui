@@ -2,13 +2,17 @@ import React, { useCallback } from 'react'
 
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
 import {
+  Avatar,
   Box,
   Button,
   IconChevronDown,
+  IconChevronRight,
   IconDocumentAdd,
   IconMoon,
   IconSun,
   IconWallet,
+  Stack,
+  Text,
   useTheme,
 } from '@kalidao/reality'
 import { ReactNodeNoStrings } from '@kalidao/reality/dist/types/types'
@@ -18,15 +22,45 @@ import { setThemeMode } from '~/utils/cookies'
 
 import { ConnectButton } from '~/components/ConnectButton'
 
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
+} from '@design/Select'
 import toast from '@design/Toast'
 
-import { arrow, content, item, itemLink, itemText, label, separator, trigger } from './styles.css'
+import {
+  arrow,
+  content,
+  item,
+  itemLink,
+  itemText,
+  label,
+  separator,
+  subcontent,
+  subtrigger,
+  trigger,
+} from './styles.css'
 
 export const Menu = ({ children = <IconChevronDown /> }) => {
   const { mode, setMode } = useTheme()
   const toggleModeState = useThemeStore((state) => state.toggleMode)
 
-  const { isAuthenticated, user, handleLogOut } = useDynamicContext()
+  const {
+    isAuthenticated,
+    user,
+    handleLogOut,
+    setShowAuthFlow,
+    network,
+    networkConfigurations,
+    setNetwork,
+    walletConnector,
+  } = useDynamicContext()
 
   const toggleMode = useCallback(() => {
     const nextMode = mode === 'dark' ? 'light' : 'dark'
@@ -41,6 +75,23 @@ export const Menu = ({ children = <IconChevronDown /> }) => {
       toast('success', 'Address copied!')
     }
   }
+
+  const switchNetwork = async (chainId: number) => {
+    if (!walletConnector) {
+      toast('error', 'No wallet connected')
+      return
+    }
+    if (walletConnector.supportsNetworkSwitching()) {
+      await walletConnector.switchNetwork({
+        networkChainId: chainId,
+      })
+    } else {
+      toast('error', 'Please switch network in your wallet manually 🙏')
+    }
+    setNetwork(chainId)
+  }
+
+  console.log('network', network, networkConfigurations, setNetwork)
 
   return (
     <DropdownMenuPrimitive.Root>
@@ -64,22 +115,52 @@ export const Menu = ({ children = <IconChevronDown /> }) => {
 
           {isAuthenticated ? (
             <>
-              <Item type="button" icon={<IconDocumentAdd />} label={'Address'} onClick={copy} />
-              <Item
-                type="button"
-                icon={isAuthenticated ? <IconWallet /> : <IconWallet />}
-                label={isAuthenticated ? 'Logout' : 'Login'}
-                onClick={async () => {
-                  if (isAuthenticated) {
-                    await handleLogOut()
-                  } else {
-                  }
-                }}
-              />
+              <DropdownMenuPrimitive.Sub>
+                <DropdownMenuPrimitive.SubTrigger className={subtrigger}>
+                  <Text>Switch Network</Text>
+                  <IconChevronRight />
+                </DropdownMenuPrimitive.SubTrigger>
+                <DropdownMenuPrimitive.Portal>
+                  <DropdownMenuPrimitive.SubContent className={subcontent} sideOffset={2} alignOffset={-5}>
+                    {networkConfigurations?.evm?.map((chain: any) => {
+                      const active = Number(chain.chainId) === Number(network)
+                      return (
+                        <Button
+                          key={chain.chainId}
+                          type="button"
+                          width="full"
+                          variant={active ? 'secondary' : 'transparent'}
+                          onClick={async () => {
+                            await switchNetwork(chain.chainId)
+                          }}
+                        >
+                          <Stack direction={'horizontal'} align="center" justify={'space-between'}>
+                            <Avatar src={chain.iconUrls[0]} size="6" label={chain.vanityName} />
+                            <DropdownMenuPrimitive.Item className={itemText}>
+                              {chain.vanityName}
+                            </DropdownMenuPrimitive.Item>
+                          </Stack>
+                        </Button>
+                      )
+                    })}
+                  </DropdownMenuPrimitive.SubContent>
+                </DropdownMenuPrimitive.Portal>
+              </DropdownMenuPrimitive.Sub>
+              <Item type="button" icon={<IconDocumentAdd />} label={'Address'} onClick={copy} />{' '}
             </>
-          ) : (
-            <ConnectButton />
-          )}
+          ) : null}
+          <Item
+            type="button"
+            icon={isAuthenticated ? <IconWallet /> : <IconWallet />}
+            label={isAuthenticated ? 'Logout' : 'Login'}
+            onClick={() => {
+              if (isAuthenticated) {
+                handleLogOut()
+              } else {
+                setShowAuthFlow(true)
+              }
+            }}
+          />
           <DropdownMenuPrimitive.Arrow className={arrow} />
         </DropdownMenuPrimitive.Content>
       </DropdownMenuPrimitive.Portal>

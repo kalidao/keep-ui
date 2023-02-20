@@ -1,14 +1,12 @@
 import { useEffect } from 'react'
 
 import Head from 'next/head'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import { Box, Button, Divider, IconLightningBolt, IconPlus, IconUserGroupSolid } from '@kalidao/reality'
-import { useQuery } from '@tanstack/react-query'
+import { Box, Divider } from '@kalidao/reality'
 import { Profile } from '~/dashboard'
 import { useKeepStore } from '~/dashboard/useKeepStore'
-import { fetcher } from '~/utils'
+import { useGetKeep } from '~/hooks/useGetKeep'
 
 import Footer from './DashboardFooter'
 import { Navigation } from './Navigation'
@@ -25,36 +23,7 @@ const DashboardLayout = ({ title, content, sidebar, children }: Props) => {
   const router = useRouter()
   const { chainId, keep } = router.query
   const state = useKeepStore((state) => state)
-
-  const { data } = useQuery(['keep', chainId, keep], async () => {
-    const res = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/`)
-    state.setThreshold(res?.threshold)
-    console.log('signers', res?.signers)
-    const signers = res?.signers?.map((s: any) => s.signerId)
-    state.setSigners(signers)
-    return res
-  })
-  const { data: treasury } = useQuery(
-    ['keep', 'treasury', chainId, keep],
-    async () => {
-      if (!chainId || !keep) {
-        return new Error('No chainId or keep')
-      }
-      if (state.treasuryUpdatedAt != '') {
-        return new Error('Treasury already updated')
-      }
-      const res = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/treasury`)
-
-      state.setCollectibles(res?.collectibles)
-      state.setTokens(res?.tokens)
-      state.setTreasuryUpdatedAt(res?.updated_at)
-
-      return res
-    },
-    {
-      enabled: !!chainId && !!keep,
-    },
-  )
+  const { data } = useGetKeep(Number(chainId), keep as string)
 
   const heading = title + data ? ((' ' + data?.name) as string) + ' ' : '' + '- Keep'
 

@@ -1,10 +1,11 @@
-import type { NextPage } from 'next'
+import type { GetStaticProps, InferGetStaticPropsType, NextPage } from 'next'
 
 import { Box, Stack } from '@kalidao/reality'
 import * as Tabs from '@radix-ui/react-tabs'
 import { Proposals, Signals, Signers, Treasury } from '~/dashboard'
 import * as styles from '~/dashboard/styles.css'
 import { KeepStore, useKeepStore } from '~/dashboard/useKeepStore'
+import { getKeep } from '~/hooks/useGetKeep'
 import Layout from '~/layout/DashboardLayout'
 
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@design/Select'

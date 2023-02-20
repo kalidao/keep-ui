@@ -24,16 +24,24 @@ export const User = ({ address, size, alias }: { address: string; size: 'sm' | '
     )
   }
 
-  const name = alias ? alias : user?.handle != undefined ? user?.handle : ensName ? ensName : truncAddress(address)
+  const name = alias
+    ? alias
+    : user?.handle != undefined
+    ? user?.handle
+    : ensName
+    ? ensName
+    : address
+    ? truncAddress(address)
+    : 'login.eth'
+  const avatar = user?.picture?.uri
+    ? user?.picture?.uri
+    : user?.picture?.original?.url
+    ? user?.picture?.original?.url
+    : '/images/kali_napping.png'
 
   return (
     <Stack direction="horizontal" align="center">
-      <Avatar
-        size="8"
-        src={user?.picture?.uri ? user?.picture?.uri : user?.picture?.original?.url}
-        label={address}
-        address={address}
-      />
+      <Avatar size="8" src={avatar} label={address} address={address} />
       <Text>{name}</Text>
     </Stack>
   )
