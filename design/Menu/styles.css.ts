@@ -77,7 +77,8 @@ export const trigger = style({
   transition: 'transform 250ms ease',
   selectors: {
     '&[data-state=open]': {
-      transform: 'rotate(180deg)',
+      scale: '1.1',
+      transition: 'scale 200ms ease',
     },
   },
 })

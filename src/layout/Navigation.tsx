@@ -2,7 +2,6 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import { Box, IconLightningBolt, IconPlus, IconUserGroupSolid } from '@kalidao/reality'
-import { useKeepStore } from '~/dashboard/useKeepStore'
 
 import { UserMenu } from '~/components/UserMenu'
 

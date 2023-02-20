@@ -1,4 +1,4 @@
-import type { NextPage } from 'next'
+import type { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType, NextPage } from 'next'
 import { useRouter } from 'next/router'
 
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
@@ -49,7 +49,30 @@ const parseSignals = (keeps: any) => {
   return signals
 }
 
-const Dashboard: NextPage = () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const cookies = context.req.headers.cookie
+  // get 'next-auth.session-token' cookie
+  const sessionToken = cookies
+    ?.split(';')
+    .find((c) => c.trim().startsWith('next-auth.session-token='))
+    ?.split('=')[1]
+
+  if (!sessionToken) {
+    // redirect to /login
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    }
+  }
+
+  return {
+    props: {},
+  }
+}
+
+const Dashboard: NextPage = ({ data }: InferGetServerSidePropsType<GetServerSideProps>) => {
   const { user } = useDynamicContext()
   const router = useRouter()
 
@@ -61,12 +84,6 @@ const Dashboard: NextPage = () => {
   // only return the 'pending' transactions from the keeps
   const pendingTransactions = parsePendingTransactions(keeps)
   const signals = parseSignals(keeps)
-
-  console.log('signals', pendingTransactions)
-
-  if (!user) {
-    router.push('/login')
-  }
 
   return (
     <Layout title={'Home'} content={'Create a Keep'}>
@@ -80,7 +97,7 @@ const Dashboard: NextPage = () => {
           </Tabs.Trigger>
         </Tabs.List>
         <Tabs.Content className="TabsContent" value="txs">
-          <Box padding="3" display="flex" flexDirection={'column'} gap="3">
+          <Box display="flex" flexDirection={'column'} gap="3">
             {pendingTransactions ? (
               pendingTransactions.length === 0 ? (
                 <Text>No pending transactions 😴</Text>
@@ -92,7 +109,7 @@ const Dashboard: NextPage = () => {
                       txHash={tx.txHash}
                       chainId={tx.keepChainId}
                       keep={tx.keepAddress}
-                      proposer={tx.authorAddress}
+                      proposer={tx.userId}
                       title={tx.title}
                       description={tx.content}
                       timestamp={tx.createdAt}
@@ -107,7 +124,7 @@ const Dashboard: NextPage = () => {
           </Box>
         </Tabs.Content>
         <Tabs.Content className="TabsContent" value="signals">
-          <Box padding={'3'} display="flex" flexDirection={'column'} gap="3">
+          <Box display="flex" flexDirection={'column'} gap="3">
             {signals ? (
               signals.length === 0 ? (
                 <Text>No signals yet 😴</Text>
@@ -119,7 +136,7 @@ const Dashboard: NextPage = () => {
                       id={signal.id}
                       chainId={signal.keepChainId}
                       keep={signal.keepAddress}
-                      proposer={signal.authorAddress}
+                      proposer={signal.userId}
                       title={signal.title}
                       description={signal.content}
                       timestamp={signal.createdAt}

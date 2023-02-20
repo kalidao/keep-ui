@@ -5,13 +5,10 @@ import {
   Box,
   Button,
   IconChevronDown,
-  IconDiscord,
-  IconGitHub,
+  IconDocumentAdd,
   IconMoon,
   IconSun,
-  IconTwitter,
   IconWallet,
-  Stack,
   useTheme,
 } from '@kalidao/reality'
 import { ReactNodeNoStrings } from '@kalidao/reality/dist/types/types'
@@ -21,19 +18,29 @@ import { setThemeMode } from '~/utils/cookies'
 
 import { ConnectButton } from '~/components/ConnectButton'
 
+import toast from '@design/Toast'
+
 import { arrow, content, item, itemLink, itemText, label, separator, trigger } from './styles.css'
 
 export const Menu = ({ children = <IconChevronDown /> }) => {
   const { mode, setMode } = useTheme()
   const toggleModeState = useThemeStore((state) => state.toggleMode)
-  const { user } = useDynamicContext()
-  const { isAuthenticated, handleLogOut } = useDynamicContext()
+
+  const { isAuthenticated, user, handleLogOut } = useDynamicContext()
+
   const toggleMode = useCallback(() => {
     const nextMode = mode === 'dark' ? 'light' : 'dark'
     setMode(nextMode)
     setThemeMode(nextMode)
     toggleModeState()
   }, [mode, setMode, toggleModeState])
+
+  const copy = () => {
+    if (user) {
+      navigator.clipboard.writeText(user.walletPublicKey as string)
+      toast('success', 'Address copied!')
+    }
+  }
 
   return (
     <DropdownMenuPrimitive.Root>
@@ -56,17 +63,20 @@ export const Menu = ({ children = <IconChevronDown /> }) => {
           <DropdownMenuPrimitive.Separator className={separator} />
 
           {isAuthenticated ? (
-            <Item
-              type="button"
-              icon={isAuthenticated ? <IconWallet /> : <IconWallet />}
-              label={isAuthenticated ? 'Logout' : 'Login'}
-              onClick={async () => {
-                if (isAuthenticated) {
-                  await handleLogOut()
-                } else {
-                }
-              }}
-            />
+            <>
+              <Item type="button" icon={<IconDocumentAdd />} label={'Address'} onClick={copy} />
+              <Item
+                type="button"
+                icon={isAuthenticated ? <IconWallet /> : <IconWallet />}
+                label={isAuthenticated ? 'Logout' : 'Login'}
+                onClick={async () => {
+                  if (isAuthenticated) {
+                    await handleLogOut()
+                  } else {
+                  }
+                }}
+              />
+            </>
           ) : (
             <ConnectButton />
           )}

@@ -9,7 +9,6 @@ interface Props {
 export default class MyDocument extends Document<Props> {
   static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps & Props> {
     const initialProps = await Document.getInitialProps(ctx)
-    console.log('ctx.req.headers.cookie', ctx?.req?.headers?.cookie)
 
     const themeCookie = ctx?.req?.headers?.cookie
       ?.split(';')
