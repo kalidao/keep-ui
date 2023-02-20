@@ -70,14 +70,30 @@ export const text = style({
   color: vars.colors.text,
 })
 
-export const link = style({
-  lineHeight: vars.lineHeights.normal,
-  color: vars.colors.text,
-  textDecoration: 'none',
-  fontStyle: 'italic',
+export const iconLink = style({
+  height: vars.space[4],
+  width: vars.space[4],
+  color: vars.colors.textTertiary,
+  fill: vars.colors.textTertiary,
 
   ':hover': {
-    color: vars.colors.accent,
+    color: vars.colors.text,
+  },
+})
+export const link = style({
+  lineHeight: vars.lineHeights.normal,
+  fontSize: vars.fontSizes.label,
+  color: vars.colors.textSecondary,
+  textDecoration: 'none',
+
+  ':hover': {
+    scale: '1.05',
+    transition: 'all 0.1 linear',
+  },
+
+  ':active': {
+    scale: '1.05',
+    transition: 'all 0.1 linear',
   },
 })
 

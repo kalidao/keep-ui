@@ -10,6 +10,7 @@ import {
   IconMoon,
   IconSun,
   IconTwitter,
+  IconWallet,
   Stack,
   useTheme,
 } from '@kalidao/reality'
@@ -18,13 +19,15 @@ import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu'
 import { useThemeStore } from '~/hooks/useThemeStore'
 import { setThemeMode } from '~/utils/cookies'
 
+import { ConnectButton } from '~/components/ConnectButton'
+
 import { arrow, content, item, itemLink, itemText, label, separator, trigger } from './styles.css'
 
 export const Menu = ({ children = <IconChevronDown /> }) => {
   const { mode, setMode } = useTheme()
   const toggleModeState = useThemeStore((state) => state.toggleMode)
   const { user } = useDynamicContext()
-
+  const { isAuthenticated, handleLogOut } = useDynamicContext()
   const toggleMode = useCallback(() => {
     const nextMode = mode === 'dark' ? 'light' : 'dark'
     setMode(nextMode)
@@ -44,7 +47,6 @@ export const Menu = ({ children = <IconChevronDown /> }) => {
           <Item label="Home" href={user ? '/dashboard' : '/'} isExternal={false} />
           <Item label="Create" href="/create" isExternal={false} />
           <Item label="Docs" href="https://github.com/kalidao/keep#model" isExternal={true} />
-          <Item label="Contact" href="mailto:contact@kali.gg" isExternal={true} />
           <Item
             type="button"
             icon={mode === 'dark' ? <IconSun /> : <IconMoon />}
@@ -52,34 +54,22 @@ export const Menu = ({ children = <IconChevronDown /> }) => {
             onClick={toggleMode}
           />
           <DropdownMenuPrimitive.Separator className={separator} />
-          <DropdownMenuPrimitive.Label className={label}>Socials</DropdownMenuPrimitive.Label>
-          <Item
-            label={
-              <Stack direction={'horizontal'} align="center" justify={'flex-start'}>
-                <IconTwitter aria-label="Twitter" />
-                <Box className={itemText}>Twitter</Box>
-              </Stack>
-            }
-            href="https://twitter.com/kali__gg"
-          />
-          <Item
-            label={
-              <Stack direction={'horizontal'} align="center" justify={'flex-start'}>
-                <IconDiscord aria-label="Discord" />
-                <Box className={itemText}>Discord</Box>
-              </Stack>
-            }
-            href="http://discord.gg/UKCS9ghzUE"
-          />
-          <Item
-            label={
-              <Stack direction={'horizontal'} align="center" justify={'flex-start'}>
-                <IconGitHub aria-label="GitHub" />
-                <Box className={itemText}>GitHub</Box>
-              </Stack>
-            }
-            href="https://github.com/kalidao/"
-          />
+
+          {isAuthenticated ? (
+            <Item
+              type="button"
+              icon={isAuthenticated ? <IconWallet /> : <IconWallet />}
+              label={isAuthenticated ? 'Logout' : 'Login'}
+              onClick={async () => {
+                if (isAuthenticated) {
+                  await handleLogOut()
+                } else {
+                }
+              }}
+            />
+          ) : (
+            <ConnectButton />
+          )}
           <DropdownMenuPrimitive.Arrow className={arrow} />
         </DropdownMenuPrimitive.Content>
       </DropdownMenuPrimitive.Portal>

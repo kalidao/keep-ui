@@ -9,13 +9,16 @@ import { UserMenu } from '~/components/UserMenu'
 import * as styles from './layout.css'
 
 const Navigation = () => {
-  const state = useKeepStore((state) => state)
-
-  let isPropose = false
-  if (Number.isNaN(state.chainId) && state.address != undefined) {
+  const router = useRouter()
+  const { chainId, keep } = router.query
+  console.log('chainId', chainId)
+  console.log('keep', keep)
+  let isPropose
+  if (chainId && keep) {
     isPropose = true
+  } else {
+    isPropose = false
   }
-
   return (
     <Box className={styles.leftbar}>
       <Box
@@ -44,7 +47,7 @@ const Navigation = () => {
           Communities
         </NavItem>
         {isPropose ? (
-          <Link className={styles.navCTA} href={`/${state.chainId}/${state.address}/create`}>
+          <Link className={styles.navCTA} href={`/${chainId}/${keep}/create`}>
             <>
               <IconPlus className={styles.navSVG} />
               <Box className={styles.navText}>Propose</Box>

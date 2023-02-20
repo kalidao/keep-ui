@@ -21,7 +21,7 @@ export const viewTxBox = style({
   height: '100%',
 
   border: `1px solid ${vars.colors.foregroundSecondary}`,
-  borderRadius: vars.radii['large'],
+  borderRadius: vars.radii['2xLarge'],
 
   paddingRight: vars.space[6],
   paddingLeft: vars.space[6],
@@ -38,7 +38,7 @@ export const viewTxTrigger = style({
   height: '100%',
 
   border: `1px solid ${vars.colors.foregroundSecondary}`,
-  borderRadius: vars.radii['large'],
+  borderRadius: vars.radii['2xLarge'],
 
   paddingRight: vars.space[6],
   paddingLeft: vars.space[6],

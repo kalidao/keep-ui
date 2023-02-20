@@ -7,6 +7,8 @@ import { fetcher, prettyDate, truncAddress } from '~/utils'
 
 import { User } from '~/components/User'
 
+import * as styles from './activity.css'
+
 const Signals = () => {
   const router = useRouter()
   const { keep, chainId } = router.query
@@ -25,7 +27,7 @@ const Signals = () => {
   console.log('txs', signals)
 
   return (
-    <Box padding="3" display="flex" flexDirection={'column'} gap="2">
+    <Box display="flex" flexDirection={'column'} gap="2">
       {signals && signals?.length != 0 ? (
         signals?.map((signal: any) => (
           <SignalCard
@@ -73,7 +75,7 @@ export const SignalCard = ({
   })
 
   return (
-    <Card padding="6" backgroundColor={'backgroundSecondary'} shadow hover>
+    <Box className={styles.cardRoot}>
       <Stack>
         <Link href={`/${chainId}/${keep}/signal/${id}`} passHref legacyBehavior>
           <Box as="a" display={'flex'} flexDirection="column" gap="5">
@@ -87,9 +89,7 @@ export const SignalCard = ({
                   <Tag label={profile ? profile?.handle : truncAddress(proposer)}>{prettyDate(timestamp)}</Tag>
                 </Stack>
               </Stack>
-              <Tag tone={status == 'Pending' ? 'blue' : 'green'} label={type}>
-                {status}
-              </Tag>
+              <Tag tone="secondary">{type}</Tag>
             </Stack>
             <Text>{description}</Text>
           </Box>
@@ -105,7 +105,7 @@ export const SignalCard = ({
           </Stack> */}
         </Stack>
       </Stack>
-    </Card>
+    </Box>
   )
 }
 

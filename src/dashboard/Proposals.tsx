@@ -7,6 +7,7 @@ import { fetcher, prettyDate, truncAddress } from '~/utils'
 
 import { User } from '~/components/User'
 
+import * as styles from './activity.css'
 import { useKeepStore } from './useKeepStore'
 
 const Proposals = () => {
@@ -30,7 +31,7 @@ const Proposals = () => {
       })
 
   return (
-    <Box padding="3" display="flex" flexDirection={'column'} gap="2">
+    <Box display="flex" flexDirection={'column'}>
       {filteredTransactions && filteredTransactions?.length != 0 ? (
         filteredTransactions?.map((transaction: any) => (
           <TxCard
@@ -69,7 +70,7 @@ export const TxCard = ({ chainId, keep, txHash, title, proposer, description, ti
   })
 
   return (
-    <Card padding="6" backgroundColor={'backgroundSecondary'} shadow hover>
+    <Box className={styles.cardRoot}>
       <Link href={`/${chainId}/${keep}/tx/${txHash}`} passHref legacyBehavior>
         <Box as="a" display={'flex'} flexDirection="column" gap="5">
           <Stack direction={'horizontal'} justify="space-between" align="flex-start">
@@ -89,7 +90,7 @@ export const TxCard = ({ chainId, keep, txHash, title, proposer, description, ti
           <Text>{description}</Text>
         </Box>
       </Link>
-    </Card>
+    </Box>
   )
 }
 

@@ -10,8 +10,7 @@ import { Profile } from '~/dashboard'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 import { fetcher } from '~/utils'
 
-import { UserMenu } from '~/components/UserMenu'
-
+import Footer from './DashboardFooter'
 import { Navigation } from './Navigation'
 import * as styles from './layout.css'
 
@@ -108,7 +107,10 @@ const DashboardLayout = ({ title, content, sidebar, children }: Props) => {
         <Divider />
         <Box className={styles.dashboardContainer}>{children}</Box>
       </Box>
-      <Box className={styles.rightbar}>{sidebar}</Box>
+      <Box className={styles.rightbar}>
+        {sidebar}
+        <Footer />
+      </Box>
     </Box>
   )
 }
