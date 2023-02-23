@@ -5,7 +5,6 @@ import * as Tabs from '@radix-ui/react-tabs'
 import { Proposals, Signals, Signers, Treasury } from '~/dashboard'
 import * as styles from '~/dashboard/styles.css'
 import { KeepStore, useKeepStore } from '~/dashboard/useKeepStore'
-import { getKeep } from '~/hooks/useGetKeep'
 import Layout from '~/layout/DashboardLayout'
 
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@design/Select'
@@ -59,10 +58,10 @@ const Dashboard: NextPage = () => {
             </Box>
           </Box>
         </Tabs.List>
-        <Tabs.Content className="TabsContent" value="txs">
+        <Tabs.Content className={styles.tabContent} value="txs">
           <Proposals />
         </Tabs.Content>
-        <Tabs.Content className="TabsContent" value="signals">
+        <Tabs.Content className={styles.tabContent} value="signals">
           <Signals />
         </Tabs.Content>
       </Tabs.Root>

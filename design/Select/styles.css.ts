@@ -8,14 +8,14 @@ export const trigger = style({
   alignItems: 'center',
   justifyContent: 'space-between',
   borderRadius: vars.radii['large'],
-  border: `1px solid ${vars.colors.foregroundSecondary}`,
+  border: 'none',
   background: 'transparent',
   padding: vars.space[4],
   gap: vars.space[2],
 
   fontFamily: vars.fonts.sans,
   fontSize: vars.fontSizes['base'],
-  color: vars.colors.textPrimary,
+  color: vars.colors.text,
 
   ':focus': {
     outline: 'none',

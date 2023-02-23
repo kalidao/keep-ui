@@ -11,6 +11,8 @@ import * as styles from '~/dashboard/styles.css'
 import Layout from '~/layout'
 import { fetcher } from '~/utils'
 
+import Empty from '~/components/Empty'
+
 const parsePendingTransactions = (keeps: any) => {
   if (!keeps) {
     return []
@@ -97,10 +99,10 @@ const Dashboard: NextPage = ({ data }: InferGetServerSidePropsType<GetServerSide
           </Tabs.Trigger>
         </Tabs.List>
         <Tabs.Content className="TabsContent" value="txs">
-          <Box display="flex" flexDirection={'column'} gap="3">
+          <Box position={'relative'} minHeight="viewHeight" display="flex" flexDirection={'column'} gap="3">
             {pendingTransactions ? (
               pendingTransactions.length === 0 ? (
-                <Text>No pending transactions 😴</Text>
+                <Empty />
               ) : (
                 pendingTransactions.map((tx: any) => {
                   return (
@@ -124,10 +126,10 @@ const Dashboard: NextPage = ({ data }: InferGetServerSidePropsType<GetServerSide
           </Box>
         </Tabs.Content>
         <Tabs.Content className="TabsContent" value="signals">
-          <Box display="flex" flexDirection={'column'} gap="3">
+          <Box position={'relative'} minHeight="viewHeight" display="flex" flexDirection={'column'} gap="3">
             {signals ? (
               signals.length === 0 ? (
-                <Text>No signals yet 😴</Text>
+                <Empty />
               ) : (
                 signals.map((signal: any) => {
                   return (

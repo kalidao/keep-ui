@@ -61,26 +61,26 @@ const Profile = ({ summoned, name, avatar, bio, twitter, website, discord, addre
             target="_blank"
             rel="noopenner noreferrer"
             href={getExplorerLink(address, 'address', chainId)}
-            className={styles.socialIcon}
+            className={styles.labelledLink}
           >
             <Text color="textSecondary">🎂 {prettyDateShort(summoned)}</Text>
           </a>
           <Stack direction={'horizontal'} align="center" space="1">
             {twitter && (
               <Link href={twitter} className={styles.labelledLink}>
-                <IconTwitter strokeWidth="0.5" color="textSecondary" size="4" />
+                <IconTwitter className={styles.socialIcon} />
                 <Text color="textSecondary">{getTwitterUsername(twitter)}</Text>
               </Link>
             )}
             {website && (
               <Link href={website} className={styles.labelledLink}>
-                <IconLink strokeWidth="0.5" color="textSecondary" size="4" />
+                <IconLink className={styles.socialIcon} />
                 <Text color="textSecondary">{prettyLink(website)}</Text>
               </Link>
             )}
             {discord && (
-              <Link href={discord} className={styles.socialIcon}>
-                <IconDiscord strokeWidth="0.5" color="textSecondary" size="4" />
+              <Link href={discord}>
+                <IconDiscord className={styles.socialIcon} />
               </Link>
             )}
           </Stack>

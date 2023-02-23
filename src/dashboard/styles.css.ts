@@ -2,15 +2,14 @@ import { responsiveStyle, vars } from '@kalidao/reality'
 import { style } from '@vanilla-extract/css'
 
 export const socialIcon = style({
-  all: 'unset',
-  padding: vars.space[1],
-  borderRadius: vars.radii.full,
-  display: 'inline-flex',
-  alignItems: 'center',
-  justifyContent: 'center',
+  height: vars.space[4],
+  width: vars.space[4],
+  color: vars.colors.textTertiary,
+  fill: vars.colors.textTertiary,
+  border: 'none',
 
   ':hover': {
-    transform: 'scale(1.1)',
+    color: vars.colors.text,
   },
 })
 
@@ -84,6 +83,13 @@ export const tabRoot = style([
     lg: {
       width: '60vw',
     },
+  }),
+])
+
+export const tabContent = style([
+  style({
+    position: 'relative',
+    minHeight: '100vh',
   }),
 ])
 

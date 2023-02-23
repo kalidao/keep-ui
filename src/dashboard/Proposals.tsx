@@ -1,10 +1,11 @@
 import Link from 'next/link'
 
-import { Box, Card, Heading, Stack, Tag, Text } from '@kalidao/reality'
+import { Box, Heading, Stack, Tag, Text } from '@kalidao/reality'
 import { useQuery } from '@tanstack/react-query'
 import { prettierStatus, prettierStatusColor } from '~/proposal/utils'
 import { fetcher, prettyDate, truncAddress } from '~/utils'
 
+import Empty from '~/components/Empty'
 import { User } from '~/components/User'
 
 import * as styles from './activity.css'
@@ -31,7 +32,7 @@ const Proposals = () => {
       })
 
   return (
-    <Box display="flex" flexDirection={'column'}>
+    <>
       {filteredTransactions && filteredTransactions?.length != 0 ? (
         filteredTransactions?.map((transaction: any) => (
           <TxCard
@@ -47,9 +48,9 @@ const Proposals = () => {
           />
         ))
       ) : (
-        <Text>Nothing to see here 😴</Text>
+        <Empty />
       )}
-    </Box>
+    </>
   )
 }
 

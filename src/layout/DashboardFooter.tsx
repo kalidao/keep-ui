@@ -1,15 +1,6 @@
 import Link from 'next/link'
 
-import {
-  Box,
-  IconDiscord,
-  IconDotsHorizontal,
-  IconDotsVertical,
-  IconGitHub,
-  IconTwitter,
-  Stack,
-} from '@kalidao/reality'
-import { timestampToTimepassed } from '~/utils/prettyDate'
+import { Box, IconDiscord, IconGitHub, IconTwitter, Stack } from '@kalidao/reality'
 
 import { bodoni } from '../../pages/_app'
 import * as styles from './layout.css'
