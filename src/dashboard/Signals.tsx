@@ -5,6 +5,7 @@ import { Avatar, Box, Button, Card, Heading, IconPlus, Stack, Tag, Text } from '
 import { useQuery } from '@tanstack/react-query'
 import { fetcher, prettyDate, truncAddress } from '~/utils'
 
+import Empty from '~/components/Empty'
 import { User } from '~/components/User'
 
 import * as styles from './activity.css'
@@ -27,7 +28,7 @@ const Signals = () => {
   console.log('txs', signals)
 
   return (
-    <Box display="flex" flexDirection={'column'} gap="2">
+    <>
       {signals && signals?.length != 0 ? (
         signals?.map((signal: any) => (
           <SignalCard
@@ -43,9 +44,9 @@ const Signals = () => {
           />
         ))
       ) : (
-        <Text>Nothing to see here 😴</Text>
+        <Empty />
       )}
-    </Box>
+    </>
   )
 }
 

@@ -14,6 +14,7 @@ export const cardRoot = style({
 
   ':active': {
     transform: 'translateY(0px)',
+    backgroundColor: vars.colors.backgroundSecondary,
     borderColor: vars.colors.foregroundSecondary,
     transition: 'all 0.1s ease-in',
   },
