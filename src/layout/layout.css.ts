@@ -183,13 +183,31 @@ export const nav = style([
     flexDirection: 'column',
     alignItems: 'flex-start',
     justifyContent: 'center',
+    color: vars.colors.text,
+    backgroundColor: vars.colors.background,
+
+    ':hover': {
+      backgroundColor: vars.colors.backgroundSecondary,
+      transform: 'scale(1.05)',
+      transition: 'all 0.1 linear',
+    },
+
+    ':focus': {
+      backgroundColor: vars.colors.backgroundSecondary,
+      transform: 'scale(1.05)',
+      transition: 'all 0.1 linear',
+    },
+
+    ':active': {
+      backgroundColor: vars.colors.backgroundSecondary,
+      transform: 'scale(1.05)',
+      transition: 'all 0.1 linear',
+    },
   }),
   responsiveStyle({
     xs: {
       all: 'unset',
 
-      gap: vars.space[3],
-      color: vars.colors.text,
       borderRadius: vars.radii.full,
       padding: vars.space[2],
     },
@@ -201,7 +219,6 @@ export const nav = style([
       alignItems: 'center',
       justifyContent: 'flex-start',
       gap: vars.space[3],
-      color: vars.colors.text,
 
       borderRadius: vars.radii['4xLarge'],
       paddingTop: vars.space[4],
@@ -213,17 +230,51 @@ export const nav = style([
 ])
 
 export const navCTA = style([
-  nav,
   style({
-    backgroundColor: vars.colors.accent,
-    color: vars.colors.background,
+    all: 'unset',
+    backgroundColor: vars.colors.accentSecondary,
+    color: vars.colors.foreground,
+    borderColor: vars.colors.accentSecondary,
+    borderWidth: vars.borderWidths['0.5'],
+    borderStyle: vars.borderStyles.solid,
+
     ':hover': {
       backgroundColor: vars.colors.accentSecondary,
-      borderColor: vars.colors.accentSecondary,
-      borderWidth: '1px',
-      borderStyle: 'solid',
+
       transform: 'scale(1.05)',
-      transition: 'all 0.1 linear ',
+      transition: 'all 0.1 linear',
+    },
+    ':focus': {
+      backgroundColor: vars.colors.accentSecondary,
+      borderColor: vars.colors.accentSecondaryHover,
+      transform: 'scale(1.05)',
+      transition: 'all 0.1 linear',
+    },
+    ':active': {
+      backgroundColor: vars.colors.accentSecondary,
+
+      transform: 'scale(1.05)',
+      transition: 'all 0.1 linear',
+    },
+  }),
+  responsiveStyle({
+    xs: {
+      borderRadius: vars.radii.full,
+      padding: vars.space[2],
+    },
+    lg: {
+      display: 'flex',
+
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      gap: vars.space[3],
+
+      borderRadius: vars.radii['4xLarge'],
+      paddingTop: vars.space[4],
+      paddingBottom: vars.space[4],
+      paddingLeft: vars.space[3],
+      paddingRight: vars.space[3],
     },
   }),
 ])
@@ -232,7 +283,8 @@ export const navSVG = style([
   style({
     width: vars.space[5],
     height: vars.space[5],
-    fill: vars.colors.textPrimary,
+    fill: vars.colors.text,
+
     ':hover': {
       scale: '1.05',
       transition: 'all 0.1 linear',

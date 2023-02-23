@@ -19,6 +19,7 @@ import { Author, PrettyDate } from '~/components'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 import { useGetSignal } from '~/hooks/useGetSignal'
 import Layout from '~/layout/DashboardLayout'
+import { Comments } from '~/signal/Comments'
 import { vote } from '~/signal/utils'
 
 import { RenderText } from '~/components/RenderText'
@@ -75,7 +76,7 @@ const Signal: NextPage = () => {
         </Stack>
       }
     >
-      <Box padding={'3'}>
+      <Box padding={'3'} display="flex" flexDirection={'column'} gap="3">
         <Stack
           direction={{
             xs: 'vertical',
@@ -141,6 +142,7 @@ const Signal: NextPage = () => {
                   <RenderText>{data?.content}</RenderText>
                 </>
               </Box>
+
               <Stack direction={'horizontal'} align="center">
                 <Button size="small" variant="secondary" tone="green" shape="square" onClick={async () => signal(true)}>
                   <IconCheck />
@@ -152,6 +154,7 @@ const Signal: NextPage = () => {
             </Box>
           )}
         </Stack>
+        <Comments />
       </Box>
     </Layout>
   )

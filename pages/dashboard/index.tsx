@@ -76,14 +76,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 const Dashboard: NextPage = ({ data }: InferGetServerSidePropsType<GetServerSideProps>) => {
   const { user } = useDynamicContext()
-  const router = useRouter()
 
   const { data: keeps, isLoading } = useQuery(['userKeeps', user?.walletPublicKey], async () => {
     const data = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps?signer=${user?.walletPublicKey}`)
     return data
   })
 
-  // only return the 'pending' transactions from the keeps
   const pendingTransactions = parsePendingTransactions(keeps)
   const signals = parseSignals(keeps)
 

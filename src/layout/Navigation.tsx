@@ -71,7 +71,9 @@ export const NavItem = ({
   return (
     <Link href={link} className={styles.nav}>
       <>
-        <Box className={styles.navSVG}>{icon}</Box>
+        <Box color="text" className={styles.navSVG}>
+          {icon}
+        </Box>
         <Box className={styles.navText}>{children}</Box>
       </>
     </Link>
