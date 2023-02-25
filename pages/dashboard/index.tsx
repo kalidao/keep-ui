@@ -21,7 +21,7 @@ const parsePendingTransactions = (keeps: any) => {
 
   keeps.forEach((keep: any) => {
     keep.transactions.forEach((tx: any) => {
-      if (tx.status === 'pending') {
+      if (tx.status != 'executed') {
         pendingTransactions.push(tx)
       }
     })
