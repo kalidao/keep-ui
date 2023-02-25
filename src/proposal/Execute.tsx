@@ -30,7 +30,7 @@ const Execute = () => {
     ?.map((sig: any) => (sig = [sig.userId, sig.v, sig.r, sig.s]))
     .sort((a: any[], b: any[]) => +a[0] - +b[0])
 
-  const { config: configYes } = usePrepareContractWrite({
+  const { config: configYes, error: configYesError } = usePrepareContractWrite({
     address: keep.address ? keep.address : ethers.constants.AddressZero,
     abi: KEEP_ABI,
     chainId: keep.chainId,
@@ -43,7 +43,7 @@ const Execute = () => {
       yesSigs as unknown as Sign[],
     ],
   })
-  const { write: sayYes } = useContractWrite({
+  const { write: sayYes, error: yesError } = useContractWrite({
     ...configYes,
     onSuccess: () => {
       toast('success', 'Transaction executed!')
@@ -69,6 +69,7 @@ const Execute = () => {
   const { write: sayNo } = useContractWrite(configNo)
 
   if (tx?.status === 'process_yes') {
+    console.log('sayYes', sayYes, configYesError, yesError)
     return (
       <Button
         disabled={!sayYes}

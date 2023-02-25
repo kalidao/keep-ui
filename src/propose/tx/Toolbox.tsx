@@ -24,6 +24,7 @@ import Tooltip from '~/components/Tooltip'
 import toast from '@design/Toast'
 
 import { getTxHash } from '../getTxHash'
+import { handleSendNFT } from './handleTx'
 import * as styles from './styles.css'
 import { SendStore, useSendStore } from './useSendStore'
 import { createManageSignersPayload } from './utils'
@@ -75,23 +76,25 @@ export const Toolbox = () => {
         return
       }
 
-      if (!tx.author) {
-        toast('error', 'Author is required')
-        return
-      }
-
       if (tx.view == 'manage_signers') {
-        tx.to = keep.address
+        tx.setTo(keep.address)
 
         if (!keep.threshold) {
           toast('error', 'Error: Invalid transaction')
           return
         }
 
-        tx.data = createManageSignersPayload(keep.address, tx.manage_signers, keep.signers, keep.threshold)
+        let data = createManageSignersPayload(keep.address, tx.manage_signers, keep.signers, keep.threshold)
+        tx.setData(data)
       }
 
-      if (tx.to == ethers.constants.AddressZero) {
+      if (tx.view == 'send_nft') {
+        tx.setTo(keep.address)
+        let data = handleSendNFT(keep.address, tx)
+        tx.setData(data)
+      }
+
+      if (tx.view == undefined) {
         // submit signal
         const body = {
           title: tx.title,
@@ -114,7 +117,6 @@ export const Toolbox = () => {
             console.log('error', e)
             toast('error', 'Error: Invalid transaction')
           })
-          .finally(() => router.push(`/${keep.chainId}/${keep.address}`))
       } else {
         const { data: nonce } = await refetchNonce()
         if (!nonce) return
@@ -144,7 +146,7 @@ export const Toolbox = () => {
           txHash: digest,
           title: tx.title,
           content: tx.content,
-          authorAddress: tx.author,
+          authorAddress: user.walletPublicKey?.toLowerCase(),
         }
         console.log('body', body)
 
@@ -160,7 +162,6 @@ export const Toolbox = () => {
             console.log('error', e)
             alert('Error: Invalid transaction')
           })
-          .finally(() => router.push(`/${keep.chainId}/${keep.address}`))
 
         console.log('send', send)
       }

@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
-import { Stack } from '@kalidao/reality'
+import { Box, Input, Stack } from '@kalidao/reality'
 import { useNFTsByOwner } from 'ankr-react'
 import { ethers } from 'ethers'
 import { useKeepStore } from '~/dashboard/useKeepStore'
@@ -8,73 +8,104 @@ import { getBlockchainByChainId } from '~/utils/ankr'
 
 import { RadioNFT } from '@design/RadioNFT'
 
-interface NFT {
-  blockchain: 'arbitrum' | 'avalanche' | 'bsc' | 'eth' | 'fantom' | 'polygon' | 'syscoin' | 'optimism'
-  name: string
-  tokenId: string
-  tokenUrl: string
-  imageUrl: string
-  collectionName: string
-  symbol: string
-  contractType: 'ERC721' | 'ERC1155' | 'UNDEFINED'
-  contractAddress: string
-}
+import { useSendStore } from './useSendStore'
 
 export const SendNFT = () => {
   const keep = useKeepStore((state) => state)
+  const setSendNFT = useSendStore((state) => state.setSendNft)
+  const send_nft = useSendStore((state) => state.send_nft)
   const { data, isLoading, error } = useNFTsByOwner({
     walletAddress: keep?.address ?? ethers.constants.AddressZero,
     blockchain: keep?.chainId ? getBlockchainByChainId(keep?.chainId) : 'polygon',
   })
-  const [selected, setSelected] = useState<string[]>([])
 
-  // strongly type react form submit event handler
+  const holdings = useMemo(() => {
+    if (data) {
+      return data.assets.map((nft) => {
+        return {
+          ...nft,
+          checked: false,
+          id: nft.contractAddress + '-tokenId-' + nft.tokenId,
+          sendTo: '',
+        }
+      })
+    }
+  }, [data])
+
+  useEffect(() => {
+    if (holdings) {
+      setSendNFT(holdings)
+    }
+  }, [holdings])
+  // what does useMemo do?
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log(selected)
+    console.log(e.currentTarget.value)
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <h1>SendNFT</h1>
-
-      {data ? (
-        <Stack space="5" direction={'horizontal'} justify="space-between" wrap>
-          {data?.assets?.map((collectible) => {
-            const key = collectible.contractAddress + '-tokenId-' + collectible.tokenId
-
-            const checked = selected.includes(key)
-
+      <Stack space="5" direction={'horizontal'} justify="space-between" wrap>
+        {send_nft.map((collectible) => {
+          if (collectible.checked) {
             return (
-              <RadioNFT
-                key={key}
-                image={collectible?.imageUrl}
-                label={collectible?.collectionName?.slice(0, 20)}
-                address={collectible?.contractAddress}
-                checked={checked}
-                tokenId={collectible?.tokenId}
-                onChange={(e) => {
-                  const value = e.currentTarget.value
-                  const isSelected = selected.includes(value)
-
-                  if (isSelected) {
-                    // remove from selected without mutating state
-                    let newSelected = selected
-                    newSelected = newSelected.filter((item) => item !== value)
-                    setSelected(newSelected)
-                  } else {
-                    // add to selected
-                    let newSelected = selected
-                    newSelected.push(value)
-                    setSelected(newSelected)
-                  }
-                }}
-              />
+              <Box key={collectible.id} display="flex" gap="10" width="full">
+                <RadioNFT
+                  image={collectible?.imageUrl}
+                  label={collectible?.collectionName?.slice(0, 20)}
+                  address={collectible?.contractAddress}
+                  checked={collectible.checked}
+                  tokenId={collectible.tokenId}
+                  onChange={(e) => {
+                    const currentNFTs = send_nft
+                    const index = currentNFTs.findIndex((nft) => nft.id === collectible.id)
+                    console.log(
+                      'checked',
+                      index,
+                      collectible.id,
+                      currentNFTs[index].checked,
+                      !currentNFTs[index].checked,
+                    )
+                    currentNFTs[index].checked = e.target.checked
+                    setSendNFT(currentNFTs)
+                  }}
+                />
+                <Box width="full">
+                  <Input
+                    label="To"
+                    onChange={(e) => {
+                      const currentNFTs = send_nft
+                      const index = currentNFTs.findIndex((nft) => nft.id === collectible.id)
+                      currentNFTs[index].sendTo = e.currentTarget.value
+                      setSendNFT(currentNFTs)
+                    }}
+                  />
+                </Box>
+              </Box>
             )
-          })}
-        </Stack>
-      ) : null}
+          }
+
+          return (
+            <RadioNFT
+              key={collectible.id}
+              image={collectible?.imageUrl}
+              label={collectible?.collectionName?.slice(0, 20)}
+              address={collectible?.contractAddress}
+              checked={collectible.checked}
+              tokenId={collectible.tokenId}
+              onChange={(e) => {
+                const currentNFTs = send_nft
+                const index = currentNFTs.findIndex((nft) => nft.id === collectible.id)
+                console.log('checked', index, collectible.id, currentNFTs[index].checked, !currentNFTs[index].checked)
+                currentNFTs[index].checked = e.target.checked
+                setSendNFT(currentNFTs)
+              }}
+            />
+          )
+        })}
+      </Stack>
     </form>
   )
 }

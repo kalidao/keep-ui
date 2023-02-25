@@ -1,6 +1,6 @@
 import { forwardRef } from 'react'
 
-import { Avatar, IconCheck, Stack, Text } from '@kalidao/reality'
+import { Avatar, Box, IconCheck, Stack, Text } from '@kalidao/reality'
 
 import * as styles from './styles.css'
 
@@ -15,26 +15,37 @@ interface RadioNFTProps {
 
 export const RadioNFT = forwardRef<HTMLInputElement, RadioNFTProps>(
   ({ image, address, tokenId, checked, label, onChange, ...props }, ref) => {
+    const value = address + '-token-' + tokenId
+    console.log('token', address, tokenId, checked)
     return (
-      <label className={styles.root}>
-        <input
-          type="radio"
-          value={address + '-token-' + tokenId}
+      <Box as="label" className={styles.root}>
+        <Text weight="semiBold" align="center">
+          {label}
+        </Text>
+        <Box
+          as="input"
+          type="checkbox"
+          value={value}
           onChange={onChange}
           checked={checked}
           style={{
+            // remove default style
             appearance: 'none',
+            all: 'unset',
+            position: 'absolute',
+            height: 0,
+            width: 0,
           }}
           ref={ref}
           {...props}
           className={styles.radio}
         />
         <Avatar src={image} label={label} shape="square" size="40" />
-        <Stack direction={'horizontal'} align="center" justify={'flex-start'}>
-          <Text>{label}</Text>
-          {checked ? <IconCheck color="green" /> : null}
-        </Stack>
-      </label>
+        <Box width="full" display="flex" alignItems={'center'} justifyContent="space-between">
+          <Text font="mono">#{tokenId}</Text>
+          {checked ? <IconCheck color="green" className={styles.checkmark} /> : null}
+        </Box>
+      </Box>
     )
   },
 )

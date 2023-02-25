@@ -10,16 +10,11 @@ import {
   Divider,
   Field,
   Heading,
-  IconArrowRight,
-  IconCheck,
   IconClose,
   IconPlus,
   Input,
-  Skeleton,
-  SkeletonGroup,
   Spinner,
   Stack,
-  Tag,
   Text,
 } from '@kalidao/reality'
 import { ethers } from 'ethers'
@@ -31,16 +26,7 @@ import { Signer } from '~/dashboard/Signers'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 import { fetcher } from '~/utils'
 
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectSeparator,
-  SelectTrigger,
-  SelectValue,
-} from '@design/Select'
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@design/Select'
 
 import * as styles from './sendToken.css'
 import { useSendStore } from './useSendStore'

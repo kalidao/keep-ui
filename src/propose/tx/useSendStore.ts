@@ -1,11 +1,7 @@
 import { ethers } from 'ethers'
 import create from 'zustand'
 
-export type SendToken = {
-  token_address: string
-  to: string
-  amount: number
-}
+import { SendNFT, SendToken } from './types'
 
 export type SendStore = {
   title: string
@@ -31,6 +27,10 @@ export type SendStore = {
   // send token
   send_token: SendToken[]
   setSendToken: (send_token: SendToken[]) => void
+
+  // send nft
+  send_nft: SendNFT[]
+  setSendNft: (send_nft: SendNFT[]) => void
 
   // manage signers
   manage_signers: {
@@ -64,6 +64,12 @@ export const useSendStore = create<SendStore>((set) => ({
   // send token
   send_token: [],
   setSendToken: (send_token) => set({ send_token }),
+
+  // send nft
+  send_nft: [],
+  setSendNft: (send_nft) => set({ send_nft }),
+
+  // manage signers
   manage_signers: {
     signers: [],
     threshold: 0,

@@ -1,14 +1,14 @@
-import Image from 'next/image'
-import { Text } from '@kalidao/reality'
 import React, {
     useState,
     useEffect,
     forwardRef,
     useImperativeHandle,
+    useCallback,
   } from 'react'
-  import * as styles from './styles.css'
+import * as styles from './styles.css'
+
   
-  export const EmojiList = forwardRef((props, ref) => {
+export const EmojiList = forwardRef((props, ref) => {
     const [selectedIndex, setSelectedIndex] = useState(0)
   
     const selectItem = index => {
@@ -18,14 +18,18 @@ import React, {
         props.command({ name: item.name })
       }
     }
-  
-    const upHandler = () => {
+
+   
+    const upHandler = useCallback(() => {
       setSelectedIndex(((selectedIndex + props.items.length) - 1) % props.items.length)
-    }
+    }, [selectedIndex, props.items.length])
+
+
   
-    const downHandler = () => {
+    const downHandler = useCallback(() => {
       setSelectedIndex((selectedIndex + 1) % props.items.length)
-    }
+    }, [selectedIndex, props.items.length])
+
   
     const enterHandler = () => {
       selectItem(selectedIndex)
@@ -64,17 +68,20 @@ import React, {
       }
     }, [upHandler, downHandler, enterHandler])
   
-    return (
-      <div aria-label="Emoji Menu" className={styles.emojiMenuRoot}>
-        {props.items.map((item, index) => (
-          <button
-            className={index === selectedIndex ? styles.activeEmojiMenuButton : styles.emojiMenuButton}
-            key={index}
-            onClick={() => selectItem(index)}
-          >
-            { item?.emoji}
-          </button>
-        ))}
-      </div>
-    )
-  })
+  return (
+    <div aria-label="Emoji Menu" className={styles.emojiMenuRoot}>
+      {props.items.map((item, index) => (
+        <button
+          className={index === selectedIndex ? styles.activeEmojiMenuButton : styles.emojiMenuButton}
+          key={index}
+          onClick={() => selectItem(index)}
+        >
+          { item?.emoji}
+        </button>
+      ))}
+    </div>
+  )
+})
+
+
+EmojiList.displayName = 'EmojiList'

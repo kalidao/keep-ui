@@ -63,7 +63,9 @@ const Profile = ({ summoned, name, avatar, bio, twitter, website, discord, addre
             href={getExplorerLink(address, 'address', chainId)}
             className={styles.labelledLink}
           >
-            <Text color="textSecondary" font="mono">🎂 {prettyDateShort(summoned)}</Text>
+            <Text color="textSecondary" font="mono">
+              🎂 {prettyDateShort(summoned)}
+            </Text>
           </a>
           <Stack direction={'horizontal'} align="center" space="1">
             {twitter && (
