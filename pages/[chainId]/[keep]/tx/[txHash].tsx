@@ -65,7 +65,7 @@ const Tx: NextPage = (props: any) => {
 
       tx.setTitle(data?.title)
       tx.setContent(data?.content)
-      tx.setAuthor(data?.author)
+      tx.setAuthor(data?.userId)
       tx.setCreatedAt(data?.createdAt)
 
       tx.setSigs(data?.sigs)
@@ -88,7 +88,7 @@ const Tx: NextPage = (props: any) => {
 
         tx.setTitle(data?.title)
         tx.setContent(data?.content)
-        tx.setAuthor(data?.author)
+        tx.setAuthor(data?.userId)
         tx.setCreatedAt(data?.createdAt)
 
         tx.setSigs(data?.sigs)

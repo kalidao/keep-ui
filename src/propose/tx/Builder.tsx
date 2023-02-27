@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ChangeEvent } from 'react'
 
-import { Button, Heading, Input, Stack, Textarea, vars } from '@kalidao/reality'
+import { Button, Divider, Heading, Input, Stack, Textarea, vars } from '@kalidao/reality'
 import { ethers } from 'ethers'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 import { fetchContractAbi } from '~/utils/abi'
@@ -71,7 +71,8 @@ export const Builder = () => {
 
   return (
     <Stack>
-      <Heading level="2">Tx Builder</Heading>
+      <Heading level="2">Call Builder</Heading>
+      <Divider />
       <Input
         label="Contract Address"
         description="The address to which this transaction is directed at."

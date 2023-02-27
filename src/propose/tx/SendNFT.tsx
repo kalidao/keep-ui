@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 
-import { Box, Input, Stack } from '@kalidao/reality'
+import { Box, Divider, Heading, Input, Spinner, Stack } from '@kalidao/reality'
 import { useNFTsByOwner } from 'ankr-react'
 import { ethers } from 'ethers'
 import { useKeepStore } from '~/dashboard/useKeepStore'
@@ -37,75 +37,85 @@ export const SendNFT = () => {
       setSendNFT(holdings)
     }
   }, [holdings])
-  // what does useMemo do?
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    console.log(e.currentTarget.value)
-  }
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <h1>SendNFT</h1>
-      <Stack space="5" direction={'horizontal'} justify="space-between" wrap>
-        {send_nft.map((collectible) => {
-          if (collectible.checked) {
-            return (
-              <Box key={collectible.id} display="flex" gap="10" width="full">
-                <RadioNFT
-                  image={collectible?.imageUrl}
-                  label={collectible?.collectionName?.slice(0, 20)}
-                  address={collectible?.contractAddress}
-                  checked={collectible.checked}
-                  tokenId={collectible.tokenId}
-                  onChange={(e) => {
-                    const currentNFTs = send_nft
-                    const index = currentNFTs.findIndex((nft) => nft.id === collectible.id)
-                    console.log(
-                      'checked',
-                      index,
-                      collectible.id,
-                      currentNFTs[index].checked,
-                      !currentNFTs[index].checked,
-                    )
-                    currentNFTs[index].checked = e.target.checked
-                    setSendNFT(currentNFTs)
-                  }}
-                />
-                <Box width="full">
-                  <Input
-                    label="To"
+  let render = null
+  if (isLoading) {
+    render = <Spinner />
+  } else if (error) {
+    render = <div>{'There was an error fetching NFTs.'}</div>
+  } else if (data) {
+    if (data.assets.length === 0) {
+      render = <div>{'Nothing to see here 😴'}</div>
+    } else {
+      render = (
+        <Stack space="5" direction={'horizontal'} justify="space-between" wrap>
+          {send_nft.map((collectible) => {
+            if (collectible.checked) {
+              return (
+                <Box key={collectible.id} display="flex" gap="10" width="full">
+                  <RadioNFT
+                    image={collectible?.imageUrl}
+                    label={collectible?.collectionName?.slice(0, 20)}
+                    address={collectible?.contractAddress}
+                    checked={collectible.checked}
+                    tokenId={collectible.tokenId}
                     onChange={(e) => {
                       const currentNFTs = send_nft
                       const index = currentNFTs.findIndex((nft) => nft.id === collectible.id)
-                      currentNFTs[index].sendTo = e.currentTarget.value
+                      console.log(
+                        'checked',
+                        index,
+                        collectible.id,
+                        currentNFTs[index].checked,
+                        !currentNFTs[index].checked,
+                      )
+                      currentNFTs[index].checked = e.target.checked
                       setSendNFT(currentNFTs)
                     }}
                   />
+                  <Box width="full">
+                    <Input
+                      label="To"
+                      onChange={(e) => {
+                        const currentNFTs = send_nft
+                        const index = currentNFTs.findIndex((nft) => nft.id === collectible.id)
+                        currentNFTs[index].sendTo = e.currentTarget.value
+                        setSendNFT(currentNFTs)
+                      }}
+                    />
+                  </Box>
                 </Box>
-              </Box>
-            )
-          }
+              )
+            }
 
-          return (
-            <RadioNFT
-              key={collectible.id}
-              image={collectible?.imageUrl}
-              label={collectible?.collectionName?.slice(0, 20)}
-              address={collectible?.contractAddress}
-              checked={collectible.checked}
-              tokenId={collectible.tokenId}
-              onChange={(e) => {
-                const currentNFTs = send_nft
-                const index = currentNFTs.findIndex((nft) => nft.id === collectible.id)
-                console.log('checked', index, collectible.id, currentNFTs[index].checked, !currentNFTs[index].checked)
-                currentNFTs[index].checked = e.target.checked
-                setSendNFT(currentNFTs)
-              }}
-            />
-          )
-        })}
-      </Stack>
-    </form>
+            return (
+              <RadioNFT
+                key={collectible.id}
+                image={collectible?.imageUrl}
+                label={collectible?.collectionName?.slice(0, 20)}
+                address={collectible?.contractAddress}
+                checked={collectible.checked}
+                tokenId={collectible.tokenId}
+                onChange={(e) => {
+                  const currentNFTs = send_nft
+                  const index = currentNFTs.findIndex((nft) => nft.id === collectible.id)
+                  console.log('checked', index, collectible.id, currentNFTs[index].checked, !currentNFTs[index].checked)
+                  currentNFTs[index].checked = e.target.checked
+                  setSendNFT(currentNFTs)
+                }}
+              />
+            )
+          })}
+        </Stack>
+      )
+    }
+  }
+
+  return (
+    <Stack>
+      <Heading level="2">Send NFTs</Heading>
+      <Divider />
+      {render}
+    </Stack>
   )
 }

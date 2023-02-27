@@ -1,10 +1,22 @@
 import Link from 'next/link'
 
-import { Avatar, Box, Heading, IconDiscord, IconLink, IconTwitter, Stack, Text } from '@kalidao/reality'
+import {
+  Avatar,
+  Box,
+  Button,
+  Heading,
+  IconDiscord,
+  IconLink,
+  IconPencil,
+  IconTwitter,
+  Stack,
+  Text,
+} from '@kalidao/reality'
 import { getExplorerLink } from '~/utils/getExplorerLink'
 import { prettyDateShort } from '~/utils/prettyDate'
 import { getTwitterUsername, prettyLink } from '~/utils/prettyLink'
 
+import { EditProfile } from './EditProfile'
 import * as styles from './styles.css'
 
 type Props = {
@@ -20,10 +32,11 @@ type Props = {
 }
 
 const Profile = ({ summoned, name, avatar, bio, twitter, website, discord, address, chainId }: Props) => {
+  const avatarUrl = avatar ? avatar : avatar === '' ? '/logo.jpeg' : '/logo.jpeg'
   return (
     <Box className={styles.profileContainer}>
       <Box width="full">
-        <Box padding="5" display="flex" alignItems={'center'} justifyContent="space-between" gap="10">
+        <Box padding="5" display="flex" alignItems={'flex-start'} justifyContent="space-between" gap="10">
           <Link href={`/${chainId}/${address}/`}>
             <Avatar
               shape="circle"
@@ -32,8 +45,9 @@ const Profile = ({ summoned, name, avatar, bio, twitter, website, discord, addre
                 lg: '32',
               }}
               label="brand_pic"
-              src={avatar}
+              src={avatarUrl}
               address={address}
+              noBorder
             />
           </Link>
           <Box width="full" display="flex" flexDirection={'column'} gap="1">
@@ -55,6 +69,7 @@ const Profile = ({ summoned, name, avatar, bio, twitter, website, discord, addre
               <i>{bio}</i>
             </Text>
           </Box>
+          <EditProfile />
         </Box>
         <Box className={styles.infoBar}>
           <a

@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 
 import { Box, Button, Card, Divider, IconArrowRight, IconTwitter, Stack, Text } from '@kalidao/reality'
 import { useNetwork } from 'wagmi'
+import { discordUrl, docsUrl } from '~/constants/socials'
 import { getExplorerLink } from '~/utils/getExplorerLink'
 
 import { bodoni } from '../../pages/_app'
@@ -25,40 +26,42 @@ export const Success = () => {
     return () => clearTimeout(timer)
   })
 
+  const keepUrl = `/${state.chainId}/${state.address}`
+
   const messages = [
     {
       emoji: '🏯',
       message: 'Enter your Keep.',
-      url: `/${state.chainId}/${state.address}`,
+      url: keepUrl,
     },
     {
       emoji: '📖',
       message: 'Read the Docs.',
-      url: `https://github/kalidao/keep/README.md`,
+      url: docsUrl,
       isExternal: true,
     },
     {
       emoji: '🌐',
       message: 'Join the Community.',
-      url: `https://discord.com/invite/kpMs4gzSyV`,
+      url: discordUrl,
       isExternal: true,
     },
     {
       emoji: '💸',
       message: 'Sending funds from your Keep.',
-      url: `https://discord.com/invite/kpMs4gzSyV`,
+      url: docsUrl,
       isExternal: true,
     },
     {
       emoji: '🗝',
       message: 'Managing signers on your Keep.',
-      url: `https://discord.com/invite/kpMs4gzSyV`,
+      url: docsUrl,
       isExternal: true,
     },
     {
       emoji: '🗳',
       message: 'Adding a DAO to your Keep.',
-      url: `https://discord.com/invite/kpMs4gzSyV`,
+      url: docsUrl,
       isExternal: true,
     },
   ]
@@ -86,7 +89,7 @@ export const Success = () => {
                 <a href={getExplorerLink(state.txHash, 'tx', state.chainId)} target="_blank" rel="noopener noreferrer">
                   blockchain
                 </a>
-                . You may manage it by visiting the dashboard.
+                . You may manage it by visiting the <Link href={keepUrl}>dashboard</Link>.
               </Text>
             </Card>
             <Box className={styles.successGrid}>
@@ -94,7 +97,6 @@ export const Success = () => {
                 <Message key={index} {...message} />
               ))}
             </Box>
-
             <Divider />
             <Button
               as="a"

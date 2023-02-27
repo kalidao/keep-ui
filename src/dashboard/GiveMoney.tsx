@@ -1,10 +1,8 @@
 import { useState } from 'react'
 
-import { useRouter } from 'next/router'
-
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
 import { Dialog } from '@headlessui/react'
-import { Box, Button, Heading, IconClose, IconEth, IconPlus, Input, Stack, Text, vars } from '@kalidao/reality'
+import { Box, Button, Heading, Input, Stack, Text, vars } from '@kalidao/reality'
 import { useAccountBalance } from 'ankr-react'
 import { BigNumber, ethers } from 'ethers'
 import {

@@ -110,17 +110,13 @@ function MyApp({ Component, pageProps, theme }: AppProps & { theme: Mode }) {
 }
 
 MyApp.getInitialProps = async (appContext: AppContext) => {
-  // Stuff you want to do BEFORE loading props from the individual page
-
   const appProps = await App.getInitialProps(appContext)
 
-  // Stuff you want to do AFTER loading props from the individual page
   const themeCookie = appContext?.ctx?.req?.headers?.cookie
     ?.split(';')
     .find((c) => c.trim().startsWith('mode='))
     ?.split('=')[1]
-  console.log('themeCookie', themeCookie)
-  console.log('appProps', appProps)
+
   return { ...appProps, theme: themeCookie ?? 'light' }
 }
 

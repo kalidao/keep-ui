@@ -12,12 +12,10 @@ import {
   IconUserGroupSolid,
 } from '@kalidao/reality'
 import * as Toolbar from '@radix-ui/react-toolbar'
-import { useQuery } from '@tanstack/react-query'
-import { ethers } from 'ethers'
 import { useContractRead } from 'wagmi'
 import { KEEP_ABI } from '~/constants'
+import { docsUrl } from '~/constants/socials'
 import { useKeepStore } from '~/dashboard/useKeepStore'
-import { fetcher } from '~/utils'
 
 import Tooltip from '~/components/Tooltip'
 
@@ -25,6 +23,7 @@ import toast from '@design/Toast'
 
 import { getTxHash } from '../getTxHash'
 import { handleSendNFT } from './handleTx'
+import { sendTx } from './sendTx'
 import * as styles from './styles.css'
 import { SendStore, useSendStore } from './useSendStore'
 import { createManageSignersPayload } from './utils'
@@ -37,6 +36,8 @@ const operation = (op: number) => {
       return 'delegatecall'
     case 2:
       return 'create'
+    default:
+      return 'unknown'
   }
 }
 
@@ -58,7 +59,7 @@ export const Toolbox = () => {
     keep?.signers?.find((s: string) => s === user?.walletPublicKey?.toLowerCase()) == undefined ? true : false
 
   const handleTx = async () => {
-    if (!user) {
+    if (!user?.walletPublicKey) {
       toast('error', 'You must be logged in to submit a transaction')
       return
     } else {
@@ -117,6 +118,9 @@ export const Toolbox = () => {
             console.log('error', e)
             toast('error', 'Error: Invalid transaction')
           })
+          .finally(() => {
+            router.push(`/dashboard/${keep.chainId}/${keep.address}`)
+          })
       } else {
         const { data: nonce } = await refetchNonce()
         if (!nonce) return
@@ -150,20 +154,22 @@ export const Toolbox = () => {
         }
         console.log('body', body)
 
-        const send = await fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${keep.chainId}/${keep.address}/addTx`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
+        await sendTx(
+          keep.chainId,
+          keep.address,
+          {
+            op: operation(tx.op),
+            to: tx.to,
+            data: tx.data,
+            nonce: nonce.toString(),
+            value: tx.value,
+            txHash: digest,
+            title: tx.title,
+            content: tx.content,
+            userId: user.walletPublicKey.toLowerCase() ?? '',
           },
-          body: JSON.stringify(body),
-        })
-          .then((res) => res.json())
-          .catch((e) => {
-            console.log('error', e)
-            alert('Error: Invalid transaction')
-          })
-
-        console.log('send', send)
+          router,
+        )
       }
     }
   }
@@ -207,15 +213,15 @@ export const Toolbox = () => {
             <IconDocumentsSolid />
           </Toolbar.ToggleItem>
         </Tooltip>
-        <Tooltip label="NFT Generator">
+        {/* <Tooltip label="NFT Generator">
           <Toolbar.ToggleItem className={styles.ToolbarToggleItem} value="nft_generator" aria-label="NFT Generator">
             <IconPlus />
           </Toolbar.ToggleItem>
-        </Tooltip>
+        </Tooltip> */}
       </Toolbar.ToggleGroup>
       <Toolbar.Separator className={styles.ToolbarSeparator} />
       <Tooltip label="Learn More">
-        <Toolbar.Link className={styles.ToolbarLink} href="#" target="_blank" style={{ marginRight: 10 }}>
+        <Toolbar.Link className={styles.ToolbarLink} href={docsUrl} target="_blank" style={{ marginRight: 10 }}>
           <IconBookOpenSolid />
         </Toolbar.Link>
       </Tooltip>

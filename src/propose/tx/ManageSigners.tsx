@@ -1,4 +1,4 @@
-import { Button, Divider, IconClose, Input, Stack, Text } from '@kalidao/reality'
+import { Button, Divider, Heading, IconClose, Input, Stack, Text } from '@kalidao/reality'
 import { ethers } from 'ethers'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 
@@ -19,6 +19,8 @@ export const ManageSigners = () => {
 
   return (
     <Stack>
+      <Heading level="2">Manage Keep</Heading>
+      <Divider />
       <Stack direction={'vertical'} align="stretch">
         {manage_signers.signers.map((signer, i) => {
           if (i + 1 === manage_signers.signers.length) return null

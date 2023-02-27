@@ -18,6 +18,7 @@ const KeepCard = ({ name, chainId, keep, avatar, txs }: Props) => {
   // check if keep has pending transactions
   const pendingTxs = txs.filter((tx: any) => tx.status === 'pending')
   const isPending = pendingTxs.length > 0 ? true : false
+  const avatarUrl = avatar ? avatar : avatar === '' ? '/logo.jpeg' : '/logo.jpeg'
 
   return (
     <Link
@@ -28,15 +29,7 @@ const KeepCard = ({ name, chainId, keep, avatar, txs }: Props) => {
     >
       <Box className={styles.keepCard}>
         <Stack direction={'vertical'} align="center">
-          <Avatar
-            shape="circle"
-            src={avatar ? avatar : ''}
-            placeholder={avatar ? false : true}
-            size="8"
-            label={name + ' avatar'}
-            address={keep}
-            noBorder
-          />
+          <Avatar shape="circle" src={avatarUrl} size="8" label={name + ' avatar'} address={keep} noBorder />
           <Text align="center">{name}</Text>
         </Stack>
         {isPending && (

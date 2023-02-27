@@ -15,24 +15,35 @@ const Treasury = () => {
 
   console.log('getNFTsByOwner', data, error, isLoading)
 
+  let render = null
+
+  if (isLoading) {
+    render = <Spinner />
+  } else if (error) {
+    render = <Text>{'There was an error fetching NFTs.'}</Text>
+  } else if (data) {
+    if (data.assets.length === 0) {
+      render = <Text>{'Nothing to see here 😴'}</Text>
+    } else {
+      render = (
+        <Stack direction={'horizontal'} wrap>
+          {data.assets.map((collectible) => {
+            return (
+              <NFT
+                key={collectible.contractAddress}
+                image={collectible.imageUrl}
+                collection_name={collectible.collectionName}
+              />
+            )
+          })}
+        </Stack>
+      )
+    }
+  }
+
   return (
     <Box padding="6" display="flex" justifyContent={'space-between'} flexDirection="column" minHeight={'viewHeight'}>
-      <Stack direction={'horizontal'} wrap>
-        {/* @ts-ignore */}
-        {isLoading ? <Spinner /> : error ? <Text>{error?.message}</Text> : null}
-
-        {data
-          ? data?.assets?.map((collectible) => {
-              return (
-                <NFT
-                  key={collectible.contractAddress}
-                  image={collectible.imageUrl}
-                  collection_name={collectible.collectionName}
-                />
-              )
-            })
-          : null}
-      </Stack>
+      {render}
     </Box>
   )
 }

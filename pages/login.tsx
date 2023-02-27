@@ -12,12 +12,13 @@ import { Login } from '~/login'
 import { Menu } from '@design/Menu'
 
 const Home: NextPage = () => {
-  const { user } = useDynamicContext()
+  const { isAuthenticated } = useDynamicContext()
   const router = useRouter()
 
-  if (user) {
+  if (isAuthenticated) {
     router.push('/dashboard')
   }
+
   return (
     <Box className={layout} position={'relative'}>
       <Head>

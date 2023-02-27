@@ -51,32 +51,29 @@ const parseSignals = (keeps: any) => {
   return signals
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const cookies = context.req.headers.cookie
-  // get 'next-auth.session-token' cookie
-  const sessionToken = cookies
-    ?.split(';')
-    .find((c) => c.trim().startsWith('next-auth.session-token='))
-    ?.split('=')[1]
+const curateFeed = (pendingTransactions: any, signals: any) => {
+  const feed: any[] = []
 
-  if (!sessionToken) {
-    // redirect to /login
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      },
-    }
-  }
+  pendingTransactions.forEach((tx: any) => {
+    feed.push({ type: 'tx', data: tx })
+  })
 
-  return {
-    props: {},
-  }
+  signals.forEach((signal: any) => {
+    feed.push({ type: 'signal', data: signal })
+  })
+
+  //  order by date created
+
+  feed.sort((a: any, b: any) => {
+    return new Date(b.data.createdAt).getTime() - new Date(a.data.createdAt).getTime()
+  })
+
+  return feed
 }
 
-const Dashboard: NextPage = ({ data }: InferGetServerSidePropsType<GetServerSideProps>) => {
-  const { user } = useDynamicContext()
-
+const Dashboard: NextPage = () => {
+  const { user, isAuthenticated } = useDynamicContext()
+  const router = useRouter()
   const { data: keeps, isLoading } = useQuery(['userKeeps', user?.walletPublicKey], async () => {
     const data = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps?signer=${user?.walletPublicKey}`)
     return data
@@ -85,10 +82,19 @@ const Dashboard: NextPage = ({ data }: InferGetServerSidePropsType<GetServerSide
   const pendingTransactions = parsePendingTransactions(keeps)
   const signals = parseSignals(keeps)
 
+  const feed = curateFeed(pendingTransactions, signals)
+
+  if (!isAuthenticated) {
+    router.push('/login')
+  }
+
   return (
     <Layout title={'Home'} content={'Create a Keep'}>
-      <Tabs.Root className={styles.tabRoot} defaultValue="txs">
+      <Tabs.Root className={styles.tabRoot} defaultValue="feed">
         <Tabs.List className={styles.tabList} aria-label="Review and Sign Transactions">
+          <Tabs.Trigger className={styles.tabTrigger} value="feed">
+            Feed
+          </Tabs.Trigger>
           <Tabs.Trigger className={styles.tabTrigger} value="txs">
             Transactions
           </Tabs.Trigger>
@@ -96,6 +102,49 @@ const Dashboard: NextPage = ({ data }: InferGetServerSidePropsType<GetServerSide
             Signals
           </Tabs.Trigger>
         </Tabs.List>
+        <Tabs.Content className="TabsContent" value="feed">
+          <Box position={'relative'} minHeight="viewHeight" display="flex" flexDirection={'column'} gap="3">
+            {feed ? (
+              feed.length === 0 ? (
+                <Empty />
+              ) : (
+                feed.map((item: any) => {
+                  if (item.type === 'tx') {
+                    return (
+                      <TxCard
+                        key={item.data.txHash}
+                        txHash={item.data.txHash}
+                        chainId={item.data.keepChainId}
+                        keep={item.data.keepAddress}
+                        proposer={item.data.userId}
+                        title={item.data.title}
+                        description={item.data.content}
+                        timestamp={item.data.createdAt}
+                        status={item.data.status}
+                      />
+                    )
+                  } else {
+                    return (
+                      <SignalCard
+                        key={item.data.id}
+                        id={item.data.id}
+                        chainId={item.data.keepChainId}
+                        keep={item.data.keepAddress}
+                        proposer={item.data.userId}
+                        title={item.data.title}
+                        description={item.data.content}
+                        timestamp={item.data.createdAt}
+                        type={'Signal'}
+                      />
+                    )
+                  }
+                })
+              )
+            ) : (
+              <Spinner />
+            )}
+          </Box>
+        </Tabs.Content>
         <Tabs.Content className="TabsContent" value="txs">
           <Box position={'relative'} minHeight="viewHeight" display="flex" flexDirection={'column'} gap="3">
             {pendingTransactions ? (

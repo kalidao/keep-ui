@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { Box, Button, IconArrowLeft, Input, Stack, Textarea } from '@kalidao/reality'
+import { Box, Button, Card, IconArrowLeft, Input, Stack, Textarea } from '@kalidao/reality'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 
 import { highBackground } from '@design/blur.css'
@@ -47,7 +47,7 @@ const Transaction = () => {
               placeholder="What is this transaction about?"
               onChange={(e) => tx.setContent(e.currentTarget.value)}
             />
-            {tx.view && views[tx.view]}
+            <Card padding="6">{tx.view && views[tx.view]}</Card>
             <Toolbox />
           </Stack>
         </Box>

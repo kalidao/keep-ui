@@ -15,7 +15,16 @@ const UpVote = () => {
 
   const upvote = async () => {
     console.log('upvote', keep.address, keep.chainId, tx.txHash, tx.op, tx.to, tx.value, tx.data)
-    if (!keep.address || !keep.chainId || !tx.txHash || !tx.op || !tx.to || !tx.value || !tx.data) {
+    if (
+      !keep.address ||
+      !keep.chainId ||
+      !tx.txHash ||
+      !tx.op ||
+      !tx.to ||
+      !tx.value ||
+      !tx.data ||
+      tx.nonce != undefined
+    ) {
       toast('error', 'Something went wrong, please try again later.')
       return
     }

@@ -13,7 +13,8 @@ const DownVote = () => {
   const { authToken, user } = useDynamicContext()
 
   const downvote = async () => {
-    if (!keep.address || !keep.chainId || !tx.nonce) {
+    console.log('downvote', keep, tx)
+    if (!keep.address || !keep.chainId || tx.nonce === undefined) {
       toast('error', 'Something went wrong, please try again later.')
       return
     }
@@ -32,6 +33,8 @@ const DownVote = () => {
       },
       user?.walletPublicKey as string,
     )
+
+    console.log('downvote sign', sign)
 
     if (!sign) {
       toast('error', 'Something went wrong, please try again later.')
