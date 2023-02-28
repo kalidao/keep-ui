@@ -104,7 +104,7 @@ export const Menu = ({ children = <IconChevronDown /> }) => {
         <DropdownMenuPrimitive.Content className={content}>
           <Item label="Home" href={user ? '/dashboard' : '/'} isExternal={false} />
           <Item label="Create" href="/create" isExternal={false} />
-          <Item label="Docs" href="https://github.com/kalidao/keep#model" isExternal={true} />
+          <Item label="Docs" href="https://keepdao.notion.site/Keep-Knowledge-Base-2f69922534a64eb2a043f71af33b2afc" isExternal={true} />
           <Item
             type="button"
             icon={mode === 'dark' ? <IconSun /> : <IconMoon />}

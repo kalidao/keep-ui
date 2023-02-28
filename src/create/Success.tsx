@@ -49,19 +49,19 @@ export const Success = () => {
     {
       emoji: '💸',
       message: 'Sending funds from your Keep.',
-      url: docsUrl,
+      url: 'https://www.notion.so/keepdao/Send-and-Receive-Funds-b993ead69c6e4447ad6b793d8ace771a',
       isExternal: true,
     },
     {
       emoji: '🗝',
       message: 'Managing signers on your Keep.',
-      url: docsUrl,
+      url: 'https://www.notion.so/keepdao/Manage-Signers-0dd19ceb852a41d380ebdd706e266559',
       isExternal: true,
     },
     {
       emoji: '🗳',
       message: 'Adding a DAO to your Keep.',
-      url: docsUrl,
+      url: 'https://www.notion.so/keepdao/Add-DAOs-9c01d95b25fd428aaa5808282533d71e',
       isExternal: true,
     },
   ]
