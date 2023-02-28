@@ -1,9 +1,6 @@
 import { BigNumber, ethers } from 'ethers'
 import { erc721ABI } from 'wagmi'
 import { KEEP_ABI } from '~/constants/'
-import { KeepStore } from '~/dashboard/useKeepStore'
-
-import customToast from '@design/Toast'
 
 import { Call } from './types'
 import { SendStore } from './useSendStore'

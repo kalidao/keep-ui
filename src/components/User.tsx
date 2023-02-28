@@ -1,4 +1,4 @@
-import { Avatar, Card, Heading, Stack, Text } from '@kalidao/reality'
+import { Avatar, Stack, Text } from '@kalidao/reality'
 import { useQuery } from '@tanstack/react-query'
 import { useEnsName } from 'wagmi'
 import { fetcher } from '~/utils'
@@ -9,7 +9,7 @@ export const User = ({ address, size, alias }: { address: string; size: 'sm' | '
     address: address as `0x${string}`,
     chainId: 1,
   })
-  const { data: user, error } = useQuery(['signerDashProfile', address], () =>
+  const { data: user } = useQuery(['signerDashProfile', address], () =>
     fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/users/${address}`),
   )
 

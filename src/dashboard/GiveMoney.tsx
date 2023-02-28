@@ -34,7 +34,7 @@ const GiveMoney = () => {
     walletAddress: user?.walletPublicKey ? user.walletPublicKey : ethers.constants.AddressZero,
     onlyWhitelisted: true,
   })
-  const { config, error } = usePrepareSendTransaction({
+  const { config } = usePrepareSendTransaction({
     request: {
       to: keep.address ? keep.address : ethers.constants.AddressZero,
       value: amount ? ethers.utils.parseEther(amount) : BigNumber.from(0),
@@ -42,7 +42,7 @@ const GiveMoney = () => {
     chainId: keep.chainId,
     enabled: !!keep.address,
   })
-  const { data, isLoading, isSuccess, sendTransaction } = useSendTransaction({
+  const { sendTransaction } = useSendTransaction({
     ...config,
     onSuccess: () => {
       toast('success', 'Transaction sent')
@@ -53,7 +53,7 @@ const GiveMoney = () => {
     },
   })
   const selectedToken = token && userBalance && userBalance?.assets?.find((asset) => token == asset.tokenName)
-  const { config: config2, error: error2 } = usePrepareContractWrite({
+  const { config: config2 } = usePrepareContractWrite({
     address: selectedToken ? (selectedToken.contractAddress as `0xstring`) : ethers.constants.AddressZero,
     abi: erc20ABI,
     functionName: 'transfer',

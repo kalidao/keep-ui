@@ -1,6 +1,5 @@
-import { Button, Divider, Heading, IconClose, Input, MediaPicker, Stack, Text } from '@kalidao/reality'
+import { Button, Divider, Heading, IconClose, Input, MediaPicker, Stack } from '@kalidao/reality'
 import { useFieldArray, useForm } from 'react-hook-form'
-import { useKeepStore } from '~/dashboard/useKeepStore'
 
 export const NftGenerator = () => {
   // react hook form

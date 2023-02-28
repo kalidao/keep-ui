@@ -1,4 +1,4 @@
-import { Box, Stack, Text } from '@kalidao/reality'
+import { Box } from '@kalidao/reality'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 import { useTxStore } from '~/dashboard/useTxStore'
 import { getExplorerLink } from '~/utils/getExplorerLink'

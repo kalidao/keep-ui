@@ -1,5 +1,4 @@
 import { Text } from '@kalidao/reality'
-import { vars } from '@kalidao/reality'
 import Linkify from 'linkify-react'
 
 export const RenderText = ({ children }: { children: React.ReactNode }) => {

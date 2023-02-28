@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 
 import { Box, Divider, Heading, Input, Spinner, Stack } from '@kalidao/reality'
 import { useNFTsByOwner } from 'ankr-react'

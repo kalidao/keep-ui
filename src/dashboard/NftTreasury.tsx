@@ -1,10 +1,8 @@
 import { Avatar, Box, Spinner, Stack, Text } from '@kalidao/reality'
 import { useNFTsByOwner } from 'ankr-react'
-import { useQuery } from 'wagmi'
-import { fetcher, prettyDate } from '~/utils'
 import { getBlockchainByChainId } from '~/utils/ankr'
 
-import { Collectible, useKeepStore } from './useKeepStore'
+import { useKeepStore } from './useKeepStore'
 
 const Treasury = () => {
   const keep = useKeepStore((state) => state)

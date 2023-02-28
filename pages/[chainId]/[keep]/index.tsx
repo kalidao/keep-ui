@@ -1,4 +1,4 @@
-import type { GetStaticProps, InferGetStaticPropsType, NextPage } from 'next'
+import type { NextPage } from 'next'
 
 import { Box, Stack } from '@kalidao/reality'
 import * as Tabs from '@radix-ui/react-tabs'

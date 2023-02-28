@@ -3,14 +3,7 @@ import React from 'react'
 import { useRouter } from 'next/router'
 
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
-import {
-  IconBookOpenSolid,
-  IconDocumentsSolid,
-  IconNFT,
-  IconPlus,
-  IconTokens,
-  IconUserGroupSolid,
-} from '@kalidao/reality'
+import { IconBookOpenSolid, IconDocumentsSolid, IconNFT, IconTokens, IconUserGroupSolid } from '@kalidao/reality'
 import * as Toolbar from '@radix-ui/react-toolbar'
 import { useContractRead } from 'wagmi'
 import { KEEP_ABI } from '~/constants'

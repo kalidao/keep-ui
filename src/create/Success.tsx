@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import { Box, Button, Card, Divider, IconArrowRight, IconTwitter, Stack, Text } from '@kalidao/reality'
+import { Box, Button, Card, Divider, IconTwitter, Stack, Text } from '@kalidao/reality'
 import { useNetwork } from 'wagmi'
 import { discordUrl, docsUrl } from '~/constants/socials'
 import { getExplorerLink } from '~/utils/getExplorerLink'

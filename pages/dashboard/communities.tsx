@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
-import { Box, Divider, Heading, Stack } from '@kalidao/reality'
+import { Box, Divider, Heading } from '@kalidao/reality'
 import { useQuery } from '@tanstack/react-query'
 import { KeepCard } from '~/components'
 import * as styles from '~/dashboard/communities.css'
@@ -11,7 +11,7 @@ import { fetcher } from '~/utils'
 
 const Communities: NextPage = () => {
   const { user } = useDynamicContext()
-  const { data: keeps, isLoading } = useQuery(
+  const { data: keeps } = useQuery(
     ['userKeeps', user?.walletPublicKey],
     async () => {
       const data = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps?signer=${user?.walletPublicKey}`)

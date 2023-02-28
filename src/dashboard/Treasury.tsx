@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { Avatar, Box, Card, Heading, Stack, Tag, Text } from '@kalidao/reality'
 import { useAccountBalance } from 'ankr-react'
 import { ethers } from 'ethers'
-import { prettyDate } from '~/utils'
 import { getBlockchainByChainId } from '~/utils/ankr'
 
 import { useKeepStore } from './useKeepStore'
