@@ -1,8 +1,8 @@
-import type { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType, NextPage } from 'next'
+import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
-import { Box, Spinner, Text } from '@kalidao/reality'
+import { Box, Spinner } from '@kalidao/reality'
 import * as Tabs from '@radix-ui/react-tabs'
 import { useQuery } from '@tanstack/react-query'
 import { TxCard } from '~/dashboard/Proposals'
@@ -74,7 +74,7 @@ const curateFeed = (pendingTransactions: any, signals: any) => {
 const Dashboard: NextPage = () => {
   const { user, isAuthenticated } = useDynamicContext()
   const router = useRouter()
-  const { data: keeps, isLoading } = useQuery(['userKeeps', user?.walletPublicKey], async () => {
+  const { data: keeps } = useQuery(['userKeeps', user?.walletPublicKey], async () => {
     const data = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps?signer=${user?.walletPublicKey}`)
     return data
   })

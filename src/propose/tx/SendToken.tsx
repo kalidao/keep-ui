@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { useRouter } from 'next/router'
 
@@ -28,7 +28,6 @@ import { fetcher } from '~/utils'
 
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@design/Select'
 
-import * as styles from './sendToken.css'
 import { useSendStore } from './useSendStore'
 
 const schema = z.object({
@@ -44,11 +43,7 @@ const schema = z.object({
 export const SendToken = () => {
   const router = useRouter()
   const { chainId, keep } = router.query
-  const {
-    data: treasury,
-    isLoading,
-    isError,
-  } = useQuery(
+  const { isLoading, isError } = useQuery(
     ['keep', 'nfts', keep, chainId],
     async () => {
       const data = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/treasury`)
@@ -61,7 +56,7 @@ export const SendToken = () => {
   const tx = useSendStore((state) => state)
   const tokens = useKeepStore((state) => state.tokens)
   // set up react-hook-form and zod with field array
-  const { register, handleSubmit, watch, formState, setValue, control } = useForm({
+  const { register, handleSubmit, setValue, control } = useForm({
     mode: 'onBlur',
     resolver: zodResolver(schema),
   })

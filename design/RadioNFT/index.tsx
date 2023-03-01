@@ -1,6 +1,6 @@
 import { forwardRef } from 'react'
 
-import { Avatar, Box, IconCheck, Stack, Text } from '@kalidao/reality'
+import { Avatar, Box, IconCheck, Text } from '@kalidao/reality'
 
 import * as styles from './styles.css'
 

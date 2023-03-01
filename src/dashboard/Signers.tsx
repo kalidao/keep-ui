@@ -33,7 +33,7 @@ export const Signer = ({ signer }: { signer: string }) => {
     address: signer as `0x${string}`,
     chainId: 1,
   })
-  const { data: user, error } = useQuery(['signerDashProfile', signer], () =>
+  const { data: user } = useQuery(['signerDashProfile', signer], () =>
     fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/users/${signer}`),
   )
 

@@ -1,4 +1,4 @@
-import { responsiveStyle, vars } from '@kalidao/reality'
+import { vars } from '@kalidao/reality'
 import { style } from '@vanilla-extract/css'
 
 // convert below css to vanilla-extract

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import { Avatar, Box, Button, Card, Heading, IconPlus, Stack, Tag, Text } from '@kalidao/reality'
+import { Box, Heading, Stack, Tag, Text } from '@kalidao/reality'
 import { useQuery } from '@tanstack/react-query'
 import { fetcher, prettyDate, truncAddress } from '~/utils'
 
@@ -13,7 +13,7 @@ import * as styles from './activity.css'
 const Signals = () => {
   const router = useRouter()
   const { keep, chainId } = router.query
-  const { data: signals, error } = useQuery(['keepSignals', chainId, keep], async () => {
+  const { data: signals } = useQuery(['keepSignals', chainId, keep], async () => {
     const signals = fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/signals`).then(
       (signals: any) => {
         // order by date created

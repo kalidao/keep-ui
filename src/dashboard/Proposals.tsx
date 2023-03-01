@@ -13,7 +13,7 @@ import { useKeepStore } from './useKeepStore'
 
 const Proposals = () => {
   const state = useKeepStore((state) => state)
-  const { data: transactions, error } = useQuery(['keepTxs', state.chainId, state.address], async () =>
+  const { data: transactions } = useQuery(['keepTxs', state.chainId, state.address], async () =>
     fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/txs/${state.chainId}/${state.address}/`),
   )
 

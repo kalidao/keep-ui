@@ -1,4 +1,4 @@
-import { Button, Divider, Heading, IconClose, Input, Stack, Text } from '@kalidao/reality'
+import { Button, Divider, Heading, IconClose, Input, Stack } from '@kalidao/reality'
 import { ethers } from 'ethers'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 

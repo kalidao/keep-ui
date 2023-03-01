@@ -1,5 +1,5 @@
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
-import { Box, IconChevronDown } from '@kalidao/reality'
+import { Box } from '@kalidao/reality'
 import { useMediaQuery } from 'react-responsive'
 
 import { Menu } from '@design/Menu'

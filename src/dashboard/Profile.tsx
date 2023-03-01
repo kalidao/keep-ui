@@ -1,17 +1,6 @@
 import Link from 'next/link'
 
-import {
-  Avatar,
-  Box,
-  Button,
-  Heading,
-  IconDiscord,
-  IconLink,
-  IconPencil,
-  IconTwitter,
-  Stack,
-  Text,
-} from '@kalidao/reality'
+import { Avatar, Box, Heading, IconDiscord, IconLink, IconTwitter, Stack, Text } from '@kalidao/reality'
 import { getExplorerLink } from '~/utils/getExplorerLink'
 import { prettyDateShort } from '~/utils/prettyDate'
 import { getTwitterUsername, prettyLink } from '~/utils/prettyLink'
