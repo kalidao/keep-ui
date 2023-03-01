@@ -13,6 +13,18 @@ globalStyle('a', {
   textDecoration: 'underline',
 })
 
+globalStyle('h1, h2, h3, h4, h5, h6', {
+  margin: 0,
+  padding: 0,
+  fontSize: vars.fontSizes.headingThree,
+})
+
+globalStyle('p', {
+  margin: 0,
+  padding: 0,
+  fontSize: vars.fontSizes.base,
+})
+
 globalStyle('pre > code', {
   display: 'block',
   padding: '1rem',
