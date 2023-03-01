@@ -8,7 +8,7 @@ import Editor from '~/components/Editor'
 
 import toast from '@design/Toast'
 
-import { commentOnSignal } from './commentOnSignal'
+import { commentOnSignal } from './utils'
 
 export const Comment = ({
   signalId,
@@ -45,7 +45,7 @@ export const Comment = ({
 
   return (
     <Box as="form" display="flex" flexDirection={'column'} gap="2" onSubmit={handleSubmit}>
-      <Editor placeholder="What do you think?" setContent={setComment} />
+      <Editor placeholder="What do you think?" content={comment || {}} setContent={setComment} />
       <Button variant="secondary" disabled={!comment || loading} type="submit">
         Comment
       </Button>

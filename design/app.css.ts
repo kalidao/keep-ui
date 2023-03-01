@@ -12,3 +12,12 @@ globalStyle('a', {
   cursor: 'pointer',
   textDecoration: 'underline',
 })
+
+globalStyle('pre > code', {
+  display: 'block',
+  padding: '1rem',
+  background: vars.colors.backgroundSecondary,
+  color: vars.colors.text,
+  borderRadius: '0.5rem',
+  overflow: 'auto',
+})

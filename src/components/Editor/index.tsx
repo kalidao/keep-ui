@@ -6,14 +6,17 @@ import TaskList from '@tiptap/extension-task-list'
 import { BubbleMenu, EditorContent, JSONContent, Editor as TiptapEditor, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 
+import { getExtensions } from './getExtensions'
 import * as styles from './styles.css'
 import suggestion from './suggestion'
 
 const Editor = ({
   placeholder = `Write something...`,
+  content,
   setContent,
 }: {
   placeholder: string
+  content: JSONContent
   setContent: React.Dispatch<React.SetStateAction<JSONContent>> | ((content: JSONContent) => void)
 }) => {
   const editor = useEditor({
@@ -22,20 +25,8 @@ const Editor = ({
         class: styles.root,
       },
     },
-    extensions: [
-      StarterKit.configure(),
-      Emoji.configure({
-        suggestion,
-      }),
-      Placeholder.configure({
-        placeholder: placeholder,
-      }),
-      TaskList,
-      TaskItem.configure({
-        nested: true,
-      }),
-    ],
-    content: '',
+    extensions: getExtensions(placeholder),
+    content: content,
     onUpdate: ({ editor }) => {
       const json = editor.getJSON()
       setContent(json)

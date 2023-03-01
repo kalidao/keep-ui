@@ -6,11 +6,12 @@ export const root = style([
     backgroundColor: vars.colors.background,
     color: vars.colors.text,
     borderRadius: vars.radii['large'],
-    paddingTop: vars.space[1],
+    paddingTop: vars.space[2],
     paddingBottom: vars.space[2],
     paddingLeft: vars.space[3],
     paddingRight: vars.space[3],
     border: `1px solid ${vars.colors.foregroundSecondary}`,
+    minHeight: vars.space[16],
 
     ':hover': {
       outline: `1px solid ${vars.colors.accentSecondary}`,
