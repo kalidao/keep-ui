@@ -1,10 +1,17 @@
+import { NextRouter } from 'next/router'
+
 import { getAuthToken } from '@dynamic-labs/sdk-react'
 import { JSONContent } from '@tiptap/react'
 
 import toast from '@design/Toast'
-import { NextRouter } from 'next/router'
 
-export const createSignal = async (address: string, chainId: number, title: string, content: JSONContent, router: NextRouter) => {
+export const createSignal = async (
+  address: string,
+  chainId: number,
+  title: string,
+  content: JSONContent,
+  router: NextRouter,
+) => {
   const payload = {
     address,
     chainId,

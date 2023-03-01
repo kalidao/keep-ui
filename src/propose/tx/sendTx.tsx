@@ -1,7 +1,8 @@
 import { NextRouter } from 'next/router'
 
-import toast from '@design/Toast'
 import { JSONContent } from '@tiptap/react'
+
+import toast from '@design/Toast'
 
 export const sendTx = async (
   chainId: number,
