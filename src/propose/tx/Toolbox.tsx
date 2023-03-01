@@ -97,11 +97,7 @@ export const Toolbox = () => {
           authorAddress: tx.author,
         }
 
-        const signal = await createSignal(keep.address, keep.chainId, tx.title, tx.content).then((res) => {
-          if (res) {
-            router.push(`/${keep.chainId}/${keep.address}/signal/${res?.id}`)
-          }
-        })
+        await createSignal(keep.address, keep.chainId, tx.title, tx.content, router)
       } else {
         const { data: nonce } = await refetchNonce()
         if (!nonce) return

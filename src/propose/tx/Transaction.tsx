@@ -44,7 +44,7 @@ const Transaction = () => {
               onChange={(e) => tx.setTitle(e.currentTarget.value)}
             />
             <Field label="Description" description="">
-              <Editor placeholder="Say something" setContent={tx.setContent} />
+              <Editor placeholder="Say something" content={tx.content} setContent={tx.setContent} />
             </Field>
             <Card padding="6">{tx.view && views[tx.view]}</Card>
             <Toolbox />

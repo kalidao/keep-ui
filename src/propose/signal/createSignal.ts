@@ -2,8 +2,9 @@ import { getAuthToken } from '@dynamic-labs/sdk-react'
 import { JSONContent } from '@tiptap/react'
 
 import toast from '@design/Toast'
+import { NextRouter } from 'next/router'
 
-export const createSignal = async (address: string, chainId: number, title: string, content: JSONContent) => {
+export const createSignal = async (address: string, chainId: number, title: string, content: JSONContent, router: NextRouter) => {
   const payload = {
     address,
     chainId,
@@ -30,6 +31,7 @@ export const createSignal = async (address: string, chainId: number, title: stri
       if (res.status === 200) {
         toast('success', 'Signal created')
         res.json().then((data) => {
+          router.push(`/${chainId}/${address}signal/${data.id}`)
           return data
         })
       }
