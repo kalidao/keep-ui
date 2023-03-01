@@ -21,9 +21,10 @@ export const Comment = ({
 }) => {
   const [comment, setComment] = useState<JSONContent>()
   const { authToken, setShowAuthFlow } = useDynamicContext()
-
+  const [loading, setLoading] = useState(false)
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setLoading(true)
     console.log('comment', comment)
     if (!comment) {
       toast('error', `Comment cannot be empty`)
@@ -34,17 +35,18 @@ export const Comment = ({
       setShowAuthFlow(true)
       return
     }
-    // signalId
-    // authToken
+
     await commentOnSignal(signalId.toString(), comment, authToken, parentId).then(() => {
       refetch?.()
+      setComment(undefined)
+      setLoading(false)
     })
   }
 
   return (
     <Box as="form" display="flex" flexDirection={'column'} gap="2" onSubmit={handleSubmit}>
-      <Editor setContent={setComment} />
-      <Button variant="secondary" disabled={!comment} type="submit">
+      <Editor placeholder="What do you think?" setContent={setComment} />
+      <Button variant="secondary" disabled={!comment || loading} type="submit">
         Comment
       </Button>
     </Box>

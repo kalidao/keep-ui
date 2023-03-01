@@ -1,3 +1,4 @@
+import { JSONContent } from '@tiptap/react'
 import { ethers } from 'ethers'
 import create from 'zustand'
 
@@ -6,8 +7,8 @@ import { SendNFT, SendToken } from './types'
 export type SendStore = {
   title: string
   setTitle: (title: string) => void
-  content: string
-  setContent: (content: string) => void
+  content: JSONContent
+  setContent: (content: JSONContent) => void
   author: string
   setAuthor: (author: string) => void
 
@@ -43,7 +44,7 @@ export type SendStore = {
 export const useSendStore = create<SendStore>((set) => ({
   title: '',
   setTitle: (title) => set({ title }),
-  content: '',
+  content: {},
   setContent: (content) => set({ content }),
   author: '',
   setAuthor: (author) => set({ author }),

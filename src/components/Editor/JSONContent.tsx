@@ -2,6 +2,8 @@ import { useMemo } from 'react'
 
 import { Box } from '@kalidao/reality'
 import Emoji from '@tiptap-pro/extension-emoji'
+import TaskItem from '@tiptap/extension-task-item'
+import TaskList from '@tiptap/extension-task-list'
 import { generateHTML } from '@tiptap/html'
 import { JSONContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
@@ -14,6 +16,10 @@ export const JSONContentRenderer = ({ content }: { content: JSONContent }) => {
       StarterKit.configure(),
       Emoji.configure({
         suggestion,
+      }),
+      TaskList,
+      TaskItem.configure({
+        nested: true,
       }),
     ])
   }, [content])

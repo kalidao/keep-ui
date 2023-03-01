@@ -3,8 +3,10 @@ import { useRouter } from 'next/router'
 
 import { Box, Heading, Stack, Tag, Text } from '@kalidao/reality'
 import { useQuery } from '@tanstack/react-query'
+import { JSONContent } from '@tiptap/react'
 import { fetcher, prettyDate, truncAddress } from '~/utils'
 
+import { JSONContentRenderer } from '~/components/Editor/JSONContent'
 import Empty from '~/components/Empty'
 import { User } from '~/components/User'
 
@@ -56,7 +58,7 @@ type SignalCardProps = {
   id: string
   title: string
   proposer: string
-  description: string
+  description: JSONContent
   timestamp: string
   type: 'Signal'
 }
@@ -92,7 +94,7 @@ export const SignalCard = ({
               </Stack>
               <Tag tone="secondary">{type}</Tag>
             </Stack>
-            <Text>{description}</Text>
+            <JSONContentRenderer content={description} />
           </Box>
         </Link>
         <Stack direction={'horizontal'} align="center" justify={'space-between'}>

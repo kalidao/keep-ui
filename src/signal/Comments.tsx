@@ -128,16 +128,9 @@ const SignalCommentVote = ({
       data?.votes?.find((vote: any) => {
         console.log('vote.userId', vote.userId, user?.walletPublicKey?.toLowerCase())
         return vote.userId === user?.walletPublicKey?.toLowerCase()
-      }).type === typeEnum
+      })?.type === typeEnum
   }
-  console.log(
-    'isVoted',
-    data?.votes?.find((vote: any) => {
-      console.log('vote.userId', vote.userId, user?.walletPublicKey?.toLowerCase())
-      return vote.userId === user?.walletPublicKey?.toLowerCase()
-    }).type,
-    isVoted,
-  )
+
   return (
     <Button
       disabled={isVoted || loading}

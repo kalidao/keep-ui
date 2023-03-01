@@ -2,7 +2,7 @@ import React from 'react'
 
 import { useRouter } from 'next/router'
 
-import { useDynamicContext } from '@dynamic-labs/sdk-react'
+import { getAuthToken, useDynamicContext } from '@dynamic-labs/sdk-react'
 import { IconBookOpenSolid, IconDocumentsSolid, IconNFT, IconTokens, IconUserGroupSolid } from '@kalidao/reality'
 import * as Toolbar from '@radix-ui/react-toolbar'
 import { useContractRead } from 'wagmi'
@@ -15,6 +15,7 @@ import Tooltip from '~/components/Tooltip'
 import toast from '@design/Toast'
 
 import { getTxHash } from '../getTxHash'
+import { createSignal } from '../signal/createSignal'
 import { handleSendNFT } from './handleTx'
 import { sendTx } from './sendTx'
 import * as styles from './styles.css'
@@ -38,7 +39,7 @@ export const Toolbox = () => {
   const router = useRouter()
   const keep = useKeepStore((state) => state)
   const tx = useSendStore((state) => state)
-  const { user } = useDynamicContext()
+  const { user, authToken } = useDynamicContext()
 
   const { data: nonce, refetch: refetchNonce } = useContractRead({
     address: keep.address as `0xstring`,
@@ -96,24 +97,11 @@ export const Toolbox = () => {
           authorAddress: tx.author,
         }
 
-        const send = await fetch(
-          `${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${keep.chainId}/${keep.address}/addSignal`,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(body),
-          },
-        )
-          .then((res) => res.json())
-          .catch((e) => {
-            console.log('error', e)
-            toast('error', 'Error: Invalid transaction')
-          })
-          .finally(() => {
-            router.push(`/dashboard/${keep.chainId}/${keep.address}`)
-          })
+        const signal = await createSignal(keep.address, keep.chainId, tx.title, tx.content).then((res) => {
+          if (res) {
+            router.push(`/${keep.chainId}/${keep.address}/signal/${res?.id}`)
+          }
+        })
       } else {
         const { data: nonce } = await refetchNonce()
         if (!nonce) return

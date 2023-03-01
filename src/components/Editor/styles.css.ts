@@ -5,19 +5,20 @@ export const root = style([
   style({
     backgroundColor: vars.colors.background,
     color: vars.colors.text,
-    borderRadius: vars.radii['2xLarge'],
+    borderRadius: vars.radii['large'],
     paddingTop: vars.space[1],
     paddingBottom: vars.space[2],
     paddingLeft: vars.space[3],
     paddingRight: vars.space[3],
-    border: `1px solid ${vars.colors.accentSecondary}`,
+    border: `1px solid ${vars.colors.foregroundSecondary}`,
 
     ':hover': {
       outline: `1px solid ${vars.colors.accentSecondary}`,
     },
 
     ':focus': {
-      outline: `1px solid ${vars.colors.accentSecondaryHover}`,
+      outline: 'none',
+      border: `1px solid ${vars.colors.accent}`,
     },
   }),
 ])
@@ -77,3 +78,5 @@ export const activeEmojiMenuButton = style([
     outline: `1px solid ${vars.colors.accent}`,
   }),
 ])
+
+export const taskList = style([])

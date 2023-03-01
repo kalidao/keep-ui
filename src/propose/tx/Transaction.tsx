@@ -1,7 +1,9 @@
 import Link from 'next/link'
 
-import { Box, Button, Card, IconArrowLeft, Input, Stack, Textarea } from '@kalidao/reality'
+import { Box, Button, Card, Field, IconArrowLeft, Input, Stack, Textarea } from '@kalidao/reality'
 import { useKeepStore } from '~/dashboard/useKeepStore'
+
+import Editor from '~/components/Editor'
 
 import { highBackground } from '@design/blur.css'
 
@@ -41,12 +43,9 @@ const Transaction = () => {
               placeholder="Title"
               onChange={(e) => tx.setTitle(e.currentTarget.value)}
             />
-            <Textarea
-              label="Description"
-              description=""
-              placeholder="What is this transaction about?"
-              onChange={(e) => tx.setContent(e.currentTarget.value)}
-            />
+            <Field label="Description" description="">
+              <Editor placeholder="Say something" setContent={tx.setContent} />
+            </Field>
             <Card padding="6">{tx.view && views[tx.view]}</Card>
             <Toolbox />
           </Stack>

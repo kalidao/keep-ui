@@ -22,6 +22,7 @@ import Layout from '~/layout/DashboardLayout'
 import { Comments } from '~/signal/Comments'
 import { vote } from '~/signal/utils'
 
+import { JSONContentRenderer } from '~/components/Editor/JSONContent'
 import { RenderText } from '~/components/RenderText'
 import { User } from '~/components/User'
 
@@ -139,7 +140,7 @@ const Signal: NextPage = () => {
                       <Author author={data ? data?.userId : ''} />
                     </Stack>
                   </Stack>
-                  <RenderText>{data?.content}</RenderText>
+                  <JSONContentRenderer content={data?.content} />
                 </>
               </Box>
 

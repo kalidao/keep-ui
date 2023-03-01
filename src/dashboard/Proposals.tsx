@@ -2,9 +2,11 @@ import Link from 'next/link'
 
 import { Box, Heading, Stack, Tag, Text } from '@kalidao/reality'
 import { useQuery } from '@tanstack/react-query'
+import { JSONContent } from '@tiptap/react'
 import { prettierStatus, prettierStatusColor } from '~/proposal/utils'
 import { fetcher, prettyDate, truncAddress } from '~/utils'
 
+import { JSONContentRenderer } from '~/components/Editor/JSONContent'
 import Empty from '~/components/Empty'
 import { User } from '~/components/User'
 
@@ -60,7 +62,7 @@ type TxCardProps = {
   txHash?: string
   title: string
   proposer: string
-  description: string
+  description: JSONContent
   timestamp: string
   status: 'pending' | 'process' | 'process_yes' | 'process_no' | 'executed'
 }
@@ -88,7 +90,7 @@ export const TxCard = ({ chainId, keep, txHash, title, proposer, description, ti
               {prettierStatus(status)}
             </Tag>
           </Stack>
-          <Text>{description}</Text>
+          <JSONContentRenderer content={description} />
         </Box>
       </Link>
     </Box>
