@@ -1,12 +1,12 @@
 import { IconCode, IconList, Stack } from '@kalidao/reality'
 import Emoji from '@tiptap-pro/extension-emoji'
-import { BubbleMenu, EditorContent, Editor as TiptapEditor, useEditor } from '@tiptap/react'
+import { BubbleMenu, EditorContent, JSONContent, Editor as TiptapEditor, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 
 import * as styles from './styles.css'
 import suggestion from './suggestion'
 
-const Editor = () => {
+const Editor = ({ setContent }: { setContent: React.Dispatch<React.SetStateAction<JSONContent>> }) => {
   const editor = useEditor({
     editorProps: {
       attributes: {
@@ -19,9 +19,11 @@ const Editor = () => {
         suggestion,
       }),
     ],
-    content: `
-      <h2>Leave a comment</h2>
-    `,
+    content: `<p>What do you think about this signal?</p>`,
+    onUpdate: ({ editor }) => {
+      const json = editor.getJSON()
+      setContent(json)
+    },
   })
 
   return (

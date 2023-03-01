@@ -20,7 +20,7 @@ const Execute = () => {
   const keep = useKeepStore((state) => state)
   const tx = useTxStore((state) => state)
   const op: number = tx?.op ? toOp(tx.op) : 0
-  console.log('tx sigs', tx.sigs)
+
   const yesSigs = tx?.sigs
     ?.filter((sig: Sig) => sig.type === 'yes')
     ?.map((sig: any) => (sig = [sig.userId, sig.v, sig.r, sig.s]))
@@ -53,7 +53,7 @@ const Execute = () => {
     },
   })
 
-  const { config: configNo } = usePrepareContractWrite({
+  const { config: configNo, error: configNoError } = usePrepareContractWrite({
     address: keep.address ? keep.address : ethers.constants.AddressZero,
     abi: KEEP_ABI,
     chainId: keep.chainId,
@@ -66,8 +66,8 @@ const Execute = () => {
       noSigs as unknown as Sign[],
     ],
   })
-  const { write: sayNo } = useContractWrite(configNo)
-
+  const { write: sayNo, error: noError } = useContractWrite(configNo)
+  console.log('execute', configNo, configNoError, noError)
   if (tx?.status === 'process_yes') {
     console.log('sayYes', sayYes, configYesError, yesError)
     return (
