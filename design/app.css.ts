@@ -41,7 +41,7 @@ globalStyle('input[type=checkbox]', {
   borderRadius: '0.25rem',
   width: vars.space[4],
   height: vars.space[4],
-  
+
   outline: 'none',
   cursor: 'pointer',
   transition: 'background 0.2s ease-in-out',
@@ -65,22 +65,19 @@ globalStyle('input[type=checkbox]:checked::after', {
   width: vars.space[4],
   height: vars.space[4],
   fontSize: vars.fontSizes.label,
-  margin: 'auto'
+  margin: 'auto',
 })
 
 globalStyle('input[type=checkbox]:focus', {
   boxShadow: `0 0 0 2px ${vars.colors.backgroundSecondary}`,
 })
 
-// hover 
+// hover
 globalStyle('input[type=checkbox]:hover', {
   background: vars.colors.backgroundSecondary,
 })
 
-// hover & checked 
+// hover & checked
 globalStyle('input[type=checkbox]:hover:checked', {
   background: vars.colors.green,
 })
-
-
-

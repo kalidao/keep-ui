@@ -8,7 +8,7 @@ export const cardRoot = style({
   overflow: 'hidden',
   ':hover': {
     transform: 'translate3D(0,-1px,0) scale(1.01)',
-  
+
     transition: 'all 0.2s ease-in',
   },
 

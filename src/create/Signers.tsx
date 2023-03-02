@@ -1,4 +1,5 @@
 import { useState } from 'react'
+
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
   Box,
@@ -22,14 +23,21 @@ import { PostIt } from './PostIt'
 import * as styles from './create.css'
 import { CreateStore, useCreateStore } from './useCreateStore'
 
-const schema = z.object({
-  signers: z.array(
-    z.object({
-      address: z.string().refine(async (val) => await isAddressOrEns(val), "Not a valid address or ENS.").transform(async (val) => await validateEns(val)),
-    }),
-  ).transform((val) => val.filter((v, i, a) => a.findIndex((t) => t.address === v.address) === i)),
-  threshold: z.coerce.number().min(1, { message: 'Threshold must be greater than 0' }),
-}).refine((val) => val.signers.length >= val.threshold, 'Threshold must be less than or equal to the number of signers')
+const schema = z
+  .object({
+    signers: z
+      .array(
+        z.object({
+          address: z
+            .string()
+            .refine(async (val) => await isAddressOrEns(val), 'Not a valid address or ENS.')
+            .transform(async (val) => await validateEns(val)),
+        }),
+      )
+      .transform((val) => val.filter((v, i, a) => a.findIndex((t) => t.address === v.address) === i)),
+    threshold: z.coerce.number().min(1, { message: 'Threshold must be greater than 0' }),
+  })
+  .refine((val) => val.signers.length >= val.threshold, 'Threshold must be less than or equal to the number of signers')
 
 export const Signers = () => {
   const state = useCreateStore((state) => state)
@@ -67,7 +75,7 @@ export const Signers = () => {
     let { signers, threshold } = data
 
     console.log('signers', signers)
-   
+
     state.setSigners(signers)
     state.setThreshold(threshold)
 

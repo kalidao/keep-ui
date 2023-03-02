@@ -6,8 +6,9 @@ import { JSONContent } from '@tiptap/react'
 
 import Editor from '~/components/Editor'
 
-import { editComment } from './utils'
 import toast from '@design/Toast'
+
+import { editComment } from './utils'
 
 export const EditComment = ({ comment, callback }: { comment: any; callback: () => void }) => {
   const [content, setContent] = useState<JSONContent>(comment.content)
@@ -15,14 +16,15 @@ export const EditComment = ({ comment, callback }: { comment: any; callback: () 
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-  
+
     await editComment(comment.id, content)
       .then(() => {
         callback()
       })
       .finally(() => {
         setContent(comment.content)
-      }).catch((err) => {
+      })
+      .catch((err) => {
         console.log('err', err)
         toast('error', 'Something went wrong')
       })

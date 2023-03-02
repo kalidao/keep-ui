@@ -72,9 +72,11 @@ const RenderComment = ({ comment, callback }: { comment: any; callback: any }) =
       <Stack>
         <Stack direction={'horizontal'} align="center" justify={'space-between'}>
           <User address={comment.userId} size="lg" />
-          {isUserComment ? <Button shape="circle" variant="transparent" size="small" onClick={() => setEdit(!edit)}>
-            <IconPencil />
-          </Button> : null}
+          {isUserComment ? (
+            <Button shape="circle" variant="transparent" size="small" onClick={() => setEdit(!edit)}>
+              <IconPencil />
+            </Button>
+          ) : null}
         </Stack>
         {edit ? (
           <EditComment
