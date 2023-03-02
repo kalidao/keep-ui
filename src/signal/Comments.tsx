@@ -11,6 +11,8 @@ import { prettyDate } from '~/utils'
 import { JSONContentRenderer } from '~/components/Editor/JSONContent'
 import { User } from '~/components/User'
 
+import { Flip } from '@design/Flip'
+import { root } from '@design/Flip/styles.css'
 import { IconChat } from '@design/IconChat'
 import toast from '@design/Toast'
 
@@ -90,10 +92,13 @@ const RenderComment = ({ comment, callback }: { comment: any; callback: any }) =
             <Button size="small" variant="secondary" onClick={() => setReply(!reply)} prefix={<IconChat />}>
               Reply
             </Button>
-            <Text color="textSecondary">🕓 {prettyDate(comment.updatedAt)}</Text>
+            <Flip
+              from={`🕓 updated ${prettyDate(comment.updatedAt)}`}
+              to={`🕓 created ${prettyDate(comment.createdAt)}`}
+            />
           </Stack>
           {replies > 0 ? (
-            <Box color="textSecondary" as="button" onClick={() => setShowChildren(!showChildren)}>
+            <Box color="textSecondary" as="button" className={root} onClick={() => setShowChildren(!showChildren)}>
               {showChildren
                 ? `Hide ${replies} ${replies > 1 ? 'replies' : 'reply'}`
                 : `Show ${replies} more ${replies > 1 ? 'replies' : 'reply'}`}

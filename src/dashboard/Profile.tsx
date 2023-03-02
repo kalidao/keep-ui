@@ -1,6 +1,8 @@
 import Link from 'next/link'
 
 import { Avatar, Box, Heading, IconDiscord, IconLink, IconTwitter, Stack, Text } from '@kalidao/reality'
+import { useKeepStore } from '~/dashboard/useKeepStore'
+import { useGetKeep } from '~/hooks/useGetKeep'
 import { getExplorerLink } from '~/utils/getExplorerLink'
 import { prettyDateShort } from '~/utils/prettyDate'
 import { getTwitterUsername, prettyLink } from '~/utils/prettyLink'
@@ -21,6 +23,8 @@ type Props = {
 }
 
 const Profile = ({ summoned, name, avatar, bio, twitter, website, discord, address, chainId }: Props) => {
+  const state = useKeepStore((state) => state)
+  const { data, refetch } = useGetKeep(state.chainId || 1, state.address || '0x0')
   const avatarUrl = avatar ? avatar : avatar === '' ? '/logo.jpeg' : '/logo.jpeg'
   return (
     <Box className={styles.profileContainer}>
@@ -58,7 +62,11 @@ const Profile = ({ summoned, name, avatar, bio, twitter, website, discord, addre
               <i>{bio}</i>
             </Text>
           </Box>
-          <EditProfile />
+          <EditProfile
+            callback={async () => {
+              await refetch()
+            }}
+          />
         </Box>
         <Box className={styles.infoBar}>
           <a

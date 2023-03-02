@@ -107,41 +107,39 @@ const Signal: NextPage = () => {
             >
               <Box
                 width="full"
-                height="full"
+                minHeight="96"
                 display={'flex'}
                 flexDirection="column"
-                alignItems={'baseline'}
-                justifyContent="center"
+                alignItems={'flex-start'}
+                justifyContent="flex-start"
                 gap="5"
               >
-                <>
+                <Stack
+                  direction={{
+                    xs: 'vertical',
+                    md: 'horizontal',
+                  }}
+                  align={{
+                    xs: 'flex-start',
+                    md: 'center',
+                  }}
+                  justify={'space-between'}
+                >
+                  <User address={data ? data?.userId : ''} size="sm" />
+                  <Heading>{data?.title}</Heading>
                   <Stack
                     direction={{
                       xs: 'vertical',
                       md: 'horizontal',
                     }}
-                    align={{
-                      xs: 'flex-start',
-                      md: 'center',
-                    }}
-                    justify={'space-between'}
+                    align="center"
+                    justify={'center'}
                   >
-                    <User address={data ? data?.userId : ''} size="sm" />
-                    <Heading>{data?.title}</Heading>
-                    <Stack
-                      direction={{
-                        xs: 'vertical',
-                        md: 'horizontal',
-                      }}
-                      align="center"
-                      justify={'center'}
-                    >
-                      <PrettyDate timestamp={data?.createdAt} />
-                      <Author author={data ? data?.userId : ''} />
-                    </Stack>
+                    <PrettyDate timestamp={data?.createdAt} />
+                    <Author author={data ? data?.userId : ''} />
                   </Stack>
-                  <JSONContentRenderer content={data?.content} />
-                </>
+                </Stack>
+                <JSONContentRenderer content={data?.content} />
               </Box>
 
               <Stack direction={'horizontal'} align="center">

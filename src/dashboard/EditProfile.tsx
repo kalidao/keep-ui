@@ -24,7 +24,7 @@ import { dialog, dialogBox, dialogPanel } from '@design/dialog.css'
 
 import { useKeepStore } from './useKeepStore'
 
-const EditProfile = () => {
+const EditProfile = ({ callback }: { callback: () => Promise<void> }) => {
   const [isOpen, setIsOpen] = useState(false)
   const { user, authToken } = useDynamicContext()
   const keep = useKeepStore((state) => state)
@@ -81,7 +81,9 @@ const EditProfile = () => {
 
       if (res.ok) {
         toast('success', 'Profile updated!')
-        setIsOpen(false)
+        callback().then(() => {
+          setIsOpen(false)
+        })
       } else {
         toast('error', 'Error saving changes!')
       }

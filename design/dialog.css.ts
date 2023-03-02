@@ -9,7 +9,7 @@ export const dialog = style({
   justifyContent: 'center',
   alignItems: 'center',
   overflowY: 'auto',
-  background: 'rgba(0,0,0,0.6)',
+  background: '#00000080',
   transition: 'all 1s',
   backdropFilter: 'blur(10px)',
   backgroundColor: 'transparent',
@@ -17,7 +17,6 @@ export const dialog = style({
 })
 
 export const dialogContent = style({
-  // flex flex-col bg-gray-800 text-white w-96 py-8 px-4 text-center
   display: 'flex',
   zIndex: 10,
   flexDirection: 'column',
@@ -50,5 +49,10 @@ export const dialogBox = style({
   minWidth: vars.space[96],
   padding: vars.space[6],
   borderRadius: vars.radii['2xLarge'],
+  backgroundColor: vars.colors.background,
   border: `1px solid ${vars.colors.foregroundSecondary}`,
+  display: 'flex',
+  flexDirection: 'column',
+
+  gap: vars.space[4],
 })

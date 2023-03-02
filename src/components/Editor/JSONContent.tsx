@@ -11,5 +11,14 @@ export const JSONContentRenderer = ({ content }: { content: JSONContent }) => {
     return generateHTML(content, getExtensions('Say something...'))
   }, [content])
 
-  return <Box dangerouslySetInnerHTML={{ __html: output }} />
+  return (
+    <Box
+      color="text"
+      lineHeight={'normal'}
+      fontSize="base"
+      fontFamily="sans"
+      fontWeight={'medium'}
+      dangerouslySetInnerHTML={{ __html: output }}
+    />
+  )
 }
