@@ -134,13 +134,11 @@ export const Confirm = () => {
               })
           })
           .catch((err) => {
-      
             state.setLoading('error')
             state.setLoadingMessage('Error deploying Keep')
           })
       })
       .catch((err) => {
-     
         state.setLoading('error')
         state.setLoadingMessage('Error deploying Keep')
       })
@@ -220,7 +218,6 @@ const Signer = ({ index, address }: { index: number; address: string }) => {
     chainId: 1,
   })
 
- 
   return (
     <Card padding="5" borderRadius={'medium'} width="full" shadow>
       <Text weight="bold">

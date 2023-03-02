@@ -75,8 +75,6 @@ const GiveMoney = () => {
     },
   })
 
-
-
   return (
     <>
       <button

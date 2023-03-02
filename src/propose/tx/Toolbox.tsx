@@ -48,7 +48,6 @@ export const Toolbox = () => {
     chainId: Number(keep.chainId),
   })
 
-
   const notSigner =
     keep?.signers?.find((s: string) => s === user?.walletPublicKey?.toLowerCase()) == undefined ? true : false
 
@@ -129,7 +128,6 @@ export const Toolbox = () => {
           content: tx.content,
           authorAddress: user.walletPublicKey?.toLowerCase(),
         }
-
 
         await sendTx(
           keep.chainId,

@@ -19,7 +19,7 @@ export const JSONContentRenderer = ({ content }: { content: JSONContent }) => {
   if (!output) {
     return null
   }
-  
+
   return (
     <Box
       color="text"

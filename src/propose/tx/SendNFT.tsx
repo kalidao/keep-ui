@@ -62,7 +62,7 @@ export const SendNFT = () => {
                     onChange={(e) => {
                       const currentNFTs = send_nft
                       const index = currentNFTs.findIndex((nft) => nft.id === collectible.id)
-                
+
                       currentNFTs[index].checked = e.target.checked
                       setSendNFT(currentNFTs)
                     }}
@@ -93,7 +93,7 @@ export const SendNFT = () => {
                 onChange={(e) => {
                   const currentNFTs = send_nft
                   const index = currentNFTs.findIndex((nft) => nft.id === collectible.id)
-                
+
                   currentNFTs[index].checked = e.target.checked
                   setSendNFT(currentNFTs)
                 }}

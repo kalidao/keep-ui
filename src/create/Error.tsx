@@ -30,7 +30,6 @@ export const Error = () => {
     },
   }
 
-
   return (
     <Box className={styles.shell}>
       <Stack direction={'horizontal'}>

@@ -28,7 +28,6 @@ const Signals = () => {
     return signals
   })
 
-
   return (
     <>
       {signals && signals?.length != 0 ? (

@@ -25,7 +25,6 @@ const Treasury = () => {
       return parseFloat(b.balanceUsd) - parseFloat(a.balanceUsd)
     })
 
-
   // const _nfts = nfts ? nfts?.length : 0
 
   return (

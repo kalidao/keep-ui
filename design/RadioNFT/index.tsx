@@ -16,7 +16,7 @@ interface RadioNFTProps {
 export const RadioNFT = forwardRef<HTMLInputElement, RadioNFTProps>(
   ({ image, address, tokenId, checked, label, onChange, ...props }, ref) => {
     const value = address + '-token-' + tokenId
-    
+
     return (
       <Box as="label" className={styles.root}>
         <Text weight="semiBold" align="center">

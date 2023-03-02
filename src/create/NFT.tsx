@@ -85,17 +85,15 @@ export const NFT = () => {
                 label="Avatar"
                 compact={true}
                 onChange={async (file: any) => {
-                
                   state.setAvatarFile(file)
                   // convert image file to a url for preview
                   const reader = new FileReader()
                   reader.readAsDataURL(file)
                   reader.onloadend = async () => {
-                   
                     state.setAvatar(reader.result as string)
 
                     const dominantColor = await getDominantColor(reader.result as string)
-                   
+
                     state.setBgColor(dominantColor)
                   }
                   await uploadAvatar(file)

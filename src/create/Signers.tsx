@@ -74,8 +74,6 @@ export const Signers = () => {
     setLoading(true)
     let { signers, threshold } = data
 
-
-
     state.setSigners(signers)
     state.setThreshold(threshold)
 

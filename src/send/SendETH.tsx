@@ -92,7 +92,6 @@ const SendETH = () => {
       })
       signature = ethers.utils.splitSignature(data)
 
-
       const res = await writeAsync?.({
         recklesslySetUnpreparedArgs: [
           0,
@@ -109,7 +108,6 @@ const SendETH = () => {
           ],
         ],
       })
-
     } catch (e: unknown) {
       console.error(e)
     }

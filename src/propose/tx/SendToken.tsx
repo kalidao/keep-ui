@@ -181,7 +181,6 @@ export const SendToken = () => {
                     <Field label="Token">
                       <Select
                         onValueChange={(value: string) => {
-        
                           setValue(`transfers.${index}.token_address`, value)
                         }}
                       >

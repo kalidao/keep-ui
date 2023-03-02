@@ -25,7 +25,7 @@ export const Comment = ({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setLoading(true)
-    
+
     if (!comment) {
       toast('error', `Comment cannot be empty`)
       return

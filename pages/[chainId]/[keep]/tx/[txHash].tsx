@@ -16,8 +16,8 @@ import Quorum from '~/proposal/Quorum'
 import Vote from '~/proposal/Vote'
 
 import { CopyURL } from '~/components/CopyURL'
-import { User } from '~/components/User'
 import { JSONContentRenderer } from '~/components/Editor/JSONContent'
+import { User } from '~/components/User'
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const chainId = params?.chainId as string

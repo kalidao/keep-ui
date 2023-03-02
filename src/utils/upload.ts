@@ -48,7 +48,7 @@ export async function uploadFile(attachment: any, name?: string) {
         Authorization: `Bearer ${process.env.NEXT_PUBLIC_PINATA_JWT}`,
       },
     })
-   
+
     return convertIpfsHash(res.data.IpfsHash)
   } catch (error) {
     console.error(error)

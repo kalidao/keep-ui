@@ -37,11 +37,9 @@ export const sendTx = async (
       }
     })
     .catch((e) => {
-
       toast('error', 'Error: Invalid transaction')
     })
     .finally(() => {
-
       router.push(`/${chainId}/${address}`)
     })
 }
