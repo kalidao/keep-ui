@@ -24,7 +24,7 @@ const Treasury = () => {
     tokens.sort((a, b) => {
       return parseFloat(b.balanceUsd) - parseFloat(a.balanceUsd)
     })
-  console.log('tokens', tokens, totalValueLocked, _tokens)
+
 
   // const _nfts = nfts ? nfts?.length : 0
 

@@ -24,12 +24,6 @@ export const handleTx = (address: string, tx: SendStore) => {
 const handleSendToken = (tx: SendStore) => {}
 
 export const handleSendNFT = (address: string, tx: SendStore): `0xstring` => {
-  // multirelay
-  console.log(
-    'tx.send_nft',
-    tx.send_nft.filter((nft) => nft.checked),
-  )
-
   const calls: Call[] = tx.send_nft
     .filter((nft) => nft.checked)
     .map((nft) => {
@@ -61,7 +55,6 @@ export const handleSendNFT = (address: string, tx: SendStore): `0xstring` => {
 const handleManageSigners = (tx: SendStore) => {}
 
 export const safeTransferFrom721 = (from: string, to: string, tokenId: number) => {
-  console.log('tx.send_nft', from, to, tokenId)
   const iface = new ethers.utils.Interface(erc721ABI)
 
   const data = iface.encodeFunctionData('safeTransferFrom(address,address,uint256)', [
@@ -72,11 +65,6 @@ export const safeTransferFrom721 = (from: string, to: string, tokenId: number) =
   return data
 }
 
-//  address from,
-// address to,
-// uint256 id,
-// uint256 amount,
-// bytes calldata data
 export const safeTransferFrom1155 = (from: string, to: string, tokenId: number, amount: string) => {
   const iface = new ethers.utils.Interface(KEEP_ABI)
   return iface.encodeFunctionData('safeTransferFrom(address, address, uint256, bytes)', [

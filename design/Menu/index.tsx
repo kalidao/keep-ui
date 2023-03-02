@@ -68,8 +68,6 @@ export const Menu = ({ children = <IconChevronDown /> }) => {
     setNetwork(chainId)
   }
 
-  console.log('network', network, networkConfigurations, setNetwork)
-
   return (
     <DropdownMenuPrimitive.Root>
       <DropdownMenuPrimitive.Trigger asChild className={trigger}>

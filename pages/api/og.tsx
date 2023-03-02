@@ -58,8 +58,6 @@ export default async function handler(req: NextRequest) {
     circles.push(<circle stroke={strokeColor} fill={fillColor} r={10} cx={getXY(i).x} cy={getXY(i).y} key={i} />)
   }
 
-  console.log('fontData', fontData)
-
   return new ImageResponse(
     (
       <div

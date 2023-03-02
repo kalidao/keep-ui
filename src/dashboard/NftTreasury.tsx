@@ -11,8 +11,6 @@ const Treasury = () => {
     blockchain: keep.chainId ? getBlockchainByChainId(keep.chainId) : 'polygon',
   })
 
-  console.log('getNFTsByOwner', data, error, isLoading)
-
   let render = null
 
   if (isLoading) {

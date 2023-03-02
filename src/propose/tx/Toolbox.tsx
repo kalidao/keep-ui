@@ -39,7 +39,7 @@ export const Toolbox = () => {
   const router = useRouter()
   const keep = useKeepStore((state) => state)
   const tx = useSendStore((state) => state)
-  const { user, authToken } = useDynamicContext()
+  const { user } = useDynamicContext()
 
   const { data: nonce, refetch: refetchNonce } = useContractRead({
     address: keep.address as `0xstring`,
@@ -48,7 +48,7 @@ export const Toolbox = () => {
     chainId: Number(keep.chainId),
   })
 
-  console.log('nonce', nonce?.toString())
+
   const notSigner =
     keep?.signers?.find((s: string) => s === user?.walletPublicKey?.toLowerCase()) == undefined ? true : false
 
@@ -129,7 +129,7 @@ export const Toolbox = () => {
           content: tx.content,
           authorAddress: user.walletPublicKey?.toLowerCase(),
         }
-        console.log('body', body)
+
 
         await sendTx(
           keep.chainId,

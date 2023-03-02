@@ -70,7 +70,6 @@ export const SendToken = () => {
   })
 
   const onSubmit = (data: any) => {
-    console.log('submit', data)
     // if amount != 0, add to send store
     const transfers = data.transfers.filter((transfer: any) => {
       return (
@@ -182,7 +181,7 @@ export const SendToken = () => {
                     <Field label="Token">
                       <Select
                         onValueChange={(value: string) => {
-                          console.log('value', value)
+        
                           setValue(`transfers.${index}.token_address`, value)
                         }}
                       >

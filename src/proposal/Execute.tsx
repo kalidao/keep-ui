@@ -67,9 +67,8 @@ const Execute = () => {
     ],
   })
   const { write: sayNo, error: noError } = useContractWrite(configNo)
-  console.log('execute', configNo, configNoError, noError)
+
   if (tx?.status === 'process_yes') {
-    console.log('sayYes', sayYes, configYesError, yesError)
     return (
       <Button
         disabled={!sayYes}

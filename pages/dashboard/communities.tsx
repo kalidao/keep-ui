@@ -37,7 +37,6 @@ const Communities: NextPage = () => {
         <Box className={styles.communityGrid}>
           {keeps &&
             keeps.map((keep: any) => {
-              console.log('keep', `/${keep.chainId}/${keep.address}`)
               return (
                 <KeepCard
                   key={keep.address}

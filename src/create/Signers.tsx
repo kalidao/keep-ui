@@ -74,7 +74,7 @@ export const Signers = () => {
     setLoading(true)
     let { signers, threshold } = data
 
-    console.log('signers', signers)
+
 
     state.setSigners(signers)
     state.setThreshold(threshold)

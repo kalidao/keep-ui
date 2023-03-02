@@ -13,7 +13,6 @@ lowlight.registerLanguage('ts', ts)
 
 export const getExtensions = (placeholder: string) => {
   return [
-    StarterKit.configure(),
     Emoji.configure({
       suggestion,
     }),

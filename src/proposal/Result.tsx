@@ -10,8 +10,6 @@ export const Result = () => {
   const tx = useTxStore((state) => state)
   const keep = useKeepStore((state) => state)
 
-  console.log('tx', tx)
-
   return (
     <>
       {tx?.executedOn && (

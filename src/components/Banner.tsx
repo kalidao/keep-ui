@@ -19,8 +19,6 @@ export default function Banner({ label }: { label: string }) {
 
   if (hidden) return null
 
-  console.log('network', network)
-
   return (
     <Box className={styles.root}>
       <p className={styles.text}>{label}</p>

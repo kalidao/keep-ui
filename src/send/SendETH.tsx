@@ -51,7 +51,6 @@ const SendETH = () => {
     mode: 'recklesslyUnprepared',
     functionName: 'execute',
   })
-  // console.log('prepareError', prepareError)
 
   const handleSign = async () => {
     if (!address) {
@@ -92,27 +91,8 @@ const SendETH = () => {
         },
       })
       signature = ethers.utils.splitSignature(data)
-      console.log('signature', { signature })
 
-      //     Operation op,
-      // address to,
-      // uint256 value,
-      // bytes calldata data,
-      // Signature[] calldata sigs
-      console.log('Params', [
-        0,
-        address,
-        0,
-        ethers.utils.formatBytes32String('0x'),
-        [
-          {
-            user: address,
-            v: signature.v,
-            r: signature.r,
-            s: signature.s,
-          },
-        ],
-      ])
+
       const res = await writeAsync?.({
         recklesslySetUnpreparedArgs: [
           0,
@@ -130,7 +110,6 @@ const SendETH = () => {
         ],
       })
 
-      console.log('res', res)
     } catch (e: unknown) {
       console.error(e)
     }

@@ -18,9 +18,10 @@ export async function uploadImageData(data: any, name?: string) {
         Authorization: `Bearer ${process.env.NEXT_PUBLIC_PINATA_JWT}`,
       },
     })
-    console.log(res.data)
+    return convertIpfsHash(res.data.IpfsHash)
   } catch (error) {
-    console.log(error)
+    console.error(error)
+    return ''
   }
 }
 
@@ -47,10 +48,10 @@ export async function uploadFile(attachment: any, name?: string) {
         Authorization: `Bearer ${process.env.NEXT_PUBLIC_PINATA_JWT}`,
       },
     })
-    console.log(res.data)
+   
     return convertIpfsHash(res.data.IpfsHash)
   } catch (error) {
-    console.log(error)
+    console.error(error)
     return ''
   }
 }

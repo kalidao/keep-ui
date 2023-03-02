@@ -73,7 +73,6 @@ export const Name = () => {
       state.setSigners([{ address: connectedWallets[0].address }])
     }
 
-    console.log('state', state)
 
     state.setView('signers')
   }

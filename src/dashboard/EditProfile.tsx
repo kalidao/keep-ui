@@ -130,7 +130,7 @@ const EditProfile = ({ callback }: { callback: () => Promise<void> }) => {
                     const reader = new FileReader()
                     reader.readAsDataURL(file)
                     reader.onloadend = async () => {
-                      console.log('reader', reader)
+                     
                       setAvatarUrl(reader.result as string)
                     }
                     await uploadAvatar(file)

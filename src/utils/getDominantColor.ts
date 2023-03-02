@@ -37,7 +37,5 @@ export const createImage = async (data: string) => {
 
   await ctx.drawImage(img, 0, 0)
 
-  console.log('image', img)
-
   return img
 }

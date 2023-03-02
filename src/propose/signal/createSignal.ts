@@ -21,8 +21,6 @@ export const createSignal = async (
 
   const authToken = await getAuthToken()
 
-  console.log(authToken)
-
   const response = await fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/signals/create`, {
     method: 'POST',
     headers: {

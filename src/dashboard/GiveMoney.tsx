@@ -75,7 +75,7 @@ const GiveMoney = () => {
     },
   })
 
-  console.log('userBalance', userBalance?.assets)
+
 
   return (
     <>

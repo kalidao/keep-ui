@@ -26,7 +26,7 @@ const parsePendingTransactions = (keeps: any) => {
       }
     })
   })
-  console.log('pendingTransactions', pendingTransactions)
+
   return pendingTransactions
 }
 

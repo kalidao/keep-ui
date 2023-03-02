@@ -14,7 +14,6 @@ const UpVote = () => {
   const tx = useTxStore((state) => state)
 
   const upvote = async () => {
-    console.log('upvote', keep.address, keep.chainId, tx.txHash, tx.op, tx.to, tx.value, tx.data)
     if (
       !keep.address ||
       !keep.chainId ||

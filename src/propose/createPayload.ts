@@ -8,13 +8,11 @@ export const createPayload = (template: string, params: any): `0xstring` | strin
   switch (template) {
     case 'erc20':
       iface = new ethers.utils.Interface(erc20ABI)
-      console.log('erc20 params: ', params.to, ethers.utils.parseUnits(params.value, params.decimals))
       data = iface.encodeFunctionData('transfer', [params.to, ethers.utils.parseUnits(params.value, params.decimals)])
       return data as `0xstring`
     case 'add_tribute':
       iface = new ethers.utils.Interface(KEEP_ABI)
       const descriptionPayload = ethers.utils.defaultAbiCoder.encode(['string'], [params?.description])
-      console.log('add_tribute params: ', TRIBUTE_ROUTER_ADDRESS, MINT_KEY, 1, params?.description, descriptionPayload)
       data = iface.encodeFunctionData('mint', [TRIBUTE_ROUTER_ADDRESS, MINT_KEY, 1, descriptionPayload])
       return data as `0xstring`
     case 'remove_tribute':

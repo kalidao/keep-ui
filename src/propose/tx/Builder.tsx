@@ -67,8 +67,6 @@ export const Builder = () => {
     state.setData(tx as `0x${string}`)
   }
 
-  console.log('selectedFunctionName', state.data)
-
   return (
     <Stack>
       <Heading level="2">Call Builder</Heading>

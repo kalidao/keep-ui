@@ -25,7 +25,6 @@ export const EditComment = ({ comment, callback }: { comment: any; callback: () 
         setContent(comment.content)
       })
       .catch((err) => {
-        console.log('err', err)
         toast('error', 'Something went wrong')
       })
   }

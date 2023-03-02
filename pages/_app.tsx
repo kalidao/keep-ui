@@ -27,8 +27,6 @@ export const bodoni = Bodoni_Moda({ subsets: ['latin'], variable: '--font-bodoni
 
 const queryClient = new QueryClient()
 
-console.log('Bodoni', bodoni.style)
-
 function MyApp({ Component, pageProps, theme }: AppProps & { theme: Mode }) {
   const setMode = useThemeStore((state) => state.setMode)
   const router = useRouter()

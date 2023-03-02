@@ -14,7 +14,6 @@ type Props = {
 }
 
 const KeepCard = ({ name, chainId, keep, avatar, txs }: Props) => {
-  console.log('name', name, avatar)
   // check if keep has pending transactions
   const pendingTxs = txs.filter((tx: any) => tx.status === 'pending')
   const isPending = pendingTxs.length > 0 ? true : false

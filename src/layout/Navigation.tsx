@@ -10,8 +10,7 @@ import * as styles from './layout.css'
 const Navigation = () => {
   const router = useRouter()
   const { chainId, keep } = router.query
-  console.log('chainId', chainId)
-  console.log('keep', keep)
+
   let isPropose
   if (chainId && keep) {
     isPropose = true

@@ -29,7 +29,7 @@ export const Error = () => {
       website: state.website,
     },
   }
-  console.log('state')
+
 
   return (
     <Box className={styles.shell}>

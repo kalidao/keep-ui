@@ -89,7 +89,6 @@ export const Confirm = () => {
         state.setLoadingMessage('Waiting for confirmation')
         tx?.wait()
           .then((receipt) => {
-            console.log('receipt', receipt)
             state.setLoadingMessage('Setting up Keep')
             const body = {
               address: state.address,
@@ -130,19 +129,18 @@ export const Confirm = () => {
                 }
               })
               .catch((err) => {
-                console.log('err', err)
                 state.setLoading('error')
                 state.setLoadingMessage('Error deploying Keep')
               })
           })
           .catch((err) => {
-            console.log('err', err)
+      
             state.setLoading('error')
             state.setLoadingMessage('Error deploying Keep')
           })
       })
       .catch((err) => {
-        console.log('err', err)
+     
         state.setLoading('error')
         state.setLoadingMessage('Error deploying Keep')
       })
@@ -222,7 +220,7 @@ const Signer = ({ index, address }: { index: number; address: string }) => {
     chainId: 1,
   })
 
-  console.log('signer address', address)
+ 
   return (
     <Card padding="5" borderRadius={'medium'} width="full" shadow>
       <Text weight="bold">

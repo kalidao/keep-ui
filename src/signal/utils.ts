@@ -20,7 +20,6 @@ export const vote = async (signalId: string, userId: string, vote: boolean, auth
         toast('success', 'Voted! 💌')
       } else {
         res.json().then((data) => {
-          console.log(data.error)
           toast('error', `Error: ${data.error.name}`)
         })
       }
@@ -47,7 +46,6 @@ export const signalCommentVote = async (signalId: string, commentId: string, vot
         toast('success', `${vote ? '🖤' : '💔'}`)
       } else {
         res.json().then((data) => {
-          console.log(data.error)
           toast('error', `Error: ${data.error.name}`)
         })
       }

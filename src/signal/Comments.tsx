@@ -32,7 +32,6 @@ const Comments = () => {
     comments = <Text>Something went wrong</Text>
   }
   if (data) {
-    console.log('comments', data)
     comments = data?.map((comment: any) => <RenderComment key={comment.id} comment={comment} callback={refetch} />)
   }
 
@@ -156,7 +155,6 @@ const SignalCommentVote = ({
     const typeEnum = type ? 'yes' : 'no'
     isVoted =
       data?.votes?.find((vote: any) => {
-        console.log('vote.userId', vote.userId, user?.walletPublicKey?.toLowerCase())
         return vote.userId === user?.walletPublicKey?.toLowerCase()
       })?.type === typeEnum
   }

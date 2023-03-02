@@ -27,7 +27,7 @@ const Signals = () => {
 
     return signals
   })
-  console.log('txs', signals)
+
 
   return (
     <>

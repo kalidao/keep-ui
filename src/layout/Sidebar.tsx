@@ -47,7 +47,6 @@ export const Sidebar = () => {
       <Stack>
         {keeps &&
           keeps.map((keep: any) => {
-            console.log('keep', `/${keep.chainId}/${keep.address}`)
             return (
               <Link key={keep.chainId + keep.address} href={`/${keep.chainId}/${keep.address}`}>
                 <Tooltip label={keep.name} key={keep.address + keep.chainId}>
