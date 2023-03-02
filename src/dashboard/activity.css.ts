@@ -5,17 +5,16 @@ export const cardRoot = style({
   padding: vars.space[6],
   borderBottomWidth: vars.borderWidths['0.5'],
   borderColor: vars.colors.foregroundSecondary,
-
+  overflow: 'hidden',
   ':hover': {
-    transform: 'translateY(5px)',
-    borderColor: vars.colors.foregroundSecondaryHover,
-    transition: 'all 0.1s ease-in',
+    transform: 'translate3D(0,-1px,0) scale(1.01)',
+  
+    transition: 'all 0.2s ease-in',
   },
 
   ':active': {
-    transform: 'translateY(0px)',
     backgroundColor: vars.colors.backgroundSecondary,
     borderColor: vars.colors.foregroundSecondary,
-    transition: 'all 0.1s ease-in',
+    transition: 'all 0.2s ease-in',
   },
 })

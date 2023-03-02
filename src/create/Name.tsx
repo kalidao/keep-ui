@@ -21,13 +21,14 @@ import Back from './Back'
 import { PostIt } from './PostIt'
 import * as styles from './create.css'
 import { CreateStore, useCreateStore } from './useCreateStore'
+import { nameCheck } from './utils'
 
 const schema = z.object({
   name: z
     .string()
     .trim()
     .min(1, { message: 'A name is required' })
-    .max(50, { message: 'Name must be less than 50 characters' }),
+    .max(50, { message: 'Name must be less than 50 characters' }).refine(async (name) => await nameCheck(137, name), "Name is taken"),
   bio: z.string().max(160, { message: 'Bio must be less than 160 characters' }),
   // validate twitter
   // they can be empty, but if they are not, they must be valid
@@ -58,7 +59,7 @@ export const Name = () => {
 
   const onSubmit = (data: CreateStore) => {
     const { name, bio, twitter, discord, website } = data
-    console.log('data', data)
+
     state.setName(name)
     state.setBio(bio)
     twitter && state.setTwitter(twitter)

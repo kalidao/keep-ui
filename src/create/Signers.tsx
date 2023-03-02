@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
   Box,
@@ -14,7 +15,7 @@ import {
 } from '@kalidao/reality'
 import { useFieldArray, useForm, useWatch } from 'react-hook-form'
 import { z } from 'zod'
-import { getEnsAddress } from '~/utils/ens'
+import { getEnsAddress, isAddressOrEns, validateEns } from '~/utils/ens'
 
 import Back from './Back'
 import { PostIt } from './PostIt'
@@ -24,12 +25,11 @@ import { CreateStore, useCreateStore } from './useCreateStore'
 const schema = z.object({
   signers: z.array(
     z.object({
-      address: z.string(),
-      ens: z.string().optional(),
+      address: z.string().refine(async (val) => await isAddressOrEns(val), "Not a valid address or ENS.").transform(async (val) => await validateEns(val)),
     }),
-  ),
+  ).transform((val) => val.filter((v, i, a) => a.findIndex((t) => t.address === v.address) === i)),
   threshold: z.coerce.number().min(1, { message: 'Threshold must be greater than 0' }),
-})
+}).refine((val) => val.signers.length >= val.threshold, 'Threshold must be less than or equal to the number of signers')
 
 export const Signers = () => {
   const state = useCreateStore((state) => state)
@@ -60,15 +60,19 @@ export const Signers = () => {
     name: 'threshold',
     control,
   })
+  const [loading, setLoading] = useState(false)
 
   const onSubmit = async (data: CreateStore) => {
+    setLoading(true)
     let { signers, threshold } = data
-    console.log('signers', signers)
 
+    console.log('signers', signers)
+   
     state.setSigners(signers)
     state.setThreshold(threshold)
 
     state.setView('nft')
+    setLoading(false)
   }
 
   const maxSigners = 9
@@ -113,19 +117,7 @@ export const Signers = () => {
                         label="Signer"
                         hideLabel
                         placeholder="0x"
-                        {...(register(`signers.${index}.address` as const),
-                        {
-                          onChange: async (e) => {
-                            const value = e.target.value.trim()
-                            if (value.endsWith('.eth')) {
-                              const ensAddress = await getEnsAddress(value)
-                              if (ensAddress != null) {
-                                setValue(`signers.${index}.address`, ensAddress)
-                                setValue(`signers.${index}.ens`, value)
-                              }
-                            }
-                          },
-                        })}
+                        {...register(`signers.${index}.address` as const)}
                         defaultValue={field.address}
                         error={errors?.signers?.[index]?.address && errors?.signers?.[index]?.address?.message}
                       />
@@ -170,7 +162,7 @@ export const Signers = () => {
               })}
               labelSecondary={`${watchedThreshold}/${watchedSigners.length}`}
             />
-            <Button suffix={<IconArrowRight />} width="full" type="submit">
+            <Button loading={loading} suffix={<IconArrowRight />} width="full" type="submit">
               Next
             </Button>
           </Box>

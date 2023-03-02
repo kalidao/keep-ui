@@ -2,7 +2,22 @@ import { ethers } from 'ethers'
 
 import { getProvider } from './getProvider'
 
-export const validateEns = async (ens: string) => {}
+export const validateEns = async (ens: string) => {
+  try {
+    const provider = getProvider(1)
+    const address = await provider.resolveName(ens)
+    return address
+  } catch (e) {
+    return null
+  }
+}
+
+export const isAddressOrEns = async (addressOrEns: string) => {
+  if (ethers.utils.isAddress(addressOrEns)) return true
+  if (!addressOrEns.endsWith('.eth')) return false
+  const ens = await validateEns(addressOrEns)
+  return !!ens
+}
 
 export const getEnsAddress = async (ens: string) => {
   if (!ens) return null

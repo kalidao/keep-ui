@@ -51,6 +51,7 @@ const RenderComment = ({ comment, callback }: { comment: any; callback: any }) =
   const [reply, setReply] = useState(false)
   const [showChildren, setShowChildren] = useState<any>(false)
   const [edit, setEdit] = useState(false)
+  const { user } = useDynamicContext()
 
   let children = null
   let replies = 0
@@ -64,14 +65,16 @@ const RenderComment = ({ comment, callback }: { comment: any; callback: any }) =
     replies = comment?.children?.length
   }
 
+  let isUserComment = comment?.userId?.toLowerCase() === user?.walletPublicKey?.toLowerCase()
+
   return (
     <Card padding="3">
       <Stack>
         <Stack direction={'horizontal'} align="center" justify={'space-between'}>
           <User address={comment.userId} size="lg" />
-          <Button shape="circle" variant="transparent" size="small" onClick={() => setEdit(!edit)}>
+          {isUserComment ? <Button shape="circle" variant="transparent" size="small" onClick={() => setEdit(!edit)}>
             <IconPencil />
-          </Button>
+          </Button> : null}
         </Stack>
         {edit ? (
           <EditComment
