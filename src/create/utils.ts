@@ -12,6 +12,8 @@ export const nameCheck = async (chainId: number, name: string) => {
   }
 }
 
+
+
 export const requestSetup = async (body: SetupSchema) => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/setup`, {
@@ -21,13 +23,10 @@ export const requestSetup = async (body: SetupSchema) => {
       },
       body: JSON.stringify(body),
     })
-    const data = await res.json()
-    if (res.status === 200) {
-      return true
-    } else {
-      throw new Error('Error setting up Keep')
-    }
+
+    if (res.status === 200) return true
+    else return false
   } catch (e) {
-    throw new Error('Error setting up Keep')
+    return false
   }
 }

@@ -85,47 +85,50 @@ export const Confirm = () => {
       img = state.avatar
     }
 
-    writeAsync?.()
-      .then((tx) => {
-        state.setTxHash(tx.hash)
-        state.setLoadingMessage('Waiting for confirmation')
-        tx?.wait()
-          .then(async (receipt) => {
-            state.setLoadingMessage('Setting up Keep')
-            const body = {
-              address: state.address,
-              chain: chain?.id,
-              blocknumber: 0,
-              name: state.name,
-              signers: signers,
-              threshold: state.threshold,
-              avatar: img ? img : '',
-              templateId: TokenTemplate.CORE,
-              bio: state.bio,
-              params: {
-                borderColor: state.borderColor,
-                borderTextColor: state.borderTextColor,
-                bgColor: state.bgColor,
-                innerTextColor: state.innerTextColor,
-              },
-              socials: {
-                twitter: state.twitter,
-                discord: state.discord,
-                website: state.website,
-              },
-            }
+    const tx = await writeAsync?.()
 
-            await requestSetup({ body })
-          })
-          .catch((err) => {
-            state.setLoading('error')
-            state.setLoadingMessage('Error deploying Keep')
-          })
-      })
-      .catch((err) => {
-        state.setLoading('error')
-        state.setLoadingMessage('Error deploying Keep')
-      })
+    if (tx) {
+      state.setTxHash(tx.hash)
+      state.setLoadingMessage('Waiting for confirmation')
+    }
+    const receipt = await tx?.wait()
+    state.setLoadingMessage('Setting up Keep')
+    let blockNumber = 0
+    if (receipt) {
+      blockNumber = receipt.blockNumber
+    }
+    const body = {
+      address: state.address,
+      chain: chain?.id,
+      blocknumber: blockNumber,
+      name: state.name,
+      signers: signers,
+      threshold: state.threshold,
+      avatar: img ? img : '',
+      templateId: TokenTemplate.CORE,
+      bio: state.bio,
+      params: {
+        borderColor: state.borderColor,
+        borderTextColor: state.borderTextColor,
+        bgColor: state.bgColor,
+        innerTextColor: state.innerTextColor,
+      },
+      socials: {
+        twitter: state.twitter,
+        discord: state.discord,
+        website: state.website,
+      },
+    }
+    console.log('body', body)
+    const isSetup = await requestSetup({ body })
+
+    if (isSetup === true) {
+      state.setLoading('success')
+      state.setLoadingMessage('Keep deployed')
+    } else {
+      state.setLoading('error')
+      state.setLoadingMessage('Error deploying Keep')
+    }
   }
 
   if (state.loading === 'loading') {
