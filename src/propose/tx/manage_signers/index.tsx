@@ -2,12 +2,10 @@ import { useEffect } from 'react'
 
 import { Box, Button, Divider, IconClose, IconPlus, Input, Stack, Text } from '@kalidao/reality'
 import { useFieldArray, useFormContext, useWatch } from 'react-hook-form'
-import { z } from 'zod'
 import { useKeepStore } from '~/dashboard/useKeepStore'
+import { useSendStore } from '~/propose/tx/useSendStore'
+import { ManageSignersProps } from '~/propose/types'
 import { validateEns } from '~/utils/ens'
-
-import { ManageSignersProps, schemas } from '../types'
-import { useSendStore } from './useSendStore'
 
 export const ManageSigners = () => {
   const keep = useKeepStore((state) => state)
@@ -25,10 +23,25 @@ export const ManageSigners = () => {
     name: 'signers',
     control,
   })
-  const watchedSigners = useWatch({
+  const watchedSignersArray = useWatch({
     control,
     name: 'signers',
   })
+  const controlledSigners = fields.map((field, index) => {
+    return {
+      ...field,
+      ...watchedSignersArray[index],
+    }
+  })
+
+  useEffect(() => {
+    if (keep.signers && keep.signers.length > 0) {
+      setValue(
+        'signers',
+        keep.signers.map((signer) => ({ address: signer, resolves: undefined })),
+      )
+    }
+  }, [])
 
   useEffect(() => {
     if (keep.threshold && keep.threshold != manage_signers.threshold) {
@@ -37,7 +50,7 @@ export const ManageSigners = () => {
   })
 
   useEffect(() => {
-    watchedSigners?.forEach(
+    watchedSignersArray?.forEach(
       async (
         signer: {
           address: string
@@ -53,12 +66,12 @@ export const ManageSigners = () => {
         }
       },
     )
-  }, [watchedSigners, setValue])
+  }, [watchedSignersArray, setValue])
 
   // WARN
   return (
     <Box display={'flex'} flexDirection="column" gap="2">
-      {fields.map((field, index) => (
+      {controlledSigners.map((field, index) => (
         <Stack key={field.id}>
           <Stack key={field.id} direction="horizontal" align="center">
             <Input
@@ -68,7 +81,6 @@ export const ManageSigners = () => {
               type="text"
               defaultValue={field.address}
               {...register(`signers.${index}.address` as const)}
-              error={errors.signers?.[index]?.address?.message}
             />
             <Button
               type="button"
@@ -95,7 +107,7 @@ export const ManageSigners = () => {
         size="small"
         tone="green"
         onClick={() => {
-          append({ address: '' })
+          append({ address: '', resolves: undefined })
         }}
         prefix={<IconPlus />}
       >
@@ -107,7 +119,7 @@ export const ManageSigners = () => {
         labelSecondary={`Current: ${keep.threshold}/${keep.signers.length}`}
         type="number"
         min={'1'}
-        error={errors.threshold?.message}
+        error={errors && <>{errors?.threshold?.message}</>}
         {...register('threshold', {
           valueAsNumber: true,
         })}

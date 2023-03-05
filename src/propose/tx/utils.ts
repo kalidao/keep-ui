@@ -9,7 +9,7 @@ const encodeTransfer = async (chainId: number, contractAddress: string, to: stri
   try {
     const provider = getProvider(chainId)
     const contract = new ethers.Contract(contractAddress, KEEP_ABI, provider)
-    const decimals = 18
+    const decimals = await contract.decimals()
 
     const amountInWei = ethers.utils.parseUnits(amount.toString(), decimals).toString()
     console.log('token transfer', contractAddress, to, amount, amountInWei, decimals)
@@ -38,17 +38,16 @@ export const createSendTokenPayload = async (chainId: number, transfers: any[]) 
         value: ethers.utils.parseEther(transfer.amount.toString()).toString(),
         data: ethers.constants.HashZero,
       })
-      break
+    } else {
+      const data = await encodeTransfer(chainId, address, to, amount)
+
+      calls.push({
+        op: 0,
+        to: address,
+        value: 0,
+        data,
+      })
     }
-
-    const data = await encodeTransfer(chainId, address, to, amount)
-
-    calls.push({
-      op: 0,
-      to: address,
-      value: 0,
-      data,
-    })
   }
 
   console.log('token transfers', calls)

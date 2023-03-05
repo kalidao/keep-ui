@@ -9,7 +9,6 @@ import { SendTokenProps } from '~/propose/types'
 import { truncAddress } from '~/utils'
 import { getBlockchainByChainId } from '~/utils/ankr'
 
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@design/Command'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@design/Select'
 
 export const SendToken = () => {

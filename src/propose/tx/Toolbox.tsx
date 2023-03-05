@@ -19,13 +19,13 @@ import { useContractRead } from 'wagmi'
 import { KEEP_ABI } from '~/constants'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 import { usePreflight } from '~/hooks/usePreflight'
+import { ManageSigners } from '~/propose/tx/manage_signers'
 import { SendToken } from '~/propose/tx/send_token'
 
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@design/Command'
 import { Popover, PopoverContent, PopoverTrigger } from '@design/Popover'
 
 import { Builder } from './Builder'
-import { ManageSigners } from './ManageSigners'
 import { SendNFT } from './SendNFT'
 import { useSendStore } from './useSendStore'
 
