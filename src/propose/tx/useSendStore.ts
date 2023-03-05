@@ -1,6 +1,6 @@
 import { JSONContent } from '@tiptap/react'
 import { ethers } from 'ethers'
-import create from 'zustand'
+import { create } from 'zustand'
 
 import { ActionTypes } from './Toolbox'
 import { SendNFT, SendToken } from './types'

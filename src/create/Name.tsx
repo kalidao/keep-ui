@@ -23,24 +23,27 @@ import * as styles from './create.css'
 import { CreateStore, useCreateStore } from './useCreateStore'
 import { nameCheck } from './utils'
 
-const schema = z.object({
-  name: z
-    .string()
-    .trim()
-    .min(1, { message: 'A name is required' })
-    .max(50, { message: 'Name must be less than 50 characters' })
-    .refine(async (name) => await nameCheck(137, name), 'Name is taken'),
-  bio: z.string().max(160, { message: 'Bio must be less than 160 characters' }),
-  // validate twitter
-  // they can be empty, but if they are not, they must be valid
-  // they are valid if they are a url or a string that starts
-  twitter: z.union([z.string().url(), z.string().max(0)]).optional(),
-  discord: z.union([z.string().url(), z.string().max(0)]).optional(),
-  website: z.union([z.string().url(), z.string().max(0)]).optional(),
-})
+// namecheck takes an argument chainId to check if the name is taken on that chain
+// the schema should accept a chainId argument and pass it to nameCheck
+// make a function that takes a chainId and returns a schema
+const schemaWithChainId = (chainId: number) => {
+  return z.object({
+    name: z
+      .string()
+      .trim()
+      .min(1, { message: 'A name is required' })
+      .max(50, { message: 'Name must be less than 50 characters' })
+      .refine((val) => nameCheck(chainId, val), { message: 'Name is already taken' }),
+    bio: z.string().max(160, { message: 'Bio must be less than 160 characters' }),
+    twitter: z.union([z.string().url(), z.string().max(0)]).optional(),
+    discord: z.union([z.string().url(), z.string().max(0)]).optional(),
+    website: z.union([z.string().url(), z.string().max(0)]).optional(),
+  })
+}
 
 export const Name = () => {
   const state = useCreateStore((state) => state)
+  const { network } = useDynamicContext()
   const {
     register,
     handleSubmit,
@@ -54,7 +57,12 @@ export const Name = () => {
       website: state.website,
     },
     mode: 'onBlur',
-    resolver: zodResolver(schema),
+    resolver: async (data, context, options) => {
+      const schema = schemaWithChainId(network ?? 137)
+      // console.log('zod formData', data)
+      // console.log('zod validation result', await zodResolver(schema)(data, context, options))
+      return zodResolver(schema)(data, context, options)
+    },
   })
   const { connectedWallets } = useDynamicContext()
 
@@ -68,15 +76,12 @@ export const Name = () => {
     website && state.setWebsite(website)
 
     if (connectedWallets.length > 0) {
-      state.setName(name)
-      state.setBio(bio)
       state.setSigners([{ address: connectedWallets[0].address }])
     }
 
     state.setView('signers')
   }
 
-  // TODO: Name needs to be unique per chain. Add check.
   return (
     <Box className={styles.shell} as="form" onSubmit={handleSubmit(onSubmit)}>
       <Stack direction={'horizontal'}>

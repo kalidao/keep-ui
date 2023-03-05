@@ -30,7 +30,7 @@ export const Emblem = () => {
             <rect x="0" y="0" width="100%" height="100%" fill="hsla(0, 0%, 100%, 1)" />
             <path
               d="M 10,-2.55e-7 V 20 Z M -1.1677362e-8,10 H 20 Z"
-              stroke-width="0.5"
+              strokeWidth="0.5"
               stroke={state.bgColor}
               fill="none"
             />

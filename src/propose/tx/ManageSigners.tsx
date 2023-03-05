@@ -55,8 +55,10 @@ export const ManageSigners = () => {
     )
   }, [watchedSigners, setValue])
 
+  // WARN
   return (
     <Box display={'flex'} flexDirection="column" gap="2">
+      <input type="hidden" {...register('to')} defaultValue={keep.address} />
       {fields.map((field, index) => (
         <Stack key={field.id}>
           <Stack key={field.id} direction="horizontal" align="center">

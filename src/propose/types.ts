@@ -1,3 +1,4 @@
+import { ethers } from 'ethers'
 import { AnyZodObject, z } from 'zod'
 import { isAddressOrEns } from '~/utils/ens'
 
@@ -16,6 +17,10 @@ export const baseSchema = z.object({
 })
 
 export const manageSignersSchema = z.object({
+  to: z
+    .string()
+    .min(1, { message: 'To cannot be empty' })
+    .refine((val) => ethers.utils.isAddress(val), 'Not a valid address.'),
   signers: z
     .array(
       z.object({
@@ -28,6 +33,20 @@ export const manageSignersSchema = z.object({
     )
     .transform((val) => val.filter((v, i, a) => a.findIndex((t) => t.address === v.address) === i)),
   threshold: z.coerce.number().min(1, { message: 'Threshold must be greater than 0' }),
+})
+
+export const callBuilderSchema = z.object({
+  calls: z.array(
+    z.object({
+      op: z.enum(['call', 'delegatecall', 'staticcall']),
+      to: z
+        .string()
+        .min(1, { message: 'To cannot be empty' })
+        .refine((val) => ethers.utils.isAddress(val), 'Not a valid address.'),
+      value: z.coerce.number().min(0, { message: 'Value must be greater than or equal to 0' }).optional(),
+      data: z.string().optional(),
+    }),
+  ),
 })
 
 export type ManageSignersProps = z.infer<typeof manageSignersSchema>
