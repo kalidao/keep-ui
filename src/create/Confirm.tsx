@@ -10,8 +10,8 @@ import { Loading } from './Loading'
 import { PostIt } from './PostIt'
 import { Success } from './Success'
 import * as styles from './create.css'
-import { useCreateStore } from './useCreateStore'
 import { setupSchema } from './types'
+import { useCreateStore } from './useCreateStore'
 
 export const Confirm = () => {
   const state = useCreateStore((state) => state)

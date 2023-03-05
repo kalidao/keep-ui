@@ -37,7 +37,6 @@ export const subtrigger = style([
     padding: vars.space[1],
     userSelect: 'none',
 
-
     ':hover': {
       color: vars.colors.foreground,
       background: vars.colors.accentSecondaryHover,
@@ -56,11 +55,14 @@ export const subtrigger = style([
   }),
 ])
 
-export const subcontent = style([content, style({
-  display: 'flex',
-  flexDirection: 'column',
-  gap: vars.space[1],
-})])
+export const subcontent = style([
+  content,
+  style({
+    display: 'flex',
+    flexDirection: 'column',
+    gap: vars.space[1],
+  }),
+])
 
 export const item = style({
   all: 'unset',

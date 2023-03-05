@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { z } from 'zod'
 import { TokenTemplates } from '~/types'
 
@@ -23,7 +24,7 @@ export type CreateProps = {
   setStore: React.Dispatch<React.SetStateAction<Store>>
 }
 
-// Setup 
+// Setup
 export const setupSchema = z.object({
   body: z.object({
     address: z.string(),
