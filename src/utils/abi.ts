@@ -1,13 +1,19 @@
 import { fetcher } from './fetcher'
+import { Abi } from 'abitype/zod'
 
 export const fetchContractAbi = async (address: string, chainId: number) => {
   const url =
     getApiPrefix(chainId) + `api?module=contract&action=getabi&address=${address}&apikey=${getApiToken(chainId)}`
   const response = await fetcher(url)
-  if (response.status === '1') {
-    return JSON.parse(response.result)
+  if (response.status >= 1) {
+  console.log('response', response)
+  // convert string to array 
+  const abi = Abi.parse(JSON.parse(response.result))
+  console.log('abi', abi)
+  return abi
   } else {
-    return null
+   console.error('Failed to fetch contract abi', response)
+  return null
   }
 }
 

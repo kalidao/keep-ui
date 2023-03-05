@@ -5,11 +5,14 @@ import { Box, Button, Divider, Heading, Input, Stack, Textarea } from '@kalidao/
 import { ethers } from 'ethers'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 import { fetchContractAbi } from '~/utils/abi'
+import { Abi } from 'abitype/zod'
 
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@design/Select'
 import toast from '@design/Toast'
 
 import { useSendStore } from './useSendStore'
+import { z } from 'zod'
+import { useFormContext } from 'react-hook-form'
 
 interface ABI_ITEM {
   name: string
@@ -27,6 +30,9 @@ export const Builder = () => {
   const [abi, setAbi] = useState<string>('')
   const [selectedFunctionName, setSelectedFunctionName] = useState<string>()
   const [selectedFunctionInputs, setSelectedFunctionInputs] = useState<any>([])
+  const { register, setValue, formState: {
+    errors
+  }, setError } = useFormContext()
 
   const getABI = async () => {
     if (!chainId) {
@@ -35,8 +41,9 @@ export const Builder = () => {
 
     if (ethers.utils.isAddress(state.to)) {
       const abi = await fetchContractAbi(state.to, chainId)
+
       if (abi) {
-        setAbi(JSON.stringify(abi))
+        setAbi(JSON.stringify(abi, undefined, 3))
         setSelectedFunctionName(undefined)
         setSelectedFunctionInputs([])
       } else {
@@ -47,14 +54,17 @@ export const Builder = () => {
     }
   }
 
-  // filter out functions from abi
-  const functions = abi
-    ? JSON.parse(abi)
-        .filter((item: any) => item.type === 'function')
-        .filter((item: any) => {
-          return item.stateMutability !== 'pure' && item.stateMutability !== 'view'
-        })
-    : []
+  // safely parse abi for functions
+  let functions: ABI_ITEM[] = []
+  try {
+    const abiParsed = JSON.parse(abi)
+    functions = abiParsed.filter((item: ABI_ITEM) => item.type === 'function')
+  } catch (e) {
+    setError('abi', {
+      type: 'manual',
+      message: 'Invalid ABI',
+    })
+  }
 
   const prepareTx = () => {
     if (!selectedFunctionName) {
@@ -67,16 +77,15 @@ export const Builder = () => {
     state.setData(tx as `0x${string}`)
   }
 
+  console.log('state to', state.to)
+
   return (
     <Stack>
       <Input
         label="Contract Address"
         description="The address to which this transaction is directed at."
         placeholder="0x"
-        value={state.to}
-        onChange={(e: ChangeEvent<HTMLInputElement>) => {
-          state.setTo(e.currentTarget.value as `0x${string}`)
-        }}
+        {...register('to')}
       />
       <Textarea
         label="ABI"
@@ -86,7 +95,7 @@ export const Builder = () => {
         onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
           setAbi(e.currentTarget.value)
         }}
-        disabled
+        error={<>{errors.abi?.message}</>}
       />
       <Button onClick={getABI} variant="secondary" size="small">
         Fetch ABI
@@ -127,6 +136,7 @@ export const Builder = () => {
                     return prev
                   })
                 }}
+                required
               />
             ))}
         </Stack>

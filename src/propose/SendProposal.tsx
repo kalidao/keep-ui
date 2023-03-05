@@ -106,6 +106,10 @@ export const SendProposal = () => {
           payload = createSendNFT(keep.address, data.send_nfts)
           await handleTx(keep.chainId, keep.address, data.title, data.content, 0, keep.address, '0', payload)
         }
+        case 'builder': {
+          console.log({ chainId: keep.chainId, address: keep.address, title: data.title, content: data.content, op: 0, to: data.to, value: tx.value, data: tx.data })
+          await handleTx(keep.chainId, keep.address, data.title, data.content, 0, tx.to, tx.value, tx.data)
+        }
       }
     } else {
       await createSignal(keep.address, keep.chainId, data.title, data.content).then(() => {

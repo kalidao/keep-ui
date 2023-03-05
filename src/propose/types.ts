@@ -9,6 +9,7 @@ export const baseSchema = z.object({
   content: jsonContentSchema,
   // todo: get enum from type SendStore["action"]
   action: z.enum(['none', 'manage_signers', 'send_token', 'send_nft', 'builder']),
+  to: z.string().min(1, { message: 'To cannot be empty' }).refine(async (val) => await isAddressOrEns(val), 'Not a valid address or ENS.'),
 })
 
 export const manageSignersSchema = z.object({
