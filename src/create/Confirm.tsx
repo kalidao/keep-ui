@@ -10,8 +10,9 @@ import { Loading } from './Loading'
 import { PostIt } from './PostIt'
 import { Success } from './Success'
 import * as styles from './create.css'
-import { setupSchema } from './types'
 import { useCreateStore } from './useCreateStore'
+import { requestSetup } from './utils'
+import { TokenTemplate } from '~/types'
 
 export const Confirm = () => {
   const state = useCreateStore((state) => state)
@@ -89,7 +90,7 @@ export const Confirm = () => {
         state.setTxHash(tx.hash)
         state.setLoadingMessage('Waiting for confirmation')
         tx?.wait()
-          .then((receipt) => {
+          .then(async (receipt) => {
             state.setLoadingMessage('Setting up Keep')
             const body = {
               address: state.address,
@@ -99,7 +100,7 @@ export const Confirm = () => {
               signers: signers,
               threshold: state.threshold,
               avatar: img ? img : '',
-              templateId: 'signer',
+              templateId: TokenTemplate.CORE,
               bio: state.bio,
               params: {
                 borderColor: state.borderColor,
@@ -114,30 +115,7 @@ export const Confirm = () => {
               },
             }
 
-            const validate = setupSchema.parse(body)
-
-            console.log('validate', validate)
-
-            fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/setup`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(body),
-            })
-              .then((res) => {
-                if (res.status === 200) {
-                  state.setLoading('success')
-                  state.setLoadingMessage('Keep deployed')
-                } else {
-                  state.setLoading('error')
-                  state.setLoadingMessage('Error deploying Keep')
-                }
-              })
-              .catch((err) => {
-                state.setLoading('error')
-                state.setLoadingMessage('Error deploying Keep')
-              })
+            await requestSetup({ body })
           })
           .catch((err) => {
             state.setLoading('error')

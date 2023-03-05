@@ -49,3 +49,5 @@ export const setupSchema = z.object({
     }),
   }),
 })
+
+export type SetupSchema = z.infer<typeof setupSchema>

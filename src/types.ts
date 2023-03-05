@@ -6,6 +6,11 @@ export enum Operation {
   create = 2,
 }
 
+export enum TokenTemplate {
+  CORE = 'CORE',
+  MEMBERSHIP = 'MEMBERSHIP',
+}
+
 export const OpEnum = z.enum(['call', 'delegatecall', 'create'])
 
 export const TokenTemplates = z.enum(['CORE', 'MEMBERSHIP'])
