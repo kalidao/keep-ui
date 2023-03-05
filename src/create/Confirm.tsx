@@ -2,6 +2,7 @@ import { Box, Button, Card, Divider, Heading, IconLightningBolt, Stack, Text } f
 import { ethers } from 'ethers'
 import { useContractRead, useContractWrite, useEnsName, useNetwork, usePrepareContractWrite } from 'wagmi'
 import { KEEP_ABI, KEEP_FACTORY_ABI, KEEP_FACTORY_ADDRESS } from '~/constants'
+import { TokenTemplate } from '~/types'
 
 import Back from './Back'
 import { Emblem } from './Emblem'
@@ -12,7 +13,6 @@ import { Success } from './Success'
 import * as styles from './create.css'
 import { useCreateStore } from './useCreateStore'
 import { requestSetup } from './utils'
-import { TokenTemplate } from '~/types'
 
 export const Confirm = () => {
   const state = useCreateStore((state) => state)
