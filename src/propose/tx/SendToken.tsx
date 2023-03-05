@@ -59,57 +59,57 @@ export const SendToken = () => {
     control,
   })
 
-  const onSubmit = (data: any) => {
-    // if amount != 0, add to send store
-    const transfers = data.transfers.filter((transfer: any) => {
-      return (
-        ethers.BigNumber.from(transfer.amount).gt(ethers.BigNumber.from(0)) &&
-        transfer.to !== '' &&
-        transfer.token_address !== ''
-      )
-    })
+  // const onSubmit = (data: any) => {
+  //   // if amount != 0, add to send store
+  //   const transfers = data.transfers.filter((transfer: any) => {
+  //     return (
+  //       ethers.BigNumber.from(transfer.amount).gt(ethers.BigNumber.from(0)) &&
+  //       transfer.to !== '' &&
+  //       transfer.token_address !== ''
+  //     )
+  //   })
 
-    // op, to, value, data
-    const calls = transfers.map((transfer: any) => {
-      const token = tokens.find(
-        (token: any) => token.contract_address.toLowerCase() === transfer.token_address.toLowerCase(),
-      )
-      if (token.native_token) {
-        return {
-          op: 0,
-          to: transfer.to,
-          value: ethers.utils.parseUnits(transfer.amount.toString(), token.contract_decimals).toString(),
-          data: ethers.constants.HashZero,
-        }
-      }
+  //   // op, to, value, data
+  //   const calls = transfers.map((transfer: any) => {
+  //     const token = tokens.find(
+  //       (token: any) => token.contract_address.toLowerCase() === transfer.token_address.toLowerCase(),
+  //     )
+  //     if (token.native_token) {
+  //       return {
+  //         op: 0,
+  //         to: transfer.to,
+  //         value: ethers.utils.parseUnits(transfer.amount.toString(), token.contract_decimals).toString(),
+  //         data: ethers.constants.HashZero,
+  //       }
+  //     }
 
-      const iface = new ethers.utils.Interface(erc20ABI)
-      const data = iface.encodeFunctionData('transfer', [
-        transfer.to,
-        ethers.utils.parseUnits(transfer.amount.toString(), token.contract_decimals).toString(),
-      ])
+  //     const iface = new ethers.utils.Interface(erc20ABI)
+  //     const data = iface.encodeFunctionData('transfer', [
+  //       transfer.to,
+  //       ethers.utils.parseUnits(transfer.amount.toString(), token.contract_decimals).toString(),
+  //     ])
 
-      return {
-        op: 0,
-        to: transfer.token_address,
-        value: 0,
-        data,
-      }
-    })
+  //     return {
+  //       op: 0,
+  //       to: transfer.token_address,
+  //       value: 0,
+  //       data,
+  //     }
+  //   })
 
-    // multiexecute
+  //   // multiexecute
 
-    const iface = new ethers.utils.Interface(KEEP_ABI)
-    const executedata = iface.encodeFunctionData('multirelay', [calls])
+  //   const iface = new ethers.utils.Interface(KEEP_ABI)
+  //   const executedata = iface.encodeFunctionData('multirelay', [calls])
 
-    tx.setOp(0)
-    tx.setTo(keep as `0xstring`)
-    tx.setValue('0')
-    tx.setData(executedata as `0xstring`)
+  //   tx.setOp(0)
+  //   tx.setTo(keep as `0xstring`)
+  //   tx.setValue('0')
+  //   tx.setData(executedata as `0xstring`)
 
-    // overwrite send store
-    tx.setSendToken([...transfers])
-  }
+  //   // overwrite send store
+  //   tx.setSendToken([...transfers])
+  // }
 
   if (!data) {
     return <Spinner />
@@ -131,7 +131,7 @@ export const SendToken = () => {
     return <Text>We were not able to find any tokens in this Keep.</Text>
   }
   return (
-    <Box display={'flex'} width="full" gap="5" as="form" onSubmit={handleSubmit(onSubmit)}>
+    <Box display={'flex'} width="full" gap="5">
       <Box width="1/3" padding="6" display="flex" flexDirection={'column'} gap="2">
         {fields.map((field, index) => {
           // return only the last index
