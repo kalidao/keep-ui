@@ -14,55 +14,31 @@ export const typeContainer = style({})
 export const typeShell = style([
   style({
     width: '67.5vw',
-    right: 0,
-    top: 0,
-    bottom: 0,
+    backgroundColor: vars.colors.background,
 
+    // center the content
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'stretch',
+    alignItems: 'center',
     justifyContent: 'center',
-    gap: vars.space['10'],
-    backgroundColor: vars.colors.background,
+    gap: vars.space['5'],
   }),
   responsiveStyle({
     xs: {
       width: '100vw',
-      position: 'relative',
-      right: 'auto',
-      left: 'auto',
-      top: 'auto',
-      bottom: 'auto',
-    },
-    sm: {
-      width: '100vw',
-      position: 'relative',
-      right: 'auto',
-      left: 'auto',
-      top: 'auto',
-      bottom: 'auto',
-    },
-    md: {
-      width: '100vw',
-      position: 'relative',
-      right: 'auto',
-      left: 'auto',
-      top: 'auto',
-      bottom: 'auto',
+
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
     },
     lg: {
       width: '67.5vw',
+      // center the content to right
       position: 'absolute',
-      right: 0,
-      top: 0,
-      bottom: 0,
-    },
-    xl: {
-      width: '67.5vw',
-      position: 'absolute',
-      right: 0,
-      top: 0,
-      bottom: 0,
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-20%, -50%)',
     },
   }),
 ])

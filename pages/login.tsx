@@ -14,9 +14,10 @@ import { Menu } from '@design/Menu'
 const Home: NextPage = () => {
   const { isAuthenticated } = useDynamicContext()
   const router = useRouter()
+  const { redirect } = router.query
 
   if (isAuthenticated) {
-    router.push('/dashboard')
+    router.push(redirect ? (redirect as string) : '/dashboard')
   }
 
   return (
@@ -26,11 +27,6 @@ const Home: NextPage = () => {
         <meta name="description" content={'This is the homepage of Keep.'} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Box className={header}>
-        <Stack direction={'horizontal'}>
-          <Menu />
-        </Stack>
-      </Box>
       <Login />
     </Box>
   )

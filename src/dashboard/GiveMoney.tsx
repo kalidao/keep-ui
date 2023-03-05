@@ -32,7 +32,6 @@ const GiveMoney = () => {
   } = useAccountBalance({
     blockchain: keep.chainId ? getBlockchainByChainId(keep.chainId) : 'polygon',
     walletAddress: user?.walletPublicKey ? user.walletPublicKey : ethers.constants.AddressZero,
-    onlyWhitelisted: true,
   })
   const { config } = usePrepareSendTransaction({
     request: {

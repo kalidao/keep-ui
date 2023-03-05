@@ -43,11 +43,6 @@ function MyApp({ Component, pageProps, theme }: AppProps & { theme: Mode }) {
             settings={{
               environmentId: process.env.NEXT_PUBLIC_DYNAMIC_ID ?? '',
               multiWallet: true,
-              onAuthSuccess: (args) => {
-                if (router.pathname === '/' || router.pathname === '/login') {
-                  router.push('/dashboard')
-                }
-              },
             }}
             theme={theme}
           >
