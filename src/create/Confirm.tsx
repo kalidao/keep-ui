@@ -105,7 +105,7 @@ export const Confirm = () => {
       signers: signers,
       threshold: state.threshold,
       avatar: img ? img : '',
-      templateId: TokenTemplate.CORE,
+      templateId: 'CORE' as TokenTemplate,
       bio: state.bio,
       params: {
         borderColor: state.borderColor,
@@ -119,8 +119,29 @@ export const Confirm = () => {
         website: state.website,
       },
     }
-    console.log('body', body)
-    const isSetup = await requestSetup({ body })
+
+    const isSetup = await requestSetup({
+      address: state.address,
+      chain: chain?.id,
+      blocknumber: blockNumber,
+      name: state.name,
+      signers: signers,
+      threshold: state.threshold,
+      avatar: img ? img : '',
+      templateId: 'CORE' as TokenTemplate,
+      bio: state.bio,
+      params: {
+        borderColor: state.borderColor,
+        borderTextColor: state.borderTextColor,
+        bgColor: state.bgColor,
+        innerTextColor: state.innerTextColor,
+      },
+      socials: {
+        twitter: state.twitter,
+        discord: state.discord,
+        website: state.website,
+      },
+    })
 
     if (isSetup === true) {
       state.setLoading('success')

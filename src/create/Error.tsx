@@ -9,7 +9,7 @@ export const Error = () => {
   const signers = state.signers.map((signer) => signer.address).sort((a, b) => +a - +b) as `0xstring`[] // TODO: add validation on address
   const body = {
     address: state.address,
-    chain: 137,
+    chain: state.chainId,
     blocknumber: 0,
     name: state.name,
     signers: signers,

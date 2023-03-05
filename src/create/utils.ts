@@ -12,10 +12,9 @@ export const nameCheck = async (chainId: number, name: string) => {
   }
 }
 
-
-
-export const requestSetup = async (body: SetupSchema) => {
+export const requestSetup = async (body: SetupSchema['body']) => {
   try {
+    console.log(body)
     const res = await fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/setup`, {
       method: 'POST',
       headers: {
