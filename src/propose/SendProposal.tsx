@@ -15,7 +15,7 @@ import { createSignal } from './signal/createSignal'
 import { createSendNFT } from './tx/handleTx'
 import { sendTx } from './tx/sendTx'
 import { useSendStore } from './tx/useSendStore'
-import { createManageSignersPayload } from './tx/utils'
+import { createManageSignersPayload, createSendTokenPayload } from './tx/utils'
 import { baseSchema, schemas } from './types'
 
 export const SendProposal = () => {
@@ -61,7 +61,7 @@ export const SendProposal = () => {
       },
       router,
     ).then(() => {
-      tx.setOpen(false)
+      tx.reset()
     })
   }
 
@@ -81,6 +81,11 @@ export const SendProposal = () => {
     if (action != 'none') {
       let payload
       switch (action) {
+        case 'send_token':
+          // TODO: check ETH transfers
+          payload = await createSendTokenPayload(keep.chainId, data.transfers)
+          await handleTx(keep.chainId, keep.address, data.title, data.content, 0, keep.address, '0', payload)
+          break
         case 'manage_signers':
           const signers = data.signers.map((signer: { address: string; resolves?: string }) => {
             if (signer?.resolves) {

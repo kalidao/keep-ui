@@ -19,18 +19,14 @@ import { useContractRead } from 'wagmi'
 import { KEEP_ABI } from '~/constants'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 import { usePreflight } from '~/hooks/usePreflight'
+import { SendToken } from '~/propose/tx/send_token'
 
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@design/Command'
 import { Popover, PopoverContent, PopoverTrigger } from '@design/Popover'
-import toast from '@design/Toast'
 
-import { getTxHash } from '../getTxHash'
-import { createSignal } from '../signal/createSignal'
 import { Builder } from './Builder'
 import { ManageSigners } from './ManageSigners'
 import { SendNFT } from './SendNFT'
-import { SendToken } from './SendToken'
-import { sendTx } from './sendTx'
 import { useSendStore } from './useSendStore'
 
 type Action = {

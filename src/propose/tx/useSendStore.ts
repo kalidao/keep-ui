@@ -44,6 +44,8 @@ export type SendStore = {
 
   open: boolean
   setOpen: (open: boolean) => void
+
+  reset: () => void
 }
 
 export const useSendStore = create<SendStore>((set) => ({
@@ -85,4 +87,24 @@ export const useSendStore = create<SendStore>((set) => ({
 
   open: false,
   setOpen: (open) => set({ open }),
+
+  reset: () => {
+    set({
+      title: '',
+      content: {},
+      action: 'none',
+      op: 0,
+      to: ethers.constants.AddressZero,
+      value: '0',
+      data: ethers.constants.HashZero,
+      nonce: 0,
+      send_token: [],
+      send_nft: [],
+      manage_signers: {
+        signers: [],
+        threshold: 1,
+      },
+      open: false,
+    })
+  },
 }))

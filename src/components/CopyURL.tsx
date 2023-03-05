@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 
 import { Button, IconLink } from '@kalidao/reality'
+import { host } from '~/constants/about'
 
 import toast from '@design/Toast'
 
@@ -8,7 +9,7 @@ export const CopyURL = () => {
   const router = useRouter()
 
   const copy = () => {
-    const currentUrl = `${window.location.origin}${router.asPath}`
+    const currentUrl = `${host}${router.asPath}`
     navigator.clipboard.writeText(currentUrl)
     toast('success', 'Copied link to clipboard!')
   }

@@ -20,6 +20,7 @@ import { useKeepStore } from '~/dashboard/useKeepStore'
 import { useGetSignal } from '~/hooks/useGetSignal'
 import Layout from '~/layout/DashboardLayout'
 import { Comments } from '~/signal/Comments'
+import { DeleteSignal } from '~/signal/DeleteSignal'
 import { vote } from '~/signal/utils'
 
 import { JSONContentRenderer } from '~/components/Editor/JSONContent'
@@ -114,18 +115,19 @@ const Signal: NextPage = () => {
                 gap="5"
               >
                 <Stack
-                  direction={{
-                    xs: 'vertical',
-                    md: 'horizontal',
-                  }}
+                  direction={'vertical'}
                   align={{
                     xs: 'flex-start',
-                    md: 'center',
                   }}
                   justify={'space-between'}
                 >
-                  <User address={data ? data?.userId : ''} size="sm" />
-                  <Heading>{data?.title}</Heading>
+                  <Stack direction={'horizontal'} align="center" justify="space-between">
+                    <Stack direction={'horizontal'}>
+                      <User address={data ? data?.userId : ''} size="sm" />
+                      <Heading>{data?.title}</Heading>
+                    </Stack>
+                    <DeleteSignal />
+                  </Stack>
                   <Stack
                     direction={{
                       xs: 'vertical',

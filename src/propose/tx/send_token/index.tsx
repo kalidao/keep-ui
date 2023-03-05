@@ -1,42 +1,21 @@
-import React from 'react'
-
-import { useRouter } from 'next/router'
-
-import { zodResolver } from '@hookform/resolvers/zod'
-import {
-  Avatar,
-  Box,
-  Button,
-  Card,
-  Divider,
-  Field,
-  Heading,
-  IconClose,
-  IconPlus,
-  Input,
-  Spinner,
-  Stack,
-  Text,
-} from '@kalidao/reality'
+import { Avatar, Box, Button, Divider, Field, IconClose, IconPlus, Input, Spinner, Stack, Text } from '@kalidao/reality'
 import { useAccountBalance } from 'ankr-react'
 import { ethers } from 'ethers'
-import { useFieldArray, useForm, useFormContext, useWatch } from 'react-hook-form'
-import { erc20ABI, useQuery } from 'wagmi'
-import z from 'zod'
-import { KEEP_ABI } from '~/constants'
+import { useFieldArray, useFormContext, useWatch } from 'react-hook-form'
 import { Signer } from '~/dashboard/Signers'
 import { useKeepStore } from '~/dashboard/useKeepStore'
+import { useSendStore } from '~/propose/tx/useSendStore'
+import { SendTokenProps } from '~/propose/types'
+import { truncAddress } from '~/utils'
 import { getBlockchainByChainId } from '~/utils/ankr'
 
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@design/Command'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@design/Select'
-
-import { SendTokenProps } from '../types'
-import { useSendStore } from './useSendStore'
 
 export const SendToken = () => {
   const keep = useKeepStore((state) => state)
   const tx = useSendStore((state) => state)
-  const { data, error } = useAccountBalance({
+  const { data, error, isLoading } = useAccountBalance({
     blockchain: keep.chainId ? getBlockchainByChainId(keep.chainId) : 'polygon',
     walletAddress: keep.address ? keep.address : ethers.constants.AddressZero,
   })
@@ -130,6 +109,7 @@ export const SendToken = () => {
   if (tokens?.length === 0) {
     return <Text>We were not able to find any tokens in this Keep.</Text>
   }
+
   return (
     <Box display={'flex'} width="full" gap="5">
       <Box width="1/3" padding="6" display="flex" flexDirection={'column'} gap="2">
@@ -169,20 +149,31 @@ export const SendToken = () => {
                               </SelectItem>
                             )
                           })}
+                          <SelectItem value="custom">
+                            <Text>Custom</Text>
+                          </SelectItem>
                         </SelectGroup>
                       </SelectContent>
                     </Select>
                   </Field>
+                  {watchedTransfers?.[index]?.token_address === 'custom' ? (
+                    <Input
+                      label="Custom Token Address"
+                      {...register(`transfers.${index}.custom_token_address`)}
+                      error={<>{errors?.transfers?.[index]?.token_address?.message}</>}
+                      placeholder="0x"
+                    />
+                  ) : null}
                   <Input
                     label="Amount"
                     {...register(`transfers.${index}.amount`)}
-                    error={<>{errors?.transfers?.message}</>}
+                    error={<>{errors?.transfers?.[index]?.amount?.message}</>}
                     placeholder="Amount"
                   />
                   <Input
                     label="Recipient"
                     {...register(`transfers.${index}.to`)}
-                    error={<>{errors?.transfers?.message}</>}
+                    error={<>{errors?.transfers?.[index]?.to?.message}</>}
                     placeholder="Recipient"
                   />
                 </Box>
@@ -228,6 +219,17 @@ export const SendToken = () => {
         {watchedTransfers?.length > 1 &&
           watchedTransfers?.map((transfer: any, index: number) => {
             if (index === watchedTransfers.length - 1) return null
+            let token
+            if (transfer.token_address == 'custom') {
+              token = {
+                tokenSymbol: truncAddress(transfer.custom_token_address),
+                tokenName: 'Custom',
+                thumbnail: '',
+              }
+            } else {
+              token = tokens?.find((token: any) => token.contract_address === transfer.token_address)
+            }
+
             return (
               <>
                 <Box key={index} display="flex" gap="3">
@@ -241,18 +243,9 @@ export const SendToken = () => {
                     gap="2"
                   >
                     <Stack direction={'horizontal'} align="center" justify={'center'}>
-                      <Avatar
-                        src={tokens?.find((token: any) => token.contract_address === transfer.token_address)?.thumbnail}
-                        label={
-                          tokens?.find((token: any) => token.contract_address === transfer.token_address)?.tokenName ??
-                          ''
-                        }
-                        size="5"
-                      />
+                      {token ? <Avatar src={token.thumbnail} label={token.tokenName} size="5" /> : null}
                       <Text size="small" color="foreground">
-                        {/* find token name from contract_address */}
-
-                        {tokens?.find((token: any) => token.contract_address === transfer.token_address)?.tokenSymbol}
+                        {token?.tokenSymbol ?? truncAddress(transfer.token_address)}
                       </Text>
                     </Stack>
                     <Text size="small" color="foreground">

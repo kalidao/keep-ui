@@ -10,3 +10,5 @@ export const row = style({
   padding: vars.space[3],
   borderRadius: vars.radii['large'],
 })
+
+export const tokenList = style({})

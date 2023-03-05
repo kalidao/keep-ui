@@ -15,6 +15,7 @@ export const baseSchema = z.object({
 export const sendTokenSchema = z.object({
   transfers: z.array(
     z.object({
+      custom_token_address: z.string().optional(),
       token_address: z.string(),
       to: z.string().refine((val) => ethers.utils.isAddress(val), 'Not a valid address.'),
       amount: z.coerce.number(), // convert to
