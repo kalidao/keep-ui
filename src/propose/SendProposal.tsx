@@ -107,7 +107,16 @@ export const SendProposal = () => {
           await handleTx(keep.chainId, keep.address, data.title, data.content, 0, keep.address, '0', payload)
         }
         case 'builder': {
-          console.log({ chainId: keep.chainId, address: keep.address, title: data.title, content: data.content, op: 0, to: data.to, value: tx.value, data: tx.data })
+          console.log({
+            chainId: keep.chainId,
+            address: keep.address,
+            title: data.title,
+            content: data.content,
+            op: 0,
+            to: data.to,
+            value: tx.value,
+            data: tx.data,
+          })
           await handleTx(keep.chainId, keep.address, data.title, data.content, 0, tx.to, tx.value, tx.data)
         }
       }

@@ -2,17 +2,17 @@ import React, { useState } from 'react'
 import { ChangeEvent } from 'react'
 
 import { Box, Button, Divider, Heading, Input, Stack, Textarea } from '@kalidao/reality'
+import { Abi } from 'abitype/zod'
 import { ethers } from 'ethers'
+import { useFormContext } from 'react-hook-form'
+import { z } from 'zod'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 import { fetchContractAbi } from '~/utils/abi'
-import { Abi } from 'abitype/zod'
 
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@design/Select'
 import toast from '@design/Toast'
 
 import { useSendStore } from './useSendStore'
-import { z } from 'zod'
-import { useFormContext } from 'react-hook-form'
 
 interface ABI_ITEM {
   name: string
@@ -30,9 +30,12 @@ export const Builder = () => {
   const [abi, setAbi] = useState<string>('')
   const [selectedFunctionName, setSelectedFunctionName] = useState<string>()
   const [selectedFunctionInputs, setSelectedFunctionInputs] = useState<any>([])
-  const { register, setValue, formState: {
-    errors
-  }, setError } = useFormContext()
+  const {
+    register,
+    setValue,
+    formState: { errors },
+    setError,
+  } = useFormContext()
 
   const getABI = async () => {
     if (!chainId) {
