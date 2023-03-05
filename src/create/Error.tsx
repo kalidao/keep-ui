@@ -64,10 +64,7 @@ export const Error = () => {
 
                   const data = await res.json()
 
-                  console.log('try again create', {
-                    res,
-                    data,
-                  })
+                  return data
                 }}
                 prefix={<IconRefresh />}
               >

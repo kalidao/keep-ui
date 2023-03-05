@@ -10,17 +10,21 @@ export const baseSchema = z.object({
   content: jsonContentSchema,
   // todo: get enum from type SendStore["action"]
   action: z.enum(['none', 'manage_signers', 'send_token', 'send_nft', 'builder']),
-  to: z
-    .string()
-    .min(1, { message: 'To cannot be empty' })
-    .refine(async (val) => await isAddressOrEns(val), 'Not a valid address or ENS.'),
 })
 
+export const sendTokenSchema = z.object({
+  transfers: z.array(
+    z.object({
+      token_address: z.string(),
+      to: z.string().refine((val) => ethers.utils.isAddress(val), 'Not a valid address.'),
+      amount: z.coerce.number(), // convert to
+    }),
+  ),
+})
+
+export type SendTokenProps = z.infer<typeof sendTokenSchema>
+
 export const manageSignersSchema = z.object({
-  to: z
-    .string()
-    .min(1, { message: 'To cannot be empty' })
-    .refine((val) => ethers.utils.isAddress(val), 'Not a valid address.'),
   signers: z
     .array(
       z.object({
@@ -35,7 +39,13 @@ export const manageSignersSchema = z.object({
   threshold: z.coerce.number().min(1, { message: 'Threshold must be greater than 0' }),
 })
 
+export type ManageSignersProps = z.infer<typeof manageSignersSchema>
+
 export const callBuilderSchema = z.object({
+  to: z
+    .string()
+    .min(1, { message: 'To cannot be empty' })
+    .refine(async (val) => await isAddressOrEns(val), 'Not a valid address or ENS.'),
   calls: z.array(
     z.object({
       op: z.enum(['call', 'delegatecall', 'staticcall']),
@@ -49,8 +59,7 @@ export const callBuilderSchema = z.object({
   ),
 })
 
-export type ManageSignersProps = z.infer<typeof manageSignersSchema>
-
 export const schemas: { [key in SendStore['action']]: AnyZodObject } = {
   manage_signers: manageSignersSchema,
+  send_token: sendTokenSchema,
 }

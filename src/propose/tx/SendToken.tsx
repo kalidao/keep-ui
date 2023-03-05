@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
+  Avatar,
   Box,
   Button,
   Card,
@@ -17,49 +18,38 @@ import {
   Stack,
   Text,
 } from '@kalidao/reality'
+import { useAccountBalance } from 'ankr-react'
 import { ethers } from 'ethers'
-import { useFieldArray, useForm, useWatch } from 'react-hook-form'
+import { useFieldArray, useForm, useFormContext, useWatch } from 'react-hook-form'
 import { erc20ABI, useQuery } from 'wagmi'
 import z from 'zod'
 import { KEEP_ABI } from '~/constants'
 import { Signer } from '~/dashboard/Signers'
 import { useKeepStore } from '~/dashboard/useKeepStore'
-import { fetcher } from '~/utils'
+import { getBlockchainByChainId } from '~/utils/ankr'
 
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@design/Select'
 
+import { SendTokenProps } from '../types'
 import { useSendStore } from './useSendStore'
 
-const schema = z.object({
-  transfers: z.array(
-    z.object({
-      token_address: z.string(),
-      to: z.string(),
-      amount: z.coerce.number(),
-    }),
-  ),
-})
-
 export const SendToken = () => {
-  const router = useRouter()
-  const { chainId, keep } = router.query
-  const { isLoading, isError } = useQuery(
-    ['keep', 'nfts', keep, chainId],
-    async () => {
-      const data = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/treasury`)
-      return data
-    },
-    {
-      enabled: !!chainId && !!keep,
-    },
-  )
+  const keep = useKeepStore((state) => state)
   const tx = useSendStore((state) => state)
-  const tokens = useKeepStore((state) => state.tokens)
-  // set up react-hook-form and zod with field array
-  const { register, handleSubmit, setValue, control } = useForm({
-    mode: 'onBlur',
-    resolver: zodResolver(schema),
+  const { data, error } = useAccountBalance({
+    blockchain: keep.chainId ? getBlockchainByChainId(keep.chainId) : 'polygon',
+    walletAddress: keep.address ? keep.address : ethers.constants.AddressZero,
   })
+  const tokens = data ? data.assets : null
+
+  // set up react-hook-form and zod with field array
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    control,
+    formState: { errors },
+  } = useFormContext<SendTokenProps>()
   const { fields, append, remove } = useFieldArray({
     name: 'transfers',
     control,
@@ -121,11 +111,11 @@ export const SendToken = () => {
     tx.setSendToken([...transfers])
   }
 
-  if (isLoading) {
+  if (!data) {
     return <Spinner />
   }
 
-  if (isError) {
+  if (error) {
     return (
       <Text>
         Something went wrong. Please try again. Contact us on our{' '}
@@ -168,17 +158,33 @@ export const SendToken = () => {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup>
-                          {tokens?.map((token: any) => (
-                            <SelectItem key={token.contract_address} value={token.contract_address}>
-                              {token.contract_ticker_symbol}
-                            </SelectItem>
-                          ))}
+                          {tokens?.map((token) => {
+                            let value = token.contractAddress ? token.contractAddress : ethers.constants.AddressZero
+                            return (
+                              <SelectItem key={token.contractAddress} value={value}>
+                                <Stack direction={'horizontal'} align="center" justify={'space-between'}>
+                                  <Avatar size="5" label={token.tokenName} src={token.thumbnail} />
+                                  <Text>{token.tokenSymbol}</Text>
+                                </Stack>
+                              </SelectItem>
+                            )
+                          })}
                         </SelectGroup>
                       </SelectContent>
                     </Select>
                   </Field>
-                  <Input label="Amount" {...register(`transfers.${index}.amount`)} placeholder="Amount" />
-                  <Input label="Recipient" {...register(`transfers.${index}.to`)} placeholder="Recipient" />
+                  <Input
+                    label="Amount"
+                    {...register(`transfers.${index}.amount`)}
+                    error={<>{errors?.transfers?.message}</>}
+                    placeholder="Amount"
+                  />
+                  <Input
+                    label="Recipient"
+                    {...register(`transfers.${index}.to`)}
+                    error={<>{errors?.transfers?.message}</>}
+                    placeholder="Recipient"
+                  />
                 </Box>
               </Box>
             )
@@ -188,6 +194,7 @@ export const SendToken = () => {
         <Button
           size="medium"
           variant="secondary"
+          type="button"
           suffix={<IconPlus />}
           onClick={() => {
             append({ token_address: '', to: '', amount: 0 })
@@ -234,19 +241,18 @@ export const SendToken = () => {
                     gap="2"
                   >
                     <Stack direction={'horizontal'} align="center" justify={'center'}>
-                      <img
-                        src={tokens?.find((token: any) => token.contract_address === transfer.token_address)?.logo_url}
-                        alt="token"
-                        height={30}
-                        width={30}
+                      <Avatar
+                        src={tokens?.find((token: any) => token.contract_address === transfer.token_address)?.thumbnail}
+                        label={
+                          tokens?.find((token: any) => token.contract_address === transfer.token_address)?.tokenName ??
+                          ''
+                        }
+                        size="5"
                       />
                       <Text size="small" color="foreground">
                         {/* find token name from contract_address */}
 
-                        {
-                          tokens?.find((token: any) => token.contract_address === transfer.token_address)
-                            ?.contract_ticker_symbol
-                        }
+                        {tokens?.find((token: any) => token.contract_address === transfer.token_address)?.tokenSymbol}
                       </Text>
                     </Stack>
                     <Text size="small" color="foreground">

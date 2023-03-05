@@ -45,12 +45,6 @@ export type KeepStore = {
   txFilter: 'all' | 'pending' | 'executed' | 'process'
   setTxFilter: (txFilter: 'all' | 'pending' | 'executed' | 'process') => void
 
-  collectibles: Collectible[]
-  setCollectibles: (collectibles: Collectible[]) => void
-
-  tokens: any[]
-  setTokens: (tokens: any[]) => void
-
   treasuryUpdatedAt: string
   setTreasuryUpdatedAt: (treasuryUpdate: string) => void
 }
@@ -66,12 +60,6 @@ export const useKeepStore = create<KeepStore>((set) => ({
   setSigners: (signers: string[]) => set({ signers }),
   txFilter: 'pending',
   setTxFilter: (txFilter: 'all' | 'pending' | 'executed' | 'process') => set({ txFilter }),
-
-  collectibles: [],
-  setCollectibles: (collectibles) => set({ collectibles }),
-
-  tokens: [],
-  setTokens: (tokens: any) => set({ tokens }),
 
   treasuryUpdatedAt: '',
   setTreasuryUpdatedAt: (treasuryUpdatedAt: string) => set({ treasuryUpdatedAt }),

@@ -60,6 +60,13 @@ export const Propose = () => {
         }
       }),
       threshold: keep.threshold,
+      transfers: [
+        {
+          amount: '',
+          to: '',
+          token_address: '',
+        },
+      ],
     },
   })
 
@@ -97,10 +104,8 @@ export const Propose = () => {
           <form>
             <SheetContent onClose={() => setOpen(false)} position={position} size={size}>
               <SheetHeader>
-                <SheetTitle>🥂 Toast</SheetTitle>
-                <SheetDescription>
-                  Create a signal or transaction request for your community wallet to sign.
-                </SheetDescription>
+                <SheetTitle>🥂 Propose</SheetTitle>
+                <SheetDescription>Create a signal or tx request for your community wallet to sign.</SheetDescription>
                 <Divider />
               </SheetHeader>
               <ProposeForm />
