@@ -3,6 +3,8 @@ import Link from 'next/link'
 import { Box, Heading, Stack, Tag, Text } from '@kalidao/reality'
 import { useQuery } from '@tanstack/react-query'
 import { JSONContent } from '@tiptap/react'
+import { useGetTxs } from '~/hooks/useGetTxs'
+import { useGetUser } from '~/hooks/useGetUser'
 import { prettierStatus, prettierStatusColor } from '~/proposal/utils'
 import { fetcher, prettyDate, truncAddress } from '~/utils'
 
@@ -15,11 +17,10 @@ import { useKeepStore } from './useKeepStore'
 
 const Proposals = () => {
   const state = useKeepStore((state) => state)
-  const { data: transactions } = useQuery(['keepTxs', state.chainId, state.address], async () =>
-    fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/txs/${state.chainId}/${state.address}/`),
-  )
+  const { data: transactions, isError } = useGetTxs(Number(state.chainId), state.address ? state.address : '0x0')
 
   const filteredTransactions =
+    !isError &&
     transactions &&
     transactions
       ?.filter((tx: any) => {
@@ -68,9 +69,7 @@ type TxCardProps = {
 }
 
 export const TxCard = ({ chainId, keep, txHash, title, proposer, description, timestamp, status }: TxCardProps) => {
-  const { data: profile } = useQuery(['proposalCard', proposer], async () => {
-    return fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/users/${proposer}/`)
-  })
+  const { data: profile } = useGetUser(proposer)
 
   return (
     <Box className={styles.cardRoot}>

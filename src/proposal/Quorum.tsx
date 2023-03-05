@@ -6,6 +6,7 @@ import { bodoni } from 'pages/_app'
 import { useEnsName } from 'wagmi'
 import { Sig } from '~/dashboard/types'
 import { useTxStore } from '~/dashboard/useTxStore'
+import { useGetUser } from '~/hooks/useGetUser'
 import { fetcher } from '~/utils'
 import { truncAddress } from '~/utils'
 import { capitalize } from '~/utils/capitalize'
@@ -51,9 +52,7 @@ export const Signer = ({ signer, type }: { signer: string; type: 'yes' | 'no' })
     address: signer as `0x${string}`,
     chainId: 1,
   })
-  const { data: user } = useQuery(['signerDashProfile', signer], () =>
-    fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/users/${signer}`),
-  )
+  const { data: user } = useGetUser(signer)
 
   return (
     <Stack direction={'horizontal'} align="center" justify={'space-between'}>

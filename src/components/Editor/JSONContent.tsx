@@ -9,6 +9,8 @@ import { getExtensions } from './getExtensions'
 export const JSONContentRenderer = ({ content }: { content: JSONContent }) => {
   const output = useMemo(() => {
     try {
+      if (!content) return null
+
       return generateHTML(content, getExtensions('Say something...')) || null
     } catch (error) {
       console.error(error)

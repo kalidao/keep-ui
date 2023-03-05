@@ -2,6 +2,7 @@ import { JSONContent } from '@tiptap/react'
 import { ethers } from 'ethers'
 import create from 'zustand'
 
+import { ActionTypes } from './Toolbox'
 import { SendNFT, SendToken } from './types'
 
 export type SendStore = {
@@ -12,8 +13,8 @@ export type SendStore = {
   author: string
   setAuthor: (author: string) => void
 
-  view?: 'send_token' | 'send_nft' | 'builder' | 'manage_signers' | 'nft_generator'
-  setView: (view: SendStore['view']) => void
+  action: ActionTypes
+  setAction: (view: SendStore['action']) => void
   op: number
   setOp: (op: number) => void
   to: `0x${string}`
@@ -38,7 +39,11 @@ export type SendStore = {
     signers: string[]
     threshold: number
   }
+
   setManageSigners: (manage_signers: SendStore['manage_signers']) => void
+
+  open: boolean
+  setOpen: (open: boolean) => void
 }
 
 export const useSendStore = create<SendStore>((set) => ({
@@ -49,8 +54,9 @@ export const useSendStore = create<SendStore>((set) => ({
   author: '',
   setAuthor: (author) => set({ author }),
 
-  view: undefined,
-  setView: (view) => set({ view }),
+  action: 'none',
+  setAction: (action) => set({ action }),
+
   op: 0,
   setOp: (op) => set({ op }),
   to: ethers.constants.AddressZero,
@@ -73,7 +79,10 @@ export const useSendStore = create<SendStore>((set) => ({
   // manage signers
   manage_signers: {
     signers: [],
-    threshold: 0,
+    threshold: 1,
   },
   setManageSigners: (manage_signers) => set({ manage_signers }),
+
+  open: false,
+  setOpen: (open) => set({ open }),
 }))

@@ -1,17 +1,24 @@
 import { Avatar, Stack, Text } from '@kalidao/reality'
-import { useQuery } from '@tanstack/react-query'
 import { useEnsName } from 'wagmi'
-import { fetcher } from '~/utils'
+import { useGetUser } from '~/hooks/useGetUser'
 import { truncAddress } from '~/utils'
 
-export const User = ({ address, size, alias }: { address: string; size: 'sm' | 'lg'; alias?: string }) => {
+export const User = ({
+  address,
+  size,
+  alias,
+  login,
+}: {
+  address: string
+  size: 'sm' | 'lg'
+  alias?: string
+  login?: boolean
+}) => {
   const { data: ensName } = useEnsName({
     address: address as `0x${string}`,
     chainId: 1,
   })
-  const { data: user } = useQuery(['signerDashProfile', address], () =>
-    fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/users/${address}`),
-  )
+  const { data: user } = useGetUser(address)
 
   if (size === 'sm') {
     return (
@@ -32,7 +39,9 @@ export const User = ({ address, size, alias }: { address: string; size: 'sm' | '
     ? ensName
     : address
     ? truncAddress(address)
-    : 'login.eth'
+    : login
+    ? 'login.eth'
+    : 'unknown'
   const avatar = user?.picture?.uri
     ? user?.picture?.uri
     : user?.picture?.original?.url

@@ -4,11 +4,12 @@ import { getProvider } from './getProvider'
 
 export const validateEns = async (ens: string) => {
   try {
+    if (ethers.utils.isAddress(ens)) return ens
     const provider = getProvider(1)
     const address = await provider.resolveName(ens)
     return address
   } catch (e) {
-    return null
+    return ens
   }
 }
 

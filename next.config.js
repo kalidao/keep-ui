@@ -3,9 +3,6 @@ const {
 } = require('@vanilla-extract/next-plugin');
 const withVanillaExtract = createVanillaExtractPlugin();
 
-const withPWA = require('next-pwa')({
-  dest: 'public'
-})
 
 const nextConfig = {
   productionBrowserSourceMaps: true,
@@ -16,4 +13,4 @@ const nextConfig = {
   },
 }
 
-module.exports = withVanillaExtract(withPWA(nextConfig))
+module.exports = withVanillaExtract(nextConfig)

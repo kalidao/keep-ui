@@ -10,3 +10,16 @@ export const toOp = (op: string): number => {
       return 0
   }
 }
+
+export const toOpString = (op: number): string => {
+  switch (op) {
+    case 0:
+      return 'call'
+    case 1:
+      return 'delegatecall'
+    case 2:
+      return 'create'
+    default:
+      return 'call'
+  }
+}

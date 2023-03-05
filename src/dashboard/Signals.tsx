@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import { Box, Heading, Stack, Tag, Text } from '@kalidao/reality'
 import { useQuery } from '@tanstack/react-query'
 import { JSONContent } from '@tiptap/react'
+import { useGetUser } from '~/hooks/useGetUser'
 import { fetcher, prettyDate, truncAddress } from '~/utils'
 
 import { JSONContentRenderer } from '~/components/Editor/JSONContent'
@@ -72,9 +73,7 @@ export const SignalCard = ({
   timestamp,
   type = 'Signal',
 }: SignalCardProps) => {
-  const { data: profile } = useQuery(['proposalCard', proposer], async () => {
-    return fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/users/${proposer}/`)
-  })
+  const { data: profile } = useGetUser(proposer)
 
   return (
     <Box className={styles.cardRoot}>

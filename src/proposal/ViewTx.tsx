@@ -14,14 +14,20 @@ const ViewTx = () => {
   const [open, setOpen] = React.useState(false)
   const tx = useTxStore((state) => state)
   const keep = useKeepStore((state) => state)
-  const { data } = useQuery(['decodeTx', tx.data], async () => {
-    const data = await fetch(
-      `${process.env.NEXT_PUBLIC_KEEP_API}/about/tx?chainId=${keep.chainId}&data=${tx.data}&value=${tx.value}&to=${tx.to}`,
-    )
-    const json = await data.json()
+  const { data } = useQuery(
+    ['decodeTx', tx.data],
+    async () => {
+      const data = await fetch(
+        `${process.env.NEXT_PUBLIC_KEEP_API}/about/tx?chainId=${keep.chainId}&data=${tx.data}&value=${tx.value}&to=${tx.to}`,
+      )
+      const json = await data.json()
 
-    return json
-  })
+      return json
+    },
+    {
+      enabled: !!tx.data && !!tx.value && !!tx.to && !!keep.chainId,
+    },
+  )
 
   return (
     <RadixCollapsible.Root className={styles.viewTxRoot} open={open} onOpenChange={setOpen}>

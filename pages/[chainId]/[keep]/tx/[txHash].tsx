@@ -19,31 +19,7 @@ import { CopyURL } from '~/components/CopyURL'
 import { JSONContentRenderer } from '~/components/Editor/JSONContent'
 import { User } from '~/components/User'
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const chainId = params?.chainId as string
-  const keep = params?.keep as string
-  const txHash = params?.txHash as string
-
-  const res = await fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/txs/${txHash}`)
-  const data = await res.json()
-
-  if (data?.error || !data) {
-    return {
-      redirect: {
-        destination: `/${chainId}/${keep}`,
-        permanent: false,
-      },
-    }
-  }
-
-  return {
-    props: {
-      data,
-    },
-  }
-}
-
-const Tx: NextPage = (props: any) => {
+const Tx: NextPage = () => {
   const { txHash } = useRouter().query
 
   const tx = useTxStore((state) => state)

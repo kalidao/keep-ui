@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import { Box, IconLightningBolt, IconPlus, IconUserGroupSolid } from '@kalidao/reality'
+import { Propose } from '~/propose/Propose'
 
 import { UserMenu } from '~/components/UserMenu'
 
@@ -44,14 +45,7 @@ const Navigation = () => {
         <NavItem link={`/dashboard/communities`} icon={<IconUserGroupSolid />}>
           Communities
         </NavItem>
-        {isPropose ? (
-          <Link className={styles.navCTA} href={`/${chainId}/${keep}/create`}>
-            <>
-              <IconPlus className={styles.navSVG} />
-              <Box className={styles.navText}>Propose</Box>
-            </>
-          </Link>
-        ) : null}
+        <Propose />
       </Box>
       <UserMenu />
     </Box>

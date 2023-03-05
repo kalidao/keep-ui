@@ -18,5 +18,6 @@ export const getSignalComments = async (signalId: string, commentId?: string) =>
 export const useGetSignalComments = (signalId: string, commentId?: string) => {
   return useQuery(['signalComments', signalId, commentId], () => getSignalComments(signalId, commentId), {
     refetchInterval: 1000 * 60,
+    enabled: !!signalId,
   })
 }

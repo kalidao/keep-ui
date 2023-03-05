@@ -1,6 +1,7 @@
 import { Avatar, Box, Card, Heading, Stack, Text } from '@kalidao/reality'
 import { useQuery } from '@tanstack/react-query'
 import { useEnsName } from 'wagmi'
+import { useGetUser } from '~/hooks/useGetUser'
 import { truncAddress } from '~/utils'
 import { fetcher } from '~/utils'
 
@@ -33,9 +34,7 @@ export const Signer = ({ signer }: { signer: string }) => {
     address: signer as `0x${string}`,
     chainId: 1,
   })
-  const { data: user } = useQuery(['signerDashProfile', signer], () =>
-    fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/users/${signer}`),
-  )
+  const { data: user } = useGetUser(signer)
 
   return (
     <Stack direction="horizontal" align="center">

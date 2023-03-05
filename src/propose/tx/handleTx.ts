@@ -2,29 +2,13 @@ import { BigNumber, ethers } from 'ethers'
 import { erc721ABI } from 'wagmi'
 import { KEEP_ABI } from '~/constants/'
 
-import { Call } from './types'
+import { Call, SendNFT } from './types'
 import { SendStore } from './useSendStore'
-
-export const handleTx = (address: string, tx: SendStore) => {
-  switch (tx.view) {
-    case 'send_token':
-      handleSendToken(tx)
-      break
-    case 'send_nft':
-      handleSendNFT(address, tx)
-      break
-    case 'manage_signers':
-      handleManageSigners(tx)
-      break
-    default:
-      break
-  }
-}
 
 const handleSendToken = (tx: SendStore) => {}
 
-export const handleSendNFT = (address: string, tx: SendStore): `0xstring` => {
-  const calls: Call[] = tx.send_nft
+export const createSendNFT = (address: string, nfts: SendNFT[]): `0xstring` => {
+  const calls: Call[] = nfts
     .filter((nft) => nft.checked)
     .map((nft) => {
       let data = ''

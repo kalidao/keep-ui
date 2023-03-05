@@ -15,12 +15,16 @@ export const UserMenu = () => {
     <Box className={styles.userMenu}>
       {sm ? (
         <Menu>
-          <Box>{user ? <User address={user.walletPublicKey as string} size={'sm'} /> : null}</Box>
+          <Box>{user ? <User login address={user.walletPublicKey as string} size={'sm'} /> : null}</Box>
         </Menu>
       ) : (
         <Menu>
           <Box>
-            {user ? <User address={user.walletPublicKey as string} size={'lg'} /> : <User address="" size="lg" />}
+            {user ? (
+              <User login address={user.walletPublicKey as string} size={'lg'} />
+            ) : (
+              <User login address="" size="lg" />
+            )}
           </Box>
         </Menu>
       )}

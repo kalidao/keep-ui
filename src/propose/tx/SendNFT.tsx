@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react'
 
-import { Box, Divider, Heading, Input, Spinner, Stack } from '@kalidao/reality'
+import { Box, Input, Spinner, Stack, Text } from '@kalidao/reality'
 import { useNFTsByOwner } from 'ankr-react'
 import { ethers } from 'ethers'
 import { useKeepStore } from '~/dashboard/useKeepStore'
@@ -42,10 +42,10 @@ export const SendNFT = () => {
   if (isLoading) {
     render = <Spinner />
   } else if (error) {
-    render = <div>{'There was an error fetching NFTs.'}</div>
+    render = <Text>{'There was an error fetching NFTs.'}</Text>
   } else if (data) {
     if (data.assets.length === 0) {
-      render = <div>{'Nothing to see here 😴'}</div>
+      render = <Text>{'Nothing to see here 😴'}</Text>
     } else {
       render = (
         <Stack space="5" direction={'horizontal'} justify="space-between" wrap>
@@ -105,11 +105,5 @@ export const SendNFT = () => {
     }
   }
 
-  return (
-    <Stack>
-      <Heading level="2">Send NFTs</Heading>
-      <Divider />
-      {render}
-    </Stack>
-  )
+  return <>{render}</>
 }

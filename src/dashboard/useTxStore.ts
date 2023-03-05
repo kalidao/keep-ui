@@ -5,8 +5,8 @@ import { Sig } from './types'
 type TxStore = {
   txHash: string | undefined
   setTxHash: (txHash: string) => void
-  op: string | undefined
-  setOp: (op: string) => void
+  op: 'call' | 'delegatecall' | 'create'
+  setOp: (op: 'call' | 'delegatecall' | 'create') => void
   to: string | undefined
   setTo: (to: string) => void
   value: string | undefined
@@ -35,8 +35,8 @@ type TxStore = {
 export const useTxStore = create<TxStore>((set) => ({
   txHash: undefined,
   setTxHash: (txHash: string) => set({ txHash }),
-  op: undefined,
-  setOp: (op: string) => set({ op }),
+  op: 'call',
+  setOp: (op: 'call' | 'delegatecall' | 'create') => set({ op }),
   to: undefined,
   setTo: (to: string) => set({ to }),
   value: undefined,

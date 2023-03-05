@@ -108,10 +108,9 @@ export const Signers = () => {
             <FieldSet legend="Signers" description="This will form the initial signer group. It can be changed later.">
               {fields.map((field, index) => {
                 return (
-                  <Box width="128" key={index}>
+                  <Box key={field.id} width="128">
                     <Box
                       width="full"
-                      key={field.id}
                       display="flex"
                       flexDirection="row"
                       alignItems="center"

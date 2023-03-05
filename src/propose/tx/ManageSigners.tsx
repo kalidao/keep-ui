@@ -1,93 +1,116 @@
-import { Button, Divider, Heading, IconClose, Input, Stack } from '@kalidao/reality'
-import { ethers } from 'ethers'
+import { useEffect } from 'react'
+
+import { Box, Button, Divider, IconClose, IconPlus, Input, Stack, Text } from '@kalidao/reality'
+import { useFieldArray, useFormContext, useWatch } from 'react-hook-form'
+import { z } from 'zod'
 import { useKeepStore } from '~/dashboard/useKeepStore'
+import { validateEns } from '~/utils/ens'
 
-import { User } from '~/components/User'
-
-import toast from '@design/Toast'
-
+import { ManageSignersProps, schemas } from '../types'
 import { useSendStore } from './useSendStore'
 
 export const ManageSigners = () => {
   const keep = useKeepStore((state) => state)
   const manage_signers = useSendStore((state) => state.manage_signers)
   const setManageSigners = useSendStore((state) => state.setManageSigners)
+  const tx = useSendStore((state) => state)
 
-  const isValidSigner = (address: string) => {
-    return ethers.utils.isAddress(address)
-  }
+  const {
+    register,
+    setValue,
+    formState: { errors },
+    control,
+  } = useFormContext<ManageSignersProps>()
+  const { fields, append, remove } = useFieldArray({
+    name: 'signers',
+    control,
+  })
+  const watchedSigners = useWatch({
+    control,
+    name: 'signers',
+  })
+
+  useEffect(() => {
+    if (keep.threshold && keep.threshold != manage_signers.threshold) {
+      setManageSigners({ ...manage_signers, threshold: keep.threshold })
+    }
+  })
+
+  useEffect(() => {
+    watchedSigners?.forEach(
+      async (
+        signer: {
+          address: string
+          resolves?: string
+        },
+        index: number,
+      ) => {
+        if (signer.resolves) return
+        const resolves = await validateEns(signer.address)
+        if (resolves === null) return
+        if (signer.address.toLowerCase() !== resolves.toLowerCase()) {
+          setValue(`signers.${index}.resolves`, resolves)
+        }
+      },
+    )
+  }, [watchedSigners, setValue])
 
   return (
-    <Stack>
-      <Heading level="2">Manage Keep</Heading>
+    <Box display={'flex'} flexDirection="column" gap="2">
+      {fields.map((field, index) => (
+        <Stack key={field.id}>
+          <Stack key={field.id} direction="horizontal" align="center">
+            <Input
+              label={`Signer ${index + 1}`}
+              hideLabel
+              placeholder="0x or ENS"
+              type="text"
+              defaultValue={field.address}
+              {...register(`signers.${index}.address` as const)}
+              error={errors.signers?.[index]?.address?.message}
+            />
+            <Button
+              type="button"
+              tone="red"
+              size="small"
+              shape="circle"
+              variant="secondary"
+              onClick={() => {
+                remove(index)
+              }}
+            >
+              <IconClose />
+            </Button>
+          </Stack>
+          {field.resolves && (
+            <Text size="label" color="textSecondary">
+              Resolves to {field.resolves}
+            </Text>
+          )}
+        </Stack>
+      ))}
+      <Button
+        variant="secondary"
+        size="small"
+        tone="green"
+        onClick={() => {
+          append({ address: '' })
+        }}
+        prefix={<IconPlus />}
+      >
+        Add Signer
+      </Button>
       <Divider />
-      <Stack direction={'vertical'} align="stretch">
-        {manage_signers.signers.map((signer, i) => {
-          if (i + 1 === manage_signers.signers.length) return null
-          return (
-            <Stack key={i} direction={'horizontal'} align="center" justify="space-between">
-              <User address={signer} size="lg" />
-              <Button
-                variant="secondary"
-                tone="red"
-                shape="square"
-                size="small"
-                onClick={() => {
-                  setManageSigners({ ...manage_signers, signers: manage_signers.signers.filter((_, j) => j !== i) })
-                }}
-              >
-                <IconClose />
-              </Button>
-            </Stack>
-          )
-        })}
-        <Input
-          label="Add Signer"
-          value={manage_signers.signers[manage_signers.signers.length - 1]}
-          onChange={(e) => {
-            setManageSigners({
-              ...manage_signers,
-              signers: [...manage_signers.signers.slice(0, -1), e.currentTarget.value],
-            })
-          }}
-        />
-
-        <Button
-          onClick={() => {
-            if (manage_signers.signers.length < 40) {
-              if (isValidSigner(manage_signers.signers[manage_signers.signers.length - 1])) {
-                setManageSigners({ ...manage_signers, signers: [...manage_signers.signers, ''] })
-              } else {
-                toast('error', 'Invalid address', 1000)
-              }
-            } else {
-              toast('error', 'Maximum number of signers reached', 1000)
-            }
-          }}
-        >
-          Add Signer
-        </Button>
-      </Stack>
-      <Divider />
-
       <Input
         label="Update Threshold"
         labelSecondary={`Current: ${keep.threshold}/${keep.signers.length}`}
-        value={manage_signers.threshold}
         type="number"
         min={'1'}
-        onChange={(e) => {
-          if (parseInt(e.currentTarget.value) > manage_signers.signers.length) {
-            toast(
-              'error',
-              `Threshold cannot be greater than the number of signers (${manage_signers.signers.length})`,
-              1000,
-            )
-            return
-          }
-          setManageSigners({ ...manage_signers, threshold: parseInt(e.currentTarget.value) })
-        }}
+        error={errors.threshold?.message}
+        {...register('threshold', {
+          valueAsNumber: true,
+        })}
       />
-    </Stack>
+    </Box>
   )
 }

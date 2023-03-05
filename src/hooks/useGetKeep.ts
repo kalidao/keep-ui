@@ -10,12 +10,18 @@ export const getKeep = async (chainId: number, address: string) => {
 
 export const useGetKeep = (chainId: number, address: string) => {
   const state = useKeepStore()
-  return useQuery(['keep', chainId, address], () => {
-    return getKeep(chainId, address).then((data) => {
-      state.setThreshold(data.threshold)
-      const signers = data?.signers?.map((s: any) => s.signerId)
-      state.setSigners(signers)
-      return data
-    })
-  })
+  return useQuery(
+    ['keep', chainId, address],
+    () => {
+      return getKeep(chainId, address).then((data) => {
+        state.setThreshold(data.threshold)
+        const signers = data?.signers?.map((s: any) => s.signerId)
+        state.setSigners(signers)
+        return data
+      })
+    },
+    {
+      enabled: !!chainId && !!address,
+    },
+  )
 }

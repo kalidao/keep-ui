@@ -1,6 +1,15 @@
 import { vars } from '@kalidao/reality'
 import { style } from '@vanilla-extract/css'
 
+import {
+  animateIn,
+  slideInFromBottom,
+  slideInFromLeft,
+  slideInFromRight,
+  slideInFromTop,
+} from '@design/Sheet/styles.css'
+import { fadeIn } from '@design/animation.css'
+
 // convert below css to vanilla-extract
 // @import '@radix-ui/colors/blackA.css';
 // @import '@radix-ui/colors/mauve.css';
@@ -166,12 +175,35 @@ import { style } from '@vanilla-extract/css'
 // }
 
 export const content = style([
+  // (
+  //   "p-4 shadow-md animate-in",
+  //   className
+  // )
   style({
-    borderRadius: vars.radii['2xLarge'],
-    padding: vars.space[6],
-    width: vars.space[9],
-    backgroundColor: vars.colors.background,
-    boxShadow: 'hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px',
+    zIndex: 100,
+    borderRadius: vars.radii.medium,
+
+    padding: vars.space[1],
+    width: vars.space[72],
+    backgroundColor: vars.colors.backgroundSecondary,
+
+    outline: 'none',
+    animation: `${fadeIn} 500ms ease-in-out`,
+
+    selectors: {
+      '&[data-side="bottom"]': {
+        animationName: slideInFromTop,
+      },
+      '&[data-side="top"]': {
+        animationName: slideInFromBottom,
+      },
+      '&[data-side="right"]': {
+        animationName: slideInFromLeft,
+      },
+      '&[data-side="left"]': {
+        animationName: slideInFromRight,
+      },
+    },
   }),
 ])
 export const arrow = style([])
