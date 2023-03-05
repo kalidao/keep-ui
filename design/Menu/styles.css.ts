@@ -22,20 +22,21 @@ export const subtrigger = style([
     fontFamily: vars.fonts.sans,
     fontSize: vars.fontSizes.base,
     lineHeight: vars.lineHeights.normal,
-    color: vars.colors.foreground,
+    color: vars.colors.text,
     borderRadius: vars.radii['large'],
 
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
 
     height: vars.space[10],
 
     position: 'relative',
-    paddingLeft: vars.space[10],
 
+    paddingLeft: vars.space[6],
     padding: vars.space[1],
     userSelect: 'none',
+
 
     ':hover': {
       color: vars.colors.foreground,
@@ -55,7 +56,11 @@ export const subtrigger = style([
   }),
 ])
 
-export const subcontent = style([content])
+export const subcontent = style([content, style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: vars.space[1],
+})])
 
 export const item = style({
   all: 'unset',

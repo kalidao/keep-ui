@@ -15,7 +15,7 @@ export const Error = () => {
     signers: signers,
     threshold: state.threshold,
     avatar: state.avatar,
-    templateId: 'signer',
+    templateId: 'CORE',
     bio: state.bio,
     params: {
       borderColor: state.borderColor,
@@ -50,18 +50,25 @@ export const Error = () => {
           <Box className={styles.form}>
             <Stack direction={'horizontal'} align="center" justify="center">
               <Button
-                as="a"
-                href="/create"
                 size="large"
+                type="button"
                 variant="transparent"
-                onClick={() => {
-                  fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/setup`, {
+                onClick={async () => {
+                  const res = await fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/setup`, {
                     method: 'POST',
                     headers: {
                       'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(body),
                   })
+                
+                  const data = await res.json()
+
+                  console.log('try again create', {
+                    res,
+                    data
+                  })
+                  
                 }}
                 prefix={<IconRefresh />}
               >

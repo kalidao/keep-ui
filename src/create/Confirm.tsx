@@ -11,6 +11,7 @@ import { PostIt } from './PostIt'
 import { Success } from './Success'
 import * as styles from './create.css'
 import { useCreateStore } from './useCreateStore'
+import { setupSchema } from './types'
 
 export const Confirm = () => {
   const state = useCreateStore((state) => state)
@@ -112,6 +113,11 @@ export const Confirm = () => {
                 website: state.website,
               },
             }
+
+            const validate = setupSchema.parse(body)
+
+            console.log('validate', validate)
+
             fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/setup`, {
               method: 'POST',
               headers: {

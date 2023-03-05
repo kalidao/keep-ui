@@ -7,7 +7,7 @@ import {
   Button,
   IconChevronDown,
   IconChevronRight,
-  IconDocumentAdd,
+  IconDuplicate,
   IconMoon,
   IconSun,
   IconWallet,
@@ -125,7 +125,7 @@ export const Menu = ({ children = <IconChevronDown /> }) => {
                   </DropdownMenuPrimitive.SubContent>
                 </DropdownMenuPrimitive.Portal>
               </DropdownMenuPrimitive.Sub>
-              <Item type="button" icon={<IconDocumentAdd />} label={'Address'} onClick={copy} />{' '}
+              <Item type="button" icon={<IconDuplicate />} label={'Copy User'} onClick={copy} />{' '}
             </>
           ) : null}
           <Item

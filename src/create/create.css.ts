@@ -14,7 +14,6 @@ export const typeContainer = style({})
 export const typeShell = style([
   style({
     width: '67.5vw',
-    // position the type container to the right of the splash container
     right: 0,
     top: 0,
     bottom: 0,
