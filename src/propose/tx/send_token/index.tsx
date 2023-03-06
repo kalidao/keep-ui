@@ -105,9 +105,9 @@ export const SendToken = () => {
     )
   }
 
-  if (tokens?.length === 0) {
-    return <Text>We were not able to find any tokens in this Keep.</Text>
-  }
+  // if (tokens?.length === 0) {
+  //   return <Text>We were not able to find any tokens in this Keep.</Text>
+  // }
 
   return (
     <Box display={'flex'} width="full" gap="5">
