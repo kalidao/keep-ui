@@ -58,7 +58,7 @@
     "@tiptap/extension-task-list": "2.0.0-beta.220",
     "@tiptap/extension-text": "2.0.0-beta.220",
     "@tiptap/html": "2.0.0-beta.219",
-    "@tiptap/pm": "2.0.0-beta.218",
+    "@tiptap/pm": "2.0.0-beta.220",
     "@tiptap/react": "2.0.0-beta.218",
     "@tiptap/suggestion": "2.0.0-beta.218",
     "@vanilla-extract/css": "^1.9.5",
