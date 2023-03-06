@@ -11,7 +11,6 @@ export const ManageSigners = () => {
   const keep = useKeepStore((state) => state)
   const manage_signers = useSendStore((state) => state.manage_signers)
   const setManageSigners = useSendStore((state) => state.setManageSigners)
-  const tx = useSendStore((state) => state)
 
   const {
     register,
@@ -47,7 +46,7 @@ export const ManageSigners = () => {
     if (keep.threshold && keep.threshold != manage_signers.threshold) {
       setManageSigners({ ...manage_signers, threshold: keep.threshold })
     }
-  })
+  }, [keep.threshold, manage_signers.threshold, setManageSigners, manage_signers])
 
   useEffect(() => {
     watchedSignersArray?.forEach(

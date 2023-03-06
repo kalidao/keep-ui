@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
 import { ChangeEvent } from 'react'
 
-import { Box, Button, Divider, Heading, Input, Stack, Textarea } from '@kalidao/reality'
-import { Abi } from 'abitype/zod'
+import { Button, Input, Stack, Textarea } from '@kalidao/reality'
 import { ethers } from 'ethers'
 import { useFormContext } from 'react-hook-form'
-import { z } from 'zod'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 import { fetchContractAbi } from '~/utils/abi'
 
@@ -22,6 +20,26 @@ interface ABI_ITEM {
   stateMutability: string
   type: string
   constant: boolean
+}
+
+const parseFuncs = (abi: string) => {
+  try {
+    if (abi === '') return []
+    const abiParsed = JSON.parse(abi)
+
+    const parsed = abiParsed
+      .filter((item: ABI_ITEM) => item.type === 'function')
+      .filter((item: ABI_ITEM) => item.stateMutability !== 'view')
+
+    // FILTER OUT ITEM.STATEMUTABILITY === 'VIEW'
+
+    console.log(parsed)
+
+    return parsed
+  } catch (e) {
+    console.error(e)
+    return []
+  }
 }
 
 export const Builder = () => {
@@ -58,16 +76,7 @@ export const Builder = () => {
   }
 
   // safely parse abi for functions
-  let functions: ABI_ITEM[] = []
-  try {
-    const abiParsed = JSON.parse(abi)
-    functions = abiParsed.filter((item: ABI_ITEM) => item.type === 'function')
-  } catch (e) {
-    setError('abi', {
-      type: 'manual',
-      message: 'Invalid ABI',
-    })
-  }
+  let functions: ABI_ITEM[] = abi ? parseFuncs(abi) : []
 
   const prepareTx = () => {
     if (!selectedFunctionName) {
@@ -79,8 +88,6 @@ export const Builder = () => {
     const tx = iface.encodeFunctionData(selectedFunctionName, selectedFunctionInputs)
     state.setData(tx as `0x${string}`)
   }
-
-  console.log('state to', state.to)
 
   return (
     <Stack>
@@ -98,7 +105,7 @@ export const Builder = () => {
         onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
           setAbi(e.currentTarget.value)
         }}
-        error={<>{errors.abi?.message}</>}
+        error={<>{errors?.abi?.message}</>}
       />
       <Button onClick={getABI} variant="secondary" size="small">
         Fetch ABI

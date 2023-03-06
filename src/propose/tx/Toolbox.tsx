@@ -1,24 +1,10 @@
 import React from 'react'
 
-import { useRouter } from 'next/router'
-
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
-import {
-  Box,
-  Button,
-  IconExclamationCircle,
-  IconMinus,
-  IconNFT,
-  IconTokens,
-  IconUserGroupSolid,
-  Text,
-} from '@kalidao/reality'
+import { Box, Button, IconExclamationCircle, IconMinus, IconTokens, IconUserGroupSolid, Text } from '@kalidao/reality'
 import { ReactNodeNoStrings } from '@kalidao/reality/dist/types/types'
 import { useFormContext } from 'react-hook-form'
-import { useContractRead } from 'wagmi'
-import { KEEP_ABI } from '~/constants'
 import { useKeepStore } from '~/dashboard/useKeepStore'
-import { usePreflight } from '~/hooks/usePreflight'
 import { ManageSigners } from '~/propose/tx/manage_signers'
 import { SendToken } from '~/propose/tx/send_token'
 
@@ -26,7 +12,6 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { Popover, PopoverContent, PopoverTrigger } from '@design/Popover'
 
 import { Builder } from './Builder'
-import { SendNFT } from './SendNFT'
 import { useSendStore } from './useSendStore'
 
 type Action = {
@@ -43,12 +28,12 @@ export const actions: Action[] = [
     label: 'Send Token',
     icon: <IconTokens />,
   },
-  {
-    component: <SendNFT />,
-    value: 'send_nft',
-    label: 'Send NFT',
-    icon: <IconNFT />,
-  },
+  // {
+  //   component: <SendNFT />,
+  //   value: 'send_nft',
+  //   label: 'Send NFT',
+  //   icon: <IconNFT />,
+  // },
   {
     component: <Builder />,
     value: 'builder',
@@ -74,22 +59,9 @@ const action_types = actions.map((action) => action.value)
 export type ActionTypes = (typeof action_types)[number]
 
 export const Toolbox = () => {
-  const router = useRouter()
-  const keep = useKeepStore((state) => state)
   const tx = useSendStore((state) => state)
-  const { user, setShowAuthFlow } = useDynamicContext()
-  const { preflight } = usePreflight()
-  const { data: nonce, refetch: refetchNonce } = useContractRead({
-    address: keep.address as `0xstring`,
-    abi: KEEP_ABI,
-    functionName: 'nonce',
-    chainId: Number(keep.chainId),
-  })
   const [open, setOpen] = React.useState(false)
   const { setValue } = useFormContext()
-
-  const notSigner =
-    keep?.signers?.find((s: string) => s === user?.walletPublicKey?.toLowerCase()) == undefined ? true : false
 
   const currentAction = tx.action ? actions.find((action) => action.value === tx.action) : null
 

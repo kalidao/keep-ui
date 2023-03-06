@@ -47,20 +47,12 @@ export const callBuilderSchema = z.object({
     .string()
     .min(1, { message: 'To cannot be empty' })
     .refine(async (val) => await isAddressOrEns(val), 'Not a valid address or ENS.'),
-  calls: z.array(
-    z.object({
-      op: z.enum(['call', 'delegatecall', 'staticcall']),
-      to: z
-        .string()
-        .min(1, { message: 'To cannot be empty' })
-        .refine((val) => ethers.utils.isAddress(val), 'Not a valid address.'),
-      value: z.coerce.number().min(0, { message: 'Value must be greater than or equal to 0' }).optional(),
-      data: z.string().optional(),
-    }),
-  ),
 })
+
+export type CallBuilderProps = z.infer<typeof callBuilderSchema>
 
 export const schemas: { [key in SendStore['action']]: AnyZodObject } = {
   manage_signers: manageSignersSchema,
   send_token: sendTokenSchema,
+  builder: callBuilderSchema,
 }

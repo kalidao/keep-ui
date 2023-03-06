@@ -46,7 +46,7 @@ export const slideLeftAndFade = keyframes({
 })
 
 export const keepCard = style({
-  padding: vars.space[3],
+  padding: vars.space[1],
   borderRadius: vars.radii['2xLarge'],
   backgroundColor: vars.colors.backgroundSecondary,
 

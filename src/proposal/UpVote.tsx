@@ -1,6 +1,7 @@
 import { Button, IconCheck } from '@kalidao/reality'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 import { useTxStore } from '~/dashboard/useTxStore'
+import { usePreflight } from '~/hooks/usePreflight'
 
 import toast from '@design/Toast'
 
@@ -9,6 +10,7 @@ import { signAndSend } from './utils'
 const UpVote = () => {
   const keep = useKeepStore((state) => state)
   const tx = useTxStore((state) => state)
+  const { fly } = usePreflight(keep.chainId)
 
   const upvote = async () => {
     if (

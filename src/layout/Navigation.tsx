@@ -45,7 +45,7 @@ const Navigation = () => {
         <NavItem link={`/dashboard/communities`} icon={<IconUserGroupSolid />}>
           Communities
         </NavItem>
-        <Propose />
+        {isPropose ? <Propose /> : null}
       </Box>
       <UserMenu />
     </Box>

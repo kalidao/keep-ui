@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 
+import { useDynamicContext } from '@dynamic-labs/sdk-react'
 import { Button } from '@kalidao/reality'
 import { JSONContent } from '@tiptap/core'
 import { useFormContext } from 'react-hook-form'
@@ -24,6 +25,7 @@ export const SendProposal = () => {
   const router = useRouter()
   const { data: nonce } = useNonce(keep.chainId ?? 1, keep.address ? keep.address : '0x')
   const { handleSubmit } = useFormContext()
+  const { user } = useDynamicContext()
 
   let schema: any = baseSchema
   if (tx.action) {
@@ -64,6 +66,9 @@ export const SendProposal = () => {
       tx.reset()
     })
   }
+
+  const notSigner =
+    keep?.signers?.find((s: string) => s === user?.walletPublicKey?.toLowerCase()) == undefined ? true : false
 
   const submit = async (data: Schema) => {
     if (!keep.address || !keep.chainId) {
@@ -122,7 +127,7 @@ export const SendProposal = () => {
             value: tx.value,
             data: tx.data,
           })
-          await handleTx(keep.chainId, keep.address, data.title, data.content, 0, tx.to, tx.value, tx.data)
+          await handleTx(keep.chainId, keep.address, data.title, data.content, 0, data.to, tx.value, tx.data)
         }
       }
     } else {
@@ -133,7 +138,7 @@ export const SendProposal = () => {
   }
 
   return (
-    <Button type="submit" variant="primary" tone="green" onClick={handleSubmit(submit)}>
+    <Button type="submit" variant="primary" tone="green" disabled={notSigner} onClick={handleSubmit(submit)}>
       Submit
     </Button>
   )

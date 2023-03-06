@@ -8,7 +8,7 @@ import { SendStore } from './useSendStore'
 const encodeTransfer = async (chainId: number, contractAddress: string, to: string, amount: number) => {
   try {
     const provider = getProvider(chainId)
-    const contract = new ethers.Contract(contractAddress, KEEP_ABI, provider)
+    const contract = new ethers.Contract(contractAddress, erc20ABI, provider)
     const decimals = await contract.decimals()
 
     const amountInWei = ethers.utils.parseUnits(amount.toString(), decimals).toString()

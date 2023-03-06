@@ -1,6 +1,8 @@
+import Image from 'next/image'
 import Link from 'next/link'
 
 import { Avatar, Box, Stack, Tag, Text } from '@kalidao/reality'
+import { useQuery } from '@tanstack/react-query'
 
 import * as styles from './styles.css'
 
@@ -17,8 +19,18 @@ const KeepCard = ({ name, chainId, keep, avatar, txs }: Props) => {
   // check if keep has pending transactions
   const pendingTxs = txs.filter((tx: any) => tx.status === 'pending')
   const isPending = pendingTxs.length > 0 ? true : false
-  const avatarUrl = avatar ? avatar : avatar === '' ? '/logo.jpeg' : '/logo.jpeg'
-
+  const avatarUrl = `${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/1816876358/image`
+  // get svg from avatarUrl
+  const { data } = useQuery(['avatar', avatarUrl], async () => {
+    const res = await fetch(avatarUrl)
+    const data = await res.text()
+    // if data is not svg, throw new error
+    if (!data.includes('svg')) {
+      throw new Error('Not an svg')
+    }
+    return data
+  })
+  console.log('svg', data)
   return (
     <Link
       href={`/${chainId}/${keep}`}
@@ -26,17 +38,7 @@ const KeepCard = ({ name, chainId, keep, avatar, txs }: Props) => {
         textDecoration: 'none',
       }}
     >
-      <Box className={styles.keepCard}>
-        <Stack direction={'vertical'} align="center">
-          <Avatar shape="circle" src={avatarUrl} size="8" label={name + ' avatar'} address={keep} noBorder />
-          <Text align="center">{name}</Text>
-        </Stack>
-        {isPending && (
-          <Tag tone="green" size="small">
-            {pendingTxs.length}
-          </Tag>
-        )}
-      </Box>
+      {data ? <Box dangerouslySetInnerHTML={{ __html: data }} className={styles.keepCard} /> : null}
     </Link>
   )
 }
