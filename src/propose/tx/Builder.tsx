@@ -86,6 +86,7 @@ export const Builder = () => {
 
     const iface = new ethers.utils.Interface(abi)
     const tx = iface.encodeFunctionData(selectedFunctionName, selectedFunctionInputs)
+
     state.setData(tx as `0x${string}`)
   }
 

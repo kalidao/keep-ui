@@ -19,13 +19,15 @@ const Treasury = () => {
   const totalValueLocked = data ? parseFloat(data?.totalBalanceUsd).toFixed(2) : 0
 
   // order tokens by value
-  const _tokens =
-    tokens &&
-    tokens.sort((a, b) => {
-      return parseFloat(b.balanceUsd) - parseFloat(a.balanceUsd)
-    })
+  const _tokens = tokens
+    ? tokens.sort((a, b) => {
+        return parseFloat(b.balanceUsd) - parseFloat(a.balanceUsd)
+      })
+    : []
 
   // const _nfts = nfts ? nfts?.length : 0
+
+  if (_tokens?.length === 0) return null
 
   return (
     <Link

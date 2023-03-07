@@ -1,30 +1,56 @@
-import { Avatar, Box, Card, Heading, Stack, Text } from '@kalidao/reality'
-import { useQuery } from '@tanstack/react-query'
+import { useState } from 'react'
+
+import { Avatar, Box, Card, Divider, Heading, Stack, Text } from '@kalidao/reality'
+import { bodoni } from 'pages/_app'
 import { useEnsName } from 'wagmi'
 import { useGetUser } from '~/hooks/useGetUser'
 import { truncAddress } from '~/utils'
-import { fetcher } from '~/utils'
 
-import * as styles from './styles.css'
 import { useKeepStore } from './useKeepStore'
 
 const Signers = () => {
   const signers = useKeepStore((state) => state.signers)
-
+  const [initial, setInitial] = useState(5)
   if (!signers) return null
   if (signers.length === 0) return null
 
   return (
     <Card padding="6" width="full">
-      <Box className={styles.signers}>
-        <Heading transform="capitalize">Signers</Heading>
+      <Stack align="center">
+        <Box
+          fontSize="headingThree"
+          style={{
+            ...bodoni.style,
+            fontWeight: 500,
+            fontStyle: 'italic',
+          }}
+        >
+          Signers
+        </Box>
+        <Divider />
         <Stack space={'2'}>
           {signers &&
-            signers.map((signer) => {
+            signers.slice(0, initial).map((signer) => {
               return <Signer key={signer} signer={signer} />
             })}
         </Stack>
-      </Box>
+        {initial >= signers.length ? null : (
+          <Box
+            as="button"
+            color="textSecondary"
+            onClick={() => {
+              const left = signers.length - initial
+              if (left > 5) {
+                setInitial(initial + 5)
+              } else {
+                setInitial(initial + left)
+              }
+            }}
+          >
+            Show more
+          </Box>
+        )}
+      </Stack>
     </Card>
   )
 }

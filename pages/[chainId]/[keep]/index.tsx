@@ -18,10 +18,10 @@ const Dashboard: NextPage = () => {
       title={'Dashboard'}
       content={'Manage your Keep'}
       sidebar={
-        <Stack>
+        <>
           <Treasury />
           <Signers />
-        </Stack>
+        </>
       }
     >
       {/* Proposal/Signal Tab */}

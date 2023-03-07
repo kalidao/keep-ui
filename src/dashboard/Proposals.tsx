@@ -31,7 +31,7 @@ const Proposals = () => {
           return tx.status === 'process' || tx.status === 'process_yes' || tx.status === 'process_no'
       })
       .sort((a: any, b: any) => {
-        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        return a.nonce - b.nonce
       })
 
   return (

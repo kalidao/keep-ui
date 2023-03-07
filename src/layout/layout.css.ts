@@ -159,9 +159,8 @@ export const rightbar = style([
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingRight: vars.space[5],
-    paddingTop: vars.space[5],
-    paddingBottom: vars.space[5],
+
+    padding: vars.space[5],
     backgroundColor: vars.colors.background,
     borderLeft: `1px solid ${vars.colors.foregroundSecondary}`,
     zIndex: 10,

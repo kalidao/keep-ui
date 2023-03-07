@@ -68,11 +68,6 @@ export const signers = style({
   display: 'flex',
   flexDirection: 'column',
   gap: vars.space[3],
-
-  // add scroll if overflow
-  overflowY: 'scroll',
-  scrollbarColor: vars.colors.accent,
-  scrollbarWidth: vars.space[1],
 })
 
 export const tabRoot = style([
