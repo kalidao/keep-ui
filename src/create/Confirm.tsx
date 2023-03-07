@@ -2,6 +2,7 @@ import { Box, Button, Card, Divider, Heading, IconLightningBolt, Stack, Text } f
 import { ethers } from 'ethers'
 import { useContractRead, useContractWrite, useEnsName, useNetwork, usePrepareContractWrite } from 'wagmi'
 import { KEEP_ABI, KEEP_FACTORY_ABI, KEEP_FACTORY_ADDRESS } from '~/constants'
+import { useGetUser } from '~/hooks/useGetUser'
 import { TokenTemplate } from '~/types'
 
 import Back from './Back'

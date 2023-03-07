@@ -61,7 +61,7 @@ export const Signer = ({ signer }: { signer: string }) => {
       ? user?.picture?.uri
       : convertIpfsHashToGatewayUrl(user?.picture?.original?.url)
     : ''
-  console.log('avatarUrl', avatarUrl)
+
   return (
     <Stack direction="horizontal" align="center">
       <Avatar size="8" src={avatarUrl} label={signer} address={signer} />
