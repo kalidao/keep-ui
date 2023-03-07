@@ -2,6 +2,15 @@ import axios from 'axios'
 
 const { Readable } = require('stream')
 
+export const convertIpfsHashToGatewayUrl = (ipfsHash: string): string => {
+  if (!ipfsHash) {
+    return ''
+  }
+  // remove the leading ipfs:// prefix
+  const hash = ipfsHash.replace('ipfs://', '')
+  return convertIpfsHash(hash)
+}
+
 export const convertIpfsHash = (source: string): string => {
   const desiredGatewayPrefix = 'https://content.wrappr.wtf/ipfs/'
   return desiredGatewayPrefix + source
