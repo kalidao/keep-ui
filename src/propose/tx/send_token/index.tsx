@@ -213,7 +213,7 @@ export const SendToken = () => {
 
           if (!token) return null
           return (
-            <Stack direction={'horizontal'} space="2" align="center" justify={'space-between'}>
+            <Stack key={index} direction={'horizontal'} space="2" align="center" justify={'space-between'}>
               <Box display="flex" flexDirection={'row'} gap="2" width={'112'}>
                 <Text>
                   {index + 1}. Sending {transfer.amount ? transfer.amount : '_______'} {token?.tokenSymbol}

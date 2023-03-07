@@ -26,7 +26,7 @@ export const createSendNFT = (address: string, nfts: SendNFT[]): `0xstring` => {
       return {
         op: 0,
         to: nft.contractAddress,
-        value: 0,
+        value: '0',
         data: data,
       }
     })

@@ -31,9 +31,10 @@ export const EmojiList = forwardRef((props, ref) => {
     }, [selectedIndex, props.items.length])
 
   
-    const enterHandler = () => {
+    const enterHandler = useCallback(() => {
       selectItem(selectedIndex)
-    }
+    }, [selectedIndex, selectItem])
+
   
     useEffect(() => setSelectedIndex(0), [props.items])
   
