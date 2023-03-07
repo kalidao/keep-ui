@@ -27,7 +27,6 @@ export const Propose = () => {
   const setOpen = useSendStore((state) => state.setOpen)
   const action = useSendStore((state) => state.action)
   const keep = useKeepStore((state) => state)
-  const tx = useSendStore((state) => state)
 
   const xs = useMediaQuery({ query: '(min-width: 0px)' })
   const md = useMediaQuery({ query: '(min-width: 768px)' })
@@ -44,7 +43,7 @@ export const Propose = () => {
 
   type Schema = z.infer<typeof schema>
   const methods = useForm<Schema>({
-    mode: 'onBlur',
+    mode: 'onChange',
     resolver: async (data, context, options) => {
       // you can debug your validation schema here
       console.log('zod formData', data)

@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
 import { Button } from '@kalidao/reality'
 import { JSONContent } from '@tiptap/core'
+import { ethers } from 'ethers'
 import { useFormContext } from 'react-hook-form'
 import { z } from 'zod'
 import { useKeepStore } from '~/dashboard/useKeepStore'
@@ -13,7 +14,7 @@ import toast from '@design/Toast'
 
 import { getTxHash } from './getTxHash'
 import { createSignal } from './signal/createSignal'
-import { createSendNFT } from './tx/handleTx'
+import { createSendNFT, multirelay } from './tx/handleTx'
 import { sendTx } from './tx/sendTx'
 import { useSendStore } from './tx/useSendStore'
 import { createManageSignersPayload, createSendTokenPayload } from './tx/utils'
@@ -24,7 +25,10 @@ export const SendProposal = () => {
   const keep = useKeepStore((state) => state)
   const router = useRouter()
   const { data: nonce } = useNonce(keep.chainId ?? 1, keep.address ? keep.address : '0x')
-  const { handleSubmit } = useFormContext()
+  const {
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useFormContext()
   const { user } = useDynamicContext()
 
   let schema: any = baseSchema
@@ -48,6 +52,11 @@ export const SendProposal = () => {
     data: string,
   ) => {
     const digest = await getTxHash(chainId, address, op, to, value, data, nonce.toString())
+
+    if (digest === 'error') {
+      toast('error', 'Error creating transaction')
+      return
+    }
 
     const send = await sendTx(
       chainId,
@@ -84,12 +93,38 @@ export const SendProposal = () => {
     const { action } = data
 
     if (action != 'none') {
-      let payload
+      let payload = ethers.constants.HashZero
+      let value = '0'
+      let to = data.to
       switch (action) {
         case 'send_token':
           // TODO: check ETH transfers
-          payload = await createSendTokenPayload(keep.chainId, data.transfers)
-          await handleTx(keep.chainId, keep.address, data.title, data.content, 0, keep.address, '0', payload)
+          const calls = await createSendTokenPayload(keep.chainId, data.transfers)
+          if (calls.length > 0) {
+            if (calls.length === 1) {
+              payload = calls[0].data
+              value = calls[0].value
+              to = calls[0].to
+            } else {
+              payload = multirelay(calls)
+              to = keep.address
+            }
+          } else {
+            toast('error', 'No transfers found')
+            return
+          }
+          console.log({
+            chainId: keep.chainId,
+            address: keep.address,
+            title: data.title,
+            content: data.content,
+            op: 0,
+            to,
+            value,
+            data: payload,
+          })
+
+          await handleTx(keep.chainId, keep.address, data.title, data.content, 0, to, value, payload)
           break
         case 'manage_signers':
           const signers = data.signers.map((signer: { address: string; resolves?: string }) => {
@@ -138,7 +173,14 @@ export const SendProposal = () => {
   }
 
   return (
-    <Button type="submit" variant="primary" tone="green" disabled={notSigner} onClick={handleSubmit(submit)}>
+    <Button
+      type="submit"
+      loading={isSubmitting}
+      variant="primary"
+      tone="green"
+      disabled={notSigner}
+      onClick={handleSubmit(submit)}
+    >
       Submit
     </Button>
   )

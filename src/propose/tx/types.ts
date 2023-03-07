@@ -1,7 +1,7 @@
 export interface Call {
   op: number
   to: string // ethereum address
-  value: number // wei
+  value: string // wei
   data: string // hex string
 }
 

@@ -11,4 +11,24 @@ export const row = style({
   borderRadius: vars.radii['large'],
 })
 
-export const tokenList = style({})
+export const tokenItem = style({
+  minHeight: vars.space[10],
+  paddingTop: vars.space[2],
+  paddingBottom: vars.space[2],
+})
+
+export const btn = style({
+  display: 'flex',
+  color: vars.colors.textSecondary,
+  ':hover': {
+    cursor: 'pointer',
+    color: vars.colors.text,
+    transition: 'color 0.2s ease-in-out',
+  },
+  ':focus': {
+    textShadow: `0 0 0.5rem ${vars.colors.textSecondary}`,
+  },
+  ':active': {
+    textShadow: `0 0 0.5rem ${vars.colors.textSecondary}`,
+  },
+})

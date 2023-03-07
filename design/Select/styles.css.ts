@@ -3,14 +3,15 @@ import { style } from '@vanilla-extract/css'
 
 export const trigger = style({
   display: 'flex',
-  height: vars.space[10],
+  minHeight: vars.space[10],
   width: '100%',
   alignItems: 'center',
   justifyContent: 'space-between',
   borderRadius: vars.radii['large'],
   border: 'none',
   background: 'transparent',
-  padding: vars.space[4],
+  padding: vars.space[2],
+
   gap: vars.space[2],
 
   fontFamily: vars.fonts.sans,
@@ -106,4 +107,8 @@ export const check = style({
   color: vars.colors.white,
   borderRadius: vars.radii['full'],
   padding: vars.space[1],
+})
+
+export const value = style({
+  color: vars.colors.textSecondary,
 })

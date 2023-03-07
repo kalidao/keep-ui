@@ -3,13 +3,20 @@ import * as React from 'react'
 import { IconCheck, IconChevronDown } from '@kalidao/reality'
 import * as SelectPrimitive from '@radix-ui/react-select'
 
+import { cn } from '@design/utils'
+
 import * as styles from './styles.css'
 
 const Select = SelectPrimitive.Root
 
 const SelectGroup = SelectPrimitive.Group
 
-const SelectValue = SelectPrimitive.Value
+const SelectValue = React.forwardRef<
+  React.ElementRef<typeof SelectPrimitive.Value>,
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Value>
+>(({ className, ...props }, ref) => <SelectPrimitive.Value ref={ref} className={styles.value} {...props} />)
+
+SelectValue.displayName = SelectPrimitive.Value.displayName
 
 const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
@@ -40,20 +47,24 @@ const SelectLabel = React.forwardRef<
 >(({ className, ...props }, ref) => <SelectPrimitive.Label ref={ref} className={styles.label} {...props} />)
 SelectLabel.displayName = SelectPrimitive.Label.displayName
 
-const SelectItem = React.forwardRef<
-  React.ElementRef<typeof SelectPrimitive.Item>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>
->(({ className, children, ...props }, ref) => (
-  <SelectPrimitive.Item ref={ref} className={styles.item} {...props}>
-    <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
-      <SelectPrimitive.ItemIndicator>
-        <IconCheck className={styles.check} />
-      </SelectPrimitive.ItemIndicator>
-    </span>
+type SelectItemProps = React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item> & {
+  hideIndicator?: boolean
+}
 
-    <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
-  </SelectPrimitive.Item>
-))
+const SelectItem = React.forwardRef<React.ElementRef<typeof SelectPrimitive.Item>, SelectItemProps>(
+  ({ className, children, hideIndicator, ...props }, ref) => (
+    <SelectPrimitive.Item ref={ref} className={cn(styles.item, className)} {...props}>
+      <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+        <SelectPrimitive.ItemIndicator>
+          {hideIndicator ? null : <IconCheck className={styles.check} />}
+        </SelectPrimitive.ItemIndicator>
+      </span>
+
+      <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+    </SelectPrimitive.Item>
+  ),
+)
+
 SelectItem.displayName = SelectPrimitive.Item.displayName
 
 const SelectSeparator = React.forwardRef<

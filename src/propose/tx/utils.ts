@@ -1,6 +1,7 @@
 import { BigNumber, ethers } from 'ethers'
 import { erc20ABI } from 'wagmi'
 import { KEEP_ABI, SIGN_KEY } from '~/constants'
+import { getEnsAddress } from '~/utils/ens'
 import { getProvider } from '~/utils/getProvider'
 
 import { SendStore } from './useSendStore'
@@ -23,38 +24,66 @@ const encodeTransfer = async (chainId: number, contractAddress: string, to: stri
 }
 
 export const createSendTokenPayload = async (chainId: number, transfers: any[]) => {
-  let calls = []
-  for (let i = 0; i < transfers.length; i++) {
-    const transfer = transfers[i]
-    const { custom_token_address, token_address, to, amount } = transfer
-    let address = ''
-    if (token_address === 'custom') address = custom_token_address
-    else address = token_address
+  try {
+    let calls = []
 
-    if (address == ethers.constants.AddressZero) {
-      calls.push({
-        op: 0,
-        to: to,
-        value: ethers.utils.parseEther(transfer.amount.toString()).toString(),
-        data: ethers.constants.HashZero,
-      })
-    } else {
-      const data = await encodeTransfer(chainId, address, to, amount)
+    if (transfers.length === 0) {
+      throw new Error('No transfers')
+    }
 
-      calls.push({
-        op: 0,
-        to: address,
-        value: 0,
-        data,
-      })
+    // resolve all ens names to addresses
+    transfers = await Promise.all(
+      transfers.map(async (transfer) => {
+        if (transfer.to.includes('.eth')) {
+          const ens = await getEnsAddress(transfer.to)
+          if (ens) {
+            transfer.to = ens
+          }
+        }
+        return transfer
+      }),
+    )
+
+    for (let i = 0; i < transfers.length; i++) {
+      const transfer = transfers[i]
+      const call = await handleTransfer(chainId, transfer)
+      calls.push(call)
+    }
+
+    return calls
+  } catch (e) {
+    console.error('createSendTokenPayload', e)
+    return []
+  }
+}
+
+const handleTransfer = async (
+  chainId: number,
+  transfer: {
+    token_address: string
+    to: string
+    amount: number
+  },
+) => {
+  const { token_address, to, amount } = transfer
+
+  if (token_address == ethers.constants.AddressZero) {
+    return {
+      op: 0,
+      to: to,
+      value: ethers.utils.parseEther(transfer.amount.toString()).toString(),
+      data: ethers.constants.HashZero,
+    }
+  } else {
+    const data = await encodeTransfer(chainId, token_address, to, amount)
+
+    return {
+      op: 0,
+      to: token_address,
+      value: '0',
+      data,
     }
   }
-
-  console.log('token transfers', calls)
-
-  const data = multirelay(calls)
-
-  return data
 }
 
 const compareSigner = (a: string, b: string) => {
