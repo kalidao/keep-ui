@@ -12,9 +12,11 @@ import { fetcher } from '~/utils'
 const Communities: NextPage = () => {
   const { user } = useDynamicContext()
   const { data: keeps } = useQuery(
-    ['userKeeps', user?.walletPublicKey],
+    ['userKeeps', user?.blockchainAccounts?.[0]?.address],
     async () => {
-      const data = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps?signer=${user?.walletPublicKey}`)
+      const data = await fetcher(
+        `${process.env.NEXT_PUBLIC_KEEP_API}/keeps?signer=${user?.blockchainAccounts?.[0]?.address}`,
+      )
       return data
     },
     {

@@ -48,7 +48,7 @@ export const Menu = ({ children = <IconChevronDown /> }) => {
 
   const copy = () => {
     if (user) {
-      navigator.clipboard.writeText(user.walletPublicKey as string)
+      navigator.clipboard.writeText(user.blockchainAccounts[0].address)
       toast('success', 'Address copied!')
     }
   }

@@ -11,9 +11,11 @@ import Tooltip from '~/components/Tooltip'
 export const Sidebar = () => {
   const { user } = useDynamicContext()
   const { data: keeps, isLoading } = useQuery(
-    ['userKeeps', user?.walletPublicKey],
+    ['userKeeps', user?.blockchainAccounts?.[0]?.address],
     async () => {
-      const data = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps?signer=${user?.walletPublicKey}`)
+      const data = await fetcher(
+        `${process.env.NEXT_PUBLIC_KEEP_API}/keeps?signer=${user?.blockchainAccounts?.[0]?.address}`,
+      )
       return data
     },
     {

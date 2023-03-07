@@ -22,6 +22,7 @@ export const useGetKeep = (chainId: number, address: string) => {
     },
     {
       enabled: !!chainId && !!address,
+      refetchOnWindowFocus: true,
     },
   )
 }

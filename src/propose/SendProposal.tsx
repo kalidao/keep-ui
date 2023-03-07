@@ -77,7 +77,9 @@ export const SendProposal = () => {
   }
 
   const notSigner =
-    keep?.signers?.find((s: string) => s === user?.walletPublicKey?.toLowerCase()) == undefined ? true : false
+    keep?.signers?.find((s: string) => s === user?.blockchainAccounts?.[0]?.address?.toLowerCase()) == undefined
+      ? true
+      : false
 
   const submit = async (data: Schema) => {
     if (!keep.address || !keep.chainId) {

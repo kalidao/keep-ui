@@ -35,7 +35,7 @@ const Signal: NextPage = () => {
   const { user, authToken } = useDynamicContext()
 
   const signal = async (support: boolean) => {
-    if (!user?.walletPublicKey) {
+    if (!user?.blockchainAccounts?.[0]?.address) {
       toast('error', `Please connect and sign with wallet to signal`)
       return
     }
@@ -50,11 +50,13 @@ const Signal: NextPage = () => {
       return
     }
 
-    await vote(signalId.toString(), user.walletPublicKey, support, authToken)
+    await vote(signalId.toString(), user?.blockchainAccounts?.[0]?.address, support, authToken)
   }
 
-  const yesVotes = !isLoading && data && data?.support?.filter((support: any) => support.type === 'yes')
-  const noVotes = !isLoading && data && data?.support?.filter((support: any) => support.type === 'no')
+  const yesVotes = !isLoading && data && data?.votes?.filter((support: any) => support.type === 'yes')
+  const noVotes = !isLoading && data && data?.votes?.filter((support: any) => support.type === 'no')
+
+  console.log('yesVotes', yesVotes, data)
 
   return (
     <Layout
@@ -62,18 +64,26 @@ const Signal: NextPage = () => {
       content={'Manage your Keep'}
       sidebar={
         <Stack>
-          <Heading>Supported</Heading>
-          <Divider />
-          {yesVotes &&
-            yesVotes.map((vote: any) => {
-              return <User key={vote.userId} address={vote.userId} size="lg" />
-            })}
-          <Heading>Rejected</Heading>
-          <Divider />
-          {noVotes &&
-            noVotes.map((vote: any) => {
-              return <User key={vote.userId} address={vote.userId} size="lg" />
-            })}
+          {yesVotes?.length > 0 ? (
+            <>
+              <Heading>Supported</Heading>
+              <Divider />
+
+              {yesVotes.map((vote: any) => {
+                return <User key={vote.userId} address={vote.userId} size="lg" />
+              })}
+            </>
+          ) : null}
+          {noVotes?.length > 0 ? (
+            <>
+              <Heading>Rejected</Heading>
+              <Divider />
+              {noVotes &&
+                noVotes.map((vote: any) => {
+                  return <User key={vote.userId} address={vote.userId} size="lg" />
+                })}
+            </>
+          ) : null}
         </Stack>
       }
     >

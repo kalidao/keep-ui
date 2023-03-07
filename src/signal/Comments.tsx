@@ -4,7 +4,6 @@ import { useRouter } from 'next/router'
 
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
 import { Box, Button, Card, IconCheck, IconClose, IconPencil, Spinner, Stack, Text } from '@kalidao/reality'
-import { JSONContent } from '@tiptap/react'
 import { useGetSignalComments } from '~/hooks/useGetSignalComments'
 import { prettyDate } from '~/utils'
 
@@ -64,7 +63,7 @@ const RenderComment = ({ comment, callback }: { comment: any; callback: any }) =
     replies = comment?.children?.length
   }
 
-  let isUserComment = comment?.userId?.toLowerCase() === user?.walletPublicKey?.toLowerCase()
+  let isUserComment = comment?.userId?.toLowerCase() === user?.blockchainAccounts?.[0]?.address?.toLowerCase()
 
   return (
     <Card padding="3">
@@ -155,7 +154,7 @@ const SignalCommentVote = ({
     const typeEnum = type ? 'yes' : 'no'
     isVoted =
       data?.votes?.find((vote: any) => {
-        return vote.userId === user?.walletPublicKey?.toLowerCase()
+        return vote.userId === user?.blockchainAccounts?.[0]?.address?.toLowerCase()
       })?.type === typeEnum
   }
 

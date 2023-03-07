@@ -31,7 +31,9 @@ const GiveMoney = () => {
     isLoading: isLoadingUserBalance,
   } = useAccountBalance({
     blockchain: keep.chainId ? getBlockchainByChainId(keep.chainId) : 'polygon',
-    walletAddress: user?.walletPublicKey ? user.walletPublicKey : ethers.constants.AddressZero,
+    walletAddress: user?.blockchainAccounts?.[0]?.address
+      ? user?.blockchainAccounts?.[0]?.address
+      : ethers.constants.AddressZero,
   })
   const { config } = usePrepareSendTransaction({
     request: {

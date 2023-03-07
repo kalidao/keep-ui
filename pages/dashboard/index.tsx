@@ -74,8 +74,10 @@ const curateFeed = (pendingTransactions: any, signals: any) => {
 const Dashboard: NextPage = () => {
   const { user, isAuthenticated } = useDynamicContext()
   const router = useRouter()
-  const { data: keeps } = useQuery(['userKeeps', user?.walletPublicKey], async () => {
-    const data = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps?signer=${user?.walletPublicKey}`)
+  const { data: keeps } = useQuery(['userKeeps', user?.blockchainAccounts?.[0]?.address], async () => {
+    const data = await fetcher(
+      `${process.env.NEXT_PUBLIC_KEEP_API}/keeps?signer=${user?.blockchainAccounts?.[0]?.address}`,
+    )
     return data
   })
 

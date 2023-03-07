@@ -3,7 +3,6 @@ import { useRouter } from 'next/router'
 import { getAuthToken, useDynamicContext } from '@dynamic-labs/sdk-react'
 import { Button, IconTrash, Skeleton } from '@kalidao/reality'
 import { useGetSignal } from '~/hooks/useGetSignal'
-import { getUser } from '~/utils/user'
 
 import toast from '@design/Toast'
 
@@ -43,7 +42,7 @@ export const DeleteSignal = () => {
 
   if (isError) return null
 
-  if (data.userId === user?.walletPublicKey?.toLowerCase())
+  if (data.userId === user?.blockchainAccounts?.[0]?.address.toLowerCase())
     return (
       <Button
         variant="secondary"

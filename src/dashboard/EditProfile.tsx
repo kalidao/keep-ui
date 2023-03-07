@@ -39,7 +39,9 @@ const EditProfile = ({ callback }: { callback: () => Promise<void> }) => {
 
   if (!user) return null
 
-  const isSigner = keep.signers.find((signer) => signer.toLowerCase() === user.walletPublicKey?.toLowerCase())
+  const isSigner = keep.signers.find(
+    (signer) => signer.toLowerCase() === user?.blockchainAccounts?.[0]?.address?.toLowerCase(),
+  )
 
   if (!isSigner) return null
 

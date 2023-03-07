@@ -64,7 +64,7 @@ export const Name = () => {
       return zodResolver(schema)(data, context, options)
     },
   })
-  const { connectedWallets } = useDynamicContext()
+  const { user } = useDynamicContext()
 
   const onSubmit = (data: CreateStore) => {
     const { name, bio, twitter, discord, website } = data
@@ -75,8 +75,8 @@ export const Name = () => {
     discord && state.setDiscord(discord)
     website && state.setWebsite(website)
 
-    if (connectedWallets.length > 0) {
-      state.setSigners([{ address: connectedWallets[0].address }])
+    if (user?.blockchainAccounts?.[0]?.address) {
+      state.setSigners([{ address: user?.blockchainAccounts?.[0]?.address, ens: undefined }])
     }
 
     state.setView('signers')
