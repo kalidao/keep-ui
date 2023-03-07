@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { Avatar, Box, Card, Heading, Stack, Tag, Text } from '@kalidao/reality'
+import { Avatar, Box, Card, Divider, Heading, Stack, Tag, Text } from '@kalidao/reality'
 import { useAccountBalance } from 'ankr-react'
 import { ethers } from 'ethers'
 import { getBlockchainByChainId } from '~/utils/ankr'
@@ -39,13 +39,16 @@ const Treasury = () => {
       <Card padding="6" width="full" hover shadow>
         <Stack>
           <Stack direction={'horizontal'} align="center" justify={'space-between'}>
-            <Heading>Treasury</Heading>
+            <Box fontSize="headingThree" fontWeight={'semiBold'}>
+              Treasury
+            </Box>
             {totalValueLocked && (
               <Tag tone="green" label={`$`}>
                 {totalValueLocked}
               </Tag>
             )}
           </Stack>
+          <Divider />
           <Box display="flex" flexDirection={'column'} gap="3">
             {_tokens &&
               _tokens?.slice(0, 5).map((token) => {

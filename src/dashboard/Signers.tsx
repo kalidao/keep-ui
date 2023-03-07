@@ -16,15 +16,8 @@ const Signers = () => {
 
   return (
     <Card padding="6" width="full">
-      <Stack align="center">
-        <Box
-          fontSize="headingThree"
-          style={{
-            ...bodoni.style,
-            fontWeight: 500,
-            fontStyle: 'italic',
-          }}
-        >
+      <Stack align="flex-start">
+        <Box fontSize="headingThree" fontWeight={'semiBold'}>
           Signers
         </Box>
         <Divider />

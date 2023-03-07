@@ -77,7 +77,9 @@ const DashboardLayout = ({ title, content, sidebar, children }: Props) => {
         <Box className={styles.dashboardContainer}>{children}</Box>
       </Box>
       <Box className={styles.rightbar}>
-        <Box width="full">{sidebar}</Box>
+        <Box width="full" display="flex" flexDirection={'column'} gap="1">
+          {sidebar}
+        </Box>
         <Footer />
       </Box>
     </Box>
