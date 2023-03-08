@@ -3,13 +3,14 @@ import { ChangeEvent } from 'react'
 
 import { Button, Input, Stack, Textarea } from '@kalidao/reality'
 import { ethers } from 'ethers'
-import { useFormContext } from 'react-hook-form'
+import { useFormContext, useWatch } from 'react-hook-form'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 import { fetchContractAbi } from '~/utils/abi'
 
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@design/Select'
 import toast from '@design/Toast'
 
+import { CallBuilderProps } from '../types'
 import { useSendStore } from './useSendStore'
 
 interface ABI_ITEM {
@@ -50,10 +51,9 @@ export const Builder = () => {
   const [selectedFunctionInputs, setSelectedFunctionInputs] = useState<any>([])
   const {
     register,
-    setValue,
     formState: { errors },
-    setError,
-  } = useFormContext()
+  } = useFormContext<CallBuilderProps>()
+  const watchedTo = useWatch({ name: 'to' })
 
   const getABI = async () => {
     if (!chainId) {
@@ -61,7 +61,7 @@ export const Builder = () => {
     }
 
     if (ethers.utils.isAddress(state.to)) {
-      const abi = await fetchContractAbi(state.to, chainId)
+      const abi = await fetchContractAbi(watchedTo, chainId)
 
       if (abi) {
         setAbi(JSON.stringify(abi, undefined, 3))
@@ -106,7 +106,6 @@ export const Builder = () => {
         onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
           setAbi(e.currentTarget.value)
         }}
-        error={<>{errors?.abi?.message}</>}
       />
       <Button onClick={getABI} variant="secondary" size="small">
         Fetch ABI

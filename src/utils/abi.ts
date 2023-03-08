@@ -13,7 +13,7 @@ export const fetchContractAbi = async (address: string, chainId: number) => {
     console.log('abi', abi)
     return abi
   } else {
-    console.error('Failed to fetch contract abi', response)
+    console.error('Failed to fetch contract abi', chainId, url, response)
     return null
   }
 }
