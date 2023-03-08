@@ -72,7 +72,7 @@ export const sendTx = async (chainId: number, address: string, body: Body, route
     body: JSON.stringify({
       ...body,
       nonce: Number(nonce),
-      userId: user.walletPublicKey,
+      userId: user?.blockchainAccounts?.[0]?.address,
     }),
   })
     .then(async (res) => {

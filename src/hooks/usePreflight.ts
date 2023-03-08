@@ -46,5 +46,5 @@ export const usePreflight = (chainId?: number) => {
     }
   }, [isAuthenticated, network, chainId])
 
-  return { fly }
+  return { fly, preflight }
 }

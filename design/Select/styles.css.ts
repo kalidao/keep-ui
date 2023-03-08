@@ -37,7 +37,6 @@ export const trigger = style({
 export const content = style({
   position: 'relative',
   zIndex: 50,
-  minWidth: '8rem',
   overflow: 'hidden',
   borderRadius: vars.radii['large'],
   fontFamily: vars.fonts.sans,

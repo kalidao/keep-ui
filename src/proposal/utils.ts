@@ -45,7 +45,7 @@ export const signAndSend = async (
         data: tx.data,
         nonce: tx.nonce,
       },
-      user.walletPublicKey,
+      user?.blockchainAccounts?.[0]?.address,
     )
 
     if (!sign) {

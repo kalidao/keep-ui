@@ -1,13 +1,14 @@
 import Link from 'next/link'
 
 import { Avatar, Box, Heading, IconDiscord, IconLink, IconTwitter, Stack, Text } from '@kalidao/reality'
+import { ChainMirror } from '~/dashboard/chain-mirror'
+import { EditProfile } from '~/dashboard/profile/edit'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 import { useGetKeep } from '~/hooks/useGetKeep'
 import { getExplorerLink } from '~/utils/getExplorerLink'
 import { prettyDateShort } from '~/utils/prettyDate'
 import { getTwitterUsername, prettyLink } from '~/utils/prettyLink'
 
-import { EditProfile } from './EditProfile'
 import * as styles from './styles.css'
 
 type Props = {
@@ -26,6 +27,7 @@ const Profile = ({ summoned, name, avatar, bio, twitter, website, discord, addre
   const state = useKeepStore((state) => state)
   const { data, refetch } = useGetKeep(state.chainId || 1, state.address || '0x0')
   const avatarUrl = avatar ? avatar : avatar === '' ? '/logo.jpeg' : '/logo.jpeg'
+
   return (
     <Box className={styles.profileContainer}>
       <Box width="full">
@@ -97,6 +99,7 @@ const Profile = ({ summoned, name, avatar, bio, twitter, website, discord, addre
                 <IconDiscord className={styles.socialIcon} />
               </Link>
             )}
+            <ChainMirror address={address} />
           </Stack>
         </Box>
       </Box>

@@ -18,16 +18,18 @@ const SelectValue = React.forwardRef<
 
 SelectValue.displayName = SelectPrimitive.Value.displayName
 
-const SelectTrigger = React.forwardRef<
-  React.ElementRef<typeof SelectPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
->(({ className, children, ...props }, ref) => (
-  <SelectPrimitive.Trigger ref={ref} className={styles.trigger} {...props}>
-    {children}
-    <IconChevronDown className={styles.triggerIcon} />
-  </SelectPrimitive.Trigger>
-))
-SelectTrigger.displayName = SelectPrimitive.Trigger.displayName
+type SelectTriggerProps = React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> & {
+  hideIndicator?: boolean
+} & React.ComponentPropsWithoutRef<'button'>
+
+const SelectTrigger = React.forwardRef<React.ElementRef<typeof SelectPrimitive.Trigger>, SelectTriggerProps>(
+  ({ className, children, hideIndicator, ...props }, ref) => (
+    <SelectPrimitive.Trigger ref={ref} className={styles.trigger} {...props}>
+      {children}
+      {hideIndicator ? null : <IconChevronDown className={styles.triggerIcon} />}
+    </SelectPrimitive.Trigger>
+  ),
+)
 
 const SelectContent = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Content>,
@@ -59,7 +61,6 @@ const SelectItem = React.forwardRef<React.ElementRef<typeof SelectPrimitive.Item
           {hideIndicator ? null : <IconCheck className={styles.check} />}
         </SelectPrimitive.ItemIndicator>
       </span>
-
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
     </SelectPrimitive.Item>
   ),

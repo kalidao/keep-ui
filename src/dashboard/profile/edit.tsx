@@ -17,12 +17,11 @@ import {
   Stack,
   Textarea,
 } from '@kalidao/reality'
+import { useKeepStore } from '~/dashboard/useKeepStore'
 import { uploadFile } from '~/utils/upload'
 
 import toast from '@design/Toast'
 import { dialog, dialogBox, dialogPanel } from '@design/dialog.css'
-
-import { useKeepStore } from './useKeepStore'
 
 const EditProfile = ({ callback }: { callback: () => Promise<void> }) => {
   const [isOpen, setIsOpen] = useState(false)
