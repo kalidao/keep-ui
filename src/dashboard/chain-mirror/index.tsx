@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import Image from 'next/image'
 import { useRouter } from 'next/router'
@@ -16,7 +16,7 @@ export const ChainMirror = ({ address }: { address: string }) => {
   const { data } = useGetMirrorKeeps(address)
   const { isAuthenticated, networkConfigurations, walletConnector, network, setNetwork } = useDynamicContext()
   const router = useRouter()
-  const activeNetwork = networkConfigurations?.evm?.find((network) => network.chainId === network.chainId)
+  const activeNetwork = networkConfigurations?.evm?.find((chain) => chain.chainId === network)
 
   const switchNetwork = async (chainId: number) => {
     if (!walletConnector) {
@@ -39,6 +39,8 @@ export const ChainMirror = ({ address }: { address: string }) => {
         if (isAuthenticated) {
           if (parseInt(value) !== network) {
             switchNetwork(parseInt(value))
+          } else {
+            return
           }
         }
         router.push(`/${value}/${address}`)
