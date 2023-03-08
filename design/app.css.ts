@@ -81,3 +81,8 @@ globalStyle('input[type=checkbox]:hover', {
 globalStyle('input[type=checkbox]:hover:checked', {
   background: vars.colors.green,
 })
+
+globalStyle('[data-type="emoji"] > img', {
+  width: '1em',
+  height: '1em',
+})
