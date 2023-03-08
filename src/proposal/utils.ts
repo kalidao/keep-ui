@@ -99,16 +99,18 @@ export const sendSign = async (txHash: string, body: any) => {
   }
 }
 
-export const prettierStatus = (status: 'pending' | 'process' | 'process_yes' | 'process_no' | 'executed') => {
+export type Status = 'pending' | 'process' | 'process_yes' | 'process_no' | 'executed'
+
+export const prettierStatus = (status: Status) => {
   switch (status) {
     case 'pending':
       return 'Pending'
     case 'process':
       return 'Process'
     case 'process_yes':
-      return 'Process Yes'
+      return 'Approved'
     case 'process_no':
-      return 'Process No'
+      return 'Rejected'
     case 'executed':
       return 'Executed'
     default:
@@ -118,9 +120,7 @@ export const prettierStatus = (status: 'pending' | 'process' | 'process_yes' | '
 
 type Tone = 'accent' | 'blue' | 'green' | 'secondary' | 'red' | 'orange' | 'purple' | 'pink' | 'violet'
 
-export const prettierStatusColor = (
-  status: 'pending' | 'process' | 'process_yes' | 'process_no' | 'executed',
-): Tone => {
+export const prettierStatusColor = (status: Status): Tone => {
   switch (status) {
     case 'pending':
       return 'orange'

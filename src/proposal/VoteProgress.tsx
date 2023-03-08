@@ -24,7 +24,7 @@ export const VoteProgress = () => {
       />
 
       <Stack direction={'horizontal'} align="center" justify={'space-between'}>
-        <Text weight="semiBold">Yes</Text>
+        <Text weight="semiBold">Approved</Text>
         <Text weight="semiBold">
           {yesSigs?.length}/{keep?.threshold}
         </Text>
@@ -34,7 +34,7 @@ export const VoteProgress = () => {
         filledBackground="linear-gradient(to right, rgb(255, 69, 58), rgb(255, 59, 48))"
       />
       <Stack direction={'horizontal'} align="center" justify={'space-between'}>
-        <Text weight="semiBold">No</Text>
+        <Text weight="semiBold">Rejected</Text>
         <Text weight="semiBold">
           {noSigs?.length}/{keep?.threshold}
         </Text>

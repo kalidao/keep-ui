@@ -1,19 +1,18 @@
 import 'react-step-progress-bar/styles.css'
 
 import { Avatar, Box, Card, Divider, Heading, Stack, Tag, Text } from '@kalidao/reality'
-import { useQuery } from '@tanstack/react-query'
 import { bodoni } from 'pages/_app'
 import { useEnsName } from 'wagmi'
 import { Sig } from '~/dashboard/types'
 import { useTxStore } from '~/dashboard/useTxStore'
 import { useGetUser } from '~/hooks/useGetUser'
-import { fetcher } from '~/utils'
 import { truncAddress } from '~/utils'
 import { capitalize } from '~/utils/capitalize'
 import { convertIpfsHashToGatewayUrl } from '~/utils/upload'
 
 import { Result } from './Result'
 import { VoteProgress } from './VoteProgress'
+import { Status, prettierStatus, prettierStatusColor } from './utils'
 
 const Quorum = () => {
   const tx = useTxStore((state) => state)
@@ -23,8 +22,8 @@ const Quorum = () => {
       <Stack>
         <Stack direction={'horizontal'} align="center" justify={'space-between'}>
           <Heading>Status</Heading>
-          <Tag size="medium" tone="green">
-            {capitalize(tx?.status ? tx?.status : '')}
+          <Tag size="medium" tone={tx?.status ? prettierStatusColor(tx?.status as Status) : 'secondary'}>
+            {capitalize(tx?.status ? prettierStatus(tx?.status as Status) : '')}
           </Tag>
         </Stack>
         <Divider />
