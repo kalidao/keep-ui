@@ -55,7 +55,6 @@ export const signAndSend = async (
 
     const { v, r, s } = ethers.utils.splitSignature(sign)
     const body = {
-      user: user?.blockchainAccounts?.[0]?.address,
       v: v,
       r: r,
       s: s,
