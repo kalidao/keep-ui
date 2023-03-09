@@ -15,11 +15,11 @@ import {
   Stack,
   Text,
 } from '@kalidao/reality'
+import Comments from '~/comments'
 import { Author, PrettyDate } from '~/components'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 import { useGetSignal } from '~/hooks/useGetSignal'
 import Layout from '~/layout/DashboardLayout'
-import { Comments } from '~/signal/Comments'
 import { DeleteSignal } from '~/signal/DeleteSignal'
 import { vote } from '~/signal/utils'
 

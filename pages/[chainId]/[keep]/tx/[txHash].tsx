@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 
 import { Box, Button, Heading, IconArrowLeft, Stack, Text } from '@kalidao/reality'
 import { useQuery } from '@tanstack/react-query'
+import Comments from '~/comments'
 import { Author, PrettyDate } from '~/components'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 import { useTxStore } from '~/dashboard/useTxStore'
@@ -156,6 +157,7 @@ const Tx: NextPage = () => {
             </Stack>
           </Box>
         </Stack>
+        <Comments />
       </Box>
     </Layout>
   )

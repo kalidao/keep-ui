@@ -1,6 +1,5 @@
 import { useState } from 'react'
 
-import { useDynamicContext } from '@dynamic-labs/sdk-react'
 import { Box, Button } from '@kalidao/reality'
 import { JSONContent } from '@tiptap/react'
 
@@ -8,45 +7,45 @@ import Editor from '~/components/Editor'
 
 import toast from '@design/Toast'
 
-import { commentOnSignal } from './utils'
+import { CommentHome } from './types'
+import { createComment } from './utils'
 
-export const Comment = ({
+export const CreateComment = ({
+  home,
   signalId,
+  txId,
   parentId,
   refetch,
 }: {
-  signalId: string
+  home: CommentHome
+  txId?: string
+  signalId?: string
   parentId?: string
   refetch?: () => void
 }) => {
-  const [comment, setComment] = useState<JSONContent>()
-  const { authToken, setShowAuthFlow } = useDynamicContext()
+  const [content, setContent] = useState<JSONContent>()
   const [loading, setLoading] = useState(false)
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setLoading(true)
 
-    if (!comment) {
+    if (!content) {
       toast('error', `Comment cannot be empty`)
       return
     }
-    if (!authToken) {
-      toast('error', `Please connect and sign with wallet to comment!`)
-      setShowAuthFlow(true)
-      return
-    }
 
-    await commentOnSignal(signalId.toString(), comment, authToken, parentId).then(() => {
+    await createComment({ home, signalId, txId, parentId, content }).then(() => {
       refetch?.()
-      setComment(undefined)
+      setContent(undefined)
       setLoading(false)
     })
   }
 
   return (
     <Box as="form" display="flex" flexDirection={'column'} gap="2" onSubmit={handleSubmit}>
-      <Editor placeholder="What do you think?" content={comment || {}} setContent={setComment} />
-      <Button variant="secondary" disabled={!comment || loading} type="submit">
+      <Editor placeholder="What do you think?" content={content || {}} setContent={setContent} />
+      <Button variant="secondary" disabled={!content || loading} type="submit">
         Comment
       </Button>
     </Box>

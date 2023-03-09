@@ -29,7 +29,9 @@ export const JSONContentRenderer = ({ content }: { content: JSONContent }) => {
       fontSize="base"
       fontFamily="sans"
       fontWeight={'medium'}
+      wordWrap="break-word"
       dangerouslySetInnerHTML={{ __html: output }}
+      overflow="auto"
     />
   )
 }
