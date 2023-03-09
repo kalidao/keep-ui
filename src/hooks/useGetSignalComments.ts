@@ -3,9 +3,10 @@ import { fetcher } from '~/utils'
 
 export const getSignalComments = async (signalId: string, commentId?: string) => {
   if (commentId) {
-    const res = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/gcomments?commentId=${commentId}`).catch((e) => {
+    const res = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/comments?commentId=${commentId}`).catch((e) => {
       return new Error('Error fetching signal')
     })
+  
     return res
   }
   const res = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/comments?signalId=${signalId}`).catch((e) => {
