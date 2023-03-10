@@ -40,6 +40,7 @@ specifiers:
   '@tiptap/extension-history': 2.0.0-beta.220
   '@tiptap/extension-horizontal-rule': 2.0.0-beta.220
   '@tiptap/extension-italic': 2.0.0-beta.220
+  '@tiptap/extension-link': 2.0.0-beta.220
   '@tiptap/extension-list-item': 2.0.0-beta.220
   '@tiptap/extension-ordered-list': 2.0.0-beta.220
   '@tiptap/extension-paragraph': 2.0.0-beta.220
@@ -83,6 +84,7 @@ specifiers:
   react-awesome-reveal: ^4.2.3
   react-colorful: ^5.6.1
   react-dom: ^18.2.0
+  react-draggable: ^4.4.5
   react-hook-form: ^7.43.5
   react-hot-toast: ^2.4.0
   react-responsive: ^9.0.2
@@ -134,6 +136,7 @@ dependencies:
   '@tiptap/extension-history': 2.0.0-beta.220_nl3kcghp26fu7dd2tlqljskoi4
   '@tiptap/extension-horizontal-rule': 2.0.0-beta.220_nl3kcghp26fu7dd2tlqljskoi4
   '@tiptap/extension-italic': 2.0.0-beta.220_7w7m52asdh3tod4ocz57yex63q
+  '@tiptap/extension-link': 2.0.0-beta.220_nl3kcghp26fu7dd2tlqljskoi4
   '@tiptap/extension-list-item': 2.0.0-beta.220_7w7m52asdh3tod4ocz57yex63q
   '@tiptap/extension-ordered-list': 2.0.0-beta.220_7w7m52asdh3tod4ocz57yex63q
   '@tiptap/extension-paragraph': 2.0.0-beta.220_7w7m52asdh3tod4ocz57yex63q
@@ -167,6 +170,7 @@ dependencies:
   react-awesome-reveal: 4.2.3_3og6jmu6wvzuytygvdoxepq3x4
   react-colorful: 5.6.1_biqbaboplfbrettd7655fr4n2y
   react-dom: 18.2.0_react@18.2.0
+  react-draggable: 4.4.5_biqbaboplfbrettd7655fr4n2y
   react-hook-form: 7.43.5_react@18.2.0
   react-hot-toast: 2.4.0_biqbaboplfbrettd7655fr4n2y
   react-share: 4.4.1_react@18.2.0
@@ -3157,6 +3161,17 @@ packages:
       '@tiptap/core': ^2.0.0-beta.209
     dependencies:
       '@tiptap/core': 2.0.0-beta.220_@tiptap+pm@2.0.0-beta.218
+    dev: false
+
+  /@tiptap/extension-link/2.0.0-beta.220_nl3kcghp26fu7dd2tlqljskoi4:
+    resolution: {integrity: sha512-vjEA8cE37ZZVVgPHSpttw3kbJoClb+ya/BVukDtJ1h6C7mIR1rqzNxTgpbnXJuA8xww0JOjpa5dpzEgcs294fA==}
+    peerDependencies:
+      '@tiptap/core': ^2.0.0-beta.209
+      '@tiptap/pm': ^2.0.0-beta.209
+    dependencies:
+      '@tiptap/core': 2.0.0-beta.220_@tiptap+pm@2.0.0-beta.218
+      '@tiptap/pm': 2.0.0-beta.218_7w7m52asdh3tod4ocz57yex63q
+      linkifyjs: 4.1.0
     dev: false
 
   /@tiptap/extension-list-item/2.0.0-beta.220_7w7m52asdh3tod4ocz57yex63q:
@@ -7719,6 +7734,10 @@ packages:
       react: 18.2.0
     dev: false
 
+  /linkifyjs/4.1.0:
+    resolution: {integrity: sha512-Ffv8VoY3+ixI1b3aZ3O+jM6x17cOsgwfB1Wq7pkytbo1WlyRp6ZO0YDMqiWT/gQPY/CmtiGuKfzDIVqxh1aCTA==}
+    dev: false
+
   /lit-element/3.2.2:
     resolution: {integrity: sha512-6ZgxBR9KNroqKb6+htkyBwD90XGRiqKDHVrW/Eh0EZ+l+iC+u+v+w3/BA5NGi4nizAVHGYvQBHUDuSmLjPp7NQ==}
     dependencies:
@@ -8974,6 +8993,18 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
+
+  /react-draggable/4.4.5_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-OMHzJdyJbYTZo4uQE393fHcqqPYsEtkjfMgvCHr6rejT+Ezn4OZbNyGH50vv+SunC1RMvwOTSWkEODQLzw1M9g==}
+    peerDependencies:
+      react: '>= 16.3.0'
+      react-dom: '>= 16.3.0'
+    dependencies:
+      clsx: 1.2.1
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
 
   /react-fast-compare/2.0.4:
     resolution: {integrity: sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==}

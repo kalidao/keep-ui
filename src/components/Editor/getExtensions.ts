@@ -12,6 +12,7 @@ import Heading from '@tiptap/extension-heading'
 import History from '@tiptap/extension-history'
 import HorizntalRule from '@tiptap/extension-horizontal-rule'
 import Italic from '@tiptap/extension-italic'
+import Link from '@tiptap/extension-link'
 import ListItem from '@tiptap/extension-list-item'
 import OrderedList from '@tiptap/extension-ordered-list'
 import Paragraph from '@tiptap/extension-paragraph'
@@ -62,6 +63,9 @@ export const getExtensions = (placeholder: string) => {
     CodeBlockLowlight.configure({
       lowlight,
       defaultLanguage: 'solidity',
+    }),
+    Link.configure({
+      protocols: ['http', 'https', 'mailto', 'ipfs'],
     }),
   ]
 }

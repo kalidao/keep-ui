@@ -48,14 +48,11 @@ export const slideLeftAndFade = keyframes({
 export const keepCard = style({
   padding: vars.space[1],
   borderRadius: vars.radii['2xLarge'],
-  backgroundColor: vars.colors.backgroundSecondary,
-
+  border: `1px solid ${vars.colors.foregroundSecondary}`,
+  //  viewBox="0 0 400 500"
+  width: '200px',
+  height: '100px',
   // transform the card up and to the right a bit when it's hovered
-  selectors: {
-    '&:hover': {
-      transform: 'translate(2px, -2px)',
-    },
-  },
 })
 
 export const TooltipContent = style({

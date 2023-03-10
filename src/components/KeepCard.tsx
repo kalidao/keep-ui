@@ -1,8 +1,13 @@
+import { useEffect, useState } from 'react'
+
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import { Avatar, Box, Stack, Tag, Text } from '@kalidao/reality'
 import { useQuery } from '@tanstack/react-query'
+import Draggable from 'react-draggable'
+import { useIsMounted } from '~/hooks/useIsMounted'
 
 import * as styles from './styles.css'
 
@@ -16,10 +21,10 @@ type Props = {
 }
 
 const KeepCard = ({ name, chainId, keep, avatar, txs }: Props) => {
-  // check if keep has pending transactions
-  const pendingTxs = txs.filter((tx: any) => tx.status === 'pending')
-  const isPending = pendingTxs.length > 0 ? true : false
+  const [click, setClick] = useState(0)
+  const mounted = useIsMounted()
   const avatarUrl = `${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/1816876358/image`
+  const router = useRouter()
   // get svg from avatarUrl
   const { data } = useQuery(['avatar', avatarUrl], async () => {
     const res = await fetch(avatarUrl)
@@ -30,16 +35,40 @@ const KeepCard = ({ name, chainId, keep, avatar, txs }: Props) => {
     }
     return data
   })
-  console.log('svg', data)
+
+  useEffect(() => {
+    // prefetch keep page
+    router.prefetch(`/${chainId}/${keep}`)
+  }, [])
+
+  const handleClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    const now = Date.now()
+    if (now - click < 300) {
+      // double click
+      router.push(`/${chainId}/${keep}`)
+    } else {
+      setClick(now)
+    }
+  }
+
+  if (!mounted) {
+    return null
+  }
   return (
-    <Link
-      href={`/${chainId}/${keep}`}
-      style={{
-        textDecoration: 'none',
-      }}
-    >
-      {data ? <Box dangerouslySetInnerHTML={{ __html: data }} className={styles.keepCard} /> : null}
-    </Link>
+    <Draggable>
+      {/* <Link
+        href={`/${chainId}/${keep}`}
+        style={{
+          textDecoration: 'none',
+        }}
+      > */}
+      {data ? (
+        <Box onClick={handleClick} dangerouslySetInnerHTML={{ __html: data }} className={styles.keepCard} />
+      ) : (
+        <Box></Box>
+      )}
+      {/* </Link> */}
+    </Draggable>
   )
 }
 
