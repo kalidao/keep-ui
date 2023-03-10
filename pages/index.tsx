@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
-import { Box, Button, Stack } from '@kalidao/reality'
+import { Box, Button, IconWallet, Stack } from '@kalidao/reality'
 import Balencer from 'react-wrap-balancer'
 import { Castle } from '~/canvas/Castle'
 import Footer from '~/layout/Footer'
@@ -19,7 +19,7 @@ import * as styles from '@design/landing.css'
 import { bodoni } from './_app'
 
 const Home: NextPage = () => {
-  const { user } = useDynamicContext()
+  const { user, setShowAuthFlow } = useDynamicContext()
   const router = useRouter()
 
   if (user) {
@@ -34,10 +34,11 @@ const Home: NextPage = () => {
         <title>Keep - Home</title>
         <meta name="description" content={'This is the homepage of Keep.'} />
       </Head>
-
       <Box className={header}>
         <Stack direction={'horizontal'}>
-          <ConnectButton />
+          <Button size="small" center tone="accent" variant="secondary" onClick={() => setShowAuthFlow(true)}>
+            Login
+          </Button>
           <Menu />
         </Stack>
       </Box>

@@ -87,7 +87,7 @@ export const Menu = ({ children = <IconChevronDown /> }) => {
           <Item
             type="button"
             icon={mode === 'dark' ? <IconSun /> : <IconMoon />}
-            label={mode === 'dark' ? 'Light' : 'Dark'}
+            label={mode === 'dark' ? 'Day' : 'Night'}
             onClick={toggleMode}
           />
           <DropdownMenuPrimitive.Separator className={separator} />
@@ -130,8 +130,8 @@ export const Menu = ({ children = <IconChevronDown /> }) => {
           ) : null}
           <Item
             type="button"
-            icon={isAuthenticated ? <IconWallet /> : <IconWallet />}
             label={isAuthenticated ? 'Logout' : 'Login'}
+            accent
             onClick={() => {
               if (isAuthenticated) {
                 handleLogOut()
@@ -154,12 +154,19 @@ type ItemProps = {
   isExternal?: boolean
   type?: 'button' | 'link'
   onClick?: () => void
+  accent?: boolean
 }
 
-export const Item = ({ type = 'link', label, href, onClick, icon, isExternal = true }: ItemProps) => {
-  if (type === 'button') {
+export const Item = ({ type = 'link', label, href, onClick, icon, isExternal = true, accent }: ItemProps) => {
+  if (type === 'button' && accent) {
     return (
-      <Button onClick={onClick} variant="transparent" size="small" width="full" prefix={icon}>
+      <Button onClick={onClick} variant={'secondary'} tone="accent" size="small" width="full" prefix={icon}>
+        {label}
+      </Button>
+    )
+  } else if (type === 'button') {
+    return (
+      <Button onClick={onClick} variant={'transparent'} size="small" width="full" prefix={icon}>
         <DropdownMenuPrimitive.Item className={itemText}>{label}</DropdownMenuPrimitive.Item>
       </Button>
     )

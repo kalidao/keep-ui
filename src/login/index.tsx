@@ -11,15 +11,9 @@ export const Login = () => {
     <Box height="viewHeight" width="viewWidth">
       <Splash />
       <Box className={styles.typeShell}>
-        <Box width="fit">
+        <Box width="fit" display={'flex'} flexDirection="column" gap="5">
           <Heading level="1">Welcome back!</Heading>
-          <Button
-            prefix={<IconWallet />}
-            center
-            tone="accent"
-            variant="secondary"
-            onClick={() => setShowAuthFlow(true)}
-          >
+          <Button center tone="accent" variant="secondary" onClick={() => setShowAuthFlow(true)}>
             Login
           </Button>
         </Box>

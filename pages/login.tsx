@@ -5,11 +5,9 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
-import { Box, Stack } from '@kalidao/reality'
-import { header, layout } from '~/layout/layout.css'
+import { Box } from '@kalidao/reality'
+import { layout } from '~/layout/layout.css'
 import { Login } from '~/login'
-
-import { Menu } from '@design/Menu'
 
 const Home: NextPage = () => {
   const { isAuthenticated } = useDynamicContext()
