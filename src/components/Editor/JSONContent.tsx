@@ -28,7 +28,7 @@ export const JSONContentRenderer = ({ content }: { content: JSONContent }) => {
       lineHeight={'normal'}
       fontSize="base"
       fontFamily="sans"
-      fontWeight={'medium'}
+      fontWeight={'light'}
       wordWrap="break-word"
       dangerouslySetInnerHTML={{ __html: output }}
       overflow="auto"

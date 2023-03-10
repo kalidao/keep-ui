@@ -12,8 +12,8 @@ import { User } from '~/components/User'
 import { Flip } from '@design/Flip'
 import { IconChat } from '@design/IconChat'
 
-import { CommentVote } from './CommentVote'
 import { CreateComment } from './CreateComment'
+import { CommentVote } from './comment-vote'
 import { CommentHome } from './types'
 import { deleteComment } from './utils'
 
@@ -79,9 +79,8 @@ export const RenderComment = ({ home, comment, callback }: { home: CommentHome; 
         )}
         <Stack direction={'horizontal'} align="center" justify={'space-between'}>
           <Stack direction={'horizontal'} align="center" justify={'flex-start'}>
-            <CommentVote commentId={comment.id} callback={callback} type={true} />
-            <CommentVote commentId={comment.id} callback={callback} type={false} />
-            <Button size="small" variant="secondary" onClick={() => setReply(!reply)} prefix={<IconChat />}>
+            <CommentVote commentId={comment.id} callback={callback} />
+            <Button size="small" variant="transparent" onClick={() => setReply(!reply)} prefix={<IconChat />}>
               Reply
             </Button>
             <Flip
@@ -90,7 +89,7 @@ export const RenderComment = ({ home, comment, callback }: { home: CommentHome; 
             />
           </Stack>
           {replies > 0 ? (
-            <Box color="textSecondary" as="button" onClick={() => setShowChildren(!showChildren)}>
+            <Box color="textTertiary" as="button" onClick={() => setShowChildren(!showChildren)}>
               {showChildren
                 ? `Hide ${replies} ${replies > 1 ? 'replies' : 'reply'}`
                 : `Show ${replies} more ${replies > 1 ? 'replies' : 'reply'}`}

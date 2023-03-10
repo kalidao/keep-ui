@@ -3,7 +3,7 @@ import { style } from '@vanilla-extract/css'
 
 export const root = style([
   style({
-    color: vars.colors.textSecondary,
+    color: vars.colors.textTertiary,
 
     ':hover': {
       scale: 1.05,
