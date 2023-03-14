@@ -17,6 +17,7 @@ export const useGetKeep = (chainId: number, address: string) => {
         state.setThreshold(data.threshold)
         const signers = data?.signers?.map((s: any) => s.signerId)
         state.setSigners(signers)
+        data.signers = signers
         return data
       })
     },

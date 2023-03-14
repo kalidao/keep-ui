@@ -122,8 +122,8 @@ export const trigger = style({
   padding: vars.space[3],
   borderRadius: vars.radii.full,
   marginRight: vars.space[1],
+  color: vars.colors.foreground,
 
-  transition: 'transform 250ms ease',
   selectors: {
     '&[data-state=open]': {
       scale: '1.1',

@@ -8,7 +8,9 @@ import {
   Button,
   Divider,
   Heading,
+  IconArrowDown,
   IconArrowLeft,
+  IconArrowUp,
   IconCheck,
   IconClose,
   Spinner,
@@ -154,11 +156,11 @@ const Signal: NextPage = () => {
               </Box>
 
               <Stack direction={'horizontal'} align="center">
-                <Button size="small" variant="secondary" tone="green" shape="square" onClick={async () => signal(true)}>
-                  <IconCheck />
+                <Button size="small" variant="secondary" tone="green" shape="circle" onClick={async () => signal(true)}>
+                  <IconArrowUp />
                 </Button>
-                <Button size="small" variant="secondary" tone="red" shape="square" onClick={async () => signal(false)}>
-                  <IconClose />
+                <Button size="small" variant="secondary" tone="red" shape="circle" onClick={async () => signal(false)}>
+                  <IconArrowDown />
                 </Button>
               </Stack>
             </Box>

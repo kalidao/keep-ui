@@ -1,49 +1,73 @@
 import { useState } from 'react'
 
-import { Avatar, Box, Card, Divider, Heading, Stack, Text } from '@kalidao/reality'
-import { bodoni } from 'pages/_app'
+import { Avatar, Box, Card, Divider, Heading, Spinner, Stack, Tag, Text } from '@kalidao/reality'
 import { useEnsName } from 'wagmi'
+import { useGetKeep } from '~/hooks/useGetKeep'
 import { useGetUser } from '~/hooks/useGetUser'
 import { truncAddress } from '~/utils'
 import { convertIpfsHashToGatewayUrl } from '~/utils/upload'
 
+import { useGetParams } from './hooks/useGetParams'
 import { useKeepStore } from './useKeepStore'
 
 const Signers = () => {
-  const signers = useKeepStore((state) => state.signers)
+  const { chainId, keep } = useGetParams()
+  const { data, isLoading, isError } = useGetKeep(
+    chainId ? parseInt(chainId.toString()) : 1,
+    keep?.toString() as `0x${string}`,
+  )
+
   const [initial, setInitial] = useState(5)
-  if (!signers) return null
-  if (signers.length === 0) return null
+  if (!data?.signers) return null
+  if (data?.signers?.length === 0) return null
+  let state = null
+  if (isLoading) return <Spinner />
+  if (isError) return <Text>Something went wrong</Text>
+
+  const signers = (
+    <>
+      <Stack space={'2'}>
+        {data?.signers &&
+          data?.signers.slice(0, initial).map((signer: string) => {
+            return <Signer key={signer} signer={signer} />
+          })}
+      </Stack>
+      {initial >= data?.signers?.length ? null : (
+        <Box
+          as="button"
+          color="textSecondary"
+          onClick={() => {
+            const left = data?.signers?.length - initial
+            if (left > 5) {
+              setInitial(initial + 5)
+            } else {
+              setInitial(initial + left)
+            }
+          }}
+        >
+          Show more
+        </Box>
+      )}
+    </>
+  )
+
+  if (data) state = signers
 
   return (
     <Card padding="6" width="full">
       <Stack align="flex-start">
-        <Box fontSize="headingThree" fontWeight={'semiBold'}>
-          Signers
+        <Box display="flex" width="full" flexDirection={'row'} alignItems="center" justifyContent={'space-between'}>
+          <Box fontSize="headingThree" fontWeight={'semiBold'}>
+            Signers
+          </Box>
+          {data?.threshold ? (
+            <Tag>
+              {data?.threshold}/{data?.signers?.length}
+            </Tag>
+          ) : null}
         </Box>
         <Divider />
-        <Stack space={'2'}>
-          {signers &&
-            signers.slice(0, initial).map((signer) => {
-              return <Signer key={signer} signer={signer} />
-            })}
-        </Stack>
-        {initial >= signers.length ? null : (
-          <Box
-            as="button"
-            color="textSecondary"
-            onClick={() => {
-              const left = signers.length - initial
-              if (left > 5) {
-                setInitial(initial + 5)
-              } else {
-                setInitial(initial + left)
-              }
-            }}
-          >
-            Show more
-          </Box>
-        )}
+        {state}
       </Stack>
     </Card>
   )
