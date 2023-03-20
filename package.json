@@ -90,7 +90,7 @@
     "react-step-progress-bar": "^1.0.3",
     "react-wrap-balancer": "^0.4.0",
     "tippy.js": "^6.3.7",
-    "wagmi": "^0.11.7",
+    "wagmi": "^0.12.2",
     "zod": "^3.21.2",
     "zustand": "^4.3.6"
   },
