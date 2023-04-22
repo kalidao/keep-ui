@@ -11,7 +11,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@dynamic-labs/sdk-react": "^0.15.0",
+    "@dynamic-labs/sdk-react": "^0.15.1",
     "@dynamic-labs/wagmi-connector": "^0.15.0",
     "@emotion/react": "^11.10.6",
     "@fontsource/bodoni-moda": "^4.5.10",
@@ -92,7 +92,7 @@
     "tippy.js": "^6.3.7",
     "wagmi": "^0.11.7",
     "zod": "^3.21.2",
-    "zustand": "^4.3.6"
+    "zustand": "^4.3.7"
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^3.7.1",

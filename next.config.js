@@ -9,7 +9,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['gateway.pinata.cloud', 'api.kali.gg', 'cdn.jsdelivr.net'],
+    domains: ['gateway.pinata.cloud', 'api.kali.gg', 'cdn.jsdelivr.net', 'content.wrappr.wtf', 'pbs.twimg.com'],
   },
 }
 

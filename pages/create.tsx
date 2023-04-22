@@ -5,7 +5,7 @@ import { Box, Stack } from '@kalidao/reality'
 import Create from '~/create'
 import * as styles from '~/layout/layout.css'
 
-import { ConnectButton } from '~/components/ConnectButton'
+import { ConnectButton } from '~/components/connect-button'
 
 import { Menu } from '@design/Menu'
 

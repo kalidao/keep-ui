@@ -21,6 +21,7 @@ import { Mode } from '@kalidao/reality/dist/types/tokens'
 import { Inter } from '@next/font/google'
 import { Bodoni_Moda } from '@next/font/google'
 import { Toaster } from 'react-hot-toast'
+import { useIsMounted } from '~/hooks/useIsMounted'
 
 export const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 export const bodoni = Bodoni_Moda({ subsets: ['latin'], variable: '--font-bodoni' })
@@ -35,7 +36,7 @@ function MyApp({ Component, pageProps, theme }: AppProps & { theme: Mode }) {
   }, [theme, setMode])
 
   return (
-    <ThemeProvider defaultMode={theme} defaultAccent="indigo">
+    <ThemeProvider defaultMode={theme || "light"} defaultAccent="indigo">
       <AnkrProvider>
         <QueryClientProvider client={queryClient}>
           <DynamicContextProvider

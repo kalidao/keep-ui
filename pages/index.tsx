@@ -11,7 +11,7 @@ import Footer from '~/layout/Footer'
 import { header } from '~/layout/layout.css'
 
 import Banner from '~/components/Banner'
-import { ConnectButton } from '~/components/ConnectButton'
+import { ConnectButton } from '~/components/connect-button'
 
 import { Menu } from '@design/Menu'
 import * as styles from '@design/landing.css'
@@ -36,9 +36,7 @@ const Home: NextPage = () => {
       </Head>
       <Box className={header}>
         <Stack direction={'horizontal'}>
-          <Button size="small" center tone="accent" variant="secondary" onClick={() => setShowAuthFlow(true)}>
-            Login
-          </Button>
+          <ConnectButton />
           <Menu />
         </Stack>
       </Box>
