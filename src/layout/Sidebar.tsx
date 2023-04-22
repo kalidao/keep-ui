@@ -6,7 +6,7 @@ import { Avatar, Box, Button, IconPlus, Spinner, Stack } from '@kalidao/reality'
 import { useQuery } from '@tanstack/react-query'
 import { fetcher } from '~/utils'
 
-import Tooltip from '~/components/Tooltip'
+import Tooltip from '~/components/tooltip'
 
 export const Sidebar = () => {
   const { user } = useDynamicContext()

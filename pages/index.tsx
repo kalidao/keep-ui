@@ -10,7 +10,7 @@ import { Castle } from '~/canvas/Castle'
 import Footer from '~/layout/Footer'
 import { header } from '~/layout/layout.css'
 
-import Banner from '~/components/Banner'
+import Banner from '~/components/banner'
 import { ConnectButton } from '~/components/connect-button'
 
 import { Menu } from '@design/Menu'

@@ -10,7 +10,6 @@ import {
   IconDuplicate,
   IconMoon,
   IconSun,
-  IconWallet,
   Stack,
   Text,
   useTheme,
@@ -91,7 +90,6 @@ export const Menu = ({ children = <IconChevronDown /> }) => {
             onClick={toggleMode}
           />
           <DropdownMenuPrimitive.Separator className={separator} />
-
           {isAuthenticated ? (
             <>
               <DropdownMenuPrimitive.Sub>

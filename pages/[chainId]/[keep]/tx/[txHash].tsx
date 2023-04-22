@@ -18,7 +18,7 @@ import Vote from '~/proposal/Vote'
 
 import { CopyURL } from '~/components/CopyURL'
 import { JSONContentRenderer } from '~/components/Editor/JSONContent'
-import { User } from '~/components/User'
+import { User } from '~/components/user'
 
 const Tx: NextPage = () => {
   const { txHash } = useRouter().query

@@ -7,7 +7,7 @@ import { useGetComment } from '~/hooks/useGetComments'
 import { prettyDate } from '~/utils'
 
 import { JSONContentRenderer } from '~/components/Editor/JSONContent'
-import { User } from '~/components/User'
+import { User } from '~/components/user'
 
 import { Flip } from '@design/Flip'
 import { IconChat } from '@design/IconChat'

@@ -2,10 +2,11 @@ import { useDynamicContext } from '@dynamic-labs/sdk-react'
 import { Box } from '@kalidao/reality'
 import { useMediaQuery } from 'react-responsive'
 
+import { User } from '~/components/user'
+
 import { Menu } from '@design/Menu'
 
-import { User } from './User'
-import * as styles from './userMenu.css'
+import * as styles from './styles.css'
 
 export const UserMenu = () => {
   const { user } = useDynamicContext()

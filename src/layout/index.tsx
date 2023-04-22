@@ -2,7 +2,7 @@ import Head from 'next/head'
 
 import { Box } from '@kalidao/reality'
 
-import Banner from '~/components/Banner'
+import Banner from '~/components/banner'
 
 import { Navigation } from './Navigation'
 import * as styles from './layout.css'

@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { Box, IconLightningBolt, IconUserGroupSolid } from '@kalidao/reality'
 import { Propose } from '~/propose/Propose'
 
-import { UserMenu } from '~/components/UserMenu'
+import { UserMenu } from '~/components/user-menu'
 
 import * as styles from './layout.css'
 

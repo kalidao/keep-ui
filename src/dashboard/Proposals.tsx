@@ -9,7 +9,7 @@ import { prettyDate, truncAddress } from '~/utils'
 
 import { JSONContentRenderer } from '~/components/Editor/JSONContent'
 import Empty from '~/components/Empty'
-import { User } from '~/components/User'
+import { User } from '~/components/user'
 
 import * as styles from './activity.css'
 import { useKeepStore } from './useKeepStore'

@@ -36,7 +36,7 @@ function MyApp({ Component, pageProps, theme }: AppProps & { theme: Mode }) {
   }, [theme, setMode])
 
   return (
-    <ThemeProvider defaultMode={theme || "light"} defaultAccent="indigo">
+    <ThemeProvider defaultMode={theme || 'light'} defaultAccent="indigo">
       <AnkrProvider>
         <QueryClientProvider client={queryClient}>
           <DynamicContextProvider

@@ -11,8 +11,6 @@ export const RenderText = ({ children }: { children: React.ReactNode }) => {
         },
         format: {
           url: (value: string) => {
-            // format url to be aesthetically pleasing
-            // e.g. https://www.twitter.com/user/nerderlyne => twitter.com/user/nerderlyne
             const url = new URL(value)
 
             return url.hostname + url.pathname

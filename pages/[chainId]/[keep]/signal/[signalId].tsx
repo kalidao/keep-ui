@@ -26,7 +26,7 @@ import { DeleteSignal } from '~/signal/DeleteSignal'
 import { vote } from '~/signal/utils'
 
 import { JSONContentRenderer } from '~/components/Editor/JSONContent'
-import { User } from '~/components/User'
+import { User } from '~/components/user'
 
 import toast from '@design/Toast'
 
