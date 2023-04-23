@@ -1,12 +1,13 @@
 import React from 'react'
 
 import { Box, IconChevronDown, Stack, Text } from '@kalidao/reality'
-import * as RadixCollapsible from '@radix-ui/react-collapsible'
 import { useQuery } from '@tanstack/react-query'
 import { ethers } from 'ethers'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 import { useTxStore } from '~/dashboard/useTxStore'
 import { truncAddress } from '~/utils'
+
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@design/Collapsible'
 
 import * as styles from './styles.css'
 
@@ -29,43 +30,96 @@ const ViewTx = () => {
     },
   )
 
+  const renderDecodedFunctions = (decodedFunctions: any[]) => {
+    return decodedFunctions.map((decodedFunction, index) => (
+      <Box key={index} className={styles.viewTxBox}>
+        <Text>{decodedFunction.decodedFunction.message}</Text>
+        {decodedFunction.decodedFunction.decoded && (
+          <Box>
+            {decodedFunction.decodedFunction.decoded.types.map((type: string, i: number) => (
+              <Stack key={i} direction={'horizontal'} justify="space-between" align="center">
+                <Text>{type}</Text>
+                <Text weight="bold">{decodedFunction.decodedFunction.decoded.values[i]}</Text>
+              </Stack>
+            ))}
+          </Box>
+        )}
+      </Box>
+    ))
+  }
+
+  console.log(data)
   return (
-    <RadixCollapsible.Root className={styles.viewTxRoot} open={open} onOpenChange={setOpen}>
+    <Collapsible className={styles.viewTxRoot} open={open} onOpenChange={setOpen}>
       <Box display="flex" flexDirection={'column'} gap="3">
-        <RadixCollapsible.Trigger asChild>
+        <CollapsibleTrigger asChild>
           <Box className={styles.viewTxTrigger}>
             <Text>
               {data ? (data?.ok == true ? data?.message : 'Unknown Transaction Summary') : 'Transaction Summary'}
             </Text>
             <IconChevronDown />
           </Box>
-        </RadixCollapsible.Trigger>
-        <RadixCollapsible.Content>
-          <Box className={styles.viewTxBox}>
-            <Stack direction={'horizontal'} justify="space-between" align="center">
-              <Text>Type</Text>
-              <Text weight="bold">{tx?.op?.toUpperCase()}</Text>
-            </Stack>
-            <Stack direction={'horizontal'} justify="space-between" align="center">
-              <Text>Nonce</Text>
-              <Text weight="bold">{tx?.nonce}</Text>
-            </Stack>
-            <Stack direction={'horizontal'} justify="space-between" align="center">
-              <Text>To</Text>
-              <Text weight="bold">{truncAddress(tx?.to ? tx.to : '')}</Text>
-            </Stack>
-            <Stack direction={'horizontal'} justify="space-between" align="center">
-              <Text>Value</Text>
-              <Text weight="bold">{ethers.utils.formatEther(tx?.value ? tx?.value : '0')}</Text>
-            </Stack>
-            <Text>Data</Text>
-            <Box backgroundColor={'backgroundSecondary'} padding="2" borderRadius={'large'} width="full">
-              <Text wordBreak="break-word">{tx?.data}</Text>
+        </CollapsibleTrigger>
+        <CollapsibleContent>
+          <Stack direction="vertical" space="1">
+            <Box className={styles.viewTxBox}>
+              <Stack direction={'horizontal'} justify="space-between" align="center">
+                <Text>Type</Text>
+                <Text weight="bold">{tx?.op?.toUpperCase()}</Text>
+              </Stack>
+              <Stack direction={'horizontal'} justify="space-between" align="center">
+                <Text>Nonce</Text>
+                <Text weight="bold">{tx?.nonce}</Text>
+              </Stack>
+              <Stack direction={'horizontal'} justify="space-between" align="center">
+                <Text>To</Text>
+                <Text weight="bold">{truncAddress(tx?.to ? tx.to : '')}</Text>
+              </Stack>
+              <Stack direction={'horizontal'} justify="space-between" align="center">
+                <Text>Value</Text>
+                <Text weight="bold">{ethers.utils.formatEther(tx?.value ? tx?.value : '0')}</Text>
+              </Stack>
             </Box>
-          </Box>
-        </RadixCollapsible.Content>
+
+            {data && data.ok && data.decoded ? (
+              <Collapsible>
+                <CollapsibleTrigger asChild>
+                  <Box className={styles.viewTxTrigger}>
+                    <Text>Transactions</Text>
+                    <IconChevronDown />
+                  </Box>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <Stack direction="vertical" space="1">
+                    {renderDecodedFunctions(data.decoded.values)}
+                  </Stack>
+                </CollapsibleContent>
+              </Collapsible>
+            ) : null}
+            <Collapsible>
+              <CollapsibleTrigger asChild>
+                <Box className={styles.viewTxTrigger}>
+                  <Text>Data</Text>
+                  <IconChevronDown />
+                </Box>
+              </CollapsibleTrigger>
+
+              <CollapsibleContent>
+                <Box
+                  className={styles.viewTxBox}
+                  backgroundColor={'backgroundSecondary'}
+                  padding="2"
+                  borderRadius={'large'}
+                  width="full"
+                >
+                  <Text wordBreak="break-word">{tx?.data}</Text>
+                </Box>
+              </CollapsibleContent>
+            </Collapsible>
+          </Stack>
+        </CollapsibleContent>
       </Box>
-    </RadixCollapsible.Root>
+    </Collapsible>
   )
 }
 
