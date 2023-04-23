@@ -33,30 +33,38 @@ const ViewTx = () => {
   const renderDecodedFunctions = (decodedFunctions: any[]) => {
     return decodedFunctions.map((decodedFunction, index) => (
       <Box key={index} className={styles.viewTxBox}>
-        <Text>{decodedFunction.decodedFunction.message}</Text>
-        {decodedFunction.decodedFunction.decoded && (
-          <Box>
-            {decodedFunction.decodedFunction.decoded.types.map((type: string, i: number) => (
-              <Stack key={i} direction={'horizontal'} justify="space-between" align="center">
-                <Text>{type}</Text>
-                <Text weight="bold">{decodedFunction.decodedFunction.decoded.values[i]}</Text>
-              </Stack>
-            ))}
-          </Box>
+        {decodedFunction?.decodedFunction && (
+          <>
+            <Text>{decodedFunction.decodedFunction.message || 'No message'}</Text>
+            {decodedFunction.decodedFunction.decoded && (
+              <Box>
+                {decodedFunction.decodedFunction.decoded.types.map((type: string, i: number) => (
+                  <Stack key={i} direction={'horizontal'} justify="space-between" align="center">
+                    <Text>{type}</Text>
+                    <Text weight="bold">{decodedFunction.decodedFunction.decoded.values[i]}</Text>
+                  </Stack>
+                ))}
+              </Box>
+            )}
+          </>
         )}
       </Box>
-    ))
-  }
+    ));
+  };
 
-  console.log(data)
+ 
   return (
     <Collapsible className={styles.viewTxRoot} open={open} onOpenChange={setOpen}>
       <Box display="flex" flexDirection={'column'} gap="3">
         <CollapsibleTrigger asChild>
           <Box className={styles.viewTxTrigger}>
-            <Text>
-              {data ? (data?.ok == true ? data?.message : 'Unknown Transaction Summary') : 'Transaction Summary'}
-            </Text>
+          <Text>
+  {data
+    ? data?.ok === true
+      ? data?.message || 'No message'
+      : 'Unknown Transaction Summary'
+    : 'Transaction Summary'}
+</Text>
             <IconChevronDown />
           </Box>
         </CollapsibleTrigger>
