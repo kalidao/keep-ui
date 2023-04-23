@@ -19,6 +19,7 @@ export const viewTxBox = style({
   gap: vars.space[2],
   width: '100%',
   height: '100%',
+  marginTop: vars.space[1],
 
   border: `1px solid ${vars.colors.foregroundSecondary}`,
   borderRadius: vars.radii['2xLarge'],

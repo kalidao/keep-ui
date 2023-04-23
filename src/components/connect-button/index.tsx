@@ -1,13 +1,11 @@
-import React from 'react'
-
-import { DynamicWidget, useDynamicContext } from '@dynamic-labs/sdk-react'
+import { useDynamicContext } from '@dynamic-labs/sdk-react'
 import { Avatar, Box, Button } from '@kalidao/reality'
 import { useEnsAvatar } from 'wagmi'
 
 import * as styles from './styles.css'
 
 export const ConnectButton = () => {
-  const { user, setShowAuthFlow, handleLogOut } = useDynamicContext()
+  const { user, setShowAuthFlow } = useDynamicContext()
   const { data: ensAvatar } = useEnsAvatar({
     address: user?.blockchainAccounts[0]?.address as `0xstring`,
     chainId: 1,
