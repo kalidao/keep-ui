@@ -41,7 +41,7 @@ function MyApp({ Component, pageProps, theme }: AppProps & { theme: Mode }) {
         <QueryClientProvider client={queryClient}>
           <DynamicContextProvider
             settings={{
-              environmentId: process.env.NEXT_PUBLIC_DYNAMIC_ID ?? '',
+              environmentId: 'ab3f0157-4b72-4272-951f-5da2517d3b74',
               multiWallet: true,
             }}
             theme={theme}
