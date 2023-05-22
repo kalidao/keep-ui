@@ -4,7 +4,6 @@ import { useDynamicContext } from '@dynamic-labs/sdk-react'
 import { Box, Button, IconExclamationCircle, IconMinus, IconTokens, IconUserGroupSolid, Text } from '@kalidao/reality'
 import { ReactNodeNoStrings } from '@kalidao/reality/dist/types/types'
 import { useFormContext } from 'react-hook-form'
-import { useKeepStore } from '~/dashboard/useKeepStore'
 import { ManageSigners } from '~/propose/tx/manage_signers'
 import { SendToken } from '~/propose/tx/send_token'
 
@@ -12,6 +11,7 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { Popover, PopoverContent, PopoverTrigger } from '@design/Popover'
 
 import { Builder } from './Builder'
+import { MintToken } from './mint_token'
 import { useSendStore } from './useSendStore'
 
 type Action = {
@@ -34,6 +34,12 @@ export const actions: Action[] = [
   //   label: 'Send NFT',
   //   icon: <IconNFT />,
   // },
+  {
+    component: <MintToken />,
+    value: 'mint_token',
+    label: 'Mint Token',
+    icon: <IconUserGroupSolid />,
+  },
   {
     component: <Builder />,
     value: 'builder',

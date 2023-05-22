@@ -42,6 +42,14 @@ export type SendStore = {
 
   setManageSigners: (manage_signers: SendStore['manage_signers']) => void
 
+  // mint token
+  mint_token: {
+    id: number
+    amount: number
+    address: `0x${string}`
+  }
+  setMintToken: (mint_token: SendStore['mint_token']) => void
+
   open: boolean
   setOpen: (open: boolean) => void
 
@@ -85,6 +93,14 @@ export const useSendStore = create<SendStore>((set) => ({
   },
   setManageSigners: (manage_signers) => set({ manage_signers }),
 
+  // mint token
+  mint_token: {
+    id: 0,
+    amount: 0,
+    address: ethers.constants.AddressZero,
+  },
+  setMintToken: (mint_token) => set({ mint_token }),
+
   open: false,
   setOpen: (open) => set({ open }),
 
@@ -103,6 +119,11 @@ export const useSendStore = create<SendStore>((set) => ({
       manage_signers: {
         signers: [],
         threshold: 1,
+      },
+      mint_token: {
+        id: 0,
+        amount: 0,
+        address: ethers.constants.AddressZero,
       },
       open: false,
     })

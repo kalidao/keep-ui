@@ -1,4 +1,3 @@
-import { ethers } from 'ethers'
 import { AnyZodObject, z } from 'zod'
 import { isAddressOrEns } from '~/utils/ens'
 
@@ -9,7 +8,7 @@ export const baseSchema = z.object({
   title: z.string().min(1, { message: 'Title cannot be empty' }),
   content: jsonContentSchema,
   // todo: get enum from type SendStore["action"]
-  action: z.enum(['none', 'manage_signers', 'send_token', 'send_nft', 'builder']),
+  action: z.enum(['none', 'manage_signers', 'send_token', 'mint_token', 'builder']),
 })
 
 export const sendTokenSchema = z.object({
@@ -50,8 +49,20 @@ export const callBuilderSchema = z.object({
 
 export type CallBuilderProps = z.infer<typeof callBuilderSchema>
 
+export const mintTokenSchema = z.object({
+  id: z.number().min(1, { message: 'ID must be greater than 0' }),
+  amount: z.number().min(1, { message: 'Amount must be greater than 0' }),
+  address: z
+    .string()
+    .min(1, { message: 'Address cannot be empty' })
+    .refine((val) => isAddressOrEns(val), 'Not a valid address or ENS.'),
+})
+
+export type MintTokenProps = z.infer<typeof mintTokenSchema>
+
 export const schemas: { [key in SendStore['action']]: AnyZodObject } = {
   manage_signers: manageSignersSchema,
   send_token: sendTokenSchema,
   builder: callBuilderSchema,
+  mint_token: mintTokenSchema,
 }

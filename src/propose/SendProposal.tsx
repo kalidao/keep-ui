@@ -12,6 +12,7 @@ import { toOpString } from '~/utils/toOp'
 
 import toast from '@design/Toast'
 
+import { createPayload } from './createPayload'
 import { getTxHash } from './getTxHash'
 import { createSignal } from './signal/createSignal'
 import { createSendNFT, multirelay } from './tx/handleTx'
@@ -82,6 +83,7 @@ export const SendProposal = () => {
       : false
 
   const submit = async (data: Schema) => {
+    console.log('Submit function called with data:', data) // <-- added log
     if (!keep.address || !keep.chainId) {
       toast('error', 'No keep selected')
       return
@@ -100,7 +102,6 @@ export const SendProposal = () => {
       let to = data.to
       switch (action) {
         case 'send_token':
-          // TODO: check ETH transfers
           const calls = await createSendTokenPayload(keep.chainId, data.transfers)
           if (calls.length > 0) {
             if (calls.length === 1) {
@@ -115,7 +116,9 @@ export const SendProposal = () => {
             toast('error', 'No transfers found')
             return
           }
-          console.log({
+
+          console.log('handleTx called for send_token action with:', {
+            // <-- added log
             chainId: keep.chainId,
             address: keep.address,
             title: data.title,
@@ -125,7 +128,6 @@ export const SendProposal = () => {
             value,
             data: payload,
           })
-
           await handleTx(keep.chainId, keep.address, data.title, data.content, 0, to, value, payload)
           break
         case 'manage_signers':
@@ -137,6 +139,7 @@ export const SendProposal = () => {
             }
           })
 
+          console.log('Creating payload for manage_signers action with signers:', signers) // <-- added log
           payload = createManageSignersPayload(
             keep.address,
             {
@@ -147,6 +150,17 @@ export const SendProposal = () => {
             keep.threshold,
           )
 
+          console.log('handleTx called for manage_signers action with:', {
+            // <-- added log
+            chainId: keep.chainId,
+            address: keep.address,
+            title: data.title,
+            content: data.content,
+            op: 0,
+            to: keep.address,
+            value: '0',
+            data: payload,
+          })
           await handleTx(keep.chainId, keep.address, data.title, data.content, 0, keep.address, '0', payload)
           break
         case 'send_nft': {
@@ -165,6 +179,24 @@ export const SendProposal = () => {
             data: tx.data,
           })
           await handleTx(keep.chainId, keep.address, data.title, data.content, 0, data.to, tx.value, tx.data)
+        }
+        case 'mint_token': {
+          console.log({
+            chainId: keep.chainId,
+            address: keep.address,
+            title: data.title,
+            content: data.content,
+            op: 0,
+            to: data.to,
+            value: tx.value,
+            data: tx.data,
+            tokenId: tx.mint_token.id,
+            amount: tx.mint_token.amount,
+            addressForMinting: tx.mint_token.address,
+          })
+          const payload = createPayload('mint_token', tx.mint_token)
+          console.info('[MINT TOKEN] PAYLOAD ->', payload)
+          await handleTx(keep.chainId, keep.address, data.title, data.content, 0, keep.address, '0', payload)
         }
       }
     } else {
