@@ -28,8 +28,8 @@ export const MintToken = () => {
       watchedAddress !== null
     ) {
       setMintToken({
-        id: watchedId !== null ? watchedId : mint_token.id,
-        amount: watchedAmount !== null ? watchedAmount : mint_token.amount,
+        id: watchedId !== null && watchedId !== undefined ? watchedId : mint_token.id,
+        amount: watchedAmount !== null && watchedAmount !== undefined ? watchedAmount : mint_token.amount,
         address: (watchedAddress as `0xstring`) || mint_token.address,
       })
     }
