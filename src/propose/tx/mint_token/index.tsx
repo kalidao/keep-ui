@@ -19,10 +19,17 @@ export const MintToken = () => {
   const [watchedId, watchedAmount, watchedAddress] = watch(['id', 'amount', 'address'])
 
   useEffect(() => {
-    if (watchedId !== undefined && watchedAmount !== undefined && watchedAddress !== undefined) {
+    if (
+      watchedId !== undefined &&
+      watchedId !== null &&
+      watchedAmount !== undefined &&
+      watchedAmount !== null &&
+      watchedAddress !== undefined &&
+      watchedAddress !== null
+    ) {
       setMintToken({
-        id: watchedId || mint_token.id,
-        amount: watchedAmount || mint_token.amount,
+        id: watchedId !== null ? watchedId : mint_token.id,
+        amount: watchedAmount !== null ? watchedAmount : mint_token.amount,
         address: (watchedAddress as `0xstring`) || mint_token.address,
       })
     }
