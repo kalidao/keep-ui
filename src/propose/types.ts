@@ -1,5 +1,5 @@
 import { AnyZodObject, z } from 'zod'
-import { isAddressOrEns } from '~/utils/ens'
+import { isAddressOrEns, validateEns } from '~/utils/ens'
 
 import { jsonContentSchema } from './tx/sendTx'
 import { SendStore } from './tx/useSendStore'
@@ -50,12 +50,13 @@ export const callBuilderSchema = z.object({
 export type CallBuilderProps = z.infer<typeof callBuilderSchema>
 
 export const mintTokenSchema = z.object({
-  id: z.number().min(1, { message: 'ID must be greater than 0' }),
-  amount: z.number().min(1, { message: 'Amount must be greater than 0' }),
+  id: z.number().min(0, { message: 'ID must be greater than 0' }),
+  amount: z.number().min(1, { message: 'Amount must be greater than 1' }),
   address: z
     .string()
     .min(1, { message: 'Address cannot be empty' })
-    .refine((val) => isAddressOrEns(val), 'Not a valid address or ENS.'),
+    .refine((val) => isAddressOrEns(val), 'Not a valid address or ENS.')
+    .transform(async (val) => await validateEns(val)), // FIXME: Add ENS support
 })
 
 export type MintTokenProps = z.infer<typeof mintTokenSchema>

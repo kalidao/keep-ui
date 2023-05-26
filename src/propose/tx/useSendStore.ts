@@ -122,7 +122,7 @@ export const useSendStore = create<SendStore>((set) => ({
       },
       mint_token: {
         id: 0,
-        amount: 0,
+        amount: 1,
         address: ethers.constants.AddressZero,
       },
       open: false,
