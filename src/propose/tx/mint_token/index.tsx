@@ -1,10 +1,9 @@
 import { useEffect } from 'react'
-
-import { Box, Button, Divider, Input, Text } from '@kalidao/reality'
+import { Box, Divider, Input } from '@kalidao/reality'
 import { useFormContext } from 'react-hook-form'
 import { useSendStore } from '~/propose/tx/useSendStore'
 import { MintTokenProps } from '~/propose/types'
-import { validateEns } from '~/utils/ens'
+import { isAddressOrEns, validateEns } from '~/utils/ens'
 
 export const MintToken = () => {
   const mint_token = useSendStore((state) => state.mint_token)
@@ -26,7 +25,7 @@ export const MintToken = () => {
         address: watchedAddress as `0xstring`,
       })
     }
-  }, [watchedId, watchedAmount, watchedAddress])
+  }, [watchedId, watchedAmount, watchedAddress, setMintToken])
 
   return (
     <Box display={'flex'} flexDirection="column" gap="2">
@@ -54,8 +53,10 @@ export const MintToken = () => {
         placeholder="0x or ENS"
         type="text"
         defaultValue={mint_token.address}
-        {...register('address')}
-        error={errors && <>{errors?.address?.message}</>}
+        {...register('address', {
+          validate: (value) => (value ? isAddressOrEns(value) : false) || 'Not a valid address or ENS.',
+        })}
+        error={errors?.address && <>{errors?.address?.message}</>}
       />
     </Box>
   )
