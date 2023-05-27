@@ -38,13 +38,19 @@ export const actions: Action[] = [
     component: <MintToken />,
     value: 'mint_token',
     label: 'Mint Token',
-    icon: <IconUserGroupSolid />,
+    icon: <IconPlus />,
+  },
+  {
+    component: <BurnToken />,
+    value: 'burn_token',
+    label: 'Burn Token',
+    icon: <IconMinus />,
   },
   {
     component: <Builder />,
     value: 'builder',
     label: 'Call Builder',
-    icon: <IconExclamationCircle />,
+    icon: <IconSparkles />,
   },
   {
     component: <ManageSigners />,
@@ -56,7 +62,7 @@ export const actions: Action[] = [
     component: null,
     value: 'none',
     label: 'None',
-    icon: <IconMinus />,
+    icon: <IconDotsHorizontal />,
   },
 ]
 
