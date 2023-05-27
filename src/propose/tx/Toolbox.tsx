@@ -26,7 +26,7 @@ export const actions: Action[] = [
   {
     component: <SendToken />,
     value: 'send_token',
-    label: 'Send Token',
+    label: 'Send Balance',
     icon: <IconTokens />,
   },
   // {
@@ -50,7 +50,7 @@ export const actions: Action[] = [
   {
     component: <Builder />,
     value: 'builder',
-    label: 'Call Builder',
+    label: 'Call Contract',
     icon: <IconSparkles />,
   },
   {
