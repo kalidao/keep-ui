@@ -23,6 +23,10 @@ export const createPayload = (template: string, params: any): `0xstring` | strin
         iface = new ethers.utils.Interface(KEEP_ABI)
         console.log('mint_token', params)
         data = iface.encodeFunctionData('mint', [params.address, params.id, params.amount, ethers.constants.HashZero])
+      case 'burn_token':
+        iface = new ethers.utils.Interface(KEEP_ABI)
+        console.info('burn_token', params)
+        data = iface.encodeFunctionData('burn', [params.fromAddress, params.id, params.amount])
     }
 
     return data as `0xstring`
