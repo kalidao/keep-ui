@@ -10,6 +10,9 @@
     "format": "prettier --write \"**/*.{ts,tsx,json}\"",
     "prepare": "husky install"
   },
+  "engines": {
+    "node": "18"
+  },
   "dependencies": {
     "@dynamic-labs/sdk-react": "^0.15.1",
     "@dynamic-labs/wagmi-connector": "^0.15.0",
