@@ -50,6 +50,14 @@ export type SendStore = {
   }
   setMintToken: (mint_token: SendStore['mint_token']) => void
 
+  // burn token
+  burn_token: {
+    id: number
+    amount: number
+    fromAddress: `0x${string}`
+  }
+  setBurnToken: (burn_token: SendStore['burn_token']) => void
+
   open: boolean
   setOpen: (open: boolean) => void
 
@@ -101,6 +109,14 @@ export const useSendStore = create<SendStore>((set) => ({
   },
   setMintToken: (mint_token) => set({ mint_token }),
 
+  // burn token
+  burn_token: {
+    id: 0,
+    amount: 0,
+    fromAddress: ethers.constants.AddressZero,
+  },
+  setBurnToken: (burn_token) => set({ burn_token }),
+
   open: false,
   setOpen: (open) => set({ open }),
 
@@ -124,6 +140,11 @@ export const useSendStore = create<SendStore>((set) => ({
         id: 0,
         amount: 1,
         address: ethers.constants.AddressZero,
+      },
+      burn_token: {
+        id: 0,
+        amount: 0,
+        fromAddress: ethers.constants.AddressZero,
       },
       open: false,
     })
