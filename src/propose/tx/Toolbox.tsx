@@ -1,7 +1,17 @@
 import React from 'react'
 
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
-import { Box, Button, IconSparkles, IconPlus, IconMinus, IconTokens, IconUserGroupSolid, IconDotsHorizontal, Text } from '@kalidao/reality'
+import {
+  Box,
+  Button,
+  IconDotsHorizontal,
+  IconMinus,
+  IconPlus,
+  IconSparkles,
+  IconTokens,
+  IconUserGroupSolid,
+  Text,
+} from '@kalidao/reality'
 import { ReactNodeNoStrings } from '@kalidao/reality/dist/types/types'
 import { useFormContext } from 'react-hook-form'
 import { ManageSigners } from '~/propose/tx/manage_signers'
@@ -11,8 +21,8 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { Popover, PopoverContent, PopoverTrigger } from '@design/Popover'
 
 import { Builder } from './Builder'
-import { MintToken } from './mint_token'
 import { BurnToken } from './burn_token'
+import { MintToken } from './mint_token'
 import { useSendStore } from './useSendStore'
 
 type Action = {
@@ -26,7 +36,7 @@ export const actions: Action[] = [
   {
     component: <SendToken />,
     value: 'send_token',
-    label: 'Send Token',
+    label: 'Send Balance',
     icon: <IconTokens />,
   },
   // {
@@ -50,7 +60,7 @@ export const actions: Action[] = [
   {
     component: <Builder />,
     value: 'builder',
-    label: 'Call Builder',
+    label: 'Call Contract',
     icon: <IconSparkles />,
   },
   {

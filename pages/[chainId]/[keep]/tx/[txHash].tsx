@@ -15,6 +15,7 @@ import { ViewTx } from '~/proposal'
 import Execute from '~/proposal/Execute'
 import Quorum from '~/proposal/Quorum'
 import Vote from '~/proposal/Vote'
+import { fetcher } from '~/utils'
 
 import { CopyURL } from '~/components/CopyURL'
 import { JSONContentRenderer } from '~/components/Editor/JSONContent'
@@ -29,8 +30,15 @@ const Tx: NextPage = () => {
   const { data } = useQuery(
     ['tx', txHash],
     async () => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/txs/${txHash}`)
-      const data = await res.json()
+      const res = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/txs/${txHash}`)
+
+      if (res.status !== 'success') {
+        throw new Error('Failed to fetch')
+      }
+
+      const data = res.data.tx
+
+      console.info('Transaction', data)
 
       tx.setTo(data?.to)
       tx.setOp(data?.op)

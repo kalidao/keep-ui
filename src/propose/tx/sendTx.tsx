@@ -62,7 +62,6 @@ export const sendTx = async (chainId: number, address: string, body: Body, route
     return
   }
   const authToken = getAuthToken()
-  const nonce = await getNonce(chainId, address)
   const send = await fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${address}/addTx`, {
     method: 'POST',
     headers: {
@@ -71,15 +70,15 @@ export const sendTx = async (chainId: number, address: string, body: Body, route
     },
     body: JSON.stringify({
       ...body,
-      nonce: Number(nonce),
       userId: user?.blockchainAccounts?.[0]?.address,
     }),
   })
     .then(async (res) => {
       const data = await res.json()
-      if (res.status === 200) {
+
+      if (data.status === 'success') {
         toast('success', 'Success: Transaction sent')
-        router.push(`/${chainId}/${address}/tx/${data.txHash}`)
+        router.push(`/${chainId}/${address}/tx/${data.data.txHash}`)
       } else {
         toast('error', `Error: ${data.message}`)
       }

@@ -17,7 +17,11 @@ const Communities: NextPage = () => {
       const data = await fetcher(
         `${process.env.NEXT_PUBLIC_KEEP_API}/keeps?signer=${user?.blockchainAccounts?.[0]?.address}`,
       )
-      return data
+      if (data.status !== 'success') {
+        throw new Error('Error')
+      }
+
+      return data?.data?.keeps
     },
     {
       enabled: !!user,

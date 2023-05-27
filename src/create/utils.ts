@@ -1,9 +1,14 @@
+import { fetcher } from '~/utils'
+
 import { SetupSchema } from './types'
 
 export const nameCheck = async (chainId: number, name: string) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/names?chainId=${chainId}`)
+  const res = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/names?chainId=${chainId}`)
 
-  const names = await res.json()
+  if (res.status !== 'success') {
+    throw new Error('Could not fetch names.')
+  }
+  const names = res.data.names
 
   if (names.includes(name)) {
     return false

@@ -125,7 +125,7 @@ export const SendProposal = () => {
               return signer.address
             }
           })
-          
+
           payload = createManageSignersPayload(
             keep.address,
             {

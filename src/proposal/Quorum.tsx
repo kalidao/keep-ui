@@ -53,16 +53,11 @@ export const Signer = ({ signer, type }: { signer: string; type: 'yes' | 'no' })
     chainId: 1,
   })
   const { data: user } = useGetUser(signer)
-  const avatarUrl = user
-    ? user?.picture?.verified
-      ? user?.picture?.uri
-      : convertIpfsHashToGatewayUrl(user?.picture?.original?.url)
-    : ''
 
   return (
     <Stack direction={'horizontal'} align="center" justify={'space-between'}>
       <Stack direction="horizontal" align="center">
-        <Avatar size="8" src={avatarUrl} label={signer} address={signer} />
+        <Avatar size="8" src={user?.avatar} label={signer} address={signer} />
         <Text>{user?.handle != undefined ? user?.handle : ensName ? ensName : truncAddress(signer)}</Text>
       </Stack>
       <Tag tone={type === 'yes' ? 'green' : 'red'}>{type === 'yes' ? 'Approved' : 'Rejected'}</Tag>

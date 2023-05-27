@@ -8,7 +8,6 @@ import { truncAddress } from '~/utils'
 import { convertIpfsHashToGatewayUrl } from '~/utils/upload'
 
 import { useGetParams } from './hooks/useGetParams'
-import { useKeepStore } from './useKeepStore'
 
 const Signers = () => {
   const { chainId, keep } = useGetParams()
@@ -80,15 +79,9 @@ export const Signer = ({ signer }: { signer: string }) => {
   })
   const { data: user } = useGetUser(signer)
 
-  const avatarUrl = user
-    ? user?.picture?.verified
-      ? user?.picture?.uri
-      : convertIpfsHashToGatewayUrl(user?.picture?.original?.url)
-    : ''
-
   return (
     <Stack direction="horizontal" align="center">
-      <Avatar size="8" src={avatarUrl} label={signer} address={signer} />
+      <Avatar size="8" src={user?.avatar} label={signer} address={signer} />
       <Text>{user?.handle != undefined ? user?.handle : ensName ? ensName : truncAddress(signer)}</Text>
     </Stack>
   )

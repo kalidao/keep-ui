@@ -27,7 +27,9 @@ export const manageSignersSchema = z.object({
     .array(
       z.object({
         resolves: z.string().optional(),
-        address: z.string().min(1, { message: 'Address cannot be empty' })
+        address: z
+          .string()
+          .min(1, { message: 'Address cannot be empty' })
           .refine((val) => isAddressOrEns(val), 'Not a valid address or ENS.'),
       }),
     )

@@ -5,7 +5,10 @@ import { fetcher } from '~/utils'
 export const getKeep = async (chainId: number, address: string) => {
   const data = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${address}/`)
 
-  return data
+  if (data.status !== 'success') {
+    throw new Error('Failed to fetch')
+  }
+  return data?.data?.keep
 }
 
 export const useGetKeep = (chainId: number, address: string) => {

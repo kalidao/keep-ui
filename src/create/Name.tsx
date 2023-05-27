@@ -23,16 +23,13 @@ import * as styles from './create.css'
 import { CreateStore, useCreateStore } from './useCreateStore'
 import { nameCheck } from './utils'
 
-// namecheck takes an argument chainId to check if the name is taken on that chain
-// the schema should accept a chainId argument and pass it to nameCheck
-// make a function that takes a chainId and returns a schema
 const schemaWithChainId = (chainId: number) => {
   return z.object({
     name: z
       .string()
       .trim()
       .min(1, { message: 'A name is required' })
-      .max(50, { message: 'Name must be less than 50 characters' })
+      .max(32, { message: 'Name must be less than 32 characters' })
       .refine((val) => nameCheck(chainId, val), { message: 'Name is already taken' }),
     bio: z.string().max(160, { message: 'Bio must be less than 160 characters' }),
     twitter: z.union([z.string().url(), z.string().max(0)]).optional(),
@@ -59,8 +56,6 @@ export const Name = () => {
     mode: 'onBlur',
     resolver: async (data, context, options) => {
       const schema = schemaWithChainId(network ?? 137)
-      // console.log('zod formData', data)
-      // console.log('zod validation result', await zodResolver(schema)(data, context, options))
       return zodResolver(schema)(data, context, options)
     },
   })

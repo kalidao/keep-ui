@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+
 import { Box, Divider, Input } from '@kalidao/reality'
 import { useFormContext } from 'react-hook-form'
 import { useSendStore } from '~/propose/tx/useSendStore'

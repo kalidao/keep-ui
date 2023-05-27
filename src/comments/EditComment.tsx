@@ -16,16 +16,17 @@ export const EditComment = ({ comment, callback }: { comment: any; callback: () 
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
+    setLoading(true)
     await editComment(comment.id, content)
       .then(() => {
         callback()
       })
-      .finally(() => {
-        setContent(comment.content)
-      })
       .catch((err) => {
         toast('error', 'Something went wrong')
+      })
+      .finally(() => {
+        setLoading(false)
+        setContent(comment.content)
       })
   }
 

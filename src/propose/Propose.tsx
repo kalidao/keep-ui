@@ -45,7 +45,6 @@ export const Propose = () => {
   const methods = useForm<Schema>({
     mode: 'onChange',
     resolver: async (data, context, options) => {
-      // you can debug your validation schema here
       console.log('zod formData', data)
       console.log('zod validation result', await zodResolver(schema)(data, context, options))
       return zodResolver(schema)(data, context, options)

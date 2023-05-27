@@ -75,7 +75,7 @@ export const createComment = async ({
       parentId: parentId,
       content: content,
     }
-    console.log(body)
+    console.log('COMMENT BODY', body)
     const res = await fetch(url, {
       method: 'POST',
       headers: {
@@ -85,8 +85,10 @@ export const createComment = async ({
       body: JSON.stringify(body),
     })
 
+    console.info('COMMENT RES', res)
+
     const data = await res.json()
-    console.log({
+    console.info('COMMENT', {
       res,
       data,
     })
@@ -97,9 +99,7 @@ export const createComment = async ({
       toast('error', 'Error while commenting')
       throw new Error(data)
     }
-    return data
   } catch (error) {
-    console.error(error)
     toast('error', 'Something went wrong. Please try again.')
     return Error(
       `Error while creating comment on ${home} ${signalId || txId} with parent ${parentId} and content ${content}`,
@@ -117,7 +117,7 @@ export const editComment = async (commentId: string, comment: JSONContent) => {
     }
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/comments/${commentId}`, {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         authorization: `Bearer ${authToken}`,

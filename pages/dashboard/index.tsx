@@ -78,7 +78,11 @@ const Dashboard: NextPage = () => {
     const data = await fetcher(
       `${process.env.NEXT_PUBLIC_KEEP_API}/keeps?signer=${user?.blockchainAccounts?.[0]?.address}`,
     )
-    return data
+
+    if (data.status !== 'success') {
+      throw new Error('Failed to fetch')
+    }
+    return data.data.keeps
   })
 
   const pendingTransactions = parsePendingTransactions(keeps)

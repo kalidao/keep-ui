@@ -2,21 +2,22 @@ import { useQuery } from '@tanstack/react-query'
 import { fetcher } from '~/utils'
 
 export const getSignalComments = async (signalId: string) => {
-  try {
-    const res = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/comments?signalId=${signalId}`)
-    return res
-  } catch (e) {
-    return e as Error
+  const res = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/comments?signalId=${signalId}`)
+
+  if (res.status !== 'success') {
+    throw new Error('Failed')
   }
+
+  return res.data.comments
 }
 
 export const getTxComments = async (txId: string) => {
-  try {
-    const res = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/comments?txId=${txId}`)
-    return res
-  } catch (e) {
-    return e as Error
+  const res = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/comments?txId=${txId}`)
+  if (res.status !== 'success') {
+    throw new Error('Failed')
   }
+
+  return res.data.comments
 }
 
 export const useGetComments = (signalId?: string, txId?: string) => {
@@ -38,12 +39,13 @@ export const useGetComments = (signalId?: string, txId?: string) => {
 }
 
 export const getComment = async (commentId: string) => {
-  try {
-    const res = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/comments?commentId=${commentId}`)
-    return res
-  } catch (e) {
-    return e as Error
+  const res = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/comments?commentId=${commentId}`)
+  console.log('Comment Fetched')
+  if (res.status !== 'success') {
+    throw new Error('Failed')
   }
+
+  return res.data.comments
 }
 
 export const useGetComment = (commentId: string) => {

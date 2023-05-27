@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import { Box, Heading, Stack, Tag, Text } from '@kalidao/reality'
 import { useQuery } from '@tanstack/react-query'
 import { JSONContent } from '@tiptap/react'
+import { ethers } from 'ethers'
 import { useGetUser } from '~/hooks/useGetUser'
 import { fetcher, prettyDate, truncAddress } from '~/utils'
 
@@ -17,16 +18,19 @@ const Signals = () => {
   const router = useRouter()
   const { keep, chainId } = router.query
   const { data: signals } = useQuery(['keepSignals', chainId, keep], async () => {
-    const signals = fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${chainId}/${keep}/signals`).then(
-      (signals: any) => {
-        // order by date created
-        return signals.sort((a: any, b: any) => {
-          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-        })
-      },
-    )
+    if (!keep) return
+    if (!chainId) return
+    if (!ethers.utils.isAddress(keep.toString())) return
 
-    return signals
+    const res = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/signals?chainId=${chainId}&address=${keep}`)
+    if (res.status !== 'success') {
+      throw new Error('')
+    }
+    const signals = res.data.signals
+
+    return signals.sort((a: any, b: any) => {
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    })
   })
 
   return (
@@ -95,16 +99,6 @@ export const SignalCard = ({
             <JSONContentRenderer content={description} />
           </Box>
         </Link>
-        <Stack direction={'horizontal'} align="center" justify={'space-between'}>
-          {/* <Stack direction={'horizontal'}>
-            <Button tone="green" shape="circle" size="small" variant="secondary">
-              <IconCheck />
-            </Button>
-            <Button tone="red" shape="circle" size="small" variant="secondary">
-              <IconClose />
-            </Button>
-          </Stack> */}
-        </Stack>
       </Stack>
     </Box>
   )

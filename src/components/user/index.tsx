@@ -20,14 +20,9 @@ export const User = ({
     chainId: 1,
   })
   const { data: user } = useGetUser(address)
-  const avatarUrl = user
-    ? user?.picture?.verified
-      ? user?.picture?.uri
-      : convertIpfsHashToGatewayUrl(user?.picture?.original?.url)
-    : ''
 
   if (size === 'sm') {
-    return <Avatar size="8" src={avatarUrl} label={address} address={address} />
+    return <Avatar size="8" src={user?.avatar} label={address} address={address} />
   }
 
   const name = alias
@@ -44,7 +39,7 @@ export const User = ({
 
   return (
     <Stack direction="horizontal" align="center">
-      <Avatar size="8" src={avatarUrl ?? '/images/kali_napping.png'} label={address} address={address} />
+      <Avatar size="8" src={user?.avatar ?? '/images/kali_napping.png'} label={address} address={address} />
       <Text>{name}</Text>
     </Stack>
   )

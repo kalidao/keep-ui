@@ -11,8 +11,6 @@ import {
   IconArrowDown,
   IconArrowLeft,
   IconArrowUp,
-  IconCheck,
-  IconClose,
   Spinner,
   Stack,
   Text,
@@ -34,25 +32,14 @@ const Signal: NextPage = () => {
   const keep = useKeepStore((state) => state)
   const { signalId } = useRouter().query
   const { data, isError, isLoading } = useGetSignal(signalId as string)
-  const { user, authToken } = useDynamicContext()
 
   const signal = async (support: boolean) => {
-    if (!user?.blockchainAccounts?.[0]?.address) {
-      toast('error', `Please connect and sign with wallet to signal`)
-      return
-    }
-
-    if (!authToken) {
-      toast('error', `Invalid Auth Token`)
-      return
-    }
-
     if (!signalId) {
       toast('error', `Not a valid signal`)
       return
     }
 
-    await vote(signalId.toString(), user?.blockchainAccounts?.[0]?.address, support, authToken)
+    await vote(signalId.toString(), support)
   }
 
   const yesVotes = !isLoading && data && data?.votes?.filter((support: any) => support.type === 'yes')

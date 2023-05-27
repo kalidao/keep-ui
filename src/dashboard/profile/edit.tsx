@@ -60,25 +60,22 @@ const EditProfile = ({ callback }: { callback: () => Promise<void> }) => {
     e.preventDefault()
     setLoading(true)
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_KEEP_API}/keeps/edit_profile?address=${keep.address}&chainId=${keep.chainId}`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${authToken}`,
-          },
-          body: JSON.stringify({
-            bio,
-            avatar: avatarUrl,
-            socials: {
-              twitter: twitterUrl,
-              discord: discordUrl,
-              website: websiteUrl,
-            },
-          }),
+      const res = await fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/keeps/${keep.chainId}/${keep.address}/profile`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${authToken}`,
         },
-      )
+        body: JSON.stringify({
+          bio,
+          avatar: avatarUrl,
+          socials: {
+            twitter: twitterUrl,
+            discord: discordUrl,
+            website: websiteUrl,
+          },
+        }),
+      })
 
       if (res.ok) {
         toast('success', 'Profile updated!')

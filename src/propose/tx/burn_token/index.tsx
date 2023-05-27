@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+
 import { Box, Divider, Input } from '@kalidao/reality'
 import { useFormContext } from 'react-hook-form'
 import { useSendStore } from '~/propose/tx/useSendStore'
@@ -49,15 +50,15 @@ export const BurnToken = () => {
       />
       <Divider />
       <Input
-  label={`From Address`}
-  placeholder="0x or ENS"
-  type="text"
-  defaultValue={burn_token.fromAddress}
-  {...register('fromAddress', {
-    validate: (value) => (value ? isAddressOrEns(value) : false) || 'Not a valid address or ENS.',
-  })}
-  error={errors?.fromAddress && <>{errors?.fromAddress?.message}</>}
-/>
+        label={`From Address`}
+        placeholder="0x or ENS"
+        type="text"
+        defaultValue={burn_token.fromAddress}
+        {...register('fromAddress', {
+          validate: (value) => (value ? isAddressOrEns(value) : false) || 'Not a valid address or ENS.',
+        })}
+        error={errors?.fromAddress && <>{errors?.fromAddress?.message}</>}
+      />
     </Box>
   )
 }

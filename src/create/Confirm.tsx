@@ -2,7 +2,6 @@ import { Box, Button, Card, Divider, Heading, IconLightningBolt, Stack, Text } f
 import { ethers } from 'ethers'
 import { useContractRead, useContractWrite, useEnsName, useNetwork, usePrepareContractWrite } from 'wagmi'
 import { KEEP_ABI, KEEP_FACTORY_ABI, KEEP_FACTORY_ADDRESS } from '~/constants'
-import { useGetUser } from '~/hooks/useGetUser'
 import { TokenTemplate } from '~/types'
 
 import Back from './Back'
@@ -98,32 +97,10 @@ export const Confirm = () => {
     if (receipt) {
       blockNumber = receipt.blockNumber
     }
-    const body = {
-      address: state.address,
-      chain: chain?.id,
-      blocknumber: blockNumber,
-      name: state.name,
-      signers: signers,
-      threshold: state.threshold,
-      avatar: img ? img : '',
-      templateId: 'CORE' as TokenTemplate,
-      bio: state.bio,
-      params: {
-        borderColor: state.borderColor,
-        borderTextColor: state.borderTextColor,
-        bgColor: state.bgColor,
-        innerTextColor: state.innerTextColor,
-      },
-      socials: {
-        twitter: state.twitter,
-        discord: state.discord,
-        website: state.website,
-      },
-    }
 
     const isSetup = await requestSetup({
       address: state.address,
-      chain: chain?.id,
+      chainId: chain?.id,
       blocknumber: blockNumber,
       name: state.name,
       signers: signers,

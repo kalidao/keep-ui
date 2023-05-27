@@ -25,7 +25,8 @@ export default function Comments({}) {
   if (isError) {
     comments = <Text>Something went wrong</Text>
   }
-  if (data) {
+  if (data && !isError) {
+    console.log('data', data)
     comments = data?.map((comment: any) => (
       <RenderComment key={comment.id} home={home} comment={comment} callback={refetch} />
     ))

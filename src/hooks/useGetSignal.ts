@@ -2,11 +2,13 @@ import { useQuery } from '@tanstack/react-query'
 import { fetcher } from '~/utils'
 
 export const getSignal = async (id: string) => {
-  const res = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/signals/${id}`).catch((e) => {
-    return new Error('Error fetching signal')
-  })
+  const res = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/signals/${id}`)
 
-  return res
+  if (res.status !== 'success') {
+    throw new Error('Failed')
+  }
+
+  return res.data.signal
 }
 
 export const useGetSignal = (id: string) => {
