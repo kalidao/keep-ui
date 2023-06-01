@@ -1,3 +1,5 @@
+import { Suspense } from 'react'
+
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 
@@ -108,103 +110,105 @@ const Dashboard: NextPage = () => {
             Signals
           </Tabs.Trigger>
         </Tabs.List>
-        <Tabs.Content className="TabsContent" value="feed">
-          <Box position={'relative'} minHeight="viewHeight" display="flex" flexDirection={'column'} gap="3">
-            {feed ? (
-              feed.length === 0 ? (
-                <Empty />
+        <Suspense fallback={<Spinner />}>
+          <Tabs.Content className="TabsContent" value="feed">
+            <Box position={'relative'} minHeight="viewHeight" display="flex" flexDirection={'column'} gap="3">
+              {feed ? (
+                feed.length === 0 ? (
+                  <Empty />
+                ) : (
+                  feed.map((item: any) => {
+                    if (item.type === 'tx') {
+                      return (
+                        <TxCard
+                          key={item.data.txHash}
+                          txHash={item.data.txHash}
+                          chainId={item.data.keepChainId}
+                          keep={item.data.keepAddress}
+                          proposer={item.data.userId}
+                          title={item.data.title}
+                          description={item.data.content}
+                          timestamp={item.data.createdAt}
+                          status={item.data.status}
+                        />
+                      )
+                    } else {
+                      return (
+                        <SignalCard
+                          key={item.data.id}
+                          id={item.data.id}
+                          chainId={item.data.keepChainId}
+                          keep={item.data.keepAddress}
+                          proposer={item.data.userId}
+                          title={item.data.title}
+                          description={item.data.content}
+                          timestamp={item.data.createdAt}
+                          type={'Signal'}
+                        />
+                      )
+                    }
+                  })
+                )
               ) : (
-                feed.map((item: any) => {
-                  if (item.type === 'tx') {
+                <Spinner />
+              )}
+            </Box>
+          </Tabs.Content>
+          <Tabs.Content className="TabsContent" value="txs">
+            <Box position={'relative'} minHeight="viewHeight" display="flex" flexDirection={'column'} gap="3">
+              {pendingTransactions ? (
+                pendingTransactions.length === 0 ? (
+                  <Empty />
+                ) : (
+                  pendingTransactions.map((tx: any) => {
                     return (
                       <TxCard
-                        key={item.data.txHash}
-                        txHash={item.data.txHash}
-                        chainId={item.data.keepChainId}
-                        keep={item.data.keepAddress}
-                        proposer={item.data.userId}
-                        title={item.data.title}
-                        description={item.data.content}
-                        timestamp={item.data.createdAt}
-                        status={item.data.status}
+                        key={tx.txHash}
+                        txHash={tx.txHash}
+                        chainId={tx.keepChainId}
+                        keep={tx.keepAddress}
+                        proposer={tx.userId}
+                        title={tx.title}
+                        description={tx.content}
+                        timestamp={tx.createdAt}
+                        status={tx.status}
                       />
                     )
-                  } else {
+                  })
+                )
+              ) : (
+                <Spinner />
+              )}
+            </Box>
+          </Tabs.Content>
+          <Tabs.Content className="TabsContent" value="signals">
+            <Box position={'relative'} minHeight="viewHeight" display="flex" flexDirection={'column'} gap="3">
+              {signals ? (
+                signals.length === 0 ? (
+                  <Empty />
+                ) : (
+                  signals.map((signal: any) => {
                     return (
                       <SignalCard
-                        key={item.data.id}
-                        id={item.data.id}
-                        chainId={item.data.keepChainId}
-                        keep={item.data.keepAddress}
-                        proposer={item.data.userId}
-                        title={item.data.title}
-                        description={item.data.content}
-                        timestamp={item.data.createdAt}
+                        key={signal.id}
+                        id={signal.id}
+                        chainId={signal.keepChainId}
+                        keep={signal.keepAddress}
+                        proposer={signal.userId}
+                        title={signal.title}
+                        description={signal.content}
+                        timestamp={signal.createdAt}
                         type={'Signal'}
                       />
                     )
-                  }
-                })
-              )
-            ) : (
-              <Spinner />
-            )}
-          </Box>
-        </Tabs.Content>
-        <Tabs.Content className="TabsContent" value="txs">
-          <Box position={'relative'} minHeight="viewHeight" display="flex" flexDirection={'column'} gap="3">
-            {pendingTransactions ? (
-              pendingTransactions.length === 0 ? (
-                <Empty />
+                  })
+                )
               ) : (
-                pendingTransactions.map((tx: any) => {
-                  return (
-                    <TxCard
-                      key={tx.txHash}
-                      txHash={tx.txHash}
-                      chainId={tx.keepChainId}
-                      keep={tx.keepAddress}
-                      proposer={tx.userId}
-                      title={tx.title}
-                      description={tx.content}
-                      timestamp={tx.createdAt}
-                      status={tx.status}
-                    />
-                  )
-                })
-              )
-            ) : (
-              <Spinner />
-            )}
-          </Box>
-        </Tabs.Content>
-        <Tabs.Content className="TabsContent" value="signals">
-          <Box position={'relative'} minHeight="viewHeight" display="flex" flexDirection={'column'} gap="3">
-            {signals ? (
-              signals.length === 0 ? (
-                <Empty />
-              ) : (
-                signals.map((signal: any) => {
-                  return (
-                    <SignalCard
-                      key={signal.id}
-                      id={signal.id}
-                      chainId={signal.keepChainId}
-                      keep={signal.keepAddress}
-                      proposer={signal.userId}
-                      title={signal.title}
-                      description={signal.content}
-                      timestamp={signal.createdAt}
-                      type={'Signal'}
-                    />
-                  )
-                })
-              )
-            ) : (
-              <Spinner />
-            )}
-          </Box>
-        </Tabs.Content>
+                <Spinner />
+              )}
+            </Box>
+          </Tabs.Content>
+        </Suspense>
       </Tabs.Root>
     </Layout>
   )

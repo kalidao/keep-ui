@@ -105,6 +105,12 @@ export const portalChildren = styleVariants({
       justifyContent: 'flex-end',
     },
   ],
+  center: [
+    basePortal,
+    {
+      justifyContent: 'center',
+    },
+  ],
 })
 
 export const sheetOverlay = style([
@@ -131,7 +137,7 @@ export const sheetOverlay = style([
 
 export const portalContent = recipe({
   base: {
-    position: 'fixed',
+    // position: 'fixed',
     display: 'flex',
     flexDirection: 'column',
     zIndex: 50,

@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 
 import { Box, IconLightningBolt, IconPlus, IconUserGroupSolid } from '@kalidao/reality'
 import { Propose } from '~/propose/Propose'
+import DeployDao from '~/deploy-dao'
 
 import { UserMenu } from '~/components/user-menu'
 
@@ -49,6 +50,7 @@ const Navigation = () => {
           Create
         </NavItem>
         {isPropose ? <Propose /> : null}
+        <DeployDao/>
       </Box>
       <UserMenu />
     </Box>

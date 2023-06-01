@@ -9,6 +9,7 @@ export const proposeButton = style([
     borderColor: vars.colors.accentSecondary,
     borderWidth: vars.borderWidths['0.5'],
     borderStyle: vars.borderStyles.solid,
+    cursor: 'pointer',
 
     ':hover': {
       backgroundColor: vars.colors.accentSecondary,

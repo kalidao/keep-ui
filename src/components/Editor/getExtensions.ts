@@ -1,4 +1,4 @@
-import Emoji from '@tiptap-pro/extension-emoji'
+// import Emoji from '@tiptap-pro/extension-emoji'
 import Blockquote from '@tiptap/extension-blockquote'
 import Bold from '@tiptap/extension-bold'
 import BulletList from '@tiptap/extension-bullet-list'
@@ -50,9 +50,9 @@ export const getExtensions = (placeholder: string) => {
     History,
 
     // Additional extensions
-    Emoji.configure({
-      suggestion,
-    }),
+    // Emoji.configure({
+    //   suggestion,
+    // }),
     Placeholder.configure({
       placeholder: placeholder,
     }),

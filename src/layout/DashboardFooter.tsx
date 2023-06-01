@@ -7,7 +7,7 @@ import * as styles from './layout.css'
 
 const Footer = () => {
   return (
-    <Box paddingTop="3" as="footer" position="relative" zIndex="10">
+    <Box height="16" paddingTop="3" as="footer" position="relative" zIndex="10">
       <Stack direction={'vertical'} align="center" justify={'space-between'}>
         <Stack direction={'horizontal'} align="center" justify={'flex-start'}>
           <a href="https://twitter.com/kali__gg" target="_blank" rel="noopener noreferrer" className={styles.link}>

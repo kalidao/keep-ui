@@ -23,6 +23,7 @@ const KeepCard = ({ name, keep, chainId, avatar, txs, bio }: KeepCardProps) => {
       passHref
       style={{
         all: 'unset',
+        cursor:'pointer'
       }}
     >
       <Card borderRadius={'2xLarge'} hover shadow>

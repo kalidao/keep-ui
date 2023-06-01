@@ -73,7 +73,7 @@ export const Splash = ({ type }: { type?: string }) => {
     <Box className={styles.splashContainer}>
       {typeof window === 'undefined' ? null : (
         <svg
-          style={{ backgroundColor: 'transparent', minHeight: '100vh', width: '100%' }}
+          style={{ backgroundColor: 'transparent', minHeight: '100%', width: '100%' }}
           viewBox={`0 0 ${window?.innerWidth} ${window?.innerHeight}`}
         >
           {circles}

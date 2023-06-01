@@ -2,10 +2,10 @@ import { responsiveStyle, vars } from '@kalidao/reality'
 import { style } from '@vanilla-extract/css'
 
 export const container = style({
-  minHeight: '90vh',
-  minWidth: '100vw',
+  height: '90vh',
+  width: 'calc(100vw - 16px)',
   display: 'flex',
-  flexDirection: 'column',
+  flexDirection: 'row',
   backgroundColor: vars.colors.background,
 })
 
@@ -13,7 +13,7 @@ export const typeContainer = style({})
 
 export const typeShell = style([
   style({
-    width: '67.5vw',
+    width: '67.55%',
     backgroundColor: vars.colors.background,
 
     // center the content
@@ -25,35 +25,35 @@ export const typeShell = style([
   }),
   responsiveStyle({
     xs: {
-      width: '100vw',
+      width: '100%',
 
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
+      // position: 'absolute',
+      // top: '50%',
+      // left: '50%',
+      // transform: 'translate(-50%, -50%)',
     },
     lg: {
-      width: '67.5vw',
+      width: '67.5%',
       // center the content to right
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-20%, -50%)',
+      // position: 'absolute',
+      // top: '50%',
+      // left: '50%',
+      // transform: 'translate(-20%, -50%)',
     },
   }),
 ])
 
 export const splashContainer = style({
-  minHeight: '100vh',
-  width: '32.5vw',
+  // minHeight: '100vh',
+  width: '32.55%',
   background: 'transparent',
 
-  position: 'absolute',
-  zIndex: '9999',
-  top: 0,
-  bottom: 0,
-  left: 0,
-  right: 0,
+  // position: 'absolute',
+  // zIndex: '9999',
+  // top: 0,
+  // bottom: 0,
+  // left: 0,
+  // right: 0,
 
   '@media': {
     // media query for mobile css
