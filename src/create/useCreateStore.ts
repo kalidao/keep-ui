@@ -18,7 +18,7 @@ export type CreateStore = {
   setTxHash: (txHash: string) => void
 
   // form
-  type: number
+  type: number // where 0 = multisig, 1 = multisig + dao
   setType: (type: number) => void
   name: string
   setName: (name: string) => void
@@ -80,7 +80,7 @@ export const useCreateStore = create<CreateStore>((set) => ({
   bio: '',
   setBio: (bio) => set({ bio }),
 
-  avatar: 'https://pbs.twimg.com/profile_images/1582658266630606848/QQ8I_mLG_400x400.jpg',
+  avatar: '/logo.jpeg',
   setAvatar: (avatar) => set({ avatar }),
   avatarFile: undefined,
   setAvatarFile: (avatarFile) => set({ avatarFile }),
