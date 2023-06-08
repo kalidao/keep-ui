@@ -11,6 +11,8 @@ const envVariables = z.object({
 
   NEXT_PUBLIC_ETHERSCAN_API_KEY: z.string(),
   NEXT_PUBLIC_POLYGONSCAN_API_KEY: z.string(),
+
+  TIPTAP_TOKEN: z.string(),
 })
 
 envVariables.parse(process.env)
