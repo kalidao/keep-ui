@@ -43,7 +43,7 @@ export interface DialogContentProps extends SheetPrimitive.DialogContentProps {
 const SheetContent = React.forwardRef<React.ElementRef<typeof SheetPrimitive.Content>, DialogContentProps>(
   ({ position, size, className, onClose, children, ...props }, ref) => (
     <SheetPortal position={position}>
-      <SheetOverlay />
+      <SheetOverlay onClick={onClose}/>
       <SheetPrimitive.Content
         ref={ref}
         className={cn(

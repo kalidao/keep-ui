@@ -2,10 +2,13 @@ import { KEEP_ABI } from './abis/Keep'
 import { KEEP_FACTORY_ABI } from './abis/KeepFactory'
 import { KEEP_HELPER_ABI } from './abis/KeepHelper'
 import { TRIBUTE_ROUTER_ABI } from './abis/TributeRouter'
+import { KALI_FACTORY_ABI } from './abis/KaliFactory'
 
 const KEEP_FACTORY_ADDRESS = '0x00000000008dd7888459caeb062ef9ecc1e27301'
 const KEEP_HELPER_ADDRESS = '0xc7dd2ec1aeab3b95bd4f9f30d38b37fab392dfd7'
 const TRIBUTE_ROUTER_ADDRESS = '0x251a92F71095FdC1CF9C797DC2eBC538B29c723f'
+
+const KALI_FACTORY_ADDRESS = '0xd353fB1c33202441373524d3Cc5d94cd74113e25'
 
 const SIGN_KEY = 1816876358
 const MINT_KEY = 1930507241
@@ -20,6 +23,8 @@ export {
   TRIBUTE_ROUTER_ADDRESS,
   KEEP_HELPER_ABI,
   KEEP_HELPER_ADDRESS,
+  KALI_FACTORY_ABI,
+  KALI_FACTORY_ADDRESS,
   CHAIN_ID,
   SIGN_KEY,
   MINT_KEY,

@@ -44,3 +44,37 @@ export const User = ({
     </Stack>
   )
 }
+export const UserName = ({
+  address,
+  alias,
+  login,
+}: {
+  address: string
+  alias?: string
+  login?: boolean
+}) => {
+  const { data: ensName } = useEnsName({
+    address: address as `0x${string}`,
+    chainId: 1,
+  })
+  const { data: user } = useGetUser(address)
+
+
+  const name = alias
+    ? alias
+    : user?.handle != undefined
+    ? user?.handle
+    : ensName
+    ? ensName
+    : address
+    ? truncAddress(address)
+    : login
+    ? 'login.eth'
+    : 'unknown'
+  console.log("name", name)
+  return (
+    <Stack direction="horizontal" align="center">
+      <Text>{name}</Text>
+    </Stack>
+  )
+}

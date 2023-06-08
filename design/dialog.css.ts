@@ -34,15 +34,15 @@ export const dialogContent = style({
 
 export const dialogPanel = style({
   minWidth: vars.space.viewWidth,
-  minHeight: vars.space.viewHeight,
-  padding: vars.space[6],
-  borderRadius: vars.radii['2xLarge'],
+  maxHeight: vars.space.viewHeight,
+  // padding: vars.space[6],
+  // borderRadius: vars.radii['2xLarge'],
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
 
-  border: `1px solid ${vars.colors.foregroundSecondary}`,
+  // border: `1px solid ${vars.colors.foregroundSecondary}`,
 })
 
 export const dialogBox = style({

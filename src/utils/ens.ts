@@ -14,6 +14,7 @@ export const validateEns = async (ens: string) => {
 }
 
 export const isAddressOrEns = async (addressOrEns: string) => {
+  console.log("isAddressOrEns", addressOrEns)
   if (ethers.utils.isAddress(addressOrEns)) return true
   if (!addressOrEns.endsWith('.eth')) return false
   const ens = await validateEns(addressOrEns)

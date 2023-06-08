@@ -3,9 +3,11 @@ import { style } from '@vanilla-extract/css'
 
 export const layout = style({
   minHeight: '100vh',
-  width: '100vw',
+  width: 'calc(100vw - 16px)',
   display: 'flex',
   flexDirection: 'row',
+  marginLeft: 'auto',
+  marginRight: 'auto',
 })
 
 export const header = style({
@@ -31,10 +33,10 @@ export const dashboardHeader = style({
 export const dashboardContainer = style([
   responsiveStyle({
     xs: {
-      width: '100vw',
+      width: '100%',
     },
     lg: {
-      width: '60vw',
+      width: '60%',
     },
   }),
 ])
@@ -45,11 +47,11 @@ export const container = style([
   }),
   responsiveStyle({
     xs: {
-      width: '100vw',
+      width: '100%',
       paddingBottom: vars.space[15],
     },
     lg: {
-      width: '60vw',
+      width: '60%',
     },
   }),
 ])
@@ -129,7 +131,7 @@ export const leftbar = style([
       top: 0,
       bottom: 0,
       left: 0,
-      width: '30vw',
+      width: '20%',
       minWidth: '200px',
       maxWidth: '300px',
       height: '100vh',
@@ -149,12 +151,13 @@ export const leftbar = style([
 export const rightbar = style([
   style({
     // twitter-like dashboard sidebar
-    position: 'sticky',
+    // position: 'sticky',
+    position: 'fixed',
     top: 0,
     bottom: 0,
     right: 0,
-    width: '30vw',
-    minHeight: '100vh',
+    width: '20%',
+    height: '100vh',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -185,6 +188,7 @@ export const nav = style([
     justifyContent: 'center',
     color: vars.colors.text,
     backgroundColor: vars.colors.background,
+    
 
     ':hover': {
       backgroundColor: vars.colors.backgroundSecondary,
@@ -214,6 +218,7 @@ export const nav = style([
     lg: {
       all: 'unset',
       display: 'flex',
+      cursor: 'pointer',
 
       flexDirection: 'row',
       alignItems: 'center',
