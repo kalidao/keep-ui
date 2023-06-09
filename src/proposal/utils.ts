@@ -1,5 +1,5 @@
 import { getAuthToken } from '@dynamic-labs/sdk-react'
-import { ethers } from 'ethers'
+import { Signer, ethers } from 'ethers'
 import { tryTypedSigningV4 } from '~/utils/sign'
 import { toOp } from '~/utils/toOp'
 import { getUser } from '~/utils/user'
@@ -21,81 +21,83 @@ export const signAndSend = async (
   },
   vote: boolean,
 ) => {
-  try {
-    const authToken = getAuthToken()
+  const authToken = getAuthToken()
 
-    if (!authToken) {
-      toast('error', 'You need to be logged in to sign this proposal')
-      return
-    }
-
-    const user = getUser()
-
-    if (!user) {
-      toast('error', 'You need to be logged in to sign this proposal')
-      return
-    }
-
-    const sign = await tryTypedSigningV4(
-      keep,
-      {
-        op: toOp(tx.op),
-        to: tx.to,
-        value: tx.value,
-        data: tx.data,
-        nonce: tx.nonce,
-      },
-      user?.blockchainAccounts?.[0]?.address,
-    )
-
-    if (!sign) {
-      toast('error', 'Something went wrong, please try again later.')
-      return
-    }
-
-    const { v, r, s } = ethers.utils.splitSignature(sign)
-    const body = {
-      v: v,
-      r: r,
-      s: s,
-      type: vote ? 'yes' : 'no',
-    }
-
-    await sendSign(tx.hash, body)
-  } catch (error) {
-    console.error(error)
+  if (!authToken) {
+    throw new Error('You need to be logged in to sign this proposal')
   }
+
+  const userAddress = getUser()
+
+  if (!userAddress) {
+    throw new Error('You need to be logged in.')
+  }
+
+  const sign = await tryTypedSigningV4(
+    keep,
+    {
+      op: toOp(tx.op),
+      to: tx.to,
+      value: tx.value,
+      data: tx.data,
+      nonce: tx.nonce,
+    },
+    userAddress,
+  )
+
+  if (!sign) {
+    throw new Error('Something went wrong, please try again later.')
+  }
+
+  const { v, r, s } = ethers.utils.splitSignature(sign)
+  const body = {
+    v: v,
+    r: r,
+    s: s,
+    type: vote ? 'yes' : 'no',
+  }
+
+  await sendSign(tx.hash, body)
 }
 
-export const sendSign = async (txHash: string, body: any) => {
-  try {
-    const authToken = await getAuthToken()
+export const sendSign = async (txHash: string, signature: string, vote: boolean) => {
+  const user = await getUser()
 
-    if (!authToken) {
-      toast('error', 'You need to be logged in to sign this proposal')
-      return
-    }
-
-    const response = await fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/txs/${txHash}/sign`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${authToken}`,
-      },
-      body: JSON.stringify(body),
-    }).then((res) => {
-      if (res.status === 200) {
-        toast('success', 'Proposal signed successfully')
-      } else {
-        toast('error', 'Something went wrong')
-      }
-      return res
-    })
-    const data = await response.json()
-    return data
-  } catch (error) {
-    return error
+  if (!user) {
+    throw new Error('You need to be logged in.')
   }
+
+  const authToken = getAuthToken()
+
+  if (!authToken) {
+    throw new Error('You need to be logged in to sign this proposal')
+  }
+
+  const { v, r, s } = ethers.utils.splitSignature(signature)
+
+  const body = {
+    v: v,
+    r: r,
+    s: s,
+    type: vote ? 'yes' : 'no',
+  }
+
+  const response = await fetch(`${process.env.NEXT_PUBLIC_KEEP_API}/txs/${txHash}/sign`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${authToken}`,
+    },
+    body: JSON.stringify(body),
+  }).then((res) => {
+    if (res.status === 200) {
+      return res
+    } else {
+      throw new Error('Something went wrong')
+    }
+  })
+  const data = await response.json()
+  return data
 }
 
 export type Status = 'pending' | 'process' | 'process_yes' | 'process_no' | 'executed'
