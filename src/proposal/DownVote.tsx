@@ -3,7 +3,6 @@ import { ethers } from 'ethers'
 import { useSignTypedData, useSigner } from 'wagmi'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 import { useTxStore } from '~/dashboard/useTxStore'
-import { toOp } from '~/utils/toOp'
 
 import toast from '@design/Toast'
 

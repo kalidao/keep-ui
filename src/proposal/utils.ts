@@ -1,64 +1,6 @@
 import { getAuthToken } from '@dynamic-labs/sdk-react'
-import { Signer, ethers } from 'ethers'
-import { tryTypedSigningV4 } from '~/utils/sign'
-import { toOp } from '~/utils/toOp'
+import { ethers } from 'ethers'
 import { getUser } from '~/utils/user'
-
-import toast from '@design/Toast'
-
-export const signAndSend = async (
-  keep: {
-    chainId: number
-    address: string
-  },
-  tx: {
-    op: 'call' | 'delegatecall' | 'create'
-    to: string
-    value: string
-    data: string
-    nonce: number
-    hash: string
-  },
-  vote: boolean,
-) => {
-  const authToken = getAuthToken()
-
-  if (!authToken) {
-    throw new Error('You need to be logged in to sign this proposal')
-  }
-
-  const userAddress = getUser()
-
-  if (!userAddress) {
-    throw new Error('You need to be logged in.')
-  }
-
-  const sign = await tryTypedSigningV4(
-    keep,
-    {
-      op: toOp(tx.op),
-      to: tx.to,
-      value: tx.value,
-      data: tx.data,
-      nonce: tx.nonce,
-    },
-    userAddress,
-  )
-
-  if (!sign) {
-    throw new Error('Something went wrong, please try again later.')
-  }
-
-  const { v, r, s } = ethers.utils.splitSignature(sign)
-  const body = {
-    v: v,
-    r: r,
-    s: s,
-    type: vote ? 'yes' : 'no',
-  }
-
-  await sendSign(tx.hash, body)
-}
 
 export const sendSign = async (txHash: string, signature: string, vote: boolean) => {
   const user = await getUser()

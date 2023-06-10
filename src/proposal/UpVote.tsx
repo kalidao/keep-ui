@@ -7,7 +7,7 @@ import { toOp } from '~/utils/toOp'
 
 import toast from '@design/Toast'
 
-import { sendSign, signAndSend } from './utils'
+import { sendSign } from './utils'
 
 const UpVote = () => {
   const keep = useKeepStore((state) => state)
