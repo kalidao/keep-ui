@@ -13,8 +13,8 @@ const Home: NextPage = () => {
   return (
     <Box>
       <Head>
-        <title>Keep - Home</title>
-        <meta name="description" content={'This is the homepage of Keep.'} />
+        <title>Keep - Create</title>
+        <meta name="description" content="Create a Keep: NFT wbased multisig + DAO" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Box className={styles.header}>
