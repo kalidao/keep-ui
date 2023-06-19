@@ -1,13 +1,27 @@
-import { useEffect } from 'react';
-import { Box, Divider, Input } from '@kalidao/reality';
+import { useEffect, useState } from 'react';
+import { Box, Divider, Input, Alert } from '@kalidao/reality';
 import { useFormContext } from 'react-hook-form';
 import { useSendStore } from '~/propose/tx/useSendStore';
 import { MintTokenProps } from '~/propose/types';
 import { isAddressOrEns } from '~/utils/ens';
 
+const idWarnings = {
+  '1816876358': 'This is the Signer Key. Please proceed with caution.',
+  '3104532979': 'This is the Relay Key. Please proceed with caution.',
+  '288790985': 'This is the MultiRelay Key. Please proceed with caution.',
+  '1930507241': 'This is the Mint Key. Please proceed with caution.',
+  '4294837299': 'This is the Burn Key. Please proceed with caution.',
+  '106236017': 'This is the Quorum Key. Please proceed with caution.',
+  '1521609684': 'This is the Transferability Key. Please proceed with caution.',
+  '2617606769': 'This is the Permission Key. Please proceed with caution.',
+  '4240432350': 'This is the User Permission Key. Please proceed with caution.',
+  '3340393313': 'This is the URI Key. Please proceed with caution.',
+};
+
 export const MintToken = () => {
   const mint_token = useSendStore((state) => state.mint_token);
   const setMintToken = useSendStore((state) => state.setMintToken);
+  const [warning, setWarning] = useState('');
 
   const {
     register,
@@ -26,6 +40,7 @@ export const MintToken = () => {
         amount: watchedAmount,
         address: watchedAddress as `0xstring`,
       });
+      setWarning(idWarnings[watchedId] || '');
     }
   }, [watchedId, watchedAmount, watchedAddress, setMintToken]);
 
@@ -38,6 +53,7 @@ export const MintToken = () => {
         defaultValue={mint_token.id}
         {...register('id', { valueAsNumber: true })}
       />
+      {warning && <Alert severity="warning">{warning}</Alert>}
       <Input
         label={`Amount`}
         placeholder="Amount"
