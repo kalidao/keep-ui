@@ -10,23 +10,29 @@ export const createPayload = (template: string, params: any): `0xstring` | strin
       case 'erc20':
         iface = new ethers.utils.Interface(erc20ABI)
         data = iface.encodeFunctionData('transfer', [params.to, ethers.utils.parseUnits(params.value, params.decimals)])
-
+        break
       case 'add_tribute':
         iface = new ethers.utils.Interface(KEEP_ABI)
         const descriptionPayload = ethers.utils.defaultAbiCoder.encode(['string'], [params?.description])
         data = iface.encodeFunctionData('mint', [TRIBUTE_ROUTER_ADDRESS, MINT_KEY, 1, descriptionPayload])
-
+        break
       case 'remove_tribute':
         iface = new ethers.utils.Interface(KEEP_ABI)
         data = iface.encodeFunctionData('burn', [TRIBUTE_ROUTER_ADDRESS, MINT_KEY, 1])
+        break
       case 'mint_token':
         iface = new ethers.utils.Interface(KEEP_ABI)
         console.log('mint_token', params)
         data = iface.encodeFunctionData('mint', [params.address, params.id, params.amount, ethers.constants.HashZero])
+        console.log('mint token', data)
+        break
       case 'burn_token':
         iface = new ethers.utils.Interface(KEEP_ABI)
         console.info('burn_token', params)
         data = iface.encodeFunctionData('burn', [params.fromAddress, params.id, params.amount])
+        break
+      default:
+        data = ethers.constants.HashZero
     }
 
     return data as `0xstring`
