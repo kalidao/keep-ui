@@ -56,7 +56,7 @@ export const Type = () => {
                 <Heading level="2">Multisig + DAO</Heading>
                 <Text>Group wallet with governance token.</Text>
               </Stack>
-              <Button shape="circle" variant="primary" tone="green" onClick={() => navigate(1)}>
+              <Button shape="circle" variant="primary" tone="green" disabled onClick={() => navigate(1)}>
                 <IconArrowRight />
               </Button>
             </Stack>

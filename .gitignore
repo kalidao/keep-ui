@@ -45,3 +45,4 @@ public/workbox-212689ce.js.map
 
 # Sentry Auth Token
 .sentryclirc
+.env

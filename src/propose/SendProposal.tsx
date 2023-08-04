@@ -138,19 +138,19 @@ export const SendProposal = () => {
 
           await handleTx(keep.chainId, keep.address, data.title, data.content, 0, keep.address, '0', payload)
           break
-        case 'send_nft': 
+        case 'send_nft':
           payload = createSendNFT(keep.address, data.send_nfts)
           await handleTx(keep.chainId, keep.address, data.title, data.content, 0, keep.address, '0', payload)
           break
-        case 'builder': 
+        case 'builder':
           await handleTx(keep.chainId, keep.address, data.title, data.content, 0, data.to, tx.value, tx.data)
           break
-        case 'mint_token': 
+        case 'mint_token':
           payload = createPayload('mint_token', tx.mint_token)
           console.log('mint token', payload)
           await handleTx(keep.chainId, keep.address, data.title, data.content, 0, keep.address, '0', payload)
           break
-        case 'burn_token': 
+        case 'burn_token':
           payload = createPayload('burn_token', tx.burn_token)
           await handleTx(keep.chainId, keep.address, data.title, data.content, 0, keep.address, '0', payload)
           break
