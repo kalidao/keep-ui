@@ -1,11 +1,10 @@
 import { useState } from 'react'
 
-import { Avatar, Box, Card, Divider, Heading, Spinner, Stack, Tag, Text } from '@kalidao/reality'
+import { Avatar, Box, Card, Divider, Spinner, Stack, Tag, Text } from '@kalidao/reality'
 import { useEnsName } from 'wagmi'
 import { useGetKeep } from '~/hooks/useGetKeep'
 import { useGetUser } from '~/hooks/useGetUser'
 import { truncAddress } from '~/utils'
-import { convertIpfsHashToGatewayUrl } from '~/utils/upload'
 
 import { useGetParams } from './hooks/useGetParams'
 
@@ -22,6 +21,8 @@ const Signers = () => {
   let state = null
   if (isLoading) return <Spinner />
   if (isError) return <Text>Something went wrong</Text>
+
+  console.log('signers', data?.signers, data?.signers?.length, initial)
 
   const signers = (
     <>

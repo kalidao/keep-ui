@@ -6,7 +6,6 @@ import { useRouter } from 'next/router'
 
 import { Box, Button, Heading, IconArrowLeft, Stack, Text } from '@kalidao/reality'
 import { useQuery } from '@tanstack/react-query'
-import Comments from '~/comments'
 import { Author, PrettyDate } from '~/components'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 import { useTxStore } from '~/dashboard/useTxStore'
@@ -32,13 +31,7 @@ const Tx: NextPage = () => {
     async () => {
       const res = await fetcher(`${process.env.NEXT_PUBLIC_KEEP_API}/txs/${txHash}`)
 
-      if (res.status !== 'success') {
-        throw new Error('Failed to fetch')
-      }
-
-      const data = res.data.tx
-
-      console.info('Transaction', data)
+      const data = res
 
       tx.setTo(data?.to)
       tx.setOp(data?.op)
@@ -165,7 +158,6 @@ const Tx: NextPage = () => {
             </Stack>
           </Box>
         </Stack>
-        <Comments />
       </Box>
     </Layout>
   )

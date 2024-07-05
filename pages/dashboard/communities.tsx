@@ -17,11 +17,7 @@ const Communities: NextPage = () => {
       const data = await fetcher(
         `${process.env.NEXT_PUBLIC_KEEP_API}/keeps?signer=${user?.blockchainAccounts?.[0]?.address}`,
       )
-      if (data.status !== 'success') {
-        throw new Error('Error')
-      }
-
-      return data?.data?.keeps
+      return data.keeps
     },
     {
       enabled: !!user,
@@ -32,7 +28,7 @@ const Communities: NextPage = () => {
   if (!user) {
     router.push('/login')
   }
-
+  console.log('keeps communtiies', keeps)
   return (
     <Layout title={'Dashboard'} content={'Manage your Keep'}>
       <Box width="full" display="flex" alignItems={'center'} justifyContent="center" paddingTop="5" paddingBottom={'5'}>
@@ -42,7 +38,9 @@ const Communities: NextPage = () => {
       <Box display="flex" alignItems={'center'} width="full" justifyContent={'center'}>
         <Box className={styles.communityGrid}>
           {keeps &&
-            keeps.map((keep: any) => {
+            keeps.map((k: any) => {
+              const keep = k.keep
+              console.log('keep', keep)
               let key = keep.chainId + keep.address
               return (
                 <KeepCard

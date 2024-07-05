@@ -39,6 +39,8 @@ const DashboardLayout = ({ title, content, sidebar, children }: Props) => {
     }
   }, [state, keep])
 
+  console.log('useGetKeep', data)
+
   return (
     <Box className={styles.layout} lang="en">
       <Head>

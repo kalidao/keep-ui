@@ -74,19 +74,18 @@ export const sendTx = async (chainId: number, address: string, body: Body, route
     }),
   })
     .then(async (res) => {
+      if (!res.ok) {
+        const data = await res.json()
+        toast('error', `Error sending transaction: ${data?.message}`)
+      }
       const data = await res.json()
 
-      if (data.status === 'success') {
-        toast('success', 'Success: Transaction sent')
-        router.push(`/${chainId}/${address}/tx/${data.data.txHash}`)
-      } else {
-        toast('error', `Error: ${data.message}`)
-      }
+      console.log('tx submitted', data)
+
+      toast('success', 'Success: Transaction sent')
+      router.push(`/${chainId}/${address}/tx/${data.data.txHash}`)
     })
     .catch((e) => {
       toast('error', 'Error: Invalid transaction')
-    })
-    .finally(() => {
-      router.push(`/${chainId}/${address}`)
     })
 }

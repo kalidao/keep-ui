@@ -68,6 +68,18 @@ const Execute = () => {
   })
   const { write: sayNo, error: noError } = useContractWrite(configNo)
 
+  console.log({
+    yesSigs,
+    noSigs,
+    configYes,
+    configNo,
+    sayYes,
+    sayNo,
+    yesError,
+    noError,
+    configYesError,
+    configNoError,
+  })
   if (tx?.status === 'process_yes') {
     return (
       <Button

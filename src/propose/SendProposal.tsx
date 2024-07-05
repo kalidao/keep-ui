@@ -5,6 +5,7 @@ import { Button } from '@kalidao/reality'
 import { JSONContent } from '@tiptap/core'
 import { ethers } from 'ethers'
 import { useFormContext } from 'react-hook-form'
+import { useAccount } from 'wagmi'
 import { z } from 'zod'
 import { useKeepStore } from '~/dashboard/useKeepStore'
 import { useNonce } from '~/hooks/useNonce'
@@ -31,6 +32,7 @@ export const SendProposal = () => {
     formState: { isSubmitting },
   } = useFormContext()
   const { user } = useDynamicContext()
+  const { address } = useAccount()
 
   let schema: any = baseSchema
   if (tx.action) {
@@ -78,7 +80,9 @@ export const SendProposal = () => {
   }
 
   const notSigner =
-    keep?.signers?.find((s: string) => s === user?.blockchainAccounts?.[0]?.address?.toLowerCase()) == undefined
+    keep?.signers?.find((s: string) => {
+      return s === user?.blockchainAccounts?.[0]?.address?.toLowerCase()
+    }) == undefined
       ? true
       : false
 
@@ -147,7 +151,6 @@ export const SendProposal = () => {
           break
         case 'mint_token':
           payload = createPayload('mint_token', tx.mint_token)
-          console.log('mint token', payload)
           await handleTx(keep.chainId, keep.address, data.title, data.content, 0, keep.address, '0', payload)
           break
         case 'burn_token':
@@ -155,10 +158,6 @@ export const SendProposal = () => {
           await handleTx(keep.chainId, keep.address, data.title, data.content, 0, keep.address, '0', payload)
           break
       }
-    } else {
-      await createSignal(keep.address, keep.chainId, data.title, data.content).then(() => {
-        tx.setOpen(false)
-      })
     }
   }
 

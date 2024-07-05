@@ -1,6 +1,6 @@
 export const fetcher = async (url: string) => {
   const res = await fetch(url)
-  if (!res.ok) return Promise.reject(new Error('Failed to fetch'))
+  if (!res.ok) throw new Error('Error fetching data')
   const data = await res.json()
   return data
 }

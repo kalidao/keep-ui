@@ -32,12 +32,14 @@ export const sendSign = async (txHash: string, signature: string, vote: boolean)
     },
     body: JSON.stringify(body),
   }).then((res) => {
+    console.log('sendSign', res)
     if (res.status === 200) {
       return res
     } else {
       throw new Error('Something went wrong')
     }
   })
+
   const data = await response.json()
   return data
 }

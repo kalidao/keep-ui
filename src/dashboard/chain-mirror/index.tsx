@@ -4,7 +4,6 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
-import { Stack, Text } from '@kalidao/reality'
 import { useGetMirrorKeeps } from '~/hooks/useGetMirrorKeeps'
 
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@design/Select'
@@ -66,6 +65,7 @@ export const ChainMirror = ({ address }: { address: string }) => {
         <SelectGroup>
           {networkConfigurations?.evm?.map((network) => {
             const keep = data?.find((keep: { chainId: number }) => keep.chainId === network.chainId)
+            console.log('mirror keep', keep)
             if (keep) {
               return (
                 <SelectItem

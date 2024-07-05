@@ -25,7 +25,7 @@ type Props = {
 
 const Profile = ({ summoned, name, avatar, bio, twitter, website, discord, address, chainId }: Props) => {
   const state = useKeepStore((state) => state)
-  const { data, refetch } = useGetKeep(state.chainId || 1, state.address || '0x0')
+  const { refetch } = useGetKeep(state.chainId || 1, state.address || '0x0')
   const avatarUrl = avatar ? avatar : avatar === '' ? '/logo.jpeg' : '/logo.jpeg'
 
   return (

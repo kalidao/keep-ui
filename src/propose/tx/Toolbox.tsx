@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { useDynamicContext } from '@dynamic-labs/sdk-react'
 import {
   Box,
   Button,
@@ -39,12 +38,6 @@ export const actions: Action[] = [
     label: 'Send Balance',
     icon: <IconTokens />,
   },
-  // {
-  //   component: <SendNFT />,
-  //   value: 'send_nft',
-  //   label: 'Send NFT',
-  //   icon: <IconNFT />,
-  // },
   {
     component: <MintToken />,
     value: 'mint_token',

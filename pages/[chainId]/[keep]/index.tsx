@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 
 import { Box, Stack } from '@kalidao/reality'
 import * as Tabs from '@radix-ui/react-tabs'
-import { Proposals, Signals, Signers, Treasury } from '~/dashboard'
+import { Proposals, Signers, Treasury } from '~/dashboard'
 import * as styles from '~/dashboard/styles.css'
 import { KeepStore, useKeepStore } from '~/dashboard/useKeepStore'
 import Layout from '~/layout/DashboardLayout'
@@ -32,9 +32,6 @@ const Dashboard: NextPage = () => {
               <Tabs.Trigger className={styles.tabTrigger} value="txs">
                 Transactions
               </Tabs.Trigger>
-              <Tabs.Trigger className={styles.tabTrigger} value="signals">
-                Signals
-              </Tabs.Trigger>
             </Stack>
             <Box>
               <Select
@@ -60,9 +57,6 @@ const Dashboard: NextPage = () => {
         </Tabs.List>
         <Tabs.Content className={styles.tabContent} value="txs">
           <Proposals />
-        </Tabs.Content>
-        <Tabs.Content className={styles.tabContent} value="signals">
-          <Signals />
         </Tabs.Content>
       </Tabs.Root>
     </Layout>
