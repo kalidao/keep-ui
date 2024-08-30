@@ -38,11 +38,8 @@ next-env.d.ts
 
 public/sw.js
 public/sw.js.map
-public/workbox-212689ce.js 
+public/workbox-212689ce.js
 public/workbox-212689ce.js.map
 
 
-
-# Sentry Auth Token
-.sentryclirc
 .env
