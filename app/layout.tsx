@@ -1,12 +1,12 @@
 import { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 
 import RootProvider from '@/components/root-provider'
+import { mono, sans } from '@/lib/fonts'
 import { siteConfig } from '@/lib/site-config'
 
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
+import { cn } from '@/lib/utils'
 
 export const metadata: Metadata = {
   title: siteConfig.title,
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={cn(sans.className, mono.className)}>
         <RootProvider>{children}</RootProvider>
       </body>
     </html>
