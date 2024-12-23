@@ -3,12 +3,9 @@
 import React, { useEffect, useState } from 'react'
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { get } from '@vercel/blob'
 
 import { CreateProposals } from './create-proposals'
-import { ExecuteConsole } from './execute-console'
 import Proposals from './proposals'
-import { SignConsole } from './sign-console'
 
 export interface Proposal {
   id: string

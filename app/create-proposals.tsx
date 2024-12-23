@@ -113,7 +113,7 @@ export const CreateProposals = () => {
       // Store signature in database
       await addSignature({
         signer: address,
-        nonce: Number(nonce),
+        nonce: nonce.toString(),
         sender: data.account,
         signature: signature,
       })

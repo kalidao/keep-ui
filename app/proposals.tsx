@@ -19,7 +19,7 @@ type ProposalCardProps = {
     value: string
     data: string
     createdAt: Date
-    txHash?: string
+    txHash: string | null
   }
 }
 
@@ -92,15 +92,17 @@ const ProposalCard = ({ proposal }: ProposalCardProps) => {
 
       const formattedData = proposal.data.startsWith('0x') ? proposal.data : `0x${proposal.data}`
 
-      const formattedSignatures = signatures.map((sig) => {
-        const { r, s, yParity } = parseSignature(sig.signature as Hex)
-        return {
-          user: sig.signer as Address,
-          v: yParity === 0 ? 27 : 28,
-          r,
-          s,
-        }
-      })
+      const formattedSignatures = signatures
+        .sort((a, b) => a.signer.toLowerCase().localeCompare(b.signer.toLowerCase()))
+        .map((sig) => {
+          const { r, s, yParity } = parseSignature(sig.signature as Hex)
+          return {
+            user: sig.signer as Address,
+            v: yParity === 0 ? 27 : 28,
+            r,
+            s,
+          }
+        })
 
       const txHash = await writeContractAsync({
         address: proposal.sender as Address,
