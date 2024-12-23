@@ -134,8 +134,12 @@ const ProposalCard = ({ proposal }: ProposalCardProps) => {
         {proposal.txHash && <p>Transaction: {proposal.txHash}</p>}
         <div className="flex gap-2 mt-4">
           <Button variant="outline">View Details</Button>
-          <Button onClick={handleSign}>Sign</Button>
-          <Button onClick={handleExecute}>Execute</Button>
+          <Button onClick={handleSign} disabled={proposal.status === 'executed'}>
+            Sign
+          </Button>
+          <Button onClick={handleExecute} disabled={proposal.status === 'executed'}>
+            Execute
+          </Button>
         </div>
       </CardContent>
     </Card>
