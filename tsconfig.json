@@ -1,28 +1,31 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
-    "baseUrl": ".",
+    "target": "ESNext", // Target the latest JavaScript features
+    "lib": ["DOM", "DOM.Iterable", "ESNext"], // Leverage modern libraries
+    "skipLibCheck": true, // Skip checking all type definitions for better performance
+    "strict": true, // Enable all strict type-checking options
+    "forceConsistentCasingInFileNames": true, // Ensure consistent casing in imports
+    "noEmit": true, // Disable emitting files from the TypeScript compiler
+    "esModuleInterop": true, // Enable interoperability between CommonJS and ES Modules
+    "module": "ESNext", // Use the latest module system
+    "moduleResolution": "Node", // Use Node's module resolution
+    "resolveJsonModule": true, // Allow importing JSON modules
+    "isolatedModules": true, // Ensure each file can be safely transpiled
+    "jsx": "preserve", // Preserve JSX for further processing by Next.js
+    "incremental": true, // Enable incremental builds for faster recompilation
+    "baseUrl": ".", // Set the base URL for module resolution
     "paths": {
       "@/*": ["./*"]
     },
+    "strictNullChecks": true, // Enable strict null checks
+    "useDefineForClassFields": true, // Align class field behavior with modern JavaScript
+    "skipDefaultLibCheck": true, // Skip type checking for default libraries only
     "plugins": [
       {
         "name": "next"
       }
-    ]
+    ],
+    "allowJs": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "next.config.ks", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]

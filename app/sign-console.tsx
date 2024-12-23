@@ -29,7 +29,9 @@ const formSchema = z.object({
     .min(1, 'To address is required')
     .refine((val) => isAddress(val))
     .transform((val) => val as Address),
-  operation: z.nativeEnum(Operation),
+  operation: z.nativeEnum(Operation, {
+    errorMap: () => ({ message: 'Operation type is required' }),
+  }),
   value: z.string().min(1, 'Value is required'),
   data: z.string().min(1, 'Data is required'),
   chainId: z.number().int().positive('Chain ID must be a positive integer'),

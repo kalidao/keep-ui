@@ -3,7 +3,7 @@
 import React from 'react'
 
 import { Button } from '@/components/ui/button'
-import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
@@ -25,7 +25,7 @@ const signatureSchema = z.object({
   user: z
     .string()
     .min(1, 'User address is required')
-    .refine((val) => isAddress(val)),
+    .refine((val) => isAddress(val), 'Invalid address format'),
   signature: z.string().min(1, 'Signature is required'),
 })
 
@@ -33,14 +33,16 @@ const formSchema = z.object({
   account: z
     .string()
     .min(1, 'Account is required')
-    .refine((val) => isAddress(val))
+    .refine((val) => isAddress(val), 'Invalid address format')
     .transform((val) => val as Address),
   to: z
     .string()
     .min(1, 'To address is required')
-    .refine((val) => isAddress(val))
+    .refine((val) => isAddress(val), 'Invalid address format')
     .transform((val) => val as Address),
-  operation: z.nativeEnum(Operation),
+  operation: z.nativeEnum(Operation, {
+    errorMap: () => ({ message: 'Operation type is required' }),
+  }),
   value: z.string().min(1, 'Value is required'),
   data: z.string().min(1, 'Data is required'),
   signatures: z.array(signatureSchema),
@@ -51,7 +53,7 @@ type FormData = z.infer<typeof formSchema>
 
 export const ExecuteConsole = () => {
   const form = useForm<FormData>({
-    resolver: zodResolver(formSchema),
+    // resolver: zodResolver(formSchema),
     defaultValues: {
       account: zeroAddress,
       to: zeroAddress,
@@ -70,6 +72,7 @@ export const ExecuteConsole = () => {
 
   const onSubmit = async (data: FormData) => {
     try {
+      console.log('[EXECUTE]', data)
       const signatures = data.signatures.map((sig) => {
         const { r, s, yParity } = parseSignature(sig.signature as Hex)
         return {
@@ -80,11 +83,13 @@ export const ExecuteConsole = () => {
         }
       })
 
+      const formattedData = data.data.startsWith('0x') ? data.data : `0x${data.data}`
+
       const txHash = await writeContractAsync({
         address: data.account,
         abi: keepAbi,
         functionName: 'execute',
-        args: [data.operation, data.to, parseEther(data.value), data.data as Hex, signatures],
+        args: [data.operation, data.to, parseEther(data.value), formattedData as Hex, signatures],
         chainId: data.chainId,
       })
 
@@ -106,6 +111,7 @@ export const ExecuteConsole = () => {
               <FormControl>
                 <Input {...field} />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -118,6 +124,7 @@ export const ExecuteConsole = () => {
               <FormControl>
                 <Input {...field} type="number" />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -130,6 +137,7 @@ export const ExecuteConsole = () => {
               <FormControl>
                 <Input {...field} />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -142,13 +150,13 @@ export const ExecuteConsole = () => {
               <Select onValueChange={field.onChange} defaultValue={field.value.toString()}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select operation" />
+                    <SelectValue placeholder="Select an operation" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {Object.values(Operation).map((op) => (
-                    <SelectItem key={op} value={op.toString()}>
-                      {op}
+                  {Object.entries(Operation).map(([key, value]) => (
+                    <SelectItem key={key} value={value.toString()}>
+                      {key}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -165,6 +173,7 @@ export const ExecuteConsole = () => {
               <FormControl>
                 <Input {...field} type="number" step="0.000000000000000001" />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -177,6 +186,7 @@ export const ExecuteConsole = () => {
               <FormControl>
                 <Textarea {...field} />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -192,6 +202,7 @@ export const ExecuteConsole = () => {
                     <FormControl>
                       <Input {...field} placeholder="User address" />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -203,6 +214,7 @@ export const ExecuteConsole = () => {
                     <FormControl>
                       <Input {...field} placeholder="Signature" />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
