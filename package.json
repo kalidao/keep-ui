@@ -96,7 +96,7 @@
     "@types/react-dom": "18.3.0",
     "autoprefixer": "^10.4.20",
     "drizzle-kit": "^0.30.1",
-    "eslint": "8.35.0",
+    "eslint": "9.26.0",
     "eslint-config-next": "13.2.1",
     "postcss": "^8.4.41",
     "prettier": "^2.8.4",
